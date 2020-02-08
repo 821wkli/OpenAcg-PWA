@@ -1,0 +1,2 @@
+export const RECORD_BOOK = 'RECORD_BOOK';
+export const RECORD_MENU_STATE = 'RECORD_MENU_STATE'
