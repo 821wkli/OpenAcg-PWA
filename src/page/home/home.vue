@@ -1,7 +1,12 @@
 <template>
+
   <div class="container">
     <head-top go-back="true" head-title="Hello world">
     </head-top>
+    <section class="list-tips-container">
+      <div class="pullDownRefreshLoaderContainer">
+        <dot-loader></dot-loader>
+      </div>
     <section class="book-list-container wrapper" ref="wrapper">
       <ul class="book-list-ul">
         <li @click="gotoBookDetail(item)"
@@ -35,6 +40,7 @@
                  :is-refresh="isRefreshing"></refresh>
       </transition>
     </section>
+    </section>
 
   </div>
 </template>
@@ -45,6 +51,7 @@
   import {cityGuess, hotcity, groupcity, latestBook} from 'src/service/apis'
   import {mapState, mapMutations} from 'vuex'
   import BScroll from 'better-scroll'
+  import DotLoader from "../../components/common/dotLoader";
 
   export default {
     data() {
@@ -72,7 +79,7 @@
             pullUpLoad: true,
             pullDownRefresh: true,
             pullDownRefresh: {
-              threshold: 30,
+              threshold: 40,
               stop: 20
             }
           };
@@ -106,6 +113,7 @@
     },
 
     components: {
+      DotLoader,
       headTop, refresh
     }
     ,
@@ -194,9 +202,22 @@
     left: 0;
     right: 0;
     height: 100vh;
-
-    .book-list-container {
+    .list-tips-container{
+      position:relative;
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      .pullDownRefreshLoaderContainer{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 2rem;
+      }
+    }
+    .book-list-container {
+      height: 95%;
       padding-left: .65rem;
       padding-top: 1rem;
       padding-right: .8rem;
@@ -212,7 +233,7 @@
         margin-bottom: .4rem;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         background-color: #fff;
 
         img {
