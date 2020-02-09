@@ -1,10 +1,10 @@
 # Background
 
-When I read light novels and mangas, 
+When I read light novels and mangas,
 always read on different mobile apps and websites as for each has its own data source but none of them have all books and manga.
 So it's offten to switch between mutitple apps. I wonder it's greater if I can read them on only one app.
 Another reason motivate me is reader apps on google play I use so far are just wrap the old-school non-mobile friendly page into webview.
-officals. 
+officals.
 ## Why vue?
 
 Nothing special, recently I have begun to learn vue.js, officals contributors
@@ -34,7 +34,7 @@ but nginx is used on deployment
 ```
 |-- build                            // webpack config file
 |-- config                           // dev and prod config
-|-- elm                           	 // production build files
+|-- dist                           	 // production build files
 |
 |-- src                              // source code directory
 |   |-- components                   // component
@@ -55,9 +55,9 @@ but nginx is used on deployment
 |   |-- pages                        // page view
 |       |-- home                     // home page
 |       |-- book                     // book detail page
-|		    |-- children             
-       	        |-- reader           // reader page 
-                 
+|		    |-- children
+       	        |-- reader           // reader page
+
 |       |-- search                   // search page
 |       |-- bookshelf                // bookshelf page
 |       |-- setting                  // app setting page
@@ -67,7 +67,7 @@ but nginx is used on deployment
 |
 |   |-- router                       // page routes config
 |
-|   |-- service                      // data 
+|   |-- service                      // data
 |		|-- template                 // mock data in development time
 |		|-- apis.js               // ajax apis
 |
@@ -78,16 +78,16 @@ but nginx is used on deployment
 |       |-- mutation-types.js        // define mutations constant name
 |       |-- mutations.js             // mutations logics
 |
-|   |-- style                        
+|   |-- style
 |       |-- common.scss              // common css style
-|       |-- mixin.scss               // 
+|       |-- mixin.scss               //
 |
 |   |-- App.vue                      // top-level page component, app entry
 |
 |   |-- main.js                      // create vue, vue-router instance
 |
 |-- .babelrc                         // es6 grammar config
-|-- .editorconfig                    // code style 
+|-- .editorconfig                    // code style
 |-- .gitignore                       // define files ignore by git
 |-- favicon.ico                      // browser tab icon
 |-- index.html                       // entery html file for definition of meta info and svg
