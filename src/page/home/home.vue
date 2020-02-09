@@ -323,7 +323,7 @@
           }
 
           p:nth-of-type(2) {
-            font-size: .5rem;
+            font-size: .55rem;
             height: 2.3rem;
             max-height: 2.3rem;
             overflow: hidden;
