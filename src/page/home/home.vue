@@ -3,43 +3,51 @@
   <div class="container">
     <head-top go-back="true" head-title="Hello world">
     </head-top>
+    <section v-if="showLoading" class="loading-container">
+      <ul class="loading-ul">
+        <list-skeleton v-for="i in (1,10)"></list-skeleton>
+      </ul>
+    </section>
     <section class="list-tips-container">
-      <div class="pullDownRefreshLoaderContainer">
-        <dot-loader></dot-loader>
-      </div>
-    <section class="book-list-container wrapper" ref="wrapper">
-      <ul class="book-list-ul">
-        <li @click="gotoBookDetail(item)"
-            class="book-list-li"
-            v-for="(item,index) in books"
-        >
-          <img :src="item.cover_url" class="book-cover" :alt="item.title"/>
-          <div class="book-description">
-            <header class="book-header">
-              <h4>{{item.title}}</h4>
-              <span class="status"
-                    :class="{completed:item.book_status==='已完成'}">{{item.book_status}}</span>
-            </header>
-            <p>
+      <dot-loader></dot-loader>
+
+      <section class="book-list-container wrapper" ref="wrapper">
+        <ul class="book-list-ul">
+          <li @click="gotoBookDetail(item)"
+              class="book-list-li"
+              v-for="(item,index) in books"
+          >
+            <img :src="item.cover_url" class="book-cover" :alt="item.title"/>
+            <div class="book-description">
+              <header class="book-header">
+                <h4>{{item.title}}</h4>
+                <span class="status"
+                      :class="{completed:item.book_status==='已完成'}">{{item.book_status}}</span>
+              </header>
+              <p>
               <span class="author-name">
                   <svg class='icon' width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-author"></use>
       </svg>
                 {{item.author}}</span>
-              <span class="publisher-name">
+                <span class="publisher-name">
                 {{item.publisher?'|'+item.publisher:''}}
               </span>
-            </p>
-            <p>{{item.introduction}}</p>
-          </div>
-        </li>
-      </ul>
-      <transition name="fade">
-        <refresh @refresh='refreshBookList'
-                 v-show="!isScrolling&&!this.menuState"
-                 :is-refresh="isRefreshing"></refresh>
-      </transition>
-    </section>
+              </p>
+              <p>{{item.introduction}}</p>
+            </div>
+          </li>
+          <li style="width: 100%; height:2.5rem;margin-top: -0.5rem;">
+            <dot-loader
+              :dot-position="'flex-'+'start'"></dot-loader>
+          </li>
+        </ul>
+        <transition name="fade">
+          <refresh @refresh='refreshBookList'
+                   v-show="!isScrolling&&!this.menuState"
+                   :is-refresh="isRefreshing"></refresh>
+        </transition>
+      </section>
     </section>
 
   </div>
@@ -52,13 +60,16 @@
   import {mapState, mapMutations} from 'vuex'
   import BScroll from 'better-scroll'
   import DotLoader from "../../components/common/dotLoader";
+  import ListSkeleton from "../../components/loading/listSkeleton";
 
   export default {
     data() {
       return {
         books: [],
+        alertMessage: null,
+        isScrollToBotton: false,
         isRefreshing: false,
-        showLoading: false,
+        showLoading: true,
         isScrolling: false,
         preventDuplicatedRequest: false,
         offset: 0
@@ -77,6 +88,9 @@
             click: true,
             taps: true,
             pullUpLoad: true,
+            pullUpload:{
+              thresold:40
+            },
             pullDownRefresh: true,
             pullDownRefresh: {
               threshold: 40,
@@ -98,8 +112,11 @@
         //load more data reach bottom
         this.scroll.on('pullingUp', () => {
           console.log('bottom arrtive');
-          //self.loadMore();
-          self.scroll.finishPullUp();
+          self.isScrollToBotton = true;
+          self.loadMore().then(()=>{
+            self.scroll.finishPullUp();
+          })
+
         })
 
         //reload data
@@ -110,9 +127,14 @@
 
 
       });
+
+      setTimeout(() => {
+        self.showLoading = false;
+      }, 1000);
     },
 
     components: {
+      ListSkeleton,
       DotLoader,
       headTop, refresh
     }
@@ -129,7 +151,8 @@
             this.scroll.finishPullDown();
           }
         }
-      }
+      },
+
     },
     methods: {
       ...
@@ -164,14 +187,21 @@
         if (this.preventDuplicatedRequest) {
           return;
         }
-        this.showLoading = true;  //show botton loading cover
         this.preventDuplicatedRequest = true;
         this.offset += 20;
         let res = await latestBook(this.offset, 20);
         if (res.response && res.response.length > 0) {
-          this.books = this.boos.concat(res.response);
+          this.books = this.books.concat(res.response);
+        } else if (res.response.length == 0) {
+          //todo
+          //render notification box here
+          this.alertMessage = 'No more data '
+          console.log(this.alertMessage);
+        } else {
+          this.alertMessage = 'unknown error';
         }
-
+        this.preventDuplicatedRequest = false;
+        return;
       },
       gotoBookDetail(book) {
         this.RECORD_BOOK(book);
@@ -202,20 +232,23 @@
     left: 0;
     right: 0;
     height: 100vh;
-    .list-tips-container{
-      position:relative;
+
+    .loading-container {
+      height: 100%;
+
+      .loading-ul {
+        background-color: #ffffff;
+      }
+    }
+
+    .list-tips-container {
+      position: relative;
       height: 100%;
       display: flex;
       flex-direction: column;
-      .pullDownRefreshLoaderContainer{
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 2rem;
-      }
+
     }
+
     .book-list-container {
       height: 95%;
       padding-left: .65rem;
@@ -264,10 +297,11 @@
           p:nth-of-type(1) {
             display: flex;
             margin-top: .5rem;
+
             span {
               line-height: .5rem;
               display: inline-flex;
-              justify-content:space-between;
+              justify-content: space-between;
               align-items: flex-end;
               @include sc(.55rem, $defaultColor);
 
@@ -281,7 +315,8 @@
                 fill: #aaaaaa;
               }
             }
-            .publisher-name{
+
+            .publisher-name {
 
             }
 
@@ -289,17 +324,16 @@
 
           p:nth-of-type(2) {
             font-size: .5rem;
-            height: 3rem;
-            max-height: 3rem;
+            height: 2.3rem;
+            max-height: 2.3rem;
             overflow: hidden;
+            margin: .375rem 0;
+            color: #969ba3;
+            text-overflow: ellipsis;
 
             .completed {
               color: red;
             }
-
-            margin: .375rem 0;
-            color: #969ba3;
-            text-overflow: ellipsis;
           }
 
         }
