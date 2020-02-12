@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <section class="book-main" v-show="!volumePanel.showChapterPanel">
     <head-top :head-title="book.title"
               :go-back="true"
               :show-operator="false"
@@ -81,6 +82,8 @@
           <span :class='{active:order==-1}' @click='reorderVolumes(-1)' class="order">倒序</span>
         </div>
       </header>
+    </section>
+    <div class="wrapper" ref="wrapper">
       <ul class="book-volume-list-ul">
         <li v-for="(volume,index) in book.volumes"
             class='book-volume-list-li'
@@ -95,24 +98,20 @@
           <span>{{volume.name}}</span>
         </li>
       </ul>
-      <chapter-list v-show="volumePanel.showChapterPanel" :volume-chapters="volumePanel.currentVolumeChapters"></chapter-list>
-      <!--      <section v-if='showChapterPanel'class="chapter-panel">-->
-      <!--        <header>-->
-      <!--          {{volumePanel.volumeName}}-->
-      <!--        </header>-->
-      <!--        <ul class="chapters_list_ul">-->
-
-      <!--        </ul>-->
-      <!--      </section>-->
+    </div>
     </section>
+    <chapter-list @goback="hidePanel" v-if="volumePanel.showChapterPanel"></chapter-list>
+
   </div>
+
 </template>
 
 <script>
   import headTop from "../../components/header/head";
-  import {mapState} from 'vuex'
+  import {mapState,mapMutations} from 'vuex'
   import {getChapterList} from "../../service/apis";
   import ChapterList from "../../components/chapterList";
+  import BScroll from 'better-scroll'
 
   export default {
     name: "book",
@@ -125,6 +124,19 @@
     },
     mounted() {
       this.initData();
+      var self = this;
+      this.$nextTick(() => {
+        if (!self.scroll) {
+          const options = {
+            scrollY: true,
+            scrollX: false,
+            mouseWheel: true,
+            click: true,
+            taps: true
+          }
+          self.scroll = new BScroll(this.$refs.wrapper, options)
+        }
+      });
     },
     data() {
       return {
@@ -139,8 +151,13 @@
     },
     components: {ChapterList, headTop},
     methods: {
+      ...mapMutations(['RECORD_CURRENT_VOLUME_CHAPTERS']),
+      hidePanel() {
+        this.volumePanel.showChapterPanel = !this.volumePanel.showChapterPanel;
+      },
       getChaptersOfVolume(volume) {
         this.volumePanel.currentVolumeChapters = this.volumePanel.chapterList.filter(v => v.id === volume.id)[0];
+        this.RECORD_CURRENT_VOLUME_CHAPTERS(this.volumePanel.currentVolumeChapters)
         this.volumePanel.showChapterPanel = true;
       },
       async initData() {
@@ -154,6 +171,7 @@
           this.order = index;
           this.book.volumes = this.book.volumes.reverse();
         }
+        this.scroll.scrollTo(0,0,500);
       }
     },
     computed: {
@@ -183,6 +201,9 @@
     left: 0;
     right: 0;
     height: 100vh;
+    .book-main{
+      height: 100%;
+    }
 
     .book-detail-wrapper {
       overflow: hidden;
@@ -219,10 +240,10 @@
           .book-layout-right {
             .book-header {
               h6 {
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                font-size: .8rem;
+                /*overflow: hidden;*/
+                /*white-space: nowrap;*/
+                /*text-overflow: ellipsis;*/
+                /*font-size: .8rem;*/
               }
             }
 
@@ -346,7 +367,7 @@
       align-items: center;
 
       span {
-        @include sc(.65rem, $defaultColor)
+        @include sc(.65rem, blue)
         line-height: 1.8rem;
         height: 1.8rem;
 
@@ -387,6 +408,14 @@
           color: blue;
         }
       }
+    }
+
+    .wrapper {
+      padding-left: .4rem;
+      padding-right: .4rem;
+      margin-top: .4rem;
+      height: 37%;
+      overflow: hidden;
 
       .book-volume-list-ul {
         background: #fff;
@@ -414,7 +443,7 @@
           }
         }
       }
-
     }
+
   }
 </style>

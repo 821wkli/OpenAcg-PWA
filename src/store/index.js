@@ -8,7 +8,8 @@ Vue.use(Vuex)
 
 const state = {
   menuState:false,
-  book:false
+  book:false,
+  currentVolumeChapters: null
 }
 
 export default new Vuex.Store({
