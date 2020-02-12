@@ -9,7 +9,8 @@ Vue.use(Vuex)
 const state = {
   menuState:false,
   book:false,
-  currentVolumeChapters: null
+  currentVolumeChapters: null,
+  bookshelfList:[]
 }
 
 export default new Vuex.Store({

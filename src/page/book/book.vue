@@ -1,104 +1,104 @@
 <template>
   <div class="container">
     <section class="book-main" v-show="!volumePanel.showChapterPanel">
-    <head-top :head-title="book.title"
-              :go-back="true"
-              :show-operator="false"
-              :is-transparent="true"
-    ></head-top>
-    <section class="book-detail-wrapper">
-      <img :src="book.cover_url" class="book-cover-blur"
-           :alt="book.title" aria-hidden="true">
-      <section class="book-detail-info">
-        <div class="book-detail-layout">
-          <img :src="book.cover_url" class="book-cover book-layout-left"
-               :alt="book.title" aria-labelledby="ariaBook ariaTime">
-          <div class="book-layout-right">
-            <header class="book-header">
-              <h6>{{book.title}}</h6>
-            </header>
-            <p class="book-meta">
+      <head-top :head-title="book.title"
+                :go-back="true"
+                :show-operator="false"
+                :is-transparent="true"
+      ></head-top>
+      <section class="book-detail-wrapper">
+        <img :src="book.cover_url" class="book-cover-blur"
+             :alt="book.title" aria-hidden="true">
+        <section class="book-detail-info">
+          <div class="book-detail-layout">
+            <img :src="book.cover_url" class="book-cover book-layout-left"
+                 :alt="book.title" aria-labelledby="ariaBook ariaTime">
+            <div class="book-layout-right">
+              <header class="book-header">
+                <h6>{{book.title}}</h6>
+              </header>
+              <p class="book-meta">
               <span class="author-name">
 <!--                  <svg class='icon' width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">-->
                 <!--        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-author"></use>-->
                 <!--      </svg>-->
                  {{book.author}}</span>
-              <span class="publisher-name">
+                <span class="publisher-name">
                 {{book.publisher?'|'+book.publisher:''}}
               </span>
-            </p>
-            <p class="book-meta">
-              <span>{{this.total_words + '萬字' + '|'}}</span>
-              <span
-                :class="{completed:book.book_status==='已完成'}"
-              >{{book.book_status}}</span>
-            </p>
-            <p class="book-meta">
-              <span>{{'最近更新:'+ (book.last_updated_date?book.last_updated_date:'未有更新')}}</span>
-            </p>
+              </p>
+              <p class="book-meta">
+                <span>{{this.total_words + '萬字' + '|'}}</span>
+                <span
+                  :class="{completed:book.book_status==='已完成'}"
+                >{{book.book_status}}</span>
+              </p>
+              <p class="book-meta">
+                <span>{{'最近更新:'+ (book.last_updated_date?book.last_updated_date:'未有更新')}}</span>
+              </p>
+            </div>
           </div>
-        </div>
-        <div class="book-detail-btn">
-          <div class="btn-group">
-            <div class="btn">開始閱讀</div>
-            <div class="btn">加入書櫃</div>
-            <div class="btn">同步Kindle</div>
+          <div class="book-detail-btn">
+            <div class="btn-group">
+              <div class="btn">開始閱讀</div>
+              <div class="btn" :class="{inBookshelfColor:bookshelfStatus.isInBookshelf}"@click="addToBookShelf">{{bookshelfStatus.message}}</div>
+              <div class="btn">同步Kindle</div>
+            </div>
           </div>
-        </div>
+        </section>
       </section>
-    </section>
-    <section :class="{showMore:isShowMore}"
-             class="book-intro-wrapper"
-             @click="isShowMore=!isShowMore"
-    >
-      <section class="book-summary enabled">
-        <div>
-          {{book.introduction}}
-        </div>
-        <span
-          :class="{showMore:isShowMore}"
-          class="book-summary-more">
+      <section :class="{showMore:isShowMore}"
+               class="book-intro-wrapper"
+               @click="isShowMore=!isShowMore"
+      >
+        <section class="book-summary enabled">
+          <div>
+            {{book.introduction}}
+          </div>
+          <span
+            :class="{showMore:isShowMore}"
+            class="book-summary-more">
             <svg class="icon icon-arrow-r"
 
                  width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-r"></use>
         </svg>
         </span>
+        </section>
       </section>
-    </section>
-    <section class="latest-chapter-wrapper">
-      <span>{{book.last_updated_chapter_name}}</span>
-      <span>
+      <section class="latest-chapter-wrapper">
+        <span>{{book.last_updated_chapter_name}}</span>
+        <span>
          <svg class="icon icon-arrow-r" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-r"></use>
         </svg>
       </span>
-    </section>
-    <section class="book-volume-list-wrapper">
-      <header>
-        <h4>全卷</h4>
-        <div>
-          <span :class='{active:order ==1}' @click='reorderVolumes(1)' class="order">正順</span>
-          <span :class='{active:order==-1}' @click='reorderVolumes(-1)' class="order">倒序</span>
-        </div>
-      </header>
-    </section>
-    <div class="wrapper" ref="wrapper">
-      <ul class="book-volume-list-ul">
-        <li v-for="(volume,index) in book.volumes"
-            class='book-volume-list-li'
-            :key="volume.id"
-            @click="getChaptersOfVolume(volume)"
-        >
+      </section>
+      <section class="book-volume-list-wrapper">
+        <header>
+          <h4>全卷</h4>
+          <div>
+            <span :class='{active:order ==1}' @click='reorderVolumes(1)' class="order">正順</span>
+            <span :class='{active:order==-1}' @click='reorderVolumes(-1)' class="order">倒序</span>
+          </div>
+        </header>
+      </section>
+      <div class="wrapper" ref="wrapper">
+        <ul class="book-volume-list-ul">
+          <li v-for="(volume,index) in book.volumes"
+              class='book-volume-list-li'
+              :key="volume.id"
+              @click="getChaptersOfVolume(volume)"
+          >
           <span class="icon-book-container">
             <svg class="icon icon-book" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-book"></use>
         </svg>
           </span>
-          <span>{{volume.name}}</span>
-        </li>
-      </ul>
-    </div>
+            <span>{{volume.name}}</span>
+          </li>
+        </ul>
+      </div>
     </section>
     <chapter-list @goback="hidePanel" v-if="volumePanel.showChapterPanel"></chapter-list>
 
@@ -108,10 +108,11 @@
 
 <script>
   import headTop from "../../components/header/head";
-  import {mapState,mapMutations} from 'vuex'
+  import {mapState, mapMutations} from 'vuex'
   import {getChapterList} from "../../service/apis";
   import ChapterList from "../../components/chapterList";
   import BScroll from 'better-scroll'
+  import {RECORD_BOOKSHELF_LIST} from "../../store/mutation-types";
 
   export default {
     name: "book",
@@ -121,6 +122,10 @@
       if (!this.book) {
         this.$router.push('/home');
       }
+
+      this.GET_BOOKSHELF_LIST();
+
+
     },
     mounted() {
       this.initData();
@@ -140,6 +145,10 @@
     },
     data() {
       return {
+        bookshelfStatus: {
+          isInBookshelf:false,
+          message:''
+        },
         isShowMore: false,
         order: 1,
         volumePanel: {
@@ -149,9 +158,10 @@
         }
       }
     },
+
     components: {ChapterList, headTop},
     methods: {
-      ...mapMutations(['RECORD_CURRENT_VOLUME_CHAPTERS']),
+      ...mapMutations(['RECORD_CURRENT_VOLUME_CHAPTERS', 'RECORD_BOOKSHELF_LIST', 'GET_BOOKSHELF_LIST']),
       hidePanel() {
         this.volumePanel.showChapterPanel = !this.volumePanel.showChapterPanel;
       },
@@ -171,11 +181,29 @@
           this.order = index;
           this.book.volumes = this.book.volumes.reverse();
         }
-        this.scroll.scrollTo(0,0,500);
+        this.scroll.scrollTo(0, 0, 500);
+      },
+      addToBookShelf() {
+        this.RECORD_BOOKSHELF_LIST(this.book)
+      }
+    },
+    watch: {
+      bookshelfList: function (newBookshelfList) {
+        this.$nextTick(() => {
+          let isInBookshelf = newBookshelfList.some(item => item.id == this.book.id);
+          this.bookshelfStatus.isInBookshelf = isInBookshelf;
+          if (isInBookshelf) {
+            this.bookshelfStatus.message = '已加入書櫃'
+          } else {
+            this.bookshelfStatus.message = '加入書櫃'
+          }
+        })
+
+
       }
     },
     computed: {
-      ...mapState(['book']),
+      ...mapState(['book', 'bookshelfList']),
       total_words: function () {
         if (!this.book.word_count) {
           return '未知幾多'
@@ -201,7 +229,8 @@
     left: 0;
     right: 0;
     height: 100vh;
-    .book-main{
+
+    .book-main {
       height: 100%;
     }
 
@@ -293,9 +322,10 @@
               line-height: 1.2rem;
               font-size: .5rem;
               text-align: center;
-
             }
-
+            .inBookshelfColor{
+              color: #999999;
+            }
             div:nth-of-type(1) {
               background: red;
               font-weight: 400;
