@@ -1,10 +1,12 @@
 <template>
   <div>
-  <header id='head_top'>
+  <header id='head_top' :style="{backgroundColor: isTransparent?'transparent':'#'+'fff'
+                                ,position:headerPosition==='fixed'?'fixed':'absolute'
+  }">
     <slot name='logo'></slot>
     <slot name='search'></slot>
     <slot name="changeLogin"></slot>
-    <section class="head_goback" v-if="goBack" @click="$router.go(-1)">
+    <section class="head_goback"  v-if="goBack" @click="$router.go(-1)">
       <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow"></use>
       </svg>
@@ -12,7 +14,7 @@
     <section class="title_head ellipsis" v-if="headTitle">
       <span class="title_text">{{headTitle}}</span>
     </section>
-    <section class="operators">
+    <section v-if="showOperator" class="operators">
       <section class="search">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use>
@@ -87,7 +89,7 @@
     },
     mounted() {
     },
-    props: ['signinUp', 'headTitle', 'goBack'],
+    props: ['showOperator', 'headTitle', 'goBack','isTransparent','headerPosition'],
     computed: {
       ...mapState([
         'userInfo'
@@ -137,9 +139,7 @@
   }
 
   #head_top {
-    background-color: #fff;
     border-bottom: 1px solid #f0f1f2;
-    position: fixed;
     z-index: 100;
     left: 0;
     top: 0;
@@ -157,7 +157,7 @@
 
   .title_head {
     @include center;
-    width: 50%;
+    width: 75%;
     color: #fff;
     text-align: center;
 

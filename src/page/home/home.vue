@@ -1,7 +1,11 @@
 <template>
 
   <div class="container">
-    <head-top go-back="true" head-title="Hello world">
+    <head-top go-back="true"
+              head-title="Hello world"
+              header-position="fixed"
+              show-operator="true"
+    >
     </head-top>
     <section v-if="showLoading" class="loading-container">
       <ul class="loading-ul">
@@ -15,7 +19,7 @@
         <ul class="book-list-ul">
           <li @click="gotoBookDetail(item)"
               class="book-list-li"
-              v-for="(item,index) in books"
+              v-for="(item,index) in books" :key="item.id"
           >
             <img :src="item.cover_url" class="book-cover" :alt="item.title"/>
             <div class="book-description">
