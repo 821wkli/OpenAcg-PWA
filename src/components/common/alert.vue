@@ -66,7 +66,7 @@
       -ms-flex-item-align: center;
       align-self: center;
       border-radius: 10px;
-      min-width: 10.4rem;
+      width: 70%;
       background-color: rgba(255,255,255, 0.90);
       .dialog_header{
         text-align: center;
