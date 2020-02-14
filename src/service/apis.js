@@ -10,4 +10,7 @@ const setpromise = data => {
 
 export const latestBook = (offset,limit)=>setpromise(book.books);
 export const getChapterList = (bookId)=>setpromise(chapterList.chapterList);
-export const getChapterContent = (cid)=>setpromise(chapter.content);
+//export const getChapterContent = (cid)=>setpromise(chapter.content);
+export const getChapterContent = (cid)=>fetch("GET",'/api/v1/novel/getChapter',{
+  chapterid:cid
+})

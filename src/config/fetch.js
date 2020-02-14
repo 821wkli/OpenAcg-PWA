@@ -1,8 +1,8 @@
-import {baseUrl} from './env'
+import {apiBaseUrl} from './env'
 
 export default async (type = 'GET', url = '', data = {}) => {
 	type = type.toUpperCase();
-	url = baseUrl + url;
+	url = apiBaseUrl + url;
 
 	if (type == 'GET') {
 		let dataStr = ''; //concat query strings

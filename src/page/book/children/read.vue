@@ -1,15 +1,14 @@
 <template>
   <div class="container">
+    <section class="page-header">
+      <header>
+        <h1 class="chapter-title">{{currentChapter.chapter_name}}</h1>
+      </header>
+    </section>
     <section class="reader-wrapper" ref="wrapper">
-
       <ul class="reader-ul" @click="view.showPanel = !view.showPanel">
         <li v-for="(chapter,index) in chapters" :key="index">
           <section class="page-chapter">
-            <section class="page-header">
-              <header>
-                <h1 class="chapter-title">{{chapter.chapter_name}}</h1>
-              </header>
-            </section>
             <section class="page-read">
               <div class="content">
                 <header>
@@ -22,10 +21,8 @@
             </section>
           </section>
         </li>
-
-      </ul >
+      </ul>
     </section>
-
     <section class="control-panel" v-show="view.showPanel">
       <head-top :head-title="currentChapter.chapter_name"
                 go-back="true"
@@ -33,7 +30,7 @@
                 header-position="fixed"
       ></head-top>
 
-      <section class="bottom-control-panel" >
+      <section class="bottom-control-panel">
         <div class="item">
           <span class="btn font-btn-w">Aa-</span>
           <div class="slider">
@@ -48,6 +45,12 @@
         <div class="item clearfix"></div>
       </section>
     </section>
+    <ios-alert v-show="view.showAlert"
+               :title="view.alert.title"
+               :body-content="view.alert.text"
+               @ok="view.showAlert=false"
+               @cancel="view.showAlert=false"
+    ></ios-alert>
   </div>
 
 
@@ -55,19 +58,26 @@
 
 <script>
   import {getChapterContent} from "../../../service/apis";
-  import {mapMutations} from "vuex";
+  import {mapMutations, mapState} from "vuex";
   import headTop from "../../../components/header/head";
   import 'vue-range-component/dist/vue-range-slider.css'
   import VueRangeSlider from 'vue-range-component'
   import BScroll from 'better-scroll'
+  import iosAlert from "../../../components/common/alert";
 
   export default {
     name: "read",
-    components: {headTop, VueRangeSlider},
+    components: {headTop, VueRangeSlider, iosAlert},
     data() {
       return {
+        preventDuplicatedRequest:false,
         view: {
           showPanel: false,
+          showAlert: false,
+          alert: {
+            title: 'OpenAcg',
+            text: ''
+          },
           slider: {
             value: 8,
             props: {
@@ -81,18 +91,32 @@
           }
         },
         chapters: [],
-        currentChapter:{},
+        currentChapter: {},
         previousChapterId: null,
         nextChapterId: null
+
       }
+    },
+    computed: {
+      ...mapState(['currentVolumeChapters'])
     },
     watch: {
       'view.slider.value': function (newVal) {
         this.view.paragrah.fontSize = `${newVal / 10}rem`;
       },
       chapters: function (newChapters) {
-        this.currentChapter = newChapters[newChapters.length-1];
+        this.currentChapter = newChapters[newChapters.length - 1];
         this.RECORD_CURRENT_READING_CHAPTER(this.currentChapter);
+        //get next chapter id
+
+        if (this.currentVolumeChapters && this.currentChapter) {
+          for (var i = 0; i < this.currentVolumeChapters.chapters.length; i++) {
+            if (this.currentChapter.id === this.currentVolumeChapters.chapters[i].id && i != this.currentVolumeChapters.chapters.length - 1) {
+              this.nextChapterId = this.currentVolumeChapters.chapters[i + 1].id;
+              this.previousChapterId = this.currentChapter.id;
+            }
+          }
+        }
       }
 
     },
@@ -109,18 +133,37 @@
           const options = {
             scrollY: true,
             scrollX: false,
-            mouseWheel: true,
-            click: true,
-            taps: true,
+            mouseWhtaps: true,
+            pullUpLoad: true,
+            pullUpload: {
+              thresold: 40
+            },
           };
           this.scroll = new BScroll(this.$refs.wrapper, options);
+          //load more data reach bottom
+          this.scroll.on('pullingUp', () => {
+            console.log('bottom arrtive');
+            self.loadMore().then(() => {
+              self.scroll.finishPullUp();
+            })
+
+          })
         }
       })
     },
     methods: {
       ...mapMutations(['RECORD_CURRENT_READING_CHAPTER']),
-      async initData() {
-        let res = await getChapterContent(this.cid);
+      initData() {
+        this.loadChapterContent(this.cid);
+      }
+      ,
+      async loadChapterContent(cid) {
+
+        if (this.currentChapter && this.currentChapter.id === cid) {
+          throw new Error('no more data exception');
+        }
+
+        let res = await getChapterContent(cid);
         let chapter = {};
         if (res.response) {
           chapter = Object.assign({}, res.response)
@@ -130,9 +173,24 @@
           })
           this.chapters.push(chapter);
           this.RECORD_CURRENT_READING_CHAPTER(chapter);
-
         }
-      }
+      },
+      async loadMore() {
+        //avoid async send duplicated data
+        if (this.preventDuplicatedRequest) {
+          return;
+        }
+        this.preventDuplicatedRequest = true;
+        if (this.nextChapterId) {
+          await this.loadChapterContent(this.nextChapterId)
+            .catch(err => {
+              this.view.alert.text = err;
+              this.view.showAlert = true;
+            })
+        }
+        this.preventDuplicatedRequest = false;
+        return;
+      },
     }
   }
 </script>
@@ -148,6 +206,7 @@
     height: 100vh;
     width: 100%;
     background-color: #fff;
+
     .control-panel {
       .bottom-control-panel {
         position: fixed;
@@ -200,6 +259,7 @@
 
     .page-header {
       position: absolute;
+      z-index: 10;
       top: 0;
       right: 0;
       left: 0;

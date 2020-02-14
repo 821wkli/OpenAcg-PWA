@@ -154,6 +154,7 @@
         order: 1,
         volumePanel: {
           showChapterPanel: false,
+
           chapterList: [],
           currentVolumeChapters: {}
         }
