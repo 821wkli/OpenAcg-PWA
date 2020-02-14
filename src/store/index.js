@@ -10,7 +10,10 @@ const state = {
   menuState:false,
   book:false,
   currentVolumeChapters: null,
-  bookshelfList:[]
+  bookshelfList:[],
+  currentReadingChapter:null,
+  previousChapter:null,
+  nextChapter:null
 }
 
 export default new Vuex.Store({

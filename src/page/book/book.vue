@@ -142,6 +142,7 @@
           self.scroll = new BScroll(this.$refs.wrapper, options)
         }
       });
+
     },
     data() {
       return {

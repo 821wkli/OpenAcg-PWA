@@ -5,6 +5,7 @@
               head-title="Hello world"
               header-position="fixed"
               show-operator="true"
+              theme="light"
     >
     </head-top>
     <section v-if="showLoading" class="loading-container">

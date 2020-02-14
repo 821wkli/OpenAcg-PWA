@@ -1,73 +1,85 @@
 <template>
   <div>
-  <header id='head_top' :style="{backgroundColor: isTransparent?'transparent':'#'+'fff'
-                                ,position:headerPosition==='fixed'?'fixed':'absolute'
+    <header id='head_top'
+            :class="{light: theme === 'light',
+            dark:theme ==='dark',
+            transparentBackground:isTransparent
+            }"
+            :style="{
+                     position:headerPosition==='fixed'?'fixed':'absolute'
   }">
-    <slot name='logo'></slot>
-    <slot name='search'></slot>
-    <section class="head_goback"  v-if="goBack" @click="$router.go(-1)">
-      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow"></use>
-      </svg>
-    </section>
-    <section class="title_head ellipsis" v-if="headTitle">
-      <span class="title_text">{{headTitle}}</span>
-    </section>
-    <section v-if="showOperator" class="operators">
-      <section class="search">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use>
+      <slot name='logo'></slot>
+      <slot name='search'></slot>
+      <section class="head_goback" v-if="goBack" @click="$router.go(-1)">
+        <svg
+          :class="{light: theme === 'light',
+            dark:theme ==='dark'}"
+          width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow"></use>
         </svg>
       </section>
-      <section class="menu" @click="toggleMenu">
+      <section class="title_head ellipsis"
+               v-if="headTitle">
+        <span class="title_text" :class="{light: theme === 'light',
+            dark:theme ==='dark'
+            }">{{headTitle}}</span>
+      </section>
+      <section v-if="showOperator" class="operators">
+        <section class="search">
+          <svg
+            width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use>
+          </svg>
+        </section>
+        <section class="menu" @click="toggleMenu">
       <span v-if="!showGuide">
         <i class="i-menu"></i>
       </span>
-        <svg class="close" v-else width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use>
-        </svg>
+          <svg class="close" v-else width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use>
+          </svg>
+        </section>
       </section>
-    </section>
-    <slot name="fake-goback"></slot>
-    <slot name="edit"></slot>
-    <slot name="msite-title"></slot>
-    <slot name="changecity"></slot>
-    <slot name="changeLogin"></slot>
-  </header>
-  <section class="guide" v-show="showGuide">
-    <transition name="menu-slide" >
-      <div class="guide-content" v-show="showGuide">
-        <nav class="content-container">
-          <router-link to='/novel' class="item">
-            <p :class="{active:selectedIndex==0}"
-               @click="selectedIndex==0"
-            >Novel</p>
-          </router-link>
-          <router-link class='item' to=""
-                       :class="{active:selectedIndex==1}"
-                       @click="selectedIndex==1">
-            <p>Novel</p>
-          </router-link>
-          <router-link class='item' to=""
-                       :class="{active:selectedIndex==2}"
-                       @click="selectedIndex==2">
-            <p>Novel</p>
-          </router-link>
-          <router-link class='item' to=""
-                       :class="{active:selectedIndex==3}"
-                       @click="selectedIndex==3">
-            <p>Novel</p>
-          </router-link>
-        </nav>
-        <div class="content-footer">
-          <router-link to="/bookshelf" class="btn-style">
-            My bookshelf
-          </router-link>
+      <slot name="fake-goback"></slot>
+      <slot name="edit"></slot>
+      <slot name="msite-title"></slot>
+      <slot name="changecity"></slot>
+      <slot name="changeLogin"></slot>
+    </header>
+    <section class="guide" v-show="showGuide">
+      <transition name="menu-slide">
+        <div class="guide-content" v-show="showGuide">
+          <nav class="content-container">
+            <router-link to='/novel' class="item">
+              <p :class="{active:selectedIndex==0}"
+                 @click="selectedIndex==0"
+              >Novel</p>
+            </router-link>
+            <router-link class='item' to=""
+                         :class="{active:selectedIndex==1}"
+                         @click="selectedIndex==1">
+              <p>Novel</p>
+            </router-link>
+            <router-link class='item' to=""
+                         :class="{active:selectedIndex==2}"
+                         @click="selectedIndex==2">
+              <p>Novel</p>
+            </router-link>
+            <router-link class='item' to=""
+                         :class="{active:selectedIndex==3}"
+                         @click="selectedIndex==3">
+              <p>Novel</p>
+            </router-link>
+          </nav>
+          <div class="content-footer">
+            <router-link to="/bookshelf" class="btn-style">
+              My bookshelf
+            </router-link>
+          </div>
         </div>
-      </div>
-    </transition>
-    <div @click="toggleMenu" class="guide-cover"></div>
-  </section>
+      </transition>
+      <div @click="toggleMenu" class="guide-cover"></div>
+    </section>
   </div>
 
 </template>
@@ -88,16 +100,16 @@
     },
     mounted() {
     },
-    props: ['showOperator', 'headTitle', 'goBack','isTransparent','headerPosition'],
+    props: ['showOperator', 'headTitle', 'goBack', 'isTransparent', 'headerPosition', 'theme'],
     computed: {
       ...mapState([
         'userInfo'
       ]),
     },
     methods: {
-      ...mapMutations(['GET_USERINFO','RECORD_MENU_STATE']),
+      ...mapMutations(['GET_USERINFO', 'RECORD_MENU_STATE']),
       ...mapActions(['getUserInfo']),
-      toggleMenu(){
+      toggleMenu() {
         this.showGuide = !this.showGuide;
         this.RECORD_MENU_STATE(this.showGuide);
 
@@ -110,12 +122,14 @@
 <style lang="scss" scoped>
   @import '../../style/mixin.scss';
 
-  .menu-slide-enter-active,.menu-slide-leave-active{
+  .menu-slide-enter-active, .menu-slide-leave-active {
     transition: all .2s;
   }
-  .menu-slide-enter,.menu-slide-leave-active{
+
+  .menu-slide-enter, .menu-slide-leave-active {
     transform: translateY(-100%);
   }
+
   @font-face {
     font-family: lolicon;
     src: url(../../fonts/lolicon.eot);
@@ -145,12 +159,34 @@
     @include wh(100%, 1.95rem);
   }
 
+  .transparent-background {
+    background-color: transparent;
+  }
+
+  .light {
+    color: $defaultColor;
+    background-color: #ffffff;
+  }
+
+  .dark {
+    color: #fff;
+    background-color: rgba(50, 51, 52, .9);
+  }
+
   .head_goback {
     left: 0.4rem;
     @include wh(0.6rem, 0.8rem);
     line-height: 2.2rem;
     margin-left: .4rem;
-    fill: #33373d;;
+
+    .dark {
+      fill: #ffffff;
+
+    }
+
+    .light {
+      fill: #33373d;;
+    }
   }
 
 
@@ -161,7 +197,7 @@
     text-align: center;
 
     .title_text {
-      @include sc(0.8rem, $defaultColor);
+      font-size: .8rem;
       text-align: center;
 
     }

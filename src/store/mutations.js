@@ -3,7 +3,8 @@ import {
   RECORD_BOOK,
   RECORD_CURRENT_VOLUME_CHAPTERS,
   RECORD_BOOKSHELF_LIST,
-  GET_BOOKSELF_LIST
+  GET_BOOKSELF_LIST,
+  RECORD_CURRENT_READING_CHAPTER
 } from './mutation-types.js'
 import {
   getUser
@@ -15,6 +16,9 @@ import {
 import {INIT_SHOPID, RECORD_SHOPID} from "./mutation-types";
 
 export default {
+  [RECORD_CURRENT_READING_CHAPTER](state,chapter){
+    state.currentReadingChapter = chapter;
+  },
   [RECORD_BOOKSHELF_LIST](state, book) {
     let books = getStore('bookshelf') || [];
     let isDuplicated = books.some(item=>item.id === book.id);

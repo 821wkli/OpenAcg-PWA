@@ -13,7 +13,8 @@
     <h4>{{currentVolumeChapters.name}}</h4>
     </header>
     <ul class="chapter-list-ul">
-      <li class="chapter-list-li"
+      <li
+        @click="$router.push('/reader/'+book.id+'?chapterid='+item.id)" class="chapter-list-li"
           v-for="item in currentVolumeChapters.chapters"
           :key="item.id"
       >
@@ -30,7 +31,7 @@
 
 <script>
   import headTop from "./header/head";
-  import {mapState} from 'vuex'
+  import {mapState,mapMutations} from 'vuex'
   import iosAlert from "./common/alert";
     export default {
         name: "chapterList",
@@ -45,6 +46,7 @@
       },
 
       methods:{
+
           goback(){
             this.$emit('goback')
           }

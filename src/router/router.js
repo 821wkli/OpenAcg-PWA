@@ -13,11 +13,14 @@ export default [{
     {path: '/home', component: home},            //home page
     {
       path: '/book/:bookid', component: book,
-      children: [{
-        path: 'read',
-        component: read
-      }]
+      children: [
+        { path: '', component: book },
+      ]
     },    //book detail page
+    {
+      path: '/reader/:bookid',
+      component: read
+    },
     {
       path: '/bookshelf',
       component: bookshelf
