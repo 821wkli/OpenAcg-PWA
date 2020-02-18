@@ -11,7 +11,12 @@ const setpromise = data => {
 export const fetchBook = (id) => fetch('GET', '/api/v1/novel/getBook', {
   id: id
 });
-export const latestBook = (offset, limit) => setpromise(book.books);
+export const latestBook = (offset,limit)=>fetch('GET','/api/v1/novel/latest',{
+  offset:offset,
+  limit:limit
+})
+
+//export const latestBook = (offset, limit) => setpromise(book.books);
 export const fetchChapterList = (bookId)=>fetch('GET','/api/v1/novel/chapterList',{
   bid:bookId
 })
