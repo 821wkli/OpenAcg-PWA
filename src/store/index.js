@@ -8,12 +8,14 @@ Vue.use(Vuex)
 
 const state = {
   menuState:false,
-  book:false,
+  book:null,
   currentVolumeChapters: null,
   bookshelfList:[],
   currentReadingChapter:null,
   previousChapter:null,
-  nextChapter:null
+  nextChapter:null,
+  chapterList:[],
+  setting:{}
 }
 
 export default new Vuex.Store({

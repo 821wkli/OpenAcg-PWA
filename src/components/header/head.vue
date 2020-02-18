@@ -152,7 +152,7 @@
   }
 
   #head_top {
-    border-bottom: 1px solid #f0f1f2;
+
     z-index: 100;
     left: 0;
     top: 0;

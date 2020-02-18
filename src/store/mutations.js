@@ -4,7 +4,9 @@ import {
   RECORD_CURRENT_VOLUME_CHAPTERS,
   RECORD_BOOKSHELF_LIST,
   GET_BOOKSELF_LIST,
-  RECORD_CURRENT_READING_CHAPTER
+  RECORD_CURRENT_READING_CHAPTER,
+  SAVE_CHAPTER_LIST,
+  SAVE_SETTING
 } from './mutation-types.js'
 import {
   getUser
@@ -16,6 +18,14 @@ import {
 import {INIT_SHOPID, RECORD_SHOPID} from "./mutation-types";
 
 export default {
+  [SAVE_SETTING](state,{fontSize,darkTheme}){
+    state.setting.fontSize = fontSize;
+    state.setting.darkTheme = darkTheme;
+    setStore('setting',state.setting);
+  },
+  [SAVE_CHAPTER_LIST](state,chapters){
+    state.chapterList = chapters
+  },
   [RECORD_CURRENT_READING_CHAPTER](state,chapter){
     state.currentReadingChapter = chapter;
   },

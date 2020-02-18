@@ -1,20 +1,20 @@
 <template>
-  <div class="container">
+  <div class="container" :class="{lightTheme:!view.darkMode,darkTheme:view.darkMode}">
     <section class="page-header">
       <header>
-        <h1 class="chapter-title">{{currentChapter.chapter_name}}</h1>
+        <h1 class="chapter-title":class="{lightTheme:!view.darkMode,darkTheme:view.darkMode}">{{currentChapter.chapter_name}}</h1>
       </header>
     </section>
     <section class="reader-wrapper" ref="wrapper">
-      <ul class="reader-ul" @click="view.showPanel = !view.showPanel">
+      <ul class="reader-ul" @click="view.showPanel = !view.showPanel" >
         <li v-for="(chapter,index) in chapters" :key="index">
           <section class="page-chapter">
             <section class="page-read">
               <div class="content">
                 <header>
-                  <h3 class="chapter-title">{{chapter.chapter_name}}</h3>
+                  <h3 :class="{lightTheme:!view.darkMode,darkTheme:view.darkMode}" class="chapter-title">{{chapter.chapter_name}}</h3>
                 </header>
-                <ul class="content-ul" :style="view.paragrah">
+                <ul class="content-ul" :style="view.paragrah":class="{darkTheme:view.darkMode}">
                   <li class="content-sentence" v-for="item in chapter.content">{{item}}</li>
                 </ul>
               </div>
@@ -23,7 +23,7 @@
         </li>
       </ul>
     </section>
-    <section class="control-panel" v-show="view.showPanel">
+    <section class="control-panel" v-if="view.showPanel">
       <head-top :head-title="currentChapter.chapter_name"
                 go-back="true"
                 theme="dark"
@@ -39,8 +39,8 @@
           <span class="btn font-btn-w">Aa+</span>
         </div>
         <div class="item clearfix">
-          <span class="btn square">Light mode</span>
-          <span class="btn square">Dark mode</span>
+          <span class="btn square" :class="{active:!view.darkMode}"@click="view.darkMode=false">Light mode</span>
+          <span class="btn square" :class="{active:view.darkMode}" @click="view.darkMode=true">Dark mode</span>
         </div>
         <div class="item clearfix"></div>
       </section>
@@ -51,6 +51,7 @@
                @ok="view.showAlert=false"
                @cancel="view.showAlert=false"
     ></ios-alert>
+    <jump-loader v-if="view.showLoading"></jump-loader>
   </div>
 
 
@@ -64,20 +65,27 @@
   import VueRangeSlider from 'vue-range-component'
   import BScroll from 'better-scroll'
   import iosAlert from "../../../components/common/alert";
+  import jumpLoader from "../../../components/loading/jumpLoader";
 
   export default {
     name: "read",
-    components: {headTop, VueRangeSlider, iosAlert},
+    components: {headTop, VueRangeSlider, iosAlert, jumpLoader},
     data() {
       return {
-        preventDuplicatedRequest:false,
+        preventDuplicatedRequest: false,
+        debug: {
+          counter: 1
+        },
         view: {
+          darkMode:false,
           showPanel: false,
           showAlert: false,
+          showLoading: false,
           alert: {
             title: 'OpenAcg',
             text: ''
           },
+
           slider: {
             value: 8,
             props: {
@@ -98,7 +106,13 @@
       }
     },
     computed: {
-      ...mapState(['currentVolumeChapters'])
+      ...mapState(['currentVolumeChapters', 'chapterList'])
+    },
+    beforeDestroy() {
+      this.SAVE_SETTING({
+        fontSize: this.view.paragrah.fontSize,
+        darkTheme:this.view.darkMode
+      })
     },
     watch: {
       'view.slider.value': function (newVal) {
@@ -109,10 +123,10 @@
         this.RECORD_CURRENT_READING_CHAPTER(this.currentChapter);
         //get next chapter id
 
-        if (this.currentVolumeChapters && this.currentChapter) {
-          for (var i = 0; i < this.currentVolumeChapters.chapters.length; i++) {
-            if (this.currentChapter.id === this.currentVolumeChapters.chapters[i].id && i != this.currentVolumeChapters.chapters.length - 1) {
-              this.nextChapterId = this.currentVolumeChapters.chapters[i + 1].id;
+        if (this.chapterList && this.currentChapter) {
+          for (var i = 0; i < this.chapterList.length; i++) {
+            if (this.currentChapter.id === this.chapterList[i] && i != this.chapterList.length - 1) {
+              this.nextChapterId = this.chapterList[i + 1];
               this.previousChapterId = this.currentChapter.id;
             }
           }
@@ -126,6 +140,7 @@
 
     },
     mounted() {
+
       this.initData();
       var self = this;
       this.$nextTick(() => {
@@ -133,18 +148,22 @@
           const options = {
             scrollY: true,
             scrollX: false,
+            click: true,
+            tap: true,
             mouseWhtaps: true,
             pullUpLoad: true,
             pullUpload: {
-              thresold: 40
+              thresold: 5
             },
           };
           this.scroll = new BScroll(this.$refs.wrapper, options);
           //load more data reach bottom
           this.scroll.on('pullingUp', () => {
             console.log('bottom arrtive');
+            this.view.showLoading = true;
             self.loadMore().then(() => {
               self.scroll.finishPullUp();
+              this.view.showLoading = false;
             })
 
           })
@@ -152,9 +171,10 @@
       })
     },
     methods: {
-      ...mapMutations(['RECORD_CURRENT_READING_CHAPTER']),
+      ...mapMutations(['RECORD_CURRENT_READING_CHAPTER','SAVE_SETTING']),
       initData() {
-        this.loadChapterContent(this.cid);
+        this.view.showLoading = true;
+        this.loadChapterContent(this.cid).then(() => this.view.showLoading = false)
       }
       ,
       async loadChapterContent(cid) {
@@ -188,7 +208,11 @@
               this.view.showAlert = true;
             })
         }
-        this.preventDuplicatedRequest = false;
+        setTimeout(() => {
+          this.preventDuplicatedRequest = false;
+          this.debug.counter++;
+        }, 10000)
+
         return;
       },
     }
@@ -205,7 +229,6 @@
     right: 0;
     height: 100vh;
     width: 100%;
-    background-color: #fff;
 
     .control-panel {
       .bottom-control-panel {
@@ -232,13 +255,16 @@
 
           .square {
             font-size: .55rem;
-            border: 1px solid #535353;
-            border-radius: .10667rem;
+            border: 2px solid #535353;
+            border-radius: .3rem;
             width: 40%;
-            line-height: 1.5rem;
-            height: 1.5rem;
+            line-height: 1.8rem;
+            height: 1.8rem;
             text-align: center;
 
+          }
+          .active{
+            color: #b93221;
           }
         }
 
@@ -251,9 +277,9 @@
     .reader-wrapper {
       overflow: hidden;
       position: absolute;
-      height: 100%;
-      background: url(../../../images/skin-default-t.ece62.jpg) no-repeat center top, url(../../../images/skin-default-b.79f06.jpg) no-repeat center bottom, url(../../../images/skin-default-m.35905.jpg) repeat-y center 119px;
-      background-size: 100%;
+      @include wh(100%,100%)
+      /*background: url(../../../images/skin-default-t.ece62.jpg) no-repeat center top, url(../../../images/skin-default-b.79f06.jpg) no-repeat center bottom, url(../../../images/skin-default-m.35905.jpg) repeat-y center 119px;*/
+      /*background-size: 100%;*/
 
     }
 
@@ -268,34 +294,32 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      background: url(../../../images/skin-default-t.ece62.jpg) no-repeat center top;
-      background-size: 100%;
-
       header {
         height: 100%;
         padding-left: .5rem;
       }
 
       .chapter-title {
+        width: 100%;
         height: 100%;
         font-size: .5rem;
         line-height: 1.95rem;
         font-weight: 400;
         position: absolute;
-        color: rgba(0, 0, 0, .4);
       }
+
     }
 
     .page-read {
       padding-top: 1.95rem;
       height: 100%;
       width: 100%;
-      background: url(../../../images/skin-default-t.ece62.jpg) no-repeat center top, url(../../../images/skin-default-b.79f06.jpg) no-repeat center bottom, url(../../../images/skin-default-m.35905.jpg) repeat-y center 119px;
-      background-size: 100%;
+      /*background: url(../../../images/skin-default-t.ece62.jpg) no-repeat center top, url(../../../images/skin-default-b.79f06.jpg) no-repeat center bottom, url(../../../images/skin-default-m.35905.jpg) repeat-y center 119px;*/
+      /*background-size: 100%;*/
 
       .content {
-        background: url(../../../images/skin-default-t.ece62.jpg) no-repeat center top, url(../../../images/skin-default-b.79f06.jpg) no-repeat center bottom, url(../../../images/skin-default-m.35905.jpg) repeat-y center 119px;
-        background-size: 100%;
+        /*background: url(../../../images/skin-default-t.ece62.jpg) no-repeat center top, url(../../../images/skin-default-b.79f06.jpg) no-repeat center bottom, url(../../../images/skin-default-m.35905.jpg) repeat-y center 119px;*/
+        /*background-size: 100%;*/
       }
 
       header {
@@ -312,7 +336,9 @@
         padding: .5rem;
 
         .content-sentence {
+          color:inherit;
           line-height: 1.8rem;
+          word-wrap: break-word;
         }
       }
 
@@ -332,5 +358,17 @@
     }
 
   }
+
+  .darkTheme {
+    background-color: #0c0c0c;
+    color: #b9b6b6;
+  }
+
+  .lightTheme {
+    background: url(../../../images/skin-default-t.ece62.jpg) no-repeat center top, url(../../../images/skin-default-b.79f06.jpg) no-repeat center bottom, url(../../../images/skin-default-m.35905.jpg) repeat-y center 119px;
+    background-size: 100%;
+    color: $defaultColor;
+  }
+
 
 </style>
