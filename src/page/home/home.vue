@@ -2,7 +2,7 @@
 
   <div class="container">
     <head-top go-back="true"
-              head-title="Hello world"
+              :head-title="$lang.homePage.novel"
               header-position="fixed"
               show-operator="true"
               theme="light"
@@ -41,6 +41,9 @@
                 {{item.publisher?'|'+item.publisher:''}}
               </span>
               </p>
+              <p>
+                <span>最近更新: {{item.last_updated_date ||'unknown'}}</span>
+              </p>
               <p>{{item.introduction}}</p>
             </div>
           </li>
@@ -63,6 +66,7 @@
 </template>
 
 <script>
+
   import headTop from 'src/components/header/head'
   import refresh from "../../components/common/refresh";
   import {cityGuess, hotcity, groupcity, latestBook} from 'src/service/apis'
@@ -289,7 +293,7 @@
 
 
         .book-description {
-
+          max-width: 70%;
           .book-header {
             display: flex;
             justify-content: space-between;
@@ -307,7 +311,7 @@
             }
           }
 
-          p:nth-of-type(1) {
+          p {
             display: flex;
             margin-top: .5rem;
 
@@ -335,7 +339,7 @@
 
           }
 
-          p:nth-of-type(2) {
+          p:nth-of-type(3) {
             font-size: .55rem;
             height: 2.3rem;
             max-height: 2.3rem;
