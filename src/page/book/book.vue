@@ -115,7 +115,7 @@
 <script>
   import headTop from "../../components/header/head";
   import {mapState, mapMutations} from 'vuex'
-  import {fetchBook, getChapterList} from "../../service/apis";
+  import {fetchBook, fetchChapterList} from "../../service/apis";
   import ChapterList from "../../components/chapterList";
   import BScroll from 'better-scroll'
   import {RECORD_BOOKSHELF_LIST} from "../../store/mutation-types";
@@ -191,7 +191,7 @@
           this.RECORD_BOOK(book);
         }
 
-        let res = await getChapterList(this.book.id);
+        let res = await fetchChapterList(this.book.id);
         if (res.response) {
           this.volumePanel.chapterList = Array.concat([], res.response);
           let chapters = this.volumePanel.chapterList.reduce((preVolume, currentVolume) => {

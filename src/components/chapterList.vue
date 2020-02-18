@@ -76,10 +76,10 @@
       @include wh(0.6rem, 0.8rem);
       line-height: 2.2rem;
       margin-left: .4rem;
-      fill: #33373d;;
+      fill: #33373dn;;
     }
     header{
-      height: 2rem;
+      /*height: 2rem;*/
       line-height: 2rem;
       padding-left: .4rem;
       background-color: #f5f5f5;
