@@ -18,7 +18,7 @@ export const setStore = (name, content) => {
   window.localStorage.setItem(name, content);
 }
 
-export const getStore = name => {
+export const getStore = (name) => {
   if (!name) return;
   return JSON.parse(window.localStorage.getItem(name));
 }

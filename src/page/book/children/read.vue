@@ -1,20 +1,22 @@
 <template>
-  <div class="container" :class="{lightTheme:!view.darkMode,darkTheme:view.darkMode}">
+  <div class="container" :class="{lightTheme:!setting.darkTheme,darkTheme:setting.darkTheme}">
     <section class="page-header">
       <header>
-        <h1 class="chapter-title":class="{lightTheme:!view.darkMode,darkTheme:view.darkMode}">{{currentChapter.chapter_name}}</h1>
+        <h1 class="chapter-title" :class="{lightTheme:!setting.darkTheme,darkTheme:setting.darkTheme}">
+          {{currentChapter.chapter_name}}</h1>
       </header>
     </section>
     <section class="reader-wrapper" ref="wrapper">
-      <ul class="reader-ul" @click="view.showPanel = !view.showPanel" >
+      <ul class="reader-ul" @click="view.showPanel = !view.showPanel">
         <li v-for="(chapter,index) in chapters" :key="index">
           <section class="page-chapter">
             <section class="page-read">
               <div class="content">
                 <header>
-                  <h3 :class="{lightTheme:!view.darkMode,darkTheme:view.darkMode}" class="chapter-title">{{chapter.chapter_name}}</h3>
+                  <h3 :class="{lightTheme:!setting.darkTheme,darkTheme:setting.darkTheme}" class="chapter-title">
+                    {{chapter.chapter_name}}</h3>
                 </header>
-                <ul class="content-ul" :style="view.paragrah":class="{darkTheme:view.darkMode}">
+                <ul class="content-ul" :style="setting.fontSize" :class="{darkTheme:setting.darkTheme}">
                   <li class="content-sentence" v-for="item in chapter.content">{{item}}</li>
                 </ul>
               </div>
@@ -39,8 +41,8 @@
           <span class="btn font-btn-w">Aa+</span>
         </div>
         <div class="item clearfix">
-          <span class="btn square" :class="{active:!view.darkMode}"@click="view.darkMode=false">Light mode</span>
-          <span class="btn square" :class="{active:view.darkMode}" @click="view.darkMode=true">Dark mode</span>
+          <span class="btn square" :class="{active:!setting.darkTheme}" @click="setDarkTheme(false)">Light mode</span>
+          <span class="btn square" :class="{active:setting.darkTheme}" @click="setDarkTheme(true)">Dark mode</span>
         </div>
         <div class="item clearfix"></div>
       </section>
@@ -77,7 +79,7 @@
           counter: 1
         },
         view: {
-          darkMode:false,
+          darkMode: false,
           showPanel: false,
           showAlert: false,
           showLoading: false,
@@ -106,17 +108,19 @@
       }
     },
     computed: {
-      ...mapState(['currentVolumeChapters', 'chapterList'])
+      ...mapState(['currentVolumeChapters', 'chapterList', 'setting'])
     },
-    beforeDestroy() {
-      this.SAVE_SETTING({
-        fontSize: this.view.paragrah.fontSize,
-        darkTheme:this.view.darkMode
-      })
-    },
+    // beforeDestroy() {
+    //   this.SAVE_SETTING({
+    //     fontSize: this.view.paragrah.fontSize,
+    //     darkTheme: this.view.darkMode
+    //   })
+    // },
     watch: {
       'view.slider.value': function (newVal) {
-        this.view.paragrah.fontSize = `${newVal / 10}rem`;
+
+        let obj = {fontSize: `${newVal / 10}rem`};
+        this.SAVE_SETTING(...this.setting, ...obj);
       },
       chapters: function (newChapters) {
         this.currentChapter = newChapters[newChapters.length - 1];
@@ -171,12 +175,15 @@
       })
     },
     methods: {
-      ...mapMutations(['RECORD_CURRENT_READING_CHAPTER','SAVE_SETTING']),
+      ...mapMutations(['RECORD_CURRENT_READING_CHAPTER', 'SAVE_SETTING']),
       initData() {
         this.view.showLoading = true;
         this.loadChapterContent(this.cid).then(() => this.view.showLoading = false)
       }
       ,
+      setDarkTheme(mode) {
+        this.SAVE_SETTING({...this.setting, ...{darkTheme: mode}})
+      },
       async loadChapterContent(cid) {
 
         if (this.currentChapter && this.currentChapter.id === cid) {
@@ -263,7 +270,8 @@
             text-align: center;
 
           }
-          .active{
+
+          .active {
             color: #b93221;
           }
         }
@@ -277,7 +285,7 @@
     .reader-wrapper {
       overflow: hidden;
       position: absolute;
-      @include wh(100%,100%)
+      @include wh(100%, 100%)
       /*background: url(../../../images/skin-default-t.ece62.jpg) no-repeat center top, url(../../../images/skin-default-b.79f06.jpg) no-repeat center bottom, url(../../../images/skin-default-m.35905.jpg) repeat-y center 119px;*/
       /*background-size: 100%;*/
 
@@ -294,6 +302,7 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+
       header {
         height: 100%;
         padding-left: .5rem;
@@ -336,7 +345,7 @@
         padding: .5rem;
 
         .content-sentence {
-          color:inherit;
+          color: inherit;
           line-height: 1.8rem;
           word-wrap: break-word;
         }

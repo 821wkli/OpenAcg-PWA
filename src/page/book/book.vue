@@ -125,18 +125,17 @@
   export default {
     name: "book",
     created() {
-      // When refresh current route, the vuex state lost
-      // TO handle this situaration, redirect to home page
       this.bookid = this.$route.params.bookid;
       this.GET_BOOKSHELF_LIST();
-
-
     },
     mounted() {
 
       var self = this;
       this.initData();
-      this.createScroll();
+    //avoid create scroll before data load.
+      if(this.book){
+        this.createScroll();
+      }
     },
     data() {
       return {
