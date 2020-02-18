@@ -76,7 +76,7 @@
       @include wh(0.6rem, 0.8rem);
       line-height: 2.2rem;
       margin-left: .4rem;
-      fill: #33373dn;;
+      fill: #33373d;;
     }
     header{
       /*height: 2rem;*/
