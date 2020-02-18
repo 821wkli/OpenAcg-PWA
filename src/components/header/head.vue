@@ -73,7 +73,7 @@
           </nav>
           <div class="content-footer">
             <router-link to="/bookshelf" class="btn-style">
-              My bookshelf
+              {{$lang.headBar.myBookshelf}}
             </router-link>
           </div>
         </div>
