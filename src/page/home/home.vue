@@ -22,7 +22,9 @@
               class="book-list-li"
               v-for="(item,index) in books" :key="item.id"
           >
-            <img :src="item.cover_url" class="book-cover" :alt="item.title"/>
+            <div class="book-cover"style="width: 4rem;height: 5rem;">
+            <img :src="item.cover_url" class="book-cover" :key="item.cover_url" :alt="item.title"/>
+            </div>
             <div class="book-description">
               <header class="book-header">
                 <h4>{{item.title}}</h4>
@@ -55,6 +57,8 @@
       </section>
     </section>
 
+
+
   </div>
 </template>
 
@@ -66,6 +70,7 @@
   import BScroll from 'better-scroll'
   import DotLoader from "../../components/common/dotLoader";
   import ListSkeleton from "../../components/loading/listSkeleton";
+  import jumpLoader from "../../components/loading/jumpLoader";
 
   export default {
     data() {
@@ -141,7 +146,7 @@
     components: {
       ListSkeleton,
       DotLoader,
-      headTop, refresh
+      headTop, refresh,jumpLoader
     }
     ,
     computed: {
@@ -274,11 +279,14 @@
         align-items: flex-start;
         background-color: #fff;
 
-        img {
-          @include wh(4rem, 5rem)
+        .book-cover{
           margin-right: .5rem;
           box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+          img {
+            @include wh(4rem, 5rem)
+          }
         }
+
 
         .book-description {
 
