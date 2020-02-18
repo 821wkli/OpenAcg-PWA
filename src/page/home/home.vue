@@ -23,7 +23,7 @@
               v-for="(item,index) in books" :key="item.id"
           >
             <div class="book-cover"style="width: 4rem;height: 5rem;">
-            <img :src="item.cover_url" class="book-cover" :key="item.cover_url" :alt="item.title"/>
+            <img :src="item.cover_url" class="book-cover" :alt="item.title"/>
             </div>
             <div class="book-description">
               <header class="book-header">

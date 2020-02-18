@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div class="load_img">
+    <div class="load_img" :style="view.styles">
     </div>
   </div>
 
@@ -9,10 +9,35 @@
 <script>
   export default {
     data() {
-      return {}
+      return {
+        view:{
+          styles:{
+            position:this.position
+          }
+        }
+      }
+    },
+    props:{
+      where:{
+        type:String,
+        defailt:'bottom'
+      }
     },
     mounted() {
 
+    },
+    computed:{
+      position: function () {
+        var ret ='';
+          switch (this.where) {
+            case 'bottom': ret='5%';break;
+            case 'center': ret = '50%';break;
+            case'top':ret = '25%';break;
+            default:
+              ret='5%'
+          }
+          return ret;
+      }
     },
     beforeDestroy() {
 
@@ -61,7 +86,7 @@
     background: url(../../images/f5bouncer.png) 50% no-repeat;
     height: 266px;
     left: 50%;
-    bottom: 5%;
+
     margin-left: -28px;
     opacity: 0;
     position: fixed;

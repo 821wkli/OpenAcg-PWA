@@ -104,7 +104,9 @@
         </div>
       </section>
       <chapter-list @goback="hidePanel" v-if="volumePanel.showChapterPanel"></chapter-list>
-
+    </section>
+    <section v-else class="loader">
+      <jump-loader where="top" class="icon"></jump-loader>
     </section>
   </div>
 
@@ -118,6 +120,7 @@
   import BScroll from 'better-scroll'
   import {RECORD_BOOKSHELF_LIST} from "../../store/mutation-types";
   import {isEmpty} from "../../config/utils";
+  import jumpLoader from "../../components/loading/jumpLoader";
 
   export default {
     name: "book",
@@ -132,22 +135,8 @@
     mounted() {
 
       var self = this;
-      this.initData().then(() => {
-        self.$nextTick(() => {
-          if (!self.scroll) {
-            const options = {
-              scrollY: true,
-              scrollX: false,
-              mouseWheel: true,
-              click: true,
-              taps: true
-            }
-            self.scroll = new BScroll(self.$refs.wrapper, options)
-          }
-        });
-
-      })
-
+      this.initData();
+      this.createScroll();
     },
     data() {
       return {
@@ -166,8 +155,22 @@
       }
     },
 
-    components: {ChapterList, headTop},
+    components: { ChapterList, headTop,jumpLoader},
     methods: {
+      createScroll: function () {
+        this.$nextTick(() => {
+          if (!this.scroll) {
+            const options = {
+              scrollY: true,
+              scrollX: false,
+              mouseWheel: true,
+              click: true,
+              taps: true
+            }
+            this.scroll = new BScroll(this.$refs.wrapper, options)
+          }
+        });
+      },
       ...mapMutations(['RECORD_BOOK', 'SAVE_CHAPTER_LIST', 'RECORD_CURRENT_VOLUME_CHAPTERS', 'RECORD_BOOKSHELF_LIST', 'GET_BOOKSHELF_LIST']),
       hidePanel() {
         this.volumePanel.showChapterPanel = !this.volumePanel.showChapterPanel;
@@ -198,6 +201,8 @@
           this.SAVE_CHAPTER_LIST(chapters);
         }
 
+
+
       },
       reorderVolumes(index) {
         if (index != this.order) {
@@ -223,6 +228,11 @@
         })
 
 
+      },
+      book: function (newValue) {
+        if(!isEmpty(newValue)){
+          this.createScroll();
+        }
       }
     },
     computed: {
@@ -232,6 +242,8 @@
           return true;
         }
         return false;
+
+
       },
       total_words: function () {
         if (!this.book.word_count) {
@@ -258,7 +270,13 @@
     left: 0;
     right: 0;
     height: 100vh;
-
+    .loader{
+      top:0;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: #fff;
+    }
     .book-main {
       height: 100%;
     }
@@ -475,7 +493,7 @@
       padding-left: .4rem;
       padding-right: .4rem;
       margin-top: .4rem;
-      height: 37%;
+      height: 44vh;
       overflow: hidden;
 
       .book-volume-list-ul {
