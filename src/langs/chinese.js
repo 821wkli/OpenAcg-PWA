@@ -1,9 +1,9 @@
 export const chinese= {
   headBar:{
-    myBookshelf:'我的書架',
+    myBookshelf:'我的書櫃',
   },
   homePage: {
-    novel: '輕小說',
+    novel: '小說',
     anime: '動畫',
     comic: '漫畫',
     music: '音樂'

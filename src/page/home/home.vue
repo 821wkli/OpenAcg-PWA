@@ -1,7 +1,7 @@
 <template>
 
   <div class="container">
-    <head-top go-back="true"
+    <head-top
               :head-title="$lang.homePage.novel"
               header-position="fixed"
               show-operator="true"
@@ -22,7 +22,7 @@
               class="book-list-li"
               v-for="(item,index) in books" :key="item.id"
           >
-            <div class="book-cover"style="width: 4rem;height: 5rem;">
+            <div class="book-cover"style="width: 4rem;height: 6rem;">
             <img :src="item.cover_url" class="book-cover" :alt="item.title"/>
             </div>
             <div class="book-description">
@@ -142,9 +142,10 @@
 
       });
 
-      setTimeout(() => {
-        self.showLoading = false;
-      }, 1000);
+      // setTimeout(() => {
+      //   self.showLoading = false;
+      // }, 1000);
+
     },
 
     components: {
@@ -173,17 +174,22 @@
         mapMutations(['RECORD_BOOK']),
       refreshBookList() {
         this.isRefreshing = true;
-        this.showLoading = true;
-        this.initData();
-        var self = this;
-        setTimeout(() => {
+
+
+        var self = this
+        this.initData().then(()=>{
           self.isRefreshing = false;
-          self.showLoading = false;
           console.log('refresh done')
-        }, 3000)
+        })
+        // setTimeout(() => {
+        //   self.isRefreshing = false;
+        //   self.showLoading = false;
+        //   console.log('refresh done')
+        // }, 3000)
 
       },
       async initData() {
+        this.showLoading = true;
         //https://openacg.blob.core.windows.net/image/1s.jpg
         let res = await latestBook(0, 20);
         res = Object.assign([], res.response);
@@ -194,6 +200,7 @@
 
         })
         this.books = res;
+        this.showLoading = false;
       }
       ,
       async loadMore() {
@@ -205,6 +212,9 @@
         this.offset += 20;
         let res = await latestBook(this.offset, 20);
         if (res.response && res.response.length > 0) {
+          res.response.forEach(book=>{
+            book.cover_url = 'http://openacg.blob.core.windows.net/image/' + book.cover_url.split('/').pop();
+          })
           this.books = this.books.concat(res.response);
         } else if (res.response.length == 0) {
           //todo
@@ -287,7 +297,10 @@
           margin-right: .5rem;
           box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
           img {
-            @include wh(4rem, 5rem)
+            @include wh(4rem, 6rem)
+            text-align: center;
+            font-size:.8rem;
+            white-space:pre-wrap;
           }
         }
 

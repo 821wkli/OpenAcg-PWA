@@ -16,7 +16,8 @@
                   <h3 :class="{lightTheme:!setting.darkTheme,darkTheme:setting.darkTheme}" class="chapter-title">
                     {{chapter.chapter_name}}</h3>
                 </header>
-                <ul class="content-ul" :style="setting.fontSize" :class="{darkTheme:setting.darkTheme}">
+                <ul class="content-ul" :style="{fontSize:setting.fontSize}"
+                    :class="{darkTheme:setting.darkTheme}">
                   <li class="content-sentence" v-for="item in chapter.content">{{item}}</li>
                 </ul>
               </div>
@@ -120,7 +121,7 @@
       'view.slider.value': function (newVal) {
 
         let obj = {fontSize: `${newVal / 10}rem`};
-        this.SAVE_SETTING(...this.setting, ...obj);
+        this.SAVE_SETTING({...this.setting, ...obj});
       },
       chapters: function (newChapters) {
         this.currentChapter = newChapters[newChapters.length - 1];
@@ -200,6 +201,7 @@
           })
           this.chapters.push(chapter);
           this.RECORD_CURRENT_READING_CHAPTER(chapter);
+          this.$route.params.chapterid = chapter.id;
         }
       },
       async loadMore() {

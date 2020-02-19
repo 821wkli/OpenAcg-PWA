@@ -53,22 +53,22 @@
             <router-link to='/novel' class="item">
               <p :class="{active:selectedIndex==0}"
                  @click="selectedIndex==0"
-              >Novel</p>
+              >{{$lang.homePage.novel}}</p>
             </router-link>
             <router-link class='item' to=""
                          :class="{active:selectedIndex==1}"
                          @click="selectedIndex==1">
-              <p>Novel</p>
+              <p>{{$lang.homePage.anime}}</p>
             </router-link>
             <router-link class='item' to=""
                          :class="{active:selectedIndex==2}"
                          @click="selectedIndex==2">
-              <p>Novel</p>
+              <p>{{$lang.homePage.comic}}</p>
             </router-link>
             <router-link class='item' to=""
                          :class="{active:selectedIndex==3}"
                          @click="selectedIndex==3">
-              <p>Novel</p>
+              <p>{{$lang.homePage.music}}</p>
             </router-link>
           </nav>
           <div class="content-footer">

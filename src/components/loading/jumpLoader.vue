@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div class="load_img" :style="view.styles">
+    <div class="load_img" :style="{bottom:this.position}">
     </div>
   </div>
 
@@ -10,11 +10,6 @@
   export default {
     data() {
       return {
-        view:{
-          styles:{
-            bottom:this.position
-          }
-        }
       }
     },
     props:{
