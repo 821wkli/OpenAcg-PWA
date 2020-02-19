@@ -69,12 +69,13 @@
 
   import headTop from 'src/components/header/head'
   import refresh from "../../components/common/refresh";
-  import {cityGuess, hotcity, groupcity, latestBook} from 'src/service/apis'
+  import {cityGuess, hotcity, groupcity, latestBook, hotBook} from 'src/service/apis'
   import {mapState, mapMutations} from 'vuex'
   import BScroll from 'better-scroll'
   import DotLoader from "../../components/common/dotLoader";
   import ListSkeleton from "../../components/loading/listSkeleton";
   import jumpLoader from "../../components/loading/jumpLoader";
+  import {isEmpty} from "../../config/utils";
 
   export default {
     data() {
@@ -171,7 +172,7 @@
     },
     methods: {
       ...
-        mapMutations(['RECORD_BOOK']),
+        mapMutations(['RECORD_BOOK','SAVE_HOTLIST']),
       refreshBookList() {
         this.isRefreshing = true;
 
@@ -190,6 +191,11 @@
       },
       async initData() {
         this.showLoading = true;
+        hotBook(7).then(res=>{
+         if(!isEmpty(res.response)){
+           this.SAVE_HOTLIST(res.response);
+         }
+        });
         //https://openacg.blob.core.windows.net/image/1s.jpg
         let res = await latestBook(0, 20);
         res = Object.assign([], res.response);

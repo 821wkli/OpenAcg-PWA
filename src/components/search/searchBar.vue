@@ -9,8 +9,10 @@
         <input type="search" class="search-input"
                :value="value"
                @input="$emit('input', $event.target.value)"
-               maxlength="33" autocomplete="off"
+               autocomplete="off"
                :placeholder="placeholder"
+               @focus="doFocus"
+               @blur="doBlur"
                :style="{borderRadius:shape==='round'?'.512rem':'.17067rem'}"
 
         >
@@ -30,6 +32,13 @@
       }
     },
     methods: {
+      doFocus: function(){
+        console.log('test')
+        this.$emit('doFocus')
+      },
+      doBlur:function(){
+        this.$emit('doBlur');
+      },
       search: function () {
         this.$emit('search')
       },
@@ -110,7 +119,6 @@
       width: 100%;
       height: 100%;
       padding-left: 1.70667rem;
-      padding-right: 3.37067rem;
       box-sizing: border-box;
       font-size: .55467rem;
       border: .02133rem solid #e7e7e7;

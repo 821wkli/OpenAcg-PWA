@@ -153,7 +153,9 @@
         }
       }
     },
-
+    beforeDestroy() {
+      this.RECORD_BOOK(null);
+    },
     components: { ChapterList, headTop,jumpLoader},
     methods: {
       createScroll: function () {

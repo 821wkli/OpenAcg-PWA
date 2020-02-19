@@ -15,9 +15,12 @@ import {
   setStore,
   getStore,
 } from '../config/utils'
-import {INIT_SHOPID, RECORD_SHOPID} from "./mutation-types";
+import {INIT_SHOPID, RECORD_SHOPID, SAVE_HOTLIST, SAVE_SEARCH_HISTORY} from "./mutation-types";
 
 export default {
+  [SAVE_HOTLIST](state,hotList){
+    state.hotList = hotList;
+  },
   [SAVE_SETTING](state,{fontSize,darkTheme}){
     state.setting.fontSize = fontSize;
     state.setting.darkTheme = darkTheme;
@@ -51,5 +54,14 @@ export default {
   },
   [RECORD_CURRENT_VOLUME_CHAPTERS](state, currentVolumeChapters) {
     state.currentVolumeChapters = currentVolumeChapters
+  },
+  [SAVE_SEARCH_HISTORY](state,{historyEntry}){
+    let list = getStore('searchHistory') || [];
+    let isDuplicated = list.some(item=>item.id === historyEntry.id);
+    if(!isDuplicated){
+      list.push(Object.assign({}, historyEntry));
+      setStore('searchHistory', list)
+      state.searchHistoryList = list;
+    }
   }
 }
