@@ -12,7 +12,7 @@
       return {
         view:{
           styles:{
-            position:this.position
+            bottom:this.position
           }
         }
       }
@@ -20,7 +20,7 @@
     props:{
       where:{
         type:String,
-        defailt:'bottom'
+        default:'bottom'
       }
     },
     mounted() {
@@ -32,7 +32,7 @@
           switch (this.where) {
             case 'bottom': ret='5%';break;
             case 'center': ret = '50%';break;
-            case'top':ret = '25%';break;
+            case 'top':ret = '25%';break;
             default:
               ret='5%'
           }
