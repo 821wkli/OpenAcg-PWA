@@ -13,6 +13,7 @@
                :placeholder="placeholder"
                @focus="doFocus"
                @blur="doBlur"
+               @keyup.enter="search"
                :style="{borderRadius:shape==='round'?'.512rem':'.17067rem'}"
 
         >

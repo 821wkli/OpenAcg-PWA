@@ -1,29 +1,36 @@
 <template>
 
   <div class="container">
-    <head-top
+    <head-top v-if="!search.showSearchBar"
               :head-title="$lang.homePage.novel"
               header-position="fixed"
               show-operator="true"
-              theme="light"
-    >
+              theme="light">
     </head-top>
+    <search-bar v-else class="search-bar" v-model="search.keyword"
+                :placeholder="search.keyword"
+                cancel-text="取消"
+                @cancel="onCancel"
+                @search="onSearch"
+                @clear="onClear"
+                @doFocus="onFocus"
+    ></search-bar>
     <section v-if="showLoading" class="loading-container">
       <ul class="loading-ul">
         <list-skeleton v-for="i in (1,10)"></list-skeleton>
       </ul>
     </section>
     <section class="list-tips-container">
-      <dot-loader></dot-loader>
+      <dot-loader v-if="showDotLoader"></dot-loader>
 
       <section class="book-list-container wrapper" ref="wrapper">
         <ul class="book-list-ul">
           <li @click="gotoBookDetail(item)"
               class="book-list-li"
-              v-for="(item,index) in books" :key="item.id"
+              v-for="(item,index) in books" :key="index"
           >
-            <div class="book-cover"style="width: 4rem;height: 6rem;">
-            <img :src="item.cover_url" class="book-cover" :alt="item.title"/>
+            <div class="book-cover" style="width: 4rem;height: 6rem;">
+              <img :src="item.cover_url" class="book-cover" :alt="item.title"/>
             </div>
             <div class="book-description">
               <header class="book-header">
@@ -47,7 +54,7 @@
               <p>{{item.introduction}}</p>
             </div>
           </li>
-          <li style="width: 100%; height:2.5rem;margin-top: -0.5rem;">
+          <li style="width: 100%; height:2.5rem;margin-top: -0.5rem;" v-if="showDotLoader">
             <dot-loader
               :dot-position="'flex-'+'start'"></dot-loader>
           </li>
@@ -61,7 +68,6 @@
     </section>
 
 
-
   </div>
 </template>
 
@@ -69,28 +75,40 @@
 
   import headTop from 'src/components/header/head'
   import refresh from "../../components/common/refresh";
-  import {cityGuess, hotcity, groupcity, latestBook, hotBook} from 'src/service/apis'
+  import {latestBook, hotBook, searchBook} from 'src/service/apis'
   import {mapState, mapMutations} from 'vuex'
   import BScroll from 'better-scroll'
   import DotLoader from "../../components/common/dotLoader";
   import ListSkeleton from "../../components/loading/listSkeleton";
   import jumpLoader from "../../components/loading/jumpLoader";
   import {isEmpty} from "../../config/utils";
+  import SearchBar from "../../components/search/searchBar";
 
   export default {
     data() {
       return {
         books: [],
+        search: {
+          keyword: undefined,
+          showSearchBar: false,
+        },
         alertMessage: null,
         isScrollToBotton: false,
         isRefreshing: false,
         showLoading: true,
+        showDotLoader: true,
         isScrolling: false,
         preventDuplicatedRequest: false,
-        offset: 0
+        offset: 0,
+
       }
     },
-
+    created() {
+      this.search.keyword = this.$route.query.keyword;
+      if (this.search.keyword) {
+        this.search.showSearchBar = true;
+      }
+    },
     mounted() {
       this.initData();
       var self = this;
@@ -103,8 +121,8 @@
             click: true,
             taps: true,
             pullUpLoad: true,
-            pullUpload:{
-              thresold:40
+            pullUpload: {
+              thresold: 40
             },
             pullDownRefresh: true,
             pullDownRefresh: {
@@ -128,7 +146,7 @@
         this.scroll.on('pullingUp', () => {
           console.log('bottom arrtive');
           self.isScrollToBotton = true;
-          self.loadMore().then(()=>{
+          self.loadMore().then(() => {
             self.scroll.finishPullUp();
           })
 
@@ -150,14 +168,16 @@
     },
 
     components: {
+      SearchBar,
       ListSkeleton,
       DotLoader,
-      headTop, refresh,jumpLoader
+      headTop, refresh, jumpLoader
     }
     ,
     computed: {
       ...
-        mapState(['menuState'])
+        mapState(['menuState']),
+
     },
     watch: {
       isRefreshing: function (newValue) {
@@ -171,14 +191,13 @@
 
     },
     methods: {
-      ...
-        mapMutations(['RECORD_BOOK','SAVE_HOTLIST']),
+      ...mapMutations(['RECORD_BOOK', 'SAVE_HOTLIST']),
       refreshBookList() {
         this.isRefreshing = true;
 
 
         var self = this
-        this.initData().then(()=>{
+        this.initData().then(() => {
           self.isRefreshing = false;
           console.log('refresh done')
         })
@@ -191,13 +210,18 @@
       },
       async initData() {
         this.showLoading = true;
-        hotBook(7).then(res=>{
-         if(!isEmpty(res.response)){
-           this.SAVE_HOTLIST(res.response);
-         }
+        hotBook(6).then(res => {
+          if (!isEmpty(res.response)) {
+            this.SAVE_HOTLIST(res.response);
+          }
         });
-        //https://openacg.blob.core.windows.net/image/1s.jpg
-        let res = await latestBook(0, 20);
+        let res = null;
+        if (this.search.keyword) {
+          res = await searchBook(0, 20, this.search.keyword)
+        } else {
+          res = await latestBook(0, 20);
+        }
+
         res = Object.assign([], res.response);
         res.forEach(book => {
           let newUrl = book.cover_url.split('/').pop();// get image file name
@@ -206,6 +230,7 @@
 
         })
         this.books = res;
+        this.showDotLoader = this.books.length >= 20;
         this.showLoading = false;
       }
       ,
@@ -216,9 +241,15 @@
         }
         this.preventDuplicatedRequest = true;
         this.offset += 20;
-        let res = await latestBook(this.offset, 20);
+        let res = null;
+        if (this.search.keyword) {
+          res = await searchBook(this.offset, 20, this.search.keyword)
+        } else {
+          res = await latestBook(this.offset, 20);
+        }
+
         if (res.response && res.response.length > 0) {
-          res.response.forEach(book=>{
+          res.response.forEach(book => {
             book.cover_url = 'http://openacg.blob.core.windows.net/image/' + book.cover_url.split('/').pop();
           })
           this.books = this.books.concat(res.response);
@@ -230,13 +261,30 @@
         } else {
           this.alertMessage = 'unknown error';
         }
+        this.showDotLoader = res.response.length >= 20;
         this.preventDuplicatedRequest = false;
         return;
       },
       gotoBookDetail(book) {
         this.RECORD_BOOK(book);
         this.$router.push('/book/' + book.id);
+      },
+      onCancel: function () {
+        this.$route.query.keyword = '';
+        this.search.keyword = '';
+        this.search.showSearchBar = false;
+        this.initData();//fetch home data
+      },
+      onSearch: function () {
+        this.initData();
+      },
+      onClear: function () {
+        this.search.keyword = '';
+      },
+      onFocus: function () {
+        this.onClear();
       }
+
     }
   }
 
@@ -280,14 +328,16 @@
     }
 
     .book-list-container {
-      height: 95%;
+      height: 100%;
+      width: 100%;
       padding-left: .65rem;
-      padding-top: 1rem;
       padding-right: .8rem;
       background-color: #fff;
       overflow: hidden;
 
       ul {
+        position: absolute;
+        top: 0;
         background-color: #fff;
       }
 
@@ -299,20 +349,22 @@
         align-items: flex-start;
         background-color: #fff;
 
-        .book-cover{
+        .book-cover {
           margin-right: .5rem;
           box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+
           img {
             @include wh(4rem, 6rem)
             text-align: center;
-            font-size:.8rem;
-            white-space:pre-wrap;
+            font-size: .8rem;
+            white-space: pre-wrap;
           }
         }
 
 
         .book-description {
           max-width: 70%;
+
           .book-header {
             display: flex;
             justify-content: space-between;
@@ -323,6 +375,11 @@
               font-size: .8rem;
               max-width: 75%;
 
+            }
+
+            .status {
+              width: 25%;
+              text-align: center;
             }
 
             .completed {
