@@ -27,7 +27,7 @@
           switch (this.where) {
             case 'bottom': ret='5%';break;
             case 'center': ret = '50%';break;
-            case 'top':ret = '25%';break;
+            case 'top':ret = '75%';break;
             default:
               ret='5%'
           }

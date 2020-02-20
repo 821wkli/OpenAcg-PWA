@@ -41,7 +41,7 @@
             </div>
             <div class="book-detail-btn">
               <div class="btn-group">
-                <div class="btn">開始閱讀</div>
+                <div @click="goToChapter(firstChapter)" class="btn">開始閱讀</div>
                 <div class="btn" :class="{inBookshelfColor:bookshelfStatus.isInBookshelf}" @click="addToBookShelf">
                   {{bookshelfStatus.message}}
                 </div>
@@ -69,8 +69,9 @@
         </span>
           </section>
         </section>
-        <section class="latest-chapter-wrapper">
-          <span>{{book.last_updated_chapter_name}}</span>
+        <section class="latest-chapter-wrapper"
+          @click="goToChapter(lastChapter)">
+          <span>{{lastChapter.volume_name+' '+lastChapter.chapter_name}}</span>
           <span>
          <svg class="icon icon-arrow-r" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-r"></use>
@@ -172,6 +173,9 @@
           }
         });
       },
+      goToChapter(chapter){
+        this.$router.push({name:'reader',params:{bookid:this.bookid},query:{chapterid:chapter.id}})
+      },
       ...mapMutations(['RECORD_BOOK', 'SAVE_CHAPTER_LIST', 'RECORD_CURRENT_VOLUME_CHAPTERS', 'RECORD_BOOKSHELF_LIST', 'GET_BOOKSHELF_LIST']),
       hidePanel() {
         this.volumePanel.showChapterPanel = !this.volumePanel.showChapterPanel;
@@ -238,7 +242,17 @@
     },
     computed: {
       ...mapState(['book', 'bookshelfList']),
-      showLoading: function () {
+      firstChapter: function(){
+        return this.volumePanel.chapterList[0].chapters[0]
+      },
+      lastChapter:function(){
+       if(!isEmpty(this.volumePanel.chapterList)){
+         const lastVolumes = this.volumePanel.chapterList[this.volumePanel.chapterList.length-1];
+           return {...{volume_name:lastVolumes.name},...lastVolumes.chapters[lastVolumes.chapters.length-1]};
+       }
+       return 'Loading'
+      },
+      showLoading: function () {``
         if (isEmpty(this.book)) {
           return true;
         }
@@ -445,11 +459,13 @@
       border-bottom: 2px solid #e0e0e0;
       border-top: 2px solid #e0e0e0;
       align-items: center;
+      overflow: hidden;
 
       span {
         @include sc(.65rem, blue)
         line-height: 1.8rem;
         height: 1.8rem;
+
 
       }
 

@@ -15,13 +15,11 @@ export default [{
     {path: '', redirect: '/home'},               // redirect /#/ to /#/home
     {path: '/home', name:'home',component: home},            //home page
     {
-      path: '/book/:bookid', name:'book',component: book,
-      children: [
-        { path: '', component: book },
-      ]
+      path: '/book/:bookid', name:'book',component: book
     },    //book detail page
     {
       path: '/reader/:bookid',
+      name:'reader',
       component: read
     },
     {
