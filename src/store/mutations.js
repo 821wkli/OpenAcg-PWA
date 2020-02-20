@@ -6,14 +6,15 @@ import {
   GET_BOOKSELF_LIST,
   RECORD_CURRENT_READING_CHAPTER,
   SAVE_CHAPTER_LIST,
-  SAVE_SETTING
+  SAVE_SETTING,
+  CLEAR_SEARCH_HISTORY
 } from './mutation-types.js'
 import {
   getUser
 } from "../service/apis";
 import {
   setStore,
-  getStore,
+  getStore, removeStore,
 } from '../config/utils'
 import {INIT_SHOPID, RECORD_SHOPID, SAVE_HOTLIST, SAVE_SEARCH_HISTORY} from "./mutation-types";
 
@@ -63,5 +64,9 @@ export default {
       setStore('searchHistory', list)
       state.searchHistoryList = list;
     }
+  },
+  [CLEAR_SEARCH_HISTORY](state,historyList){
+    state.searchHistoryList = null;
+    removeStore('searchHistory');
   }
 }

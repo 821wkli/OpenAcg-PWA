@@ -23,9 +23,11 @@
     <section class="search-history-container">
       <header class="history-title">
         <p>History</p>
+        <p @click="this.CLEAR_SEARCH_HISTORY"
+           style="color: blue">Clear</p>
       </header>
       <ul class="history-list">
-        <li class="item" v-for="(item,index) in searchHistoryList " @click="goToBook(item)">
+        <li :key="item.id" class="item" v-for="(item,index) in reversedSearchHistoryList " @click="goToBook(item)">
           <span class="icon">
             <img src="//s1.hdslb.com/bfs/static/mult/images/history.png" alt="">
           </span>
@@ -51,18 +53,21 @@
     },
     computed: {
       ...mapState(['hotList','searchHistoryList']),
+      reversedSearchHistoryList: function(){
+        return isEmpty(this.searchHistoryList)?[]:this.searchHistoryList.reverse();
+      },
       hottestBook: function () {
         return !isEmpty(this.hotList) ? this.hotList[Math.floor(Math.random() * this.hotList.length)].title : '';
       }
     },
     methods: {
-      ...mapMutations(['SAVE_SEARCH_HISTORY']),
+      ...mapMutations(['SAVE_SEARCH_HISTORY','CLEAR_SEARCH_HISTORY']),
       goToBook:function(item){
         this.SAVE_SEARCH_HISTORY({historyEntry:item})
         this.$router.push({name:'book',params:{bookid:item.id}});
       },
       onSearch: function () {
-
+          this.$router.push({name:'home',query:{keyword:this.searchText}});
       },
       onCancel: function () {
         this.$router.go(-1);
@@ -139,7 +144,12 @@
     .search-history-container{
       margin-left: .53333rem;
       margin-right: .14933rem;
+      padding-right: 3.33%;
+
       .history-title{
+        display: flex;
+        justify-content: space-between;
+
         p{
           text-align: left;
           color: #999;
