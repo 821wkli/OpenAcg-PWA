@@ -19,7 +19,9 @@ const state = {
   previousChapter:null,
   nextChapter:null,
   chapterList:[],
-  setting:getStore('setting')||defaultSetting
+  setting:getStore('setting')||defaultSetting,
+  hotList: [],
+  searchHistoryList:getStore('searchHistory')||[]
 }
 
 export default new Vuex.Store({

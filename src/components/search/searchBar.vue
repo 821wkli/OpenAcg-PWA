@@ -9,9 +9,12 @@
         <input type="search" class="search-input"
                :value="value"
                @input="$emit('input', $event.target.value)"
-               maxlength="33" autocomplete="off"
+               autocomplete="off"
                :placeholder="placeholder"
-               :style="{borderRadius:shape==='round'?'0.512rem':'.17067rem'}"
+               @focus="doFocus"
+               @blur="doBlur"
+               :style="{borderRadius:shape==='round'?'.512rem':'.17067rem'}"
+\
 
         >
         <i v-show="showClearIcon"@click="clearText" class="clear-icon"></i>
@@ -30,6 +33,15 @@
       }
     },
     methods: {
+
+      doFocus: function(){
+        console.log('test')
+        this.$emit('doFocus')
+      },
+      doBlur:function(){
+        this.$emit('doBlur');
+      },
+
       search: function () {
         this.$emit('search')
       },
@@ -86,10 +98,12 @@
     padding: 0 3.33%;
     background-color: #fff;
     z-index: 1;
-    border-radius: 1rem;
+
 
     .search-box {
-      border-radius: 1rem;
+
+
+    .search-box {
       position: relative;
       width: 88.2%;
       height: 1.28rem;
@@ -111,10 +125,11 @@
       width: 100%;
       height: 100%;
       padding-left: 1.70667rem;
-      padding-right: 3.37067rem;
+
       box-sizing: border-box;
       font-size: .55467rem;
       border: .02133rem solid #e7e7e7;
+      border-radius: .17067rem;
       background-color: #f4f4f4;
       color: #999999;
     }

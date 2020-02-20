@@ -25,7 +25,7 @@
             }">{{headTitle}}</span>
       </section>
       <section v-if="showOperator" class="operators">
-        <section class="search">
+        <section class="search" @click="$router.push('/search')">
           <svg
             width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use>
