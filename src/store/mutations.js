@@ -7,7 +7,10 @@ import {
   RECORD_CURRENT_READING_CHAPTER,
   SAVE_CHAPTER_LIST,
   SAVE_SETTING,
-  CLEAR_SEARCH_HISTORY
+  CLEAR_SEARCH_HISTORY,
+  SAVE_HOME_SCROLLING_POSY,
+  UPDATE_BOOKSHELF_LIST
+
 } from './mutation-types.js'
 import {
   getUser
@@ -16,9 +19,15 @@ import {
   setStore,
   getStore, removeStore,
 } from '../config/utils'
-import {INIT_SHOPID, RECORD_SHOPID, SAVE_HOTLIST, SAVE_SEARCH_HISTORY} from "./mutation-types";
+import {INIT_SHOPID, RECORD_SHOPID, SAVE_HOTLIST, SAVE_LATEST_BOOK_LIST, SAVE_SEARCH_HISTORY} from "./mutation-types";
 
 export default {
+  [SAVE_LATEST_BOOK_LIST](state,books){
+    state.latestBookList = books;
+  },
+  [SAVE_HOME_SCROLLING_POSY](state,posY){
+    state.homePagePosY = posY
+  },
   [SAVE_HOTLIST](state,hotList){
     state.hotList = hotList;
   },
@@ -42,6 +51,10 @@ export default {
       state.bookshelfList = books;
     }
   },
+[UPDATE_BOOKSHELF_LIST](state,list){
+    setStore('bookshelf',list);
+    state.bookshelfList = list;
+},
   [GET_BOOKSELF_LIST](state){
     let books = getStore('bookshelf') || [];
     state.bookshelfList = books;

@@ -7,7 +7,7 @@
                 @search="onSearch"
                 @clear="onClear"
                 @doFocus="onFocus"
-                @doBlur = 'onBlur'
+                @doBlur='onBlur'
 
     ></search-bar>
     `
@@ -16,7 +16,7 @@
         <p>大家都在搜</p>
       </header>
       <div class="hot-items">
-        <div @click="goToBook(item)"class='item' v-for="(item,index) in hotList"><p>{{item.title}}</p></div>
+        <div @click="goToBook(item)" class='item' v-for="(item,index) in hotList"><p>{{item.title}}</p></div>
       </div>
     </section>
     <div class="line" style="background: #f4f4f4;height: .5rem"></div>
@@ -40,8 +40,9 @@
 
 <script>
   import SearchBar from "../../components/search/searchBar";
-  import {mapState,mapMutations} from 'vuex'
+  import {mapState, mapMutations} from 'vuex'
   import {isEmpty} from "../../config/utils";
+  import {SAVE_HOME_SCROLLING_POSY} from "../../store/mutation-types";
 
   export default {
     name: "search",
@@ -52,22 +53,26 @@
       }
     },
     computed: {
-      ...mapState(['hotList','searchHistoryList']),
-      reversedSearchHistoryList: function(){
-        return isEmpty(this.searchHistoryList)?[]:this.searchHistoryList.reverse();
+      ...mapState(['hotList', 'searchHistoryList']),
+      reversedSearchHistoryList: function () {
+        return isEmpty(this.searchHistoryList) ? [] : this.searchHistoryList.reverse();
       },
       hottestBook: function () {
         return !isEmpty(this.hotList) ? this.hotList[Math.floor(Math.random() * this.hotList.length)].title : '';
       }
     },
+    created() {
+      this.SAVE_LATEST_BOOK_LIST(null);
+      SAVE_HOME_SCROLLING_POSY(0);
+    },
     methods: {
-      ...mapMutations(['SAVE_SEARCH_HISTORY','CLEAR_SEARCH_HISTORY']),
-      goToBook:function(item){
-        this.SAVE_SEARCH_HISTORY({historyEntry:item})
-        this.$router.push({name:'book',params:{bookid:item.id}});
+      ...mapMutations(['SAVE_HOME_SCROLLING_POSY', 'SAVE_SEARCH_HISTORY', 'CLEAR_SEARCH_HISTORY', 'SAVE_LATEST_BOOK_LIST']),
+      goToBook: function (item) {
+        this.SAVE_SEARCH_HISTORY({historyEntry: item})
+        this.$router.push({name: 'book', params: {bookid: item.id}});
       },
       onSearch: function () {
-          this.$router.push({name:'home',query:{keyword:this.searchText}});
+        this.$router.push({name: 'home', query: {keyword: this.searchText}});
       },
       onCancel: function () {
         this.$router.go(-1);
@@ -141,16 +146,17 @@
 
       }
     }
-    .search-history-container{
+
+    .search-history-container {
       margin-left: .53333rem;
       margin-right: .14933rem;
       padding-right: 3.33%;
 
-      .history-title{
+      .history-title {
         display: flex;
         justify-content: space-between;
 
-        p{
+        p {
           text-align: left;
           color: #999;
           font-size: .59733rem;
@@ -158,25 +164,28 @@
         }
 
       }
-      .history-list{
+
+      .history-list {
         margin-top: .5rem;
-        li{
+
+        li {
           display: flex;
           justify-content: flex-start;
           height: 1.87733rem;
 
           border-bottom: .02133rem solid #ccc;
 
-          .icon{
+          .icon {
             width: .55rem;
             margin-top: .59733rem;
-            img{
+
+            img {
               display: block;
               width: 100%;
             }
           }
 
-          .title{
+          .title {
             width: 11.94667rem;
             overflow: hidden;
             white-space: nowrap;
