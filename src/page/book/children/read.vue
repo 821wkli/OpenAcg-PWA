@@ -45,7 +45,13 @@
           <span class="btn square" :class="{active:!setting.darkTheme}" @click="setDarkTheme(false)">Light mode</span>
           <span class="btn square" :class="{active:setting.darkTheme}" @click="setDarkTheme(true)">Dark mode</span>
         </div>
-        <div class="item clearfix"></div>
+        <div class="item clearfix">
+          <span @click="switchChapter(previousChapterId)"
+                class="btn square large">Last Chapter</span>
+          <span @click="view.isShowChapterListPanel=true" class="btn square large menu">Menu</span>
+          <span @click="switchChapter(nextChapterId)"
+                class="btn square large">Next Chapter</span>
+        </div>
       </section>
     </section>
     <ios-alert v-show="view.showAlert"
@@ -54,7 +60,15 @@
                @ok="view.showAlert=false"
                @cancel="view.showAlert=false"
     ></ios-alert>
-    <jump-loader v-if="view.showLoading"></jump-loader>
+    <jump-loader where="top"
+                 v-if="view.showLoading"></jump-loader>
+    <transition name="slide-left">
+      <chapter-list-panel @onTouchCover="view.isShowChapterListPanel=false"
+                          v-if="view.isShowChapterListPanel"
+                          :chapter-list="chapterList"
+                          :book-info="bookInfo"
+      ></chapter-list-panel>
+    </transition>
   </div>
 
 
@@ -70,13 +84,17 @@
   import iosAlert from "../../../components/common/alert";
   import jumpLoader from "../../../components/loading/jumpLoader";
   import {isEmpty} from "../../../config/utils";
+  import ChapterListPanel from "../../../components/reader/chapterListPanel";
+  import {fetchBook} from "../../../service/apis";
 
   export default {
     name: "read",
-    components: {headTop, VueRangeSlider, iosAlert, jumpLoader},
+    components: {ChapterListPanel, headTop, VueRangeSlider, iosAlert, jumpLoader},
     data() {
       return {
-        cid:null,
+        bookInfo: null,
+        book: null,
+        cid: null,
         preventDuplicatedRequest: false,
         bookid: null,
         debug: {
@@ -88,6 +106,7 @@
           showPanel: false,
           showAlert: false,
           showLoading: false,
+          isShowChapterListPanel: false,
           alert: {
             title: 'OpenAcg',
             text: ''
@@ -115,12 +134,55 @@
     computed: {
       ...mapState(['recentReadingChapterList', 'currentVolumeChapters', 'chapterList', 'setting']),
       previousPosY: function () {
-        let book = this.recentReadingChapterList.find(book => book.bookid == this.bookid&& book.chapterid == this.cid);
+        let book = this.recentReadingChapterList.find(book => book.bookid == this.bookid && book.chapterid == this.cid);
         return !isEmpty(book) ? book.posY : 0;
+      },
+      isEndOfBook: function () {
+        if ((this.currentChapter && this.currentChapter.id === this.nextChapterId)
+          || (isEmpty(this.nextChapterId))
+        ) {
+          return true;
+        }
+        return false;
       }
 
     },
     watch: {
+      '$route'(to, from) {
+        console.log('test')
+        if (from.query.chapterid && to.query.chapterid) {
+          const self = this;
+          this.cid = to.query.chapterid;
+          this.initData().then(() => {
+            let latestRenderedList = Array.from(document.getElementsByClassName('reader-ul')[0].children).pop() || null;
+            if (self.scroll && latestRenderedList != null) {
+              self.scroll.scrollToElement(latestRenderedList, 0, 0, 0)
+            }
+
+
+          })
+          //this.$router.go()
+        }
+
+      },
+      'view.isShowChapterListPanel': function (newValue) {
+        if (newValue) {
+          this.view.showPanel = false;
+        }
+      },
+      book: function (newValue) {
+        if (!isEmpty(newValue)) {
+          this.bookInfo = {
+            id: newValue.id,
+            title: newValue.title,
+            currentChapter: {
+              chapter_name: this.currentChapter.chapter_name,
+              id: this.currentChapter.id
+            }
+          }
+        }
+
+      },
       'view.slider.value': function (newVal) {
 
         let obj = {fontSize: `${newVal / 10}rem`};
@@ -132,11 +194,17 @@
         //get next chapter id
 
         if (this.chapterList && this.currentChapter) {
-          for (var i = 0; i < this.chapterList.length; i++) {
-            if (this.currentChapter.id === this.chapterList[i] && i != this.chapterList.length - 1) {
-              this.nextChapterId = this.chapterList[i + 1];
-              this.previousChapterId = this.chapterList[i];
-              break;
+          const chapterids = this.chapterList.map(chapter => chapter.id)
+          for (var i = 0; i < chapterids.length; i++) {
+            if (this.currentChapter.id === chapterids[i]) {
+              if (i < chapterids.length - 1) {
+                this.nextChapterId = chapterids[i + 1];
+                this.previousChapterId = chapterids[i - 1];
+                break;
+              }else{
+                this.previousChapterId = chapterids[i - 1];
+                break;
+              }
             }
           }
         }
@@ -155,9 +223,9 @@
       if (renderedChapterList.length <= 1) {
         console.log(this.view.currentFingerPosY)
       } else {
-        const listHeight = renderedChapterList.map(item=>item.clientHeight).reduce((prev,curr)=>prev + curr);
-        const lastChapterListHeight = renderedChapterList[renderedChapterList.length-1].clientHeight;
-        this.view.currentFingerPosY = -(lastChapterListHeight-(listHeight - Math.abs(this.view.currentFingerPosY)))
+        const listHeight = renderedChapterList.map(item => item.clientHeight).reduce((prev, curr) => prev + curr);
+        const lastChapterListHeight = renderedChapterList[renderedChapterList.length - 1].clientHeight;
+        this.view.currentFingerPosY = -(lastChapterListHeight - (listHeight - Math.abs(this.view.currentFingerPosY)))
         console.log(this.view.currentFingerPosY);
       }
       this.RECORD_CURRENT_READING_CHAPTER({
@@ -205,15 +273,21 @@
     },
     methods: {
       ...mapMutations(['RECORD_CURRENT_READING_CHAPTER', 'SAVE_SETTING']),
-      initData() {
+      async initData() {
         this.view.showLoading = true;
         this.loadChapterContent(this.cid).then(() => {
           this.view.showLoading = false
-          if (this.previousPosY < 0&&this.scroll) {
+          if (this.previousPosY < 0 && this.scroll) {
             this.scroll.refresh();
             this.scroll.scrollTo(0, this.previousPosY);
           }
         })
+
+        let res = await fetchBook(this.bookid);
+        if (res.response) {
+          this.book = res.response;
+        }
+
       }
       ,
       setDarkTheme(mode) {
@@ -258,12 +332,29 @@
 
         return;
       },
+
+      switchChapter(cid) {
+        if (this.currentChapter && this.currentChapter.id === cid) {
+          console.log('no more data');
+          return;
+        }
+        let bid = this.bookid;
+        if (!isEmpty(cid)) {
+          this.$router.replace({
+            query: {
+              chapterid: cid
+            }
+          })
+
+        }
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
   @import "src/style/mixin";
+
 
   .container {
     position: absolute;
@@ -280,8 +371,8 @@
         left: 0;
         z-index: 21;
         width: 100%;
-        height: 6.53333rem;
-        padding: 1.3rem .53333rem .53333rem;
+        height: 8.53333rem;
+        padding: 1.3rem .53333rem 1.3rem .53333rem;
 
         background-color: rgba(50, 51, 52, .9);
 
@@ -304,7 +395,15 @@
             line-height: 1.8rem;
             height: 1.8rem;
             text-align: center;
+          }
 
+          .large {
+            border: none;
+            font-size: .8rem;
+          }
+
+          .menu {
+            color: #a8a8a8;
           }
 
           .active {

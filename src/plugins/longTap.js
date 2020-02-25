@@ -51,7 +51,7 @@ export default {
       let touch = event.changedTouches[0]
       startX = touch.clientX
       startY = touch.clientY
-      // settimeout 函数
+      // settimeout
       r = setTimeout(() => {
         r = null
         /**
@@ -60,7 +60,7 @@ export default {
          *
          * v-longtap = "cb"
          * v-longtap = "{handler: cb}"
-         * can not do something like this：v-longtap = "cb()"，这种形式绑定时就会执行 cb
+         * can not do something like this：v-longtap = "cb()"，
          */
         if (typeof value === 'function') {
           value(event, data, vNode)

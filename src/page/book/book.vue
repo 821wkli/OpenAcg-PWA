@@ -205,7 +205,7 @@
         if (res.response) {
           this.volumePanel.chapterList = Array.concat([], res.response);
           let chapters = this.volumePanel.chapterList.reduce((preVolume, currentVolume) => {
-            return preVolume.concat(currentVolume.chapters.map(chapter => chapter.id))
+            return preVolume.concat(currentVolume.chapters)
           }, []);
           this.SAVE_CHAPTER_LIST(chapters);
         }

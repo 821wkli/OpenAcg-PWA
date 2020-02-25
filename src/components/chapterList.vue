@@ -90,6 +90,7 @@
     .chapter-list-ul{
       padding-left: .4rem;
       padding-right: .4rem;
+      background-color: #fff;
       li{
         overflow:hidden;
         text-overflow: ellipsis;
