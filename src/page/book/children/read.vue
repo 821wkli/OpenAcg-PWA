@@ -69,17 +69,21 @@
   import BScroll from 'better-scroll'
   import iosAlert from "../../../components/common/alert";
   import jumpLoader from "../../../components/loading/jumpLoader";
+  import {isEmpty} from "../../../config/utils";
 
   export default {
     name: "read",
     components: {headTop, VueRangeSlider, iosAlert, jumpLoader},
     data() {
       return {
+        cid:null,
         preventDuplicatedRequest: false,
+        bookid: null,
         debug: {
           counter: 1
         },
         view: {
+          currentFingerPosY: 0,
           darkMode: false,
           showPanel: false,
           showAlert: false,
@@ -109,14 +113,13 @@
       }
     },
     computed: {
-      ...mapState(['currentVolumeChapters', 'chapterList', 'setting'])
+      ...mapState(['recentReadingChapterList', 'currentVolumeChapters', 'chapterList', 'setting']),
+      previousPosY: function () {
+        let posY = this.recentReadingChapterList.find(book => book.bookid === this.bookid&& book.chapterid === this.cid).posY;
+        return posY ? posY : 0;
+      }
+
     },
-    // beforeDestroy() {
-    //   this.SAVE_SETTING({
-    //     fontSize: this.view.paragrah.fontSize,
-    //     darkTheme: this.view.darkMode
-    //   })
-    // },
     watch: {
       'view.slider.value': function (newVal) {
 
@@ -125,14 +128,15 @@
       },
       chapters: function (newChapters) {
         this.currentChapter = newChapters[newChapters.length - 1];
-        this.RECORD_CURRENT_READING_CHAPTER(this.currentChapter);
+        //this.RECORD_CURRENT_READING_CHAPTER({bookid: this.bookid, chapterid: this.currentChapter.id, posY: 0});
         //get next chapter id
 
         if (this.chapterList && this.currentChapter) {
           for (var i = 0; i < this.chapterList.length; i++) {
             if (this.currentChapter.id === this.chapterList[i] && i != this.chapterList.length - 1) {
               this.nextChapterId = this.chapterList[i + 1];
-              this.previousChapterId = this.currentChapter.id;
+              this.previousChapterId = this.chapterList[i];
+              break;
             }
           }
         }
@@ -141,8 +145,27 @@
     },
 
     created() {
+      this.bookid = parseInt(this.$route.params.bookid);
       this.cid = this.$route.query.chapterid;
 
+    },
+    beforeDestroy() {
+      //save reading history logic here
+      let renderedChapterList = Array.from(document.getElementsByClassName('reader-ul')[0].children);
+      if (renderedChapterList.length <= 1) {
+        console.log(this.view.currentFingerPosY)
+      } else {
+        let ret = renderedChapterList.reduce((pre, cur) => {
+          let preHeight = pre.clientHeight || 0;
+          return preHeight + cur.clientHeight;
+        });
+        this.view.currentFingerPosY = this.view.currentFingerPosY - ret;
+      }
+      this.RECORD_CURRENT_READING_CHAPTER({
+        bookid: this.bookid,
+        chapterid: this.currentChapter.id,
+        posY: this.view.currentFingerPosY
+      });
     },
     mounted() {
 
@@ -162,6 +185,12 @@
             },
           };
           this.scroll = new BScroll(this.$refs.wrapper, options);
+
+          this.scroll.on('scroll', (pos) => {
+            console.log(pos.y);
+            this.view.currentFingerPosY = pos.y;
+
+          })
           //load more data reach bottom
           this.scroll.on('pullingUp', () => {
             console.log('bottom arrtive');
@@ -179,7 +208,13 @@
       ...mapMutations(['RECORD_CURRENT_READING_CHAPTER', 'SAVE_SETTING']),
       initData() {
         this.view.showLoading = true;
-        this.loadChapterContent(this.cid).then(() => this.view.showLoading = false)
+        this.loadChapterContent(this.cid).then(() => {
+          this.view.showLoading = false
+          if (this.previousPosY < 0&&this.scroll) {
+            this.scroll.refresh();
+            this.scroll.scrollTo(0, this.previousPosY);
+          }
+        })
       }
       ,
       setDarkTheme(mode) {
@@ -200,7 +235,7 @@
             line = line.replace(/\s+/, "")
           })
           this.chapters.push(chapter);
-          this.RECORD_CURRENT_READING_CHAPTER(chapter);
+          //this.RECORD_CURRENT_READING_CHAPTER({bookid: this.bookid, chapterid: chapter.id, posY: 0});
           this.$route.params.chapterid = chapter.id;
         }
       },
@@ -290,6 +325,10 @@
       @include wh(100%, 100%)
       /*background: url(../../../images/skin-default-t.ece62.jpg) no-repeat center top, url(../../../images/skin-default-b.79f06.jpg) no-repeat center bottom, url(../../../images/skin-default-m.35905.jpg) repeat-y center 119px;*/
       /*background-size: 100%;*/
+      .reader-ul {
+        min-height: 100%;
+      }
+
 
     }
 

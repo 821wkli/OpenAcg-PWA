@@ -159,6 +159,8 @@
     .wrapper {
       width: 100%;
       height: 100%;
+      position:fixed;
+      overflow-y: scroll;
     }
 
     .history-list-ul {

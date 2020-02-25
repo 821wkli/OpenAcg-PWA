@@ -8,6 +8,7 @@ import {chinese} from 'src/langs/chinese'
 
 Vue.prototype.$lang = {...chinese}
 Vue.use(VueRouter)
+
 const router = new VueRouter({
   routes,
   mode: routerMode,

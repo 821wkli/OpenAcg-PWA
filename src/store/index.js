@@ -18,6 +18,7 @@ const state = {
   currentVolumeChapters: null,
   bookshelfList:getStore('bookshelf')||[],
   currentReadingChapter:null,
+  recentReadingChapterList:getStore('recentReadingChapterList')||[],
   previousChapter:null,
   nextChapter:null,
   chapterList:[],

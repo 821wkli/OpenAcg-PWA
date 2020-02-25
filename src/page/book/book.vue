@@ -41,7 +41,8 @@
             </div>
             <div class="book-detail-btn">
               <div class="btn-group">
-                <div @click="goToChapter(firstChapter)" class="btn">開始閱讀</div>
+                <div @click="goToChapter" class="btn">
+                  {{continueChapterId? "繼續閱讀":'開始閱讀'}}</div>
                 <div class="btn" :class="{inBookshelfColor:bookshelfStatus.isInBookshelf}" @click="addToBookShelf">
                   {{bookshelfStatus.message}}
                 </div>
@@ -70,8 +71,9 @@
           </section>
         </section>
         <section class="latest-chapter-wrapper"
-          @click="goToChapter(lastChapter)">
-          <span>{{lastChapter.volume_name+' '+lastChapter.chapter_name}}</span>
+                 @click="goToChapter(lastChapter)">
+          <span v-if="lastChapter">{{lastChapter.volume_name+' '+lastChapter.chapter_name}}</span>
+
           <span>
          <svg class="icon icon-arrow-r" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-r"></use>
@@ -111,6 +113,7 @@
     </section>
   </div>
 
+
 </template>
 
 <script>
@@ -133,8 +136,8 @@
 
       var self = this;
       this.initData();
-    //avoid create scroll before data load.
-      if(this.book){
+      //avoid create scroll before data load.
+      if (this.book) {
         this.createScroll();
       }
     },
@@ -157,7 +160,7 @@
     beforeDestroy() {
       this.RECORD_BOOK(null);
     },
-    components: { ChapterList, headTop,jumpLoader},
+    components: {ChapterList, headTop, jumpLoader},
     methods: {
       createScroll: function () {
         this.$nextTick(() => {
@@ -173,8 +176,9 @@
           }
         });
       },
-      goToChapter(chapter){
-        this.$router.push({name:'reader',params:{bookid:this.bookid},query:{chapterid:chapter.id}})
+      goToChapter() {
+        let chapterid = this.continueChapterId ? this.continueChapterId : this.firstChapter.id;
+        this.$router.push({name: 'reader', params: {bookid: this.bookid}, query: {chapterid: chapterid}})
       },
       ...mapMutations(['RECORD_BOOK', 'SAVE_CHAPTER_LIST', 'RECORD_CURRENT_VOLUME_CHAPTERS', 'RECORD_BOOKSHELF_LIST', 'GET_BOOKSHELF_LIST']),
       hidePanel() {
@@ -207,7 +211,6 @@
         }
 
 
-
       },
       reorderVolumes(index) {
         if (index != this.order) {
@@ -235,24 +238,33 @@
 
       },
       book: function (newValue) {
-        if(!isEmpty(newValue)){
+        if (!isEmpty(newValue)) {
           this.createScroll();
         }
       }
     },
     computed: {
-      ...mapState(['book', 'bookshelfList']),
-      firstChapter: function(){
+      ...mapState(['book', 'bookshelfList', 'recentReadingChapterList']),
+      continueChapterId: function () {
+        let readerHistory = this.recentReadingChapterList.find(book => book.bookid == this.bookid);
+        if (!isEmpty(readerHistory)) {
+          return readerHistory.chapterid;
+        }
+        return null
+      },
+      firstChapter: function () {
         return this.volumePanel.chapterList[0].chapters[0]
       },
-      lastChapter:function(){
-       if(!isEmpty(this.volumePanel.chapterList)){
-         const lastVolumes = this.volumePanel.chapterList[this.volumePanel.chapterList.length-1];
-           return {...{volume_name:lastVolumes.name},...lastVolumes.chapters[lastVolumes.chapters.length-1]};
-       }
-       return 'Loading'
+      lastChapter: function () {
+        if (!isEmpty(this.volumePanel.chapterList)) {
+          const lastVolumes = this.volumePanel.chapterList[this.volumePanel.chapterList.length - 1];
+          return {...{volume_name: lastVolumes.name}, ...lastVolumes.chapters[lastVolumes.chapters.length - 1]};
+        }
+
+        return 'Loading ...'
       },
-      showLoading: function () {``
+      showLoading: function () {
+        ``
         if (isEmpty(this.book)) {
           return true;
         }
@@ -285,13 +297,15 @@
     left: 0;
     right: 0;
     height: 100vh;
-    .loader{
-      top:0;
+
+    .loader {
+      top: 0;
       position: fixed;
       width: 100vw;
       height: 100vh;
       background: #fff;
     }
+
     .book-main {
       height: 100%;
     }

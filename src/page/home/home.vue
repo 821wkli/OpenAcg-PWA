@@ -131,15 +131,28 @@
             }
           };
           this.scroll = new BScroll(this.$refs.wrapper, options);
+          // if (this.homePagePosY < 0) {
+          //   setTimeout(()=>{
+          //     self.scroll.refresh();
+          //     self.scroll.scrollTo(0, Math.round(self.homePagePosY));
+          //   },1000)
+          // }
         }
+
+
         //hide refresh button when scrolling
         this.scroll.on('scroll', () => {
           self.isScrolling = true;
+
         })
 
         //show refresh button once the finger was released
-        this.scroll.on('touchEnd', () => {
+        this.scroll.on('scrollEnd', (pos) => {
           self.isScrolling = false;
+          this.SAVE_HOME_SCROLLING_POSY(pos.y);
+
+          console.log('end posY ' + pos.y);
+
         })
 
         //load more data reach bottom
@@ -161,9 +174,6 @@
 
       });
 
-      // setTimeout(() => {
-      //   self.showLoading = false;
-      // }, 1000);
 
     },
 
@@ -176,10 +186,14 @@
     ,
     computed: {
       ...
-        mapState(['menuState']),
+        mapState(['menuState', 'homePagePosY', 'latestBookList']),
 
     },
     watch: {
+      books: function(newBooks){
+        this.SAVE_LATEST_BOOK_LIST(newBooks);
+
+      },
       isRefreshing: function (newValue) {
         //notify scroll
         if (!newValue) {
@@ -188,14 +202,23 @@
           }
         }
       },
-
+      showLoading: function (newValue) {
+        var self = this;
+        this.$nextTick(() => {
+          if (!newValue && self.scroll && self.homePagePosY < 0) {
+            self.scroll.refresh();
+            self.scroll.scrollTo(0, self.homePagePosY, 100);
+          }
+        })
+      }
     },
     methods: {
-      ...mapMutations(['RECORD_BOOK', 'SAVE_HOTLIST']),
+      ...mapMutations(['RECORD_BOOK', 'SAVE_HOTLIST', 'SAVE_HOME_SCROLLING_POSY','SAVE_LATEST_BOOK_LIST']),
       refreshBookList() {
         this.isRefreshing = true;
 
-
+        this.books = null;
+        this.SAVE_LATEST_BOOK_LIST(null);
         var self = this
         this.initData().then(() => {
           self.isRefreshing = false;
@@ -216,13 +239,18 @@
           }
         });
         let res = null;
-        if (this.search.keyword) {
-          res = await searchBook(0, 20, this.search.keyword)
-        } else {
-          res = await latestBook(0, 20);
+        if(isEmpty(this.latestBookList)) {
+          if (this.search.keyword) {
+            res = await searchBook(0, 20, this.search.keyword)
+          } else {
+            res = await latestBook(0, 20);
+          }
+          res = Object.assign([], res.response);
+        }
+        else{
+          res = [...this.latestBookList];
         }
 
-        res = Object.assign([], res.response);
         res.forEach(book => {
           let newUrl = book.cover_url.split('/').pop();// get image file name
           newUrl = 'http://openacg.blob.core.windows.net/image/' + newUrl;
@@ -273,6 +301,7 @@
         this.$route.query.keyword = '';
         this.search.keyword = '';
         this.search.showSearchBar = false;
+        this.SAVE_LATEST_BOOK_LIST(null);
         this.initData();//fetch home data
       },
       onSearch: function () {
@@ -324,6 +353,7 @@
       height: 100%;
       display: flex;
       flex-direction: column;
+      top: .75rem
 
     }
 

@@ -22,40 +22,54 @@ import {
 import {INIT_SHOPID, RECORD_SHOPID, SAVE_HOTLIST, SAVE_LATEST_BOOK_LIST, SAVE_SEARCH_HISTORY} from "./mutation-types";
 
 export default {
-  [SAVE_LATEST_BOOK_LIST](state,books){
+  [SAVE_LATEST_BOOK_LIST](state, books) {
     state.latestBookList = books;
   },
-  [SAVE_HOME_SCROLLING_POSY](state,posY){
+  [SAVE_HOME_SCROLLING_POSY](state, posY) {
     state.homePagePosY = posY
   },
-  [SAVE_HOTLIST](state,hotList){
+  [SAVE_HOTLIST](state, hotList) {
     state.hotList = hotList;
   },
-  [SAVE_SETTING](state,{fontSize,darkTheme}){
+  [SAVE_SETTING](state, {fontSize, darkTheme}) {
     state.setting.fontSize = fontSize;
     state.setting.darkTheme = darkTheme;
-    setStore('setting',state.setting);
+    setStore('setting', state.setting);
   },
-  [SAVE_CHAPTER_LIST](state,chapters){
+  [SAVE_CHAPTER_LIST](state, chapters) {
     state.chapterList = chapters
   },
-  [RECORD_CURRENT_READING_CHAPTER](state,chapter){
-    state.currentReadingChapter = chapter;
+  [RECORD_CURRENT_READING_CHAPTER](state, {bookid, chapterid, posY}) {
+    let historyList = getStore('recentReadingChapterList') || [];
+    let obj = {
+      bookid: bookid,
+      chapterid: chapterid,
+      posY: posY
+    }
+    let foundIndex = historyList.findIndex(item => item.bookid === bookid);
+    if(foundIndex ===-1){
+      historyList.push(obj);
+    }
+    else{
+      historyList[foundIndex] = obj;
+    }
+    state.recentReadingChapterList = historyList
+    setStore('recentReadingChapterList', historyList);
   },
   [RECORD_BOOKSHELF_LIST](state, book) {
     let books = getStore('bookshelf') || [];
-    let isDuplicated = books.some(item=>item.id === book.id);
-    if(!isDuplicated){
+    let isDuplicated = books.some(item => item.id === book.id);
+    if (!isDuplicated) {
       books.push(Object.assign({}, book));
       setStore('bookshelf', books)
       state.bookshelfList = books;
     }
   },
-[UPDATE_BOOKSHELF_LIST](state,list){
-    setStore('bookshelf',list);
+  [UPDATE_BOOKSHELF_LIST](state, list) {
+    setStore('bookshelf', list);
     state.bookshelfList = list;
-},
-  [GET_BOOKSELF_LIST](state){
+  },
+  [GET_BOOKSELF_LIST](state) {
     let books = getStore('bookshelf') || [];
     state.bookshelfList = books;
 
@@ -69,16 +83,16 @@ export default {
   [RECORD_CURRENT_VOLUME_CHAPTERS](state, currentVolumeChapters) {
     state.currentVolumeChapters = currentVolumeChapters
   },
-  [SAVE_SEARCH_HISTORY](state,{historyEntry}){
+  [SAVE_SEARCH_HISTORY](state, {historyEntry}) {
     let list = getStore('searchHistory') || [];
-    let isDuplicated = list.some(item=>item.id === historyEntry.id);
-    if(!isDuplicated){
+    let isDuplicated = list.some(item => item.id === historyEntry.id);
+    if (!isDuplicated) {
       list.push(Object.assign({}, historyEntry));
       setStore('searchHistory', list)
       state.searchHistoryList = list;
     }
   },
-  [CLEAR_SEARCH_HISTORY](state,historyList){
+  [CLEAR_SEARCH_HISTORY](state, historyList) {
     state.searchHistoryList = null;
     removeStore('searchHistory');
   }

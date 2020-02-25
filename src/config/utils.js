@@ -1,3 +1,4 @@
+
 export const isEmpty = (obj) => {
   if (obj instanceof Array) {
     if (obj.length === 0) return true;
@@ -21,6 +22,7 @@ export const setStore = (name, content) => {
 export const getStore = (name) => {
   if (!name) return;
   return JSON.parse(window.localStorage.getItem(name));
+
 }
 
 

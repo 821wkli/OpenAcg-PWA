@@ -48,9 +48,9 @@
     </header>
     <section class="guide" v-show="showGuide">
       <transition name="menu-slide">
-        <div class="guide-content" v-show="showGuide">
+        <div class="guide-content" ref="guideContent" v-show="showGuide" v-on="guideContent.handlers">
           <nav class="content-container">
-            <router-link to='/novel' class="item">
+            <router-link to='/home' class="item">
               <p :class="{active:selectedIndex==0}"
                  @click="selectedIndex==0"
               >{{$lang.homePage.novel}}</p>
@@ -91,8 +91,17 @@
     data() {
       return {
         showGuide: false,
-        selectedIndex: 0
+        selectedIndex: 0,
+        guideContent:{
+          handlers:{
+            touchmove: this.onTap
+          }
+        }
       }
+    },
+    watch:{
+
+
     },
     created() {
 
@@ -107,6 +116,16 @@
       ]),
     },
     methods: {
+      onTap(){
+        if(this.$refs.guideContent){
+          let posY = this.$refs.guideContent.getBoundingClientRect().top;
+          if(Math.ceil(Math.abs(posY))>=this.$refs.guideContent.clientHeight/2){
+            this.showGuide = false;
+          }
+
+        }
+
+      },
       ...mapMutations(['GET_USERINFO', 'RECORD_MENU_STATE']),
       ...mapActions(['getUserInfo']),
       toggleMenu() {

@@ -91,6 +91,8 @@
       padding-left: .4rem;
       padding-right: .4rem;
       li{
+        overflow:hidden;
+        text-overflow: ellipsis;
         line-height: 2rem;
         height: 2rem;
         @include sc(.65rem,$defaultColor);

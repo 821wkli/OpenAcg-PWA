@@ -63,7 +63,7 @@
     },
     created() {
       this.SAVE_LATEST_BOOK_LIST(null);
-      SAVE_HOME_SCROLLING_POSY(0);
+      this.SAVE_HOME_SCROLLING_POSY(0);
     },
     methods: {
       ...mapMutations(['SAVE_HOME_SCROLLING_POSY', 'SAVE_SEARCH_HISTORY', 'CLEAR_SEARCH_HISTORY', 'SAVE_LATEST_BOOK_LIST']),
