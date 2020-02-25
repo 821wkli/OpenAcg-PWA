@@ -116,7 +116,7 @@
       ...mapState(['recentReadingChapterList', 'currentVolumeChapters', 'chapterList', 'setting']),
       previousPosY: function () {
         let book = this.recentReadingChapterList.find(book => book.bookid == this.bookid&& book.chapterid == this.cid);
-        return book.posY!=undefined ? book.posY : 0;
+        return !isEmpty(book) ? book.posY : 0;
       }
 
     },
