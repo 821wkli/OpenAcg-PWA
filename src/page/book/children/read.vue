@@ -115,8 +115,8 @@
     computed: {
       ...mapState(['recentReadingChapterList', 'currentVolumeChapters', 'chapterList', 'setting']),
       previousPosY: function () {
-        let posY = this.recentReadingChapterList.find(book => book.bookid === this.bookid&& book.chapterid === this.cid).posY;
-        return posY ? posY : 0;
+        let book = this.recentReadingChapterList.find(book => book.bookid == this.bookid&& book.chapterid == this.cid);
+        return book.posY!=undefined ? book.posY : 0;
       }
 
     },
@@ -155,11 +155,10 @@
       if (renderedChapterList.length <= 1) {
         console.log(this.view.currentFingerPosY)
       } else {
-        let ret = renderedChapterList.reduce((pre, cur) => {
-          let preHeight = pre.clientHeight || 0;
-          return preHeight + cur.clientHeight;
-        });
-        this.view.currentFingerPosY = this.view.currentFingerPosY - ret;
+        const listHeight = renderedChapterList.map(item=>item.clientHeight).reduce((prev,curr)=>prev + curr);
+        const lastChapterListHeight = renderedChapterList[renderedChapterList.length-1].clientHeight;
+        this.view.currentFingerPosY = -(lastChapterListHeight-(listHeight - Math.abs(this.view.currentFingerPosY)))
+        console.log(this.view.currentFingerPosY);
       }
       this.RECORD_CURRENT_READING_CHAPTER({
         bookid: this.bookid,

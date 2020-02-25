@@ -72,8 +72,8 @@
         </section>
         <section class="latest-chapter-wrapper"
                  @click="goToChapter(lastChapter)">
-          <span v-if="lastChapter">{{lastChapter.volume_name+' '+lastChapter.chapter_name}}</span>
-
+          <span v-if="lastChapter.volume_name!=undefined">{{lastChapter.volume_name+' '+lastChapter.chapter_name}}</span>
+          <span v-else>Loading...</span>
           <span>
          <svg class="icon icon-arrow-r" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-r"></use>
