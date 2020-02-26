@@ -1,6 +1,6 @@
 import App from 'src/App'
 const home = r => require.ensure([], () => r(require('src/page/home/home')), 'home')
-const book = r => require.ensure([], () => r(require('src/page/book/book')), 'book')
+  const book = r => require.ensure([], () => r(require('src/page/book/book')), 'book')
 const read = r => require.ensure([], () => r(require('src/page/book/children/read')), 'read')
 const bookshelf = r => require.ensure([], () => r(require('src/page/bookshelf/bookshelf')), 'bookshelf')
 const setting = r => require.ensure([], () => r(require('src/page/setting/setting')), 'setting')

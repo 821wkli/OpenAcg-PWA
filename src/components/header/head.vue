@@ -10,7 +10,7 @@
   }">
       <slot name='logo'></slot>
       <slot name='search'></slot>
-      <section class="head_goback" v-if="goBack" @click="$router.go(-1)">
+      <section class="head_goback" v-if="goBack" @click="goback">
         <svg
           :class="{light: theme === 'light',
             dark:theme ==='dark'}"
@@ -86,6 +86,7 @@
 
 <script>
   import {mapState, mapMutations, mapActions} from 'vuex'
+  import {isEmpty} from "../../config/utils";
 
   export default {
     data() {
@@ -109,13 +110,21 @@
     },
     mounted() {
     },
-    props: ['showOperator', 'headTitle', 'goBack', 'isTransparent', 'headerPosition', 'theme'],
+    props: ['showOperator', 'headTitle', 'goBack', 'isTransparent', 'headerPosition', 'theme','gobackHandler'],
     computed: {
       ...mapState([
         'userInfo'
       ]),
     },
     methods: {
+      goback(){
+        if(typeof this.gobackHandler ==='function'){
+          this.gobackHandler()
+        }
+        else{
+          this.$router.go(-1)
+        }
+      },
       onTap(){
         if(this.$refs.guideContent){
           let posY = this.$refs.guideContent.getBoundingClientRect().top;

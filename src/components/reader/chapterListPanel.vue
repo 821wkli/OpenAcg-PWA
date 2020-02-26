@@ -49,7 +49,7 @@
             }
           };
           this.scroll = new BScroll(this.$refs.wrapper, options);
-          const currentChapterElement = document.getElementsByClassName('current')[0]||null;
+          const currentChapterElement = document.getElementsByClassName('active')[0]||null;
           this.scroll.scrollToElement(currentChapterElement,0,0,0);
         }
 

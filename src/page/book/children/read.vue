@@ -29,8 +29,10 @@
     <section class="control-panel" v-if="view.showPanel">
       <head-top :head-title="currentChapter.chapter_name"
                 go-back="true"
+                :goback-handler="onGoback.bind(null)"
                 theme="dark"
                 header-position="fixed"
+
       ></head-top>
 
       <section class="bottom-control-panel">
@@ -347,6 +349,10 @@
           })
 
         }
+      },
+      onGoback: function(){
+        let bid = this.bookid
+        this.$router.push({name:'book',params:{bookid:bid}})
       }
     }
   }

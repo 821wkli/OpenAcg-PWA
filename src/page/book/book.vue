@@ -4,6 +4,7 @@
       <section class="book-main" v-if="!volumePanel.showChapterPanel">
         <head-top :head-title="book.title"
                   :go-back="true"
+                  :goback-handler="onGoback.bind(null)"
                   :show-operator="false"
                   :is-transparent="true"
         ></head-top>
@@ -42,7 +43,8 @@
             <div class="book-detail-btn">
               <div class="btn-group">
                 <div @click="goToChapter" class="btn">
-                  {{continueChapterId? "繼續閱讀":'開始閱讀'}}</div>
+                  {{continueChapterId? "繼續閱讀":'開始閱讀'}}
+                </div>
                 <div class="btn" :class="{inBookshelfColor:bookshelfStatus.isInBookshelf}" @click="addToBookShelf">
                   {{bookshelfStatus.message}}
                 </div>
@@ -72,7 +74,8 @@
         </section>
         <section class="latest-chapter-wrapper"
                  @click="goToChapter(lastChapter)">
-          <span v-if="lastChapter.volume_name!=undefined">{{lastChapter.volume_name+' '+lastChapter.chapter_name}}</span>
+          <span
+            v-if="lastChapter.volume_name!=undefined">{{lastChapter.volume_name+' '+lastChapter.chapter_name}}</span>
           <span v-else>Loading...</span>
           <span>
          <svg class="icon icon-arrow-r" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -111,6 +114,7 @@
     <section v-else class="loader">
       <jump-loader where="top" class="icon"></jump-loader>
     </section>
+
   </div>
 
 
@@ -221,6 +225,9 @@
       },
       addToBookShelf() {
         this.RECORD_BOOKSHELF_LIST(this.book)
+      },
+      onGoback: function () {
+        this.$router.push({name: 'home'})
       }
     },
     watch: {
@@ -287,6 +294,7 @@
 
 <style lang="scss" scoped>
   @import 'src/style/mixin';
+
 
   .container {
     padding-top: 1.95rem;
