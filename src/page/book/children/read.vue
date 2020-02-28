@@ -49,10 +49,10 @@
         </div>
         <div class="item clearfix">
           <span @click="switchChapter(previousChapterId)"
-                class="btn square large">Last Chapter</span>
-          <span @click="view.isShowChapterListPanel=true" class="btn square large menu">Menu</span>
+                class="btn square large">{{$lang.readPage.lastChapter}}</span>
+          <span @click="view.isShowChapterListPanel=true" class="btn square large menu">{{$lang.readPage.menu}}</span>
           <span @click="switchChapter(nextChapterId)"
-                class="btn square large">Next Chapter</span>
+                class="btn square large">{{$lang.readPage.nextChapter}}</span>
         </div>
       </section>
     </section>

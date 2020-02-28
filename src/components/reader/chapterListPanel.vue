@@ -50,6 +50,7 @@
           };
           this.scroll = new BScroll(this.$refs.wrapper, options);
           const currentChapterElement = document.getElementsByClassName('active')[0]||null;
+          this.scroll.refresh();
           this.scroll.scrollToElement(currentChapterElement,0,0,0);
         }
 

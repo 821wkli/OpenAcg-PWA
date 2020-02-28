@@ -161,7 +161,7 @@
   @font-face {
     font-family: lolicon;
     src: url(../../fonts/lolicon.eot);
-    src: url(../../fonts/lolicon.eot#iefix) format('embedded-opentype'), url(../../fonts/lolicon.woff2) format('woff2'), url(../../fonts/lolicon.ttf) format('truetype'), url(../../fonts/lolicon.woff) format('woff'), url(../../fonts/lolicon.svg#lolicon) format('svg');
+    src: url(../../fonts/lolicon.eot#iefix) format('embedded-opentype'), url(../../fonts/lolicon.woff2) format('woff2'), url(../../fonts/lolicon.ttf) format('truetype'), url(../../fonts/lolicon.woff) format('woff'), url(../../images/lolicon.svg#lolicon) format('svg');
     font-weight: 400;
     font-style: normal;
     font-display: block

@@ -26,7 +26,7 @@
     transition: opacity .2s;
   }
 
-  .router-fade-enter, .router-fade-leave-active {
+  .router-fade-enter, .router-fade-leave-to {
     opacity: 0;
   }
 </style>

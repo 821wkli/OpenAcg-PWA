@@ -17,5 +17,10 @@ export const chinese= {
     totalVolumes: '',
     aescending: '',
     descending: ''
+  },
+  readPage:{
+    lastChapter:'上一章',
+    nextChapter:'下一章',
+    menu:'目錄',
   }
 };

@@ -20,7 +20,7 @@
   @font-face {
     font-family: litefont;
     src: url(../../fonts/iconfont.00fda3c7.eot);
-    src: url(../../fonts/iconfont.00fda3c7.eot#iefix) format("embedded-opentype"), url(../../fonts/iconfont.78eb594e.ttf) format("truetype"), url(../../fonts/iconfont.53475cc3.woff) format("woff"), url(../../fonts/iconfont.72a9f840.svg#icomoon) format("svg");
+    src: url(../../fonts/iconfont.00fda3c7.eot#iefix) format("embedded-opentype"), url(../../fonts/iconfont.78eb594e.ttf) format("truetype"), url(../../fonts/iconfont.53475cc3.woff) format("woff"), url(../../images/iconfont.72a9f840.svg#icomoon) format("svg");
     font-weight: 400;
     font-style: normal
   }

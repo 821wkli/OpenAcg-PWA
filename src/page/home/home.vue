@@ -83,6 +83,7 @@
   import jumpLoader from "../../components/loading/jumpLoader";
   import {isEmpty} from "../../config/utils";
   import SearchBar from "../../components/search/searchBar";
+  import {imageBaseUrl} from "../../config/env";
 
   export default {
     data() {
@@ -190,7 +191,7 @@
 
     },
     watch: {
-      books: function(newBooks){
+      books: function (newBooks) {
         this.SAVE_LATEST_BOOK_LIST(newBooks);
 
       },
@@ -206,6 +207,7 @@
         var self = this;
         this.$nextTick(() => {
           if (!newValue && self.scroll && self.homePagePosY < 0) {
+            window.scrollTo(0, 1)
             self.scroll.refresh();
             self.scroll.scrollTo(0, self.homePagePosY, 100);
           }
@@ -213,7 +215,7 @@
       }
     },
     methods: {
-      ...mapMutations(['RECORD_BOOK', 'SAVE_HOTLIST', 'SAVE_HOME_SCROLLING_POSY','SAVE_LATEST_BOOK_LIST']),
+      ...mapMutations(['RECORD_BOOK', 'SAVE_HOTLIST', 'SAVE_HOME_SCROLLING_POSY', 'SAVE_LATEST_BOOK_LIST']),
       refreshBookList() {
         this.isRefreshing = true;
 
@@ -222,6 +224,7 @@
         var self = this
         this.initData().then(() => {
           self.isRefreshing = false;
+          window.scrollTo(0, 10)
           console.log('refresh done')
         })
         // setTimeout(() => {
@@ -239,25 +242,25 @@
           }
         });
         let res = null;
-        if(isEmpty(this.latestBookList)) {
+        if (isEmpty(this.latestBookList)) {
           if (this.search.keyword) {
             res = await searchBook(0, 20, this.search.keyword)
           } else {
             res = await latestBook(0, 20);
           }
           res = Object.assign([], res.response);
-        }
-        else{
+        } else {
           res = [...this.latestBookList];
         }
 
         res.forEach(book => {
           let newUrl = book.cover_url.split('/').pop();// get image file name
-          newUrl = 'http://openacg.blob.core.windows.net/image/' + newUrl;
+          newUrl = imageBaseUrl + '/image/' + newUrl;
           book.cover_url = newUrl;
 
         })
         this.books = res;
+        imageBaseUrl + '/image/' + newUrl;
         this.showDotLoader = this.books.length >= 20;
         this.showLoading = false;
       }
@@ -278,7 +281,7 @@
 
         if (res.response && res.response.length > 0) {
           res.response.forEach(book => {
-            book.cover_url = 'http://openacg.blob.core.windows.net/image/' + book.cover_url.split('/').pop();
+            book.cover_url = imageBaseUrl + '/image/' + book.cover_url.split('/').pop();
           })
           this.books = this.books.concat(res.response);
         } else if (res.response.length == 0) {
@@ -338,7 +341,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 100vh;
+    height: 110vh;
 
     .loading-container {
       height: 100%;

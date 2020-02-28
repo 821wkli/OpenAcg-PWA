@@ -37,6 +37,7 @@
   import BScroll from 'better-scroll'
   import {isEmpty} from "../../config/utils";
   import {fetchUpdatedBookshelf} from "../../service/apis";
+  import {imageBaseUrl} from "../../config/env";
 
   export default {
     name: "bookshelf",
@@ -86,14 +87,13 @@
             time: new Date().getTime(),
             ids: this.bookshelfList.map(book => book.id)
           }
-          console.log(JSON.stringify(requestBody));
-          //update vuex
+          //console.log(JSON.stringify(requestBody));
+          //update vuex state
           let res = await fetchUpdatedBookshelf(requestBody);
           if(!isEmpty(res.response)){
             res.response.forEach(book=>{
               let newUrl = book.cover_url.split('/').pop();// get image file name
-              newUrl = 'http://openacg.blob.core.windows.net/image/' + newUrl;
-              book.cover_url = newUrl;
+              book.cover_url =  imageBaseUrl+'/image/'  + newUrl;
             })
             this.UPDATE_BOOKSHELF_LIST(res.response);
             console.log('update bookshelf done')

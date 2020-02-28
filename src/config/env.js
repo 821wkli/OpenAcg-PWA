@@ -12,11 +12,11 @@ let imageBaseUrl;
 
 if (process.env.NODE_ENV == 'development') {
 	apiBaseUrl='';
-  imageBaseUrl = '';
+  imageBaseUrl='http://cdn.openacg.ml'
 	routerMode = 'hash'
 }else{
 	apiBaseUrl = 'http://openacg.ml';
-	imageBaseUrl='http://image.openacg.ml'
+	imageBaseUrl='http://cdn.openacg.ml'
 	routerMode = 'hash'
 }
 
