@@ -17,7 +17,7 @@
                :style="{borderRadius:shape==='round'?'.512rem':'.17067rem'}"
 
         >
-        <i v-show="showClearIcon"@click="clearText" class="clear-icon"></i>
+        <i v-show="showClearIcon" @click="clearText" class="clear-icon"></i>
       </div>
       <div class="search-cancel" @click="cancel"><p>{{cancelText}}</p></div>
     </div>
@@ -25,60 +25,58 @@
 </template>
 
 <script>
-  export default {
-    name: "searchBar",
-    computed: {
-      showClearIcon: function () {
-        return this.value !== '' && this.value != undefined;
-      }
+export default {
+  name: 'searchBar',
+  computed: {
+    showClearIcon: function () {
+      return this.value !== '' && this.value !== undefined
+    }
+  },
+  methods: {
+    doFocus: function () {
+      this.$emit('doFocus')
     },
-    methods: {
-      doFocus: function(){
-        console.log('test')
-        this.$emit('doFocus')
-      },
-      doBlur:function(){
-        this.$emit('doBlur');
-      },
-      search: function () {
-        this.$emit('search')
-      },
-      cancel: function () {
-        this.$emit('cancel')
-      },
-      clearText: function () {
-        this.$emit('clear')
-      }
+    doBlur: function () {
+      this.$emit('doBlur')
     },
-    props: {
-      value: {
-        type: String
-      },
-      cancelText: {
-        type: String
-      },
-      background: {
-        type: String,
-        default: '#f2f2f2'
-      },
-      shape: {
-        type: String,
-        default: 'round'
-      },
-      placeholder: {
-        tyoe: String,
-        default: 'Input text here'
-      },
-      inputAlign: {
-        type: String,
-        default: 'left'
-      }
+    search: function () {
+      this.$emit('search')
+    },
+    cancel: function () {
+      this.$emit('cancel')
+    },
+    clearText: function () {
+      this.$emit('clear')
+    }
+  },
+  props: {
+    value: {
+      type: String
+    },
+    cancelText: {
+      type: String
+    },
+    background: {
+      type: String,
+      default: '#f2f2f2'
+    },
+    shape: {
+      type: String,
+      default: 'round'
+    },
+    placeholder: {
+      tyoe: String,
+      default: 'Input text here'
+    },
+    inputAlign: {
+      type: String,
+      default: 'left'
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
-  @import "src/style/mixin";
 
   input[type="search"]::-webkit-search-decoration,
   input[type="search"]::-webkit-search-cancel-button,
@@ -96,7 +94,6 @@
     padding: 0 3.33%;
     background-color: #fff;
     z-index: 1;
-
 
     .search-box {
       position: relative;
@@ -128,7 +125,6 @@
       color: #999999;
     }
 
-
     .search-cancel {
       float: right;
       position: relative;
@@ -153,6 +149,5 @@
       background-position: 46.7% 46.7%;
     }
   }
-
 
 </style>

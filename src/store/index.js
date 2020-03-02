@@ -1,35 +1,41 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import mutations from './mutations'
-import actions from './action'
-import getters from './getters'
-import {getStore} from "../config/utils";
-
+import home from './modules/home'
+import book from './modules/book'
+import bookshelf from './modules/bookshelf'
+import search from './modules/search'
+import read from './modules/read'
+// import { getStore } from '../utils/common'
 Vue.use(Vuex)
-const defaultSetting = {
-  fontSize:"0.8rem",
-  darkTheme:false
-}
-const state = {
-  latestBookList:[],
-  homePagePosY:0,
-  menuState:false,
-  book:null,
-  currentVolumeChapters: null,
-  bookshelfList:getStore('bookshelf')||[],
-  currentReadingChapter:null,
-  recentReadingChapterList:getStore('recentReadingChapterList')||[],
-  previousChapter:null,
-  nextChapter:null,
-  chapterList:[],
-  setting:getStore('setting')||defaultSetting,
-  hotList: [],
-  searchHistoryList:getStore('searchHistory')||[]
-}
-
+// const defaultSetting = {
+//   fontSize: '0.8rem',
+//   darkTheme: false
+// }
+// const states = {
+//   latestBookList: [],
+//   homePagePosY: 0,
+//   menuToggl  ed: false,
+//   book: null,
+//   currentVolumeChapters: null,
+//   bookshelfList: getStore('bookshelf') || [],
+//   currentReadingChapter: null,
+//   recentReadingChapterList: getStore('recentReadingChapterList') || [],
+//   previousChapter: null,
+//   nextChapter: null,
+//   chapterList: [],
+//   setting: getStore('setting') || defaultSetting,
+//   hotList: [],
+//   searchHistoryList: getStore('searchHistory') || []
+// }
 export default new Vuex.Store({
-	state,
-	getters,
-	actions,
-	mutations
+  state: {},
+  mutations: {},
+  getters: {},
+  modules: {
+    home,
+    book,
+    bookshelf,
+    search,
+    read
+  }
 })

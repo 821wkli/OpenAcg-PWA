@@ -22,59 +22,54 @@
 </template>
 
 <script>
-  import BScroll from 'better-scroll'
+import BScroll from 'better-scroll'
 
-  export default {
-    name: "chapterListPanel",
-    methods:{
-      onTouchCover: function () {
-        this.$emit('onTouchCover')
-      }
-    },
-    mounted() {
-      var self = this;
-      this.$nextTick(() => {
-        if (!this.scroll) {
-          const options = {
-            scrollbar:true,
-            scrollY: true,
-            scrollX: false,
-            mouseWheel: true,
-            click: true,
-            taps: true,
-            pullDownRefresh: true,
-            pullDownRefresh: {
-              threshold: 40,
-              stop: 20
-            }
-          };
-          this.scroll = new BScroll(this.$refs.wrapper, options);
-          const currentChapterElement = document.getElementsByClassName('active')[0]||null;
-          this.scroll.refresh();
-          this.scroll.scrollToElement(currentChapterElement,0,0,0);
+export default {
+  name: 'chapterListPanel',
+  methods: {
+    onTouchCover: function () {
+      this.$emit('onTouchCover')
+    }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      if (!this.scroll) {
+        const options = {
+          scrollbar: true,
+          scrollY: true,
+          scrollX: false,
+          mouseWheel: true,
+          click: true,
+          taps: true,
+          pullDownRefresh: {
+            threshold: 40,
+            stop: 20
+          }
         }
-
-      });
-    },
-    props: {
-      position: {
-        type: String,
-        default: 'left'
-      },
-      chapterList: {
-        type: Array,
-        default: []
-      },
-      bookInfo: {
-        type: Object,
-        default: null,
+        this.scroll = new BScroll(this.$refs.wrapper, options)
+        const currentChapterElement = document.getElementsByClassName('active')[0] || null
+        this.scroll.refresh()
+        this.scroll.scrollToElement(currentChapterElement, 0, 0, 0)
       }
+    })
+  },
+  props: {
+    position: {
+      type: String,
+      default: 'left'
+    },
+    chapterList: {
+      type: Array
+    },
+    bookInfo: {
+      type: Object,
+      default: null
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
-  @import "src/style/common";
   .reader-chapter-list {
     position: fixed;
     top: 0;
@@ -90,7 +85,6 @@
       background-color: #fff;
       position: absolute;
       p{
-        font-family: litefont;
       }
       .top-bar {
         position: absolute;
@@ -144,7 +138,6 @@
             white-space: nowrap;
             font-size: .5rem;
           }
-
 
         }
         .current {

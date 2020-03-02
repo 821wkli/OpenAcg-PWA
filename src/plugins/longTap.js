@@ -1,18 +1,18 @@
-let r = null, // setTimeout tag
-  cr = null //  A timer to change element style being long tapped
-let startX = 0, //finger position once touchEvent triggered
-                //  use to determine whether the finger has been moved when touchmove
-                // that's touchstart.pos === touchmove.pos?
-  startY = 0
+let r = null // setTimeout tag
+let cr = null //  A timer to change element style being long tapped
+let startX = 0 // finger position once touchEvent triggered
+//  use to determine whether the finger has been moved when touchmove
+// that's touchstart.pos === touchmove.pos?
+let startY = 0
 let firstTouch = false
 
 export default {
-  inserted(el, binding, vNode) {
+  inserted (el, binding, vNode) {
     let delayTime = 350
-    let disX = 10,
-      disY = 10
-    let value = binding.value
-    let data = binding.arg
+    let disX = 10
+    let disY = 10
+    const value = binding.value
+    const data = binding.arg
     /**
      * pass parameters wrapped in an object
      * time: in ms
@@ -65,11 +65,9 @@ export default {
         if (typeof value === 'function') {
           value(event, data, vNode)
           event.preventDefault()
-          return
         } else if (value && value.handler && typeof value.handler === 'function') {
           value.handler(event, data, vNode)
           event.preventDefault()
-          return
         }
       }, delayTime)
       touch = null
@@ -81,8 +79,8 @@ export default {
      */
     el.addEventListener('touchmove', event => {
       let touch = event.changedTouches[0]
-      let diffX = Math.abs(touch.clientX - startX)
-      let diffY = Math.abs(touch.clientY - startY)
+      const diffX = Math.abs(touch.clientX - startX)
+      const diffY = Math.abs(touch.clientY - startY)
       if ((disX > 0 && diffX > disX) || (disY > 0 && diffY > disY)) {
         firstTouch && addActiveClass(el, false)
         if (r) {
@@ -114,15 +112,15 @@ export default {
      */
     el.addEventListener('contextmenu', event => {
       event.preventDefault()
-      event.stopPropagation();
-      return false;
+      event.stopPropagation()
+      return false
     })
   }
 }
 
-function addActiveClass(el, opt) {
-  let cns = el.className.split(' ')
-  let index = cns.indexOf('longtap-active')
+function addActiveClass (el, opt) {
+  const cns = el.className.split(' ')
+  const index = cns.indexOf('longtap-active')
   if (opt) {
     if (index === -1) {
       el.style.transition = 'all 0.3s'
