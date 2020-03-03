@@ -41,7 +41,7 @@ const book = {
     },
     saveRecentReadingChapterList ({ commit, state }, obj) {
       const list = [...state.recentReadingChapterList]
-      const pos = list.findIndex(item => item.bookid === obj)
+      const pos = list.findIndex(item => item.bookid === obj.bookid)
       if (pos === -1) {
         list.push(obj)
       } else {

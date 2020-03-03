@@ -21,6 +21,8 @@ export const chinese = {
   readPage: {
     lastChapter: '上一章',
     nextChapter: '下一章',
-    menu: '目錄'
+    menu: '目錄',
+    lightMode: '日光模式',
+    darkMode: '夜間模式'
   }
 }

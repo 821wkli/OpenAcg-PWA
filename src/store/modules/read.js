@@ -6,8 +6,6 @@ import { getStore, setStore } from '../../utils/common'
 const read = {
   state: {
     setting: {
-      fontSize: '0.8rem',
-      darkTheme: false
     }
   },
   mutations: {
@@ -20,8 +18,11 @@ const read = {
     saveSetting ({ commit }, setting) {
       commit('SAVE_SETTING', setting)
     },
-    initSetting ({ commit }) {
-      const cache = getStore('setting') || {}
+    async initSetting ({ commit }) {
+      const cache = await getStore('setting') || {
+        fontSize: '0.8rem',
+        darkTheme: false
+      }
       commit('SAVE_SETTING', cache)
     }
   },

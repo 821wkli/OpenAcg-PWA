@@ -44,8 +44,8 @@
           <span class="btn font-btn-w">Aa+</span>
         </div>
         <div class="item clearfix">
-          <span class="btn square" :class="{active:!setting.darkTheme}" @click="setDarkTheme(false)">Light mode</span>
-          <span class="btn square" :class="{active:setting.darkTheme}" @click="setDarkTheme(true)">Dark mode</span>
+          <span class="btn square" :class="{active:!setting.darkTheme}" @click="setDarkTheme(false)">{{$lang.readPage.lightMode}}</span>
+          <span class="btn square" :class="{active:setting.darkTheme}" @click="setDarkTheme(true)">{{$lang.readPage.darkMode}}</span>
         </div>
         <div class="item clearfix">
           <span @click="switchChapter(previousChapterId)"
@@ -126,10 +126,6 @@ export default {
   },
   computed: {
     ...mapGetters(['recentReadingChapterList', 'currentVolumeChapters', 'chapterList', 'setting']),
-    previousPosY: function () {
-      const book = this.recentReadingChapterList.find(book => book.bookid === this.bookid && book.chapterid === this.cid)
-      return !isEmpty(book) ? book.posY : 0
-    },
     isEndOfBook: function () {
       if ((this.currentChapter && this.currentChapter.id === this.nextChapterId) ||
           (isEmpty(this.nextChapterId))
@@ -141,18 +137,30 @@ export default {
 
   },
   watch: {
+    currentChapter: function (newChapter) {
+      if (!isEmpty(newChapter)) {
+        this.bookInfo = {
+          id: this.book.id,
+          title: this.book.title,
+          currentChapter: {
+            chapter_name: this.currentChapter.chapter_name,
+            id: this.currentChapter.id
+          }
+        }
+      }
+    },
     '$route' (to, from) {
       console.log('test')
       if (from.query.chapterid && to.query.chapterid) {
         const self = this
         this.cid = to.query.chapterid
-        this.initData().then(() => {
+        this.loadChapterContent(this.cid).then(() => {
           const latestRenderedList = Array.from(document.getElementsByClassName('reader-ul')[0].children).pop() || null
           if (self.scroll && latestRenderedList != null) {
+            self.scroll.refresh()
             self.scroll.scrollToElement(latestRenderedList, 0, 0, 0)
           }
         })
-        // this.$router.go()
       }
     },
     'view.isShowChapterListPanel': function (newValue) {
@@ -174,7 +182,7 @@ export default {
     },
     'view.slider.value': function (newVal) {
       const obj = { fontSize: `${newVal / 10}rem` }
-      this.SAVE_SETTING({ ...this.setting, ...obj })
+      this.saveSetting({ ...this.setting, ...obj })
     },
     chapters: function (newChapters) {
       this.currentChapter = newChapters[newChapters.length - 1]
@@ -182,7 +190,10 @@ export default {
       // get next chapter id
 
       if (this.chapterList && this.currentChapter) {
-        const chapterids = this.chapterList.map(chapter => chapter.id)
+        const chapterids = [].concat.apply([], this.chapterList.map(volume => {
+          return volume.chapters.map(chapter => chapter.id)
+        }))
+
         for (var i = 0; i < chapterids.length; i++) {
           if (this.currentChapter.id === chapterids[i]) {
             if (i < chapterids.length - 1) {
@@ -224,8 +235,8 @@ export default {
     next()
   },
   mounted () {
-    this.initData()
     var self = this
+    this.initData()
     this.$nextTick(() => {
       if (!this.scroll) {
         const options = {
@@ -233,14 +244,14 @@ export default {
           scrollX: false,
           click: true,
           tap: true,
-          mouseWhtaps: true,
+          pullUpLoad: true,
           pullUpload: {
-            thresold: 5
+            thresold: 40
           }
         }
         this.scroll = new BScroll(this.$refs.wrapper, options)
 
-        this.scroll.on('scroll', (pos) => {
+        this.scroll.on('scrollEnd', (pos) => {
           console.log(pos.y)
           this.view.currentFingerPosY = pos.y
         })
@@ -250,6 +261,7 @@ export default {
           this.view.showLoading = true
           self.loadMore().then(() => {
             self.scroll.finishPullUp()
+            // self.scroll.refresh()
             this.view.showLoading = false
           })
         })
@@ -257,21 +269,27 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['saveRecentReadingChapterList', 'saveSetting']),
+    ...mapActions(['saveRecentReadingChapterList', 'saveSetting', 'initChapterList']),
     async initData () {
       this.view.showLoading = true
+      if (!this.book) {
+        const res = await fetchBook(this.bookid)
+        if (res.response) {
+          this.book = res.response
+        }
+      }
+
+      if (isEmpty(this.chapterList)) {
+        await this.initChapterList(this.book)
+      }
+      const self = this
       this.loadChapterContent(this.cid).then(() => {
         this.view.showLoading = false
-        if (this.previousPosY < 0 && this.scroll) {
-          this.scroll.refresh()
-          this.scroll.scrollTo(0, this.previousPosY)
-        }
+        const book = this.recentReadingChapterList.find(book => book.bookid === this.bookid && book.chapterid === this.cid)
+        const posY = !isEmpty(book) ? book.posY : 0
+        self.scroll.refresh()
+        self.scroll.scrollTo(0, posY)
       })
-
-      const res = await fetchBook(this.bookid)
-      if (res.response) {
-        this.book = res.response
-      }
     },
     setDarkTheme (mode) {
       this.saveSetting({ ...this.setting, ...{ darkTheme: mode } })
@@ -296,6 +314,7 @@ export default {
     },
     async loadMore () {
       // avoid async send duplicated data
+      debugger
       if (this.preventDuplicatedRequest) {
         return
       }

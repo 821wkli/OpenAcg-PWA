@@ -7,14 +7,19 @@
       </div>
       <div class="wrapper" ref="wrapper">
         <ul class="chapters-list-ul">
-          <router-link tag="li" :to="{name:'reader',param:{bookid:bookInfo.id},query:{chapterid:item.id}}"
-                       v-for="item in chapterList" :key="item.id"
-                       class="chapters-list-li"
-                       :class="{current:item.id===bookInfo.currentChapter.id}"
-          >
-            <p>{{item.chapter_name}}</p>
+          <li  class="volume_li" v-for="volume in chapterList" :key="volume.id">
+            <header>
+              <h6>{{volume.name}}</h6>
+            </header>
+            <router-link tag="li" :to="{name:'reader',param:{bookid:bookInfo.id},query:{chapterid:item.id}}"
+                         v-for="item in volume.chapters" :key="item.id"
+                         class="chapters-list-li"
+                         :class="{current:item.id===bookInfo.currentChapter.id}">
+              <p>{{item.chapter_name}}</p>
 
-          </router-link>
+            </router-link>
+          </li>
+
         </ul>
       </div>
     </div>
@@ -47,7 +52,7 @@ export default {
           }
         }
         this.scroll = new BScroll(this.$refs.wrapper, options)
-        const currentChapterElement = document.getElementsByClassName('active')[0] || null
+        const currentChapterElement = document.getElementsByClassName('current')[0] || null
         this.scroll.refresh()
         this.scroll.scrollToElement(currentChapterElement, 0, 0, 0)
       }
@@ -97,6 +102,7 @@ export default {
         z-index: 99;
 
         p:nth-of-type(1) {
+          max-width: 85%;
           font-size: .7rem;
           line-height: 1rem;
           white-space: nowrap;
@@ -144,6 +150,16 @@ export default {
           p {
             color: blue;
           }
+        }
+        .volume_li{
+          h6{
+            max-width: 80%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          border-bottom: 1px solid #cccccc;
+          margin-bottom: .5rem;
         }
       }
     }

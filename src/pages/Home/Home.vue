@@ -113,7 +113,6 @@ export default {
         const options = {
           scrollY: true,
           scrollX: false,
-          mouseWheel: true,
           click: true,
           taps: true,
           pullUpLoad: true,
@@ -149,7 +148,7 @@ export default {
 
       // load more data reach bottom
       this.scroll.on('pullingUp', () => {
-        // console.log('bottom arrtive')
+        console.log('bottom arrtive')
         self.isScrollToBotton = true
         self.loadMore().then(() => {
           self.scroll.finishPullUp()
@@ -280,9 +279,6 @@ export default {
     },
     gotoBookDetail (book) {
       this.saveBook(book)
-
-
-
 
       this.$router.push('/book/' + book.id)
     },
