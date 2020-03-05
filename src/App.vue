@@ -39,7 +39,13 @@ export default {
   created () {
     this.initReadingHistory()
     this.initSetting()
+  },
+  mounted () {
+    this.$nextTick(() => {
+      window.scroll(0, 1)
+    })
   }
+
 }
 
 </script>

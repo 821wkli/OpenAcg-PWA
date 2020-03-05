@@ -104,6 +104,7 @@ export default {
           taps: true
         }
         this.scroll = new BScroll(this.$refs.wrapper, options)
+        window.scroll(0, 0)
       }
     })
   },

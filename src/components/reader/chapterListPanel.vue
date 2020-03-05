@@ -19,7 +19,7 @@
 
             </router-link>
           </li>
-
+          <li class="volume_li"></li>
         </ul>
       </div>
     </div>
@@ -45,11 +45,7 @@ export default {
           scrollX: false,
           mouseWheel: true,
           click: true,
-          taps: true,
-          pullDownRefresh: {
-            threshold: 40,
-            stop: 20
-          }
+          taps: true
         }
         this.scroll = new BScroll(this.$refs.wrapper, options)
         const currentChapterElement = document.getElementsByClassName('current')[0] || null
@@ -97,7 +93,6 @@ export default {
         top: 0;
         height: 2.13333rem;
         background: #fff;
-        border-bottom: 1px solid #f2f2f2;
         padding-left: .63333rem;
         z-index: 99;
 
@@ -160,6 +155,9 @@ export default {
           }
           border-bottom: 1px solid #cccccc;
           margin-bottom: .5rem;
+          &:last-of-type{
+            height: 1.8rem;
+          }
         }
       }
     }

@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'development') {
   apiBaseUrl = ''
   imageBaseUrl = 'http://cdn.openacg.ml'
 } else {
-  apiBaseUrl = 'http://openacg.ml'
+  apiBaseUrl = 'https://openacg.ml'
   imageBaseUrl = 'http://cdn.openacg.ml'
 }
 

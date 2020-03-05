@@ -150,7 +150,7 @@ export default {
       }
     },
     '$route' (to, from) {
-      console.log('test')
+      // console.log('test')
       if (from.query.chapterid && to.query.chapterid) {
         const self = this
         this.cid = to.query.chapterid
@@ -219,13 +219,13 @@ export default {
     // save reading history logic here
     const renderedChapterList = Array.from(document.getElementsByClassName('reader-ul')[0].children)
     if (renderedChapterList.length <= 1) {
-      console.log(this.view.currentFingerPosY)
+      // console.log(this.view.currentFingerPosY)
     } else {
       // get rendered nodes height
       const listHeight = renderedChapterList.map(item => item.clientHeight).reduce((prev, curr) => prev + curr)
       const lastChapterListHeight = renderedChapterList[renderedChapterList.length - 1].clientHeight
       this.view.currentFingerPosY = -(lastChapterListHeight - (listHeight - Math.abs(this.view.currentFingerPosY)))
-      console.log(this.view.currentFingerPosY)
+      // console.log(this.view.currentFingerPosY)
     }
     this.saveRecentReadingChapterList({
       bookid: this.bookid,
@@ -252,12 +252,12 @@ export default {
         this.scroll = new BScroll(this.$refs.wrapper, options)
 
         this.scroll.on('scrollEnd', (pos) => {
-          console.log(pos.y)
+          // console.log(pos.y)
           this.view.currentFingerPosY = pos.y
         })
         // load more data reach bottom
         this.scroll.on('pullingUp', () => {
-          console.log('bottom arrtive')
+          // console.log('bottom arrtive')
           this.view.showLoading = true
           self.loadMore().then(() => {
             self.scroll.finishPullUp()
@@ -278,7 +278,7 @@ export default {
           this.book = res.response
         }
       }
-
+      this.view.slider.value = parseInt(this.setting.fontSize.match(/\d/g).join(''))
       if (isEmpty(this.chapterList)) {
         await this.initChapterList(this.book)
       }
@@ -314,7 +314,7 @@ export default {
     },
     async loadMore () {
       // avoid async send duplicated data
-      debugger
+      // debugger
       if (this.preventDuplicatedRequest) {
         return
       }
@@ -334,7 +334,7 @@ export default {
 
     switchChapter (cid) {
       if (this.currentChapter && this.currentChapter.id === cid) {
-        console.log('no more data')
+        // console.log('no more data')
         return
       }
       if (!isEmpty(cid)) {

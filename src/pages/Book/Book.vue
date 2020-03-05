@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <section v-if="!showLoading">
+    <section class="book-main" v-if="!showLoading">
       <section class="book-main" v-if="!volumePanel.showChapterPanel">
         <head-top :head-title="book.title"
                   :go-back="true"
@@ -254,6 +254,12 @@ export default {
     }
   },
   watch: {
+    isShowMore: function (newShowMore) {
+      for (const elem of document.getElementsByClassName('book-main')) {
+        elem.style.height = newShowMore ? 'auto' : '100%'
+      }
+    },
+
     chapterList: function (newChapterList) {
       this.volumePanel.chapterList = newChapterList
     },
@@ -296,13 +302,13 @@ export default {
     // },
     continueChapterId:
 
-    function () {
-      const readerHistory = this.recentReadingChapterList.find(book => book.bookid === this.bookid)
-      if (!isEmpty(readerHistory)) {
-        return readerHistory.chapterid
-      }
-      return null
-    },
+        function () {
+          const readerHistory = this.recentReadingChapterList.find(book => book.bookid === this.bookid)
+          if (!isEmpty(readerHistory)) {
+            return readerHistory.chapterid
+          }
+          return null
+        },
 
     firstChapter: function () {
       return this.volumePanel.chapterList[0].chapters[0]
@@ -355,10 +361,12 @@ export default {
 
     .book-main {
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .book-detail-wrapper {
-      overflow: hidden;
       margin-top: -1.95rem;
       background-color: #bebade;
 
@@ -569,7 +577,8 @@ export default {
       padding-left: .4rem;
       padding-right: .4rem;
       margin-top: .4rem;
-      height: 44vh;
+      /*height: 44vh;*/
+      height: 40%;
       overflow: hidden;
 
       .book-volume-list-ul {
@@ -580,6 +589,10 @@ export default {
           display: flex;
           justify-content: flex-start;
           align-items: center;
+
+          &:last-of-type {
+            height: 1.5rem;
+          }
 
           span {
             @include sc(.6rem, $defaultColor)

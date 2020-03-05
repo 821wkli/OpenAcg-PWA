@@ -15,11 +15,12 @@ module.exports = {
     open: true,
     proxy: {
       '^/api': {
-        target: 'http://localhost:4000',
+        target: 'https://openacg.ml',
         changeOrigin: true
       }
     }
   },
+  productionSourceMap:false,
   chainWebpack (config) {
     config.resolve.alias
       .set('apis', resolve('src/apis'))
@@ -69,11 +70,11 @@ module.exports = {
       start_url: '/'
     },
     iconPaths: {
-      favicon32: 'img/icons/icon-72x72.png',
-      favicon16: 'img/icons/icon-72x72.png',
-      appleTouchIcon: 'img/icons/icon-152x152.png',
-      maskIcon: 'img/icons/icon-192x192.png',
-      msTileImage: 'img/icons/icon-144x144.png'
+      favicon32: 'https://openacg.ml/img/icons/icon-72x72.png',
+      favicon16: 'https://openacg.ml/img/icons/icon-72x72.png',
+      appleTouchIcon: 'https://openacg.ml/img/icons/icon-152x152.png',
+      maskIcon: 'https://openacg.ml/img/icons/icon-192x192.png',
+      msTileImage: 'https://openacg.ml/img/icons/icon-144x144.png'
     }
   },
   css: {
