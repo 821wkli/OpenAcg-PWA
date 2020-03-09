@@ -15,82 +15,129 @@ __Noted：This project is only for personal use only. All data come from third-p
 
 
 # tech stack
-vue + vue-rotuer + vuex + webpack + ES6/7 + fetch + sass + flex + svg + http-proxy-middleware+nginx
+vue + vue-rotuer + vuex + vue cli + ES6/7 + fetch + sass + flex layout + svg
 
-Both http-proxy-middleware and nginx are used to proxy api server to bypass cross origin on browser.
-but nginx is used on deployment
+For development purpose, vue cli comes with built-in proxy server to bypass cors-origin rule on browser. You don't need to change anything here.
+
+On production server, make sure the location path /api on web server is proxied to base api url specified in vue.config.js.
+
+In nginx, the config will look like this.
+
+```
+ location /api {
+ include proxy_params;
+ proxy_pass  https://openacg.ml;
+ ## heders ....
+                }
+
+```
+
+Then change the api base url in env.js to your own domain name
+
+```
+if (process.env.NODE_ENV === 'development') {
+  apiBaseUrl = ''
+} else {
+  apiBaseUrl = 'https://yourDomainName.com'
+
+}
+
+```
 
 # Functions to be implemented
-- [ ] home page -- todo
-- [ ] search book page -- todo
-- [ ] book detail page -- todo
+- [X] home page
+- [X] search book page 
+- [X] book detail page
 - [ ] sorting by popularity,updated time -- todo
-- [ ] reader page -- todo
-- [ ] bookshelf page -- todo
-- [ ] Setting page -- todo
+- [X] reader page -- todo
+- [X] bookshelf page -- todo
+- [ ] Setting page
 
 
 # Project structure
 ```
-|-- build                            // webpack config file
-|-- config                           // dev and prod config
+|-- public                           // all files here will be  copyied to /dist on production build
 |-- dist                           	 // production build files
 |
 |-- src                              // source code directory
-|   |-- components                   // component
-|       |-- common                   // shared global elements
-|			|-- refresh.vue           // refresh button
-|       |-- footer                   // footer component
-|       |-- header                 	 // header component
-            |-- searchBar.vue           // refresh button
-|
-|   |-- config                       // basic config
-|       |-- env.js                   // global env variables like api url, image url
-|       |-- fetch.js                 // fetch api wrapper
-|       |-- util.js           // common JS utily library
-|       |-- rem.js                   // convert px to rem
-|
-|   |-- images                       // image files
-|
-|   |-- pages                        // page view
-|       |-- home                     // home page
-|       |-- book                     // book detail page
-|		    |-- children
-       	        |-- reader           // reader page
+    |-- apis                         // ajax calls logics
+   |-- components                   // component
+        |-- book
+            |-- chapterList.vue
+       |-- common                   // shared global elements
+			|-- refresh.vue           // refresh button
+       |-- header                 	 // header component
+            |-- headTop.vue           // top bar
+        |-- loader
+            |-- dotLoader.vue
+            |-- jumpLoader.vue
+            |-- listSkeleton.vue
+        |-- reader
+            |-- chapterListPanel.vue
+        |-- search
+            |-- searchBar.vue
 
-|       |-- search                   // search page
-|       |-- bookshelf                // bookshelf page
-|       |-- setting                  // app setting page
+   |-- config                       // basic config
+       |-- env.js                   // global env variables base api url, image url
+        |-- langs.js                 // chinese hardcoded strings
+        |-- rem.js                   // calculate optimal rem based on current dom window size
+    
+
+
+   |-- pages                        // page view
+       |-- Home                     // home page
+            |-- Home.vue
+       |-- Book                     // book detail page
+		    |-- Book.vue
+        |-- Read
+            |-- Read.vue
+        |-- Search                  //search page
+            |-- Search.vue
+
+       |-- Bookshelf               
+            |-- Bookshelf.vue
+
+
+   |-- plugins                      // p;ugins
+        |-- longTap.js               // Implementation of native mobile-like longTap touch event
+
+   |-- router                       // page routes config
+        |-- index.js
+
+   
+
+   |-- store                        // vuex state management
+        |-- modules
+            |-- book.js
+            |-- bookshelf.js
+            |-- home.js
+            |-- read.js
+            |-- search.js
+
+        |-- action.js                
+        |-- index.js                 // vuex instance creation
+        |-- mutation-types.js        
+        |-- mutations.js            
+
+    |-- style
+       |-- common.scss              // common css style
+       |-- mixin.scss               //
+    |-- utils
+        |-- common.js               //common helper functions
+        |-- fetch.js                // fetch api wrapper
+
+   
+|-- App.vue                      // top-level page component, app entry
 |
-|
-|   |-- plugins                      // p;ugins
-|
-|   |-- router                       // page routes config
-|
-|   |-- service                      // data
-|		|-- template                 // mock data in development time
-|		|-- apis.js               // ajax apis
-|
-|   |-- store                        // vuex state management
-|
-|       |-- action.js                // actions
-|       |-- index.js                 // import vuex add/remove state and create vuex instance
-|       |-- mutation-types.js        // define mutations constant name
-|       |-- mutations.js             // mutations logics
-|
-|   |-- style
-|       |-- common.scss              // common css style
-|       |-- mixin.scss               //
-|
-|   |-- App.vue                      // top-level page component, app entry
-|
-|   |-- main.js                      // create vue, vue-router instance
-|
-|-- .babelrc                         // es6 grammar config
-|-- .editorconfig                    // code style
-|-- .gitignore                       // define files ignore by git
-|-- favicon.ico                      // browser tab icon
-|-- index.html                       // entery html file for definition of meta info and svg
+|   |-- main.js                      // application entry point, 
+    vue instance creation or external library/components can be registered on here.
+
+|-- vue.config.js                   //vue cli config file
+|-- babel.config.js                 //babel config file
+|-- .eslintrc.js
+|-- .editorconfig
+|-- .browserslistrc                   
+|-- .gitignore                       
 |-- package.json                     // package.json
 |-- README.md                        // readme
 ```
@@ -117,10 +164,6 @@ go http://localhost:8088
 ```
 npm run build
 
-Put all files in dist to nginx root directory
 ```
-
-
-
 
 If this project is useful, give me a star 😊
