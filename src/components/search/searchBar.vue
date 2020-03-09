@@ -108,7 +108,7 @@ export default {
       position: absolute;
       width: .7rem;
       height: .7rem;
-      top: .35067rem;
+      top: .68rem;
       left: .312rem;
       fill: #aaa;
     }
@@ -118,7 +118,8 @@ export default {
       width: 100%;
       height: 100%;
       padding-left: 1.70667rem;
-
+      overflow: hidden;
+      text-overflow: ellipsis;
       box-sizing: border-box;
       font-size: 1rem;
       border: .02133rem solid #e7e7e7;

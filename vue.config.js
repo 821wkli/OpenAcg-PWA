@@ -20,7 +20,7 @@ module.exports = {
       }
     }
   },
-  productionSourceMap:false,
+  productionSourceMap: false,
   chainWebpack (config) {
     config.resolve.alias
       .set('apis', resolve('src/apis'))
@@ -51,11 +51,11 @@ module.exports = {
     ],
     performance: {
       hints: 'warning',
-      // 入口起点的最大体积
+      // maximum size of entry
       maxEntrypointSize: 5000000000,
-      // 生成文件的最大体积
+      // maximum size of assets files which include images, css but exclude js files
       maxAssetSize: 3000000000,
-      // 只给出 js 文件的性能提示
+      // exclusion file extensions
       assetFilter: function (assetFilename) {
         return assetFilename.endsWith('.js')
       }
