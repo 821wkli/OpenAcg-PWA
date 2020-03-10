@@ -145,6 +145,7 @@ export default {
   },
   data () {
     return {
+      from: null,
       bookid: null,
       isShowMore: false,
       order: 1,
@@ -159,6 +160,11 @@ export default {
         currentVolumeChapters: {}
       }
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    next((vm) => {
+      vm.from = from
+    })
   },
   beforeDestroy () {
     this.saveBook(null)
@@ -250,7 +256,11 @@ export default {
       this.saveBookToBookshelf(this.book)
     },
     onGoback: function () {
-      this.$router.push({ name: 'home' })
+      if (!this.from.query) {
+        this.$router.push({ name: 'home' })
+      } else {
+        this.$router.push({ name: 'home', query: this.from.query })
+      }
     }
   },
   watch: {

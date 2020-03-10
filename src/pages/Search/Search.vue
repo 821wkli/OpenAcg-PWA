@@ -28,7 +28,7 @@
            style="color: blue">Clear</p>
       </header>
       <ul class="history-list">
-        <li :key="index" class="item" v-for="(item,index) in reversedSearchHistoryList " @click="goToBook(item)">
+        <li :key="index" class="item" v-for="(item,index) in reversedSearchHistoryList " @click="$router.push({ name: 'home', query: { keyword: item.title } })">
           <span class="icon">
             <img src="//s1.hdslb.com/bfs/static/mult/images/history.png" alt="">
           </span>
@@ -76,11 +76,14 @@ export default {
     ...mapActions(['initSearchHistory', 'saveHomeScrollingPosY', 'saveSearchHistory', 'cleanSearchHistory', 'saveLatestBookList']),
 
     goToBook: function (item) {
-      this.saveSearchHistory(item)
+      this.saveSearchHistory({ title: item.title })
       this.$router.push({ name: 'book', params: { bookid: item.id } })
     },
     onSearch: function () {
-      this.$router.push({ name: 'home', query: { keyword: this.searchText } })
+      if (this.searchText.trim() !== '') {
+        this.saveSearchHistory({ title: this.searchText })
+        this.$router.push({ name: 'home', query: { keyword: this.searchText } })
+      }
     },
     onCancel: function () {
       this.$router.go(-1)

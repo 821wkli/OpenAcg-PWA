@@ -190,8 +190,7 @@ export default {
     showLoading: function (newValue) {
       var self = this
       this.$nextTick(() => {
-        if (!newValue && self.scroll && self.homePagePosY < 0) {
-          window.scrollTo(0, 1)
+        if (!newValue && self.scroll) {
           self.scroll.refresh()
           self.scroll.scrollTo(0, self.homePagePosY, 100)
         }
@@ -209,7 +208,6 @@ export default {
       var self = this
       this.initData().then(() => {
         self.isRefreshing = false
-        window.scrollTo(0, 10)
         // console.log('refresh done')
       })
       // setTimeout(() => {
@@ -227,7 +225,8 @@ export default {
       })
       let res = null
       // avoid fetching again book list when back from other routes
-      if (isEmpty(this.latestBookList)) {
+      debugger
+      if (isEmpty(this.latestBookList) || this.search.showSearchBar) {
         if (this.search.keyword) {
           res = await searchBook(0, 20, this.search.keyword)
         } else {
@@ -283,11 +282,14 @@ export default {
       this.$router.push('/book/' + book.id)
     },
     onCancel: function () {
-      this.$route.query.keyword = ''
+      const query = Object.assign({}, this.$route.query)
+      delete query.keyword
+      this.$router.replace({ query })
+      this.saveHomeScrollingPosY(0)
       this.search.keyword = ''
       this.search.showSearchBar = false
       this.removeLatestBookList()
-      this.initData()// fetch home data
+      this.initData()
     },
     onSearch: function () {
       this.initData()

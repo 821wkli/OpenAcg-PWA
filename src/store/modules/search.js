@@ -26,7 +26,7 @@ const search = {
       commit('SAVE_HOTLIST', hotList)
     },
     saveSearchHistory ({ commit, state }, history) {
-      const isDuplicated = state.searchHistoryList.some(item => item.id === history.id)
+      const isDuplicated = state.searchHistoryList.some(item => item.title === history.title)
       if (!isDuplicated) {
         const list = [...state.searchHistoryList]
         list.push(history)
