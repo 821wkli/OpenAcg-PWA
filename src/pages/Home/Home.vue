@@ -148,7 +148,6 @@ export default {
 
       // load more data reach bottom
       this.scroll.on('pullingUp', () => {
-        console.log('bottom arrtive')
         self.isScrollToBotton = true
         self.loadMore().then(() => {
           self.scroll.finishPullUp()
@@ -225,7 +224,7 @@ export default {
       })
       let res = null
       // avoid fetching again book list when back from other routes
-      debugger
+
       if (isEmpty(this.latestBookList) || this.search.showSearchBar) {
         if (this.search.keyword) {
           res = await searchBook(0, 20, this.search.keyword)
