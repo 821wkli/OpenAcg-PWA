@@ -326,11 +326,11 @@ export default {
       this.preventDuplicatedRequest = true
       if (this.nextChapterId) {
         await this.loadChapterContent(this.nextChapterId)
-          .catch(err => {
-            this.$toast.center(err)
+          .catch(() => {
+            this.$toast.center(this.$lang.readPage.lastChapterMessage)
           })
       } else {
-        this.$toast.center('no more data')
+        this.$toast.center(this.$lang.readPage.lastChapterMessage)
       }
       setTimeout(() => {
         this.preventDuplicatedRequest = false
