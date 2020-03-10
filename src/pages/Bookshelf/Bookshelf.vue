@@ -79,7 +79,7 @@ export default {
       this.longTapping = true
     },
     async update () {
-      console.log('start update bookshelf')
+      // console.log('start update bookshelf')
       if (!isEmpty(this.bookshelfList)) {
         const requestBody = {
           time: new Date().getTime(),
@@ -97,7 +97,7 @@ export default {
           })
           this.updateBookshelf(res.response)
           // this.UPDATE_BOOKSHELF_LIST(res.response)
-          console.log('update bookshelf done')
+          // console.log('update bookshelf done')
         }
       }
     },
