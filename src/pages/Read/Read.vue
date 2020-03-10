@@ -217,25 +217,14 @@ export default {
     this.bookid = parseInt(this.$route.params.bookid)
     this.cid = this.$route.query.chapterid
   },
-  beforeRouteLeave (to, from, next) {
-    // save reading history logic here
-    const renderedChapterList = Array.from(document.getElementsByClassName('reader-ul')[0].children)
-    if (renderedChapterList.length <= 1) {
-      // console.log(this.view.currentFingerPosY)
-    } else {
-      // get rendered nodes height
-      const listHeight = renderedChapterList.map(item => item.clientHeight).reduce((prev, curr) => prev + curr)
-      const lastChapterListHeight = renderedChapterList[renderedChapterList.length - 1].clientHeight
-      this.view.currentFingerPosY = -(lastChapterListHeight - (listHeight - Math.abs(this.view.currentFingerPosY)))
-      // console.log(this.view.currentFingerPosY)
-    }
+  beforeDestroy () {
     this.saveRecentReadingChapterList({
       bookid: this.bookid,
       chapterid: this.currentChapter.id,
       posY: this.view.currentFingerPosY
     })
-    next()
   },
+
   mounted () {
     var self = this
     this.initData()
@@ -256,6 +245,17 @@ export default {
         this.scroll.on('scrollEnd', (pos) => {
           // console.log(pos.y)
           this.view.currentFingerPosY = pos.y
+          // save reading history logic here
+          const renderedChapterList = Array.from(document.getElementsByClassName('reader-ul')[0].children)
+          if (renderedChapterList.length <= 1) {
+            // console.log(this.view.currentFingerPosY)
+          } else {
+            // get rendered nodes height
+            const listHeight = renderedChapterList.map(item => item.clientHeight).reduce((prev, curr) => prev + curr)
+            const lastChapterListHeight = renderedChapterList[renderedChapterList.length - 1].clientHeight
+            this.view.currentFingerPosY = -(lastChapterListHeight - (listHeight - Math.abs(this.view.currentFingerPosY)))
+            // console.log(this.view.currentFingerPosY)
+          }
         })
         // load more data reach bottom
         this.scroll.on('pullingUp', () => {
