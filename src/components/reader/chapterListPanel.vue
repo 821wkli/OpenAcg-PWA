@@ -153,10 +153,13 @@ export default {
             text-overflow: ellipsis;
             white-space: nowrap;
           }
-          border-bottom: 1px solid #cccccc;
+
           margin-bottom: .5rem;
           &:last-of-type{
             height: 1.8rem;
+          }
+          &:last-of-type{
+            margin-top:1.8rem;
           }
         }
       }
