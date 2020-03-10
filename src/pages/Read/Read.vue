@@ -18,7 +18,9 @@
                 </header>
                 <ul class="content-ul" :style="{fontSize:setting.fontSize}"
                     :class="{darkTheme:setting.darkTheme}">
-                  <li class="content-sentence" v-for="(item,index) in chapter.content" :key="index">{{item}}</li>
+                  <li class="content-sentence" v-for="(item,index) in chapter.content" :key="index">{{chapter.chapter_name!=='插圖'?item:''}}
+                    <img :src="item.replace('http://pic.wkcdn.com','https://openacg.ml')" class="book=images" v-if="chapter.chapter_name === '插圖'">
+                  </li>
                 </ul>
               </div>
             </section>
@@ -246,7 +248,7 @@ export default {
           tap: true,
           pullUpLoad: true,
           pullUpload: {
-            thresold: 40
+            thresold: -5
           }
         }
         this.scroll = new BScroll(this.$refs.wrapper, options)
@@ -485,6 +487,9 @@ export default {
           color: inherit;
           line-height: 1.8rem;
           word-wrap: break-word;
+          img{
+            width:100%;
+          }
         }
       }
 

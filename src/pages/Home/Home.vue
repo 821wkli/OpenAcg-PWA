@@ -120,7 +120,7 @@ export default {
             thresold: 40
           },
           pullDownRefresh: {
-            threshold: 40,
+            threshold: -5,
             stop: 20
           }
         }
@@ -151,6 +151,7 @@ export default {
         self.isScrollToBotton = true
         self.loadMore().then(() => {
           self.scroll.finishPullUp()
+          this.preventDuplicatedRequest = false
         })
       })
 
@@ -273,7 +274,6 @@ export default {
         this.alertMessage = 'unknown error'
       }
       this.showDotLoader = res.response.length >= 20
-      this.preventDuplicatedRequest = false
     },
     gotoBookDetail (book) {
       this.saveBook(book)
