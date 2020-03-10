@@ -73,7 +73,7 @@
           </section>
         </section>
         <section class="latest-chapter-wrapper"
-                 @click="goToChapter(lastChapter)">
+                 @click="$router.push({ name: 'reader', params: { bookid: bookid }, query: { chapterid: lastChapter.id } })">
           <span
             v-if="lastChapter.volume_name!=undefined">{{lastChapter.volume_name+' '+lastChapter.chapter_name}}</span>
           <span v-else>Loading...</span>

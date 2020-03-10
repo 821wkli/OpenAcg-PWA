@@ -19,7 +19,7 @@
                 <ul class="content-ul" :style="{fontSize:setting.fontSize}"
                     :class="{darkTheme:setting.darkTheme}">
                   <li class="content-sentence" v-for="(item,index) in chapter.content" :key="index">{{chapter.chapter_name!=='插圖'?item:''}}
-                    <img :src="item.replace('http://pic.wkcdn.com','https://openacg.ml')" class="book=images" v-if="chapter.chapter_name === '插圖'">
+                    <img :src="item.replace(/http:\/\/pic.wkcdn.com|http:\/\/picture.wenku8.com/g, 'https://openacg.ml')" class="book=images" v-if="chapter.chapter_name === '插圖'">
                   </li>
                 </ul>
               </div>
@@ -200,9 +200,12 @@ export default {
           if (this.currentChapter.id === chapterids[i]) {
             if (i < chapterids.length - 1) {
               this.nextChapterId = chapterids[i + 1]
-              this.previousChapterId = chapterids[i - 1]
+              // if it is in first chapter
+              if (i === 0) this.previousChapterId = null
+              else this.previousChapterId = chapterids[i - 1]
               break
             } else {
+              this.nextChapterId = null
               this.previousChapterId = chapterids[i - 1]
               break
             }
@@ -324,9 +327,10 @@ export default {
       if (this.nextChapterId) {
         await this.loadChapterContent(this.nextChapterId)
           .catch(err => {
-            this.view.alert.text = err
-            this.view.showAlert = true
+            this.$toast.center(err)
           })
+      } else {
+        this.$toast.center('no more data')
       }
       setTimeout(() => {
         this.preventDuplicatedRequest = false
@@ -335,8 +339,16 @@ export default {
     },
 
     switchChapter (cid) {
-      if (this.currentChapter && this.currentChapter.id === cid) {
-        // console.log('no more data')
+      // if (this.currentChapter && this.currentChapter.id === cid) {
+      //   // console.log('no more data')
+      //   return
+      // }
+      if (isEmpty(cid)) {
+        if (isEmpty(this.nextChapterId)) {
+          this.$toast.center(this.$lang.readPage.lastChapterMessage)
+        } else {
+          this.$toast.center(this.$lang.readPage.firstChapterMessage)
+        }
         return
       }
       if (!isEmpty(cid)) {

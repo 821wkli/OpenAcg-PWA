@@ -23,6 +23,8 @@ export const chinese = {
     nextChapter: '下一章',
     menu: '目錄',
     lightMode: '日光模式',
-    darkMode: '夜間模式'
+    darkMode: '夜間模式',
+    lastChapterMessage: '這是最後一章',
+    firstChapterMessage: '這是第一章'
   }
 }
