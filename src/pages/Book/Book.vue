@@ -274,7 +274,7 @@ export default {
       this.volumePanel.chapterList = newChapterList
     },
     bookshelfList: function (newBookshelfList) {
-      console.log('trigger')
+      // console.log('trigger')
       this.$nextTick(() => {
         const isInBookshelf = newBookshelfList.some(item => item.id === this.bookid)
         this.bookshelfStatus.isInBookshelf = isInBookshelf
