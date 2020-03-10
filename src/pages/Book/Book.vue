@@ -87,7 +87,7 @@
           <header>
             <h4>全卷</h4>
             <div>
-              <span :class='{active:order ===1}' @click='reorderVolumes(1)' class="order">正順</span>
+              <span :class='{active:order ===1}' @click='reorderVolumes(1)' class="order">順序</span>
               <span :class='{active:order===-1}' @click='reorderVolumes(-1)' class="order">倒序</span>
             </div>
           </header>
@@ -575,6 +575,9 @@ export default {
 
         span {
           @include sc(.6rem, $defaultColor)
+        }
+        span:nth-of-type(1){
+          margin-right:.25rem;
         }
 
         .active {
