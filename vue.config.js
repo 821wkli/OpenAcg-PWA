@@ -61,22 +61,22 @@ module.exports = {
       }
     }
   },
-  pwa: {
-    name: 'OpenAcg',
-    themeColor: '#F3F3F3',
-    backgroundColor: '#F3F3F3',
-    appleMobileWebAppCapable: 'yes',
-    manifestOptions: {
-      start_url: '/'
-    },
-    iconPaths: {
-      favicon32: 'https://openacg.ml/img/icons/icon-72x72.png',
-      favicon16: 'https://openacg.ml/img/icons/icon-72x72.png',
-      appleTouchIcon: 'https://openacg.ml/img/icons/icon-152x152.png',
-      maskIcon: 'https://openacg.ml/img/icons/icon-192x192.png',
-      msTileImage: 'https://openacg.ml/img/icons/icon-144x144.png'
-    }
-  },
+  // pwa: {
+  //   name: 'OpenAcg',
+  //   themeColor: '#F3F3F3',
+  //   backgroundColor: '#F3F3F3',
+  //   appleMobileWebAppCapable: 'yes',
+  //   manifestOptions: {
+  //     start_url: '/'
+  //   },
+  //   iconPaths: {
+  //     favicon32: 'https://openacg.ml/img/icons/icon-72x72.png',
+  //     favicon16: 'https://openacg.ml/img/icons/icon-72x72.png',
+  //     appleTouchIcon: 'https://openacg.ml/img/icons/icon-152x152.png',
+  //     maskIcon: 'https://openacg.ml/img/icons/icon-192x192.png',
+  //     msTileImage: 'https://openacg.ml/img/icons/icon-144x144.png'
+  //   }
+  // },
   css: {
     loaderOptions: {
       sass: {
