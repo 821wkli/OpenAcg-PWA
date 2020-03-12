@@ -50,7 +50,7 @@
               <p>
                 <span>最近更新: {{item.last_updated_date ||'unknown'}}</span>
               </p>
-              <p>{{item.introduction}}</p>
+              <p>{{item.introduction!==''?item.introduction:'暫無簡介'}}</p>
             </div>
           </li>
           <li style="width: 100%; height:2.5rem;margin-top: -0.5rem;" v-if="showDotLoader">
@@ -117,10 +117,10 @@ export default {
           taps: true,
           pullUpLoad: true,
           pullUpload: {
-            thresold: 40
+            thresold: -5
           },
           pullDownRefresh: {
-            threshold: -5,
+            threshold: 40,
             stop: 20
           }
         }
@@ -377,7 +377,7 @@ export default {
 
         .book-description {
           max-width: 70%;
-
+          min-width: 70%;
           .book-header {
             display: flex;
             justify-content: space-between;
