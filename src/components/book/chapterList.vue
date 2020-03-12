@@ -64,7 +64,7 @@ export default {
             千: 1000
           }
         }
-        console.log(orderMapping)
+        // console.log(orderMapping)
         sorted.forEach(chapter => {
           let oid = 1
           for (const key in orderMapping.unit) {

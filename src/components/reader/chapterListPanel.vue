@@ -11,7 +11,7 @@
             <header>
               <h6>{{volume.name}}</h6>
             </header>
-            <router-link tag="li" :to="{name:'reader',param:{bookid:bookInfo.id},query:{chapterid:item.id}}"
+            <router-link replace tag="li" :to="{name:'reader',param:{bookid:bookInfo.id},query:{chapterid:item.id}}"
                          v-for="item in volume.chapters" :key="item.id"
                          class="chapters-list-li"
                          :class="{current:item.id===bookInfo.currentChapter.id}">
