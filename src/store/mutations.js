@@ -1,5 +1,5 @@
 import {
-  RECORD_MENU_STATE,
+  SAVE_MENU_TOGGLED,
   RECORD_BOOK,
   RECORD_CURRENT_VOLUME_CHAPTERS,
   RECORD_BOOKSHELF_LIST,
@@ -7,66 +7,88 @@ import {
   RECORD_CURRENT_READING_CHAPTER,
   SAVE_CHAPTER_LIST,
   SAVE_SETTING,
-  CLEAR_SEARCH_HISTORY
+  CLEAR_SEARCH_HISTORY,
+  SAVE_HOME_SCROLLING_POSY,
+  UPDATE_BOOKSHELF_LIST
+  , SAVE_HOTLIST, SAVE_LATEST_BOOK_LIST, SAVE_SEARCH_HISTORY
 } from './mutation-types.js'
-import {
-  getUser
-} from "../service/apis";
+
 import {
   setStore,
-  getStore, removeStore,
-} from '../config/utils'
-import {INIT_SHOPID, RECORD_SHOPID, SAVE_HOTLIST, SAVE_SEARCH_HISTORY} from "./mutation-types";
+  getStore, removeStore
+} from '../utils/common.js'
 
 export default {
-  [SAVE_HOTLIST](state,hotList){
-    state.hotList = hotList;
+  [SAVE_LATEST_BOOK_LIST] (state, books) {
+    state.latestBookList = books
   },
-  [SAVE_SETTING](state,{fontSize,darkTheme}){
-    state.setting.fontSize = fontSize;
-    state.setting.darkTheme = darkTheme;
-    setStore('setting',state.setting);
+  [SAVE_HOME_SCROLLING_POSY] (state, posY) {
+    state.homePagePosY = posY
   },
-  [SAVE_CHAPTER_LIST](state,chapters){
+  [SAVE_HOTLIST] (state, hotList) {
+    state.hotList = hotList
+  },
+  [SAVE_SETTING] (state, { fontSize, darkTheme }) {
+    state.setting.fontSize = fontSize
+    state.setting.darkTheme = darkTheme
+    setStore('setting', state.setting)
+  },
+  [SAVE_CHAPTER_LIST] (state, chapters) {
     state.chapterList = chapters
   },
-  [RECORD_CURRENT_READING_CHAPTER](state,chapter){
-    state.currentReadingChapter = chapter;
+  [RECORD_CURRENT_READING_CHAPTER] (state, { bookid, chapterid, posY }) {
+    const historyList = getStore('recentReadingChapterList') || []
+    const obj = {
+      bookid: bookid,
+      chapterid: chapterid,
+      posY: posY
+    }
+    const foundIndex = historyList.findIndex(item => item.bookid === bookid)
+    if (foundIndex === -1) {
+      historyList.push(obj)
+    } else {
+      historyList[foundIndex] = obj
+    }
+    state.recentReadingChapterList = historyList
+    setStore('recentReadingChapterList', historyList)
   },
-  [RECORD_BOOKSHELF_LIST](state, book) {
-    let books = getStore('bookshelf') || [];
-    let isDuplicated = books.some(item=>item.id === book.id);
-    if(!isDuplicated){
-      books.push(Object.assign({}, book));
+  [RECORD_BOOKSHELF_LIST] (state, book) {
+    const books = getStore('bookshelf') || []
+    const isDuplicated = books.some(item => item.id === book.id)
+    if (!isDuplicated) {
+      books.push(Object.assign({}, book))
       setStore('bookshelf', books)
-      state.bookshelfList = books;
+      state.bookshelfList = books
     }
   },
-  [GET_BOOKSELF_LIST](state){
-    let books = getStore('bookshelf') || [];
-    state.bookshelfList = books;
-
+  [UPDATE_BOOKSHELF_LIST] (state, list) {
+    setStore('bookshelf', list)
+    state.bookshelfList = list
   },
-  [RECORD_MENU_STATE](state, menuState) {
-    state.menuState = menuState;
+  [GET_BOOKSELF_LIST] (state) {
+    const books = getStore('bookshelf') || []
+    state.bookshelfList = books
   },
-  [RECORD_BOOK](state, book) {
-    state.book = book;
+  [SAVE_MENU_TOGGLED] (state, menuToggled) {
+    state.menuToggled = menuToggled
   },
-  [RECORD_CURRENT_VOLUME_CHAPTERS](state, currentVolumeChapters) {
+  [RECORD_BOOK] (state, book) {
+    state.book = book
+  },
+  [RECORD_CURRENT_VOLUME_CHAPTERS] (state, currentVolumeChapters) {
     state.currentVolumeChapters = currentVolumeChapters
   },
-  [SAVE_SEARCH_HISTORY](state,{historyEntry}){
-    let list = getStore('searchHistory') || [];
-    let isDuplicated = list.some(item=>item.id === historyEntry.id);
-    if(!isDuplicated){
-      list.push(Object.assign({}, historyEntry));
+  [SAVE_SEARCH_HISTORY] (state, { historyEntry }) {
+    const list = getStore('searchHistory') || []
+    const isDuplicated = list.some(item => item.id === historyEntry.id)
+    if (!isDuplicated) {
+      list.push(Object.assign({}, historyEntry))
       setStore('searchHistory', list)
-      state.searchHistoryList = list;
+      state.searchHistoryList = list
     }
   },
-  [CLEAR_SEARCH_HISTORY](state,historyList){
-    state.searchHistoryList = null;
-    removeStore('searchHistory');
+  [CLEAR_SEARCH_HISTORY] (state, historyList) {
+    state.searchHistoryList = null
+    removeStore('searchHistory')
   }
 }

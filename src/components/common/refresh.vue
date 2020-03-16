@@ -5,22 +5,22 @@
 </template>
 
 <script>
-    export default {
-        name: "refresh",
-      props:['isRefresh'],
-      methods:{
-          refresh(){
-            this.$emit('refresh');
-          }
-      }
+export default {
+  name: 'refresh',
+  props: ['isRefresh'],
+  methods: {
+    refresh () {
+      this.$emit('refresh')
     }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
   @font-face {
     font-family: litefont;
-    src: url(../../fonts/iconfont.00fda3c7.eot);
-    src: url(../../fonts/iconfont.00fda3c7.eot#iefix) format("embedded-opentype"), url(../../fonts/iconfont.78eb594e.ttf) format("truetype"), url(../../fonts/iconfont.53475cc3.woff) format("woff"), url(../../fonts/iconfont.72a9f840.svg#icomoon) format("svg");
+    src: url(../../assets/fonts/iconfont.eot);
+    src: url(../../assets/fonts/iconfont.eot#iefix) format("embedded-opentype"), url(../../assets/fonts/iconfont.ttf) format("truetype"), url(../../assets/fonts/iconfont.woff) format("woff"), url(../../assets/images/iconfont.svg#icomoon) format("svg");
     font-weight: 400;
     font-style: normal
   }
