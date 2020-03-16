@@ -46,13 +46,10 @@ if (process.env.NODE_ENV === 'development') {
 
 # Functions to be implemented
 - [X] home page
-- [X] search book page 
-- [X] book detail page
-- [ ] sorting by popularity,updated time -- todo
-- [X] reader page -- todo
-- [X] bookshelf page -- todo
-- [ ] Setting page
-
+- [X] search page 
+- [X] book detail page 
+- [X] reader page
+- [X] bookshelf page
 
 # Project structure
 ```
