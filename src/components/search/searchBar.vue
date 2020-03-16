@@ -15,10 +15,8 @@
                @blur="doBlur"
                @keyup.enter="search"
                :style="{borderRadius:shape==='round'?'.512rem':'.17067rem'}"
-
-
         >
-        <i v-show="showClearIcon"@click="clearText" class="clear-icon"></i>
+        <i v-show="showClearIcon" @click="clearText" class="clear-icon"></i>
       </div>
       <div class="search-cancel" @click="cancel"><p>{{cancelText}}</p></div>
     </div>
@@ -26,66 +24,64 @@
 </template>
 
 <script>
-  export default {
-    name: "searchBar",
-    computed: {
-      showClearIcon: function () {
-        return this.value !== '' && this.value != undefined;
-      }
-    },
-    methods: {
+export default {
+  name: 'searchBar',
+  computed: {
+    showClearIcon: function () {
+      return this.value !== '' && this.value !== undefined
+    }
+  },
+  methods: {
 
-      doFocus: function(){
-        console.log('test')
-        this.$emit('doFocus')
-      },
-      doBlur:function(){
-        this.$emit('doBlur');
-      },
-
-      search: function () {
-        this.$emit('search')
-      },
-      cancel: function () {
-        this.$emit('cancel')
-      },
-      clearText: function () {
-        this.$emit('clear')
-      }
+    doFocus: function () {
+      this.$emit('doFocus')
     },
-    props: {
-      value: {
-        type: String
-      },
-      cancelText: {
-        type: String
-      },
-      background: {
-        type: String,
-        default: '#f2f2f2'
-      },
-      shape: {
-        type: String,
-        default: 'round'
-      },
-      placeholder: {
-        tyoe: String,
-        default: 'Input text here'
-      },
-      inputAlign: {
-        type: String,
-        default: 'left'
-      }
+    doBlur: function () {
+      this.$emit('doBlur')
+    },
+
+    search: function () {
+      this.$emit('search')
+    },
+    cancel: function () {
+      this.$emit('cancel')
+    },
+    clearText: function () {
+      this.$emit('clear')
+    }
+  },
+  props: {
+    value: {
+      type: String
+    },
+    cancelText: {
+      type: String
+    },
+    background: {
+      type: String,
+      default: '#f2f2f2'
+    },
+    shape: {
+      type: String,
+      default: 'round'
+    },
+    placeholder: {
+      tyoe: String,
+      default: 'Input text here'
+    },
+    inputAlign: {
+      type: String,
+      default: 'left'
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
-  @import "src/style/mixin";
 
   input[type="search"]::-webkit-search-decoration,
   input[type="search"]::-webkit-search-cancel-button,
-  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-Wbutton,
   input[type="search"]::-webkit-search-results-decoration {
     -webkit-appearance: none;
   }
@@ -100,11 +96,10 @@
     background-color: #fff;
     z-index: 1;
 
-
     .search-box {
       position: relative;
       width: 88.2%;
-      height: 1.28rem;
+      height: 1.8rem;
       margin-top: .29867rem;
       float: left;
     }
@@ -113,7 +108,7 @@
       position: absolute;
       width: .7rem;
       height: .7rem;
-      top: .35067rem;
+      top: .68rem;
       left: .312rem;
       fill: #aaa;
     }
@@ -126,19 +121,19 @@
       overflow: hidden;
       text-overflow: ellipsis;
       box-sizing: border-box;
-      font-size: .55467rem;
+      font-size: 1rem;
       border: .02133rem solid #e7e7e7;
       border-radius: .17067rem;
       background-color: #f4f4f4;
       color: #999999;
     }
 
-
     .search-cancel {
-      float: right;
-      position: relative;
-      width: 10%;
-      margin-top: .7rem;
+      height: 1.8rem;
+      margin-top: .29867rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       p {
         text-align: right;
@@ -150,7 +145,7 @@
     .clear-icon {
       position: absolute;
       width: 1.28rem;
-      height: 1.28rem;
+      height: 1.8rem;
       top: 0;
       right: 0;
       background: url(//s1.hdslb.com/bfs/static/mult/images/search-close.png) no-repeat;
@@ -158,6 +153,5 @@
       background-position: 46.7% 46.7%;
     }
   }
-
 
 </style>
