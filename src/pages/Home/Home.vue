@@ -192,7 +192,7 @@ export default {
       this.$nextTick(() => {
         if (!newValue && self.scroll) {
           self.scroll.refresh()
-          self.scroll.scrollTo(0, self.homePagePosY, 100)
+          self.scroll.scrollTo(0, self.homePagePosY, 0)
         }
       })
     }
