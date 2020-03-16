@@ -256,10 +256,10 @@ export default {
       this.saveBookToBookshelf(this.book)
     },
     onGoback: function () {
-      if (!this.from.query) {
-        this.$router.push({ name: 'home' })
-      } else {
+      if (this.from.query && 'chapterid' in this.from.query === false) {
         this.$router.push({ name: 'home', query: this.from.query })
+      } else {
+        this.$router.push({ name: 'home' })
       }
     }
   },
