@@ -15,7 +15,7 @@
                @blur="doBlur"
                @keyup.enter="search"
                :style="{borderRadius:shape==='round'?'.512rem':'.17067rem'}"
-\
+
 
         >
         <i v-show="showClearIcon"@click="clearText" class="clear-icon"></i>
@@ -102,9 +102,6 @@
 
 
     .search-box {
-
-
-    .search-box {
       position: relative;
       width: 88.2%;
       height: 1.28rem;
@@ -126,7 +123,8 @@
       width: 100%;
       height: 100%;
       padding-left: 1.70667rem;
-
+      overflow: hidden;
+      text-overflow: ellipsis;
       box-sizing: border-box;
       font-size: .55467rem;
       border: .02133rem solid #e7e7e7;
