@@ -259,7 +259,8 @@ export default {
             this.view.currentFingerPosY = -(lastChapterListHeight - (listHeight - Math.abs(this.view.currentFingerPosY)))
             // console.log(this.view.currentFingerPosY)
           }
-        })
+        }
+        )
         // load more data reach bottom
         this.scroll.on('pullingUp', () => {
           // console.log('bottom arrtive')
@@ -437,7 +438,7 @@ export default {
       /*background: url(../../../images/skin-default-t.ece62.jpg) no-repeat center top, url(../../../images/skin-default-b.79f06.jpg) no-repeat center bottom, url(../../../images/skin-default-m.35905.jpg) repeat-y center 119px;*/
       /*background-size: 100%;*/
       .reader-ul {
-        min-height: 100%;
+        min-height: 101%; // make sure height value is larger than wrapper being enough to scroll down even the chapter content is short
       }
 
     }
