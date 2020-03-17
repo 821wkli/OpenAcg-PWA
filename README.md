@@ -10,11 +10,21 @@ officals.
 Nothing special, recently I have begun to learn vue.js, officals contributors
 provide a well-written, easily understandable documentations. I feel confrontable with it. So, I choosed vue.
 
-__Noted：This project is only for personal use only. All data come from third-party apps.__
+>  [Backend api doc see here](https://github.com/821wkli/OpenAcg-PWA/blob/master/api-docs.md)
+>
+>  [API performance benchmark](#benchmark)
+>
+>  [demo](https://openacg.ml/home) 
+> + If you are testing on PC, open browser in mobile debugging view.
+> + So far I don't have any plan to support PC, of coz feel free to contribution.
 
 
 
-# tech stack
+__Noted：This project is only for personal use only, Commerical distribution is not allowed, all data come from third-party websites and apps.__
+
+
+
+# Tech stack
 vue + vue-rotuer + vuex + vue cli + ES6/7 + fetch + sass + flex layout + svg
 
 For development purpose, vue cli comes with built-in proxy server to bypass cors-origin rule on browser. You don't need to change anything here.
@@ -51,6 +61,29 @@ if (process.env.NODE_ENV === 'development') {
 - [X] reader page
 - [X] bookshelf page
 
+# API performance benchmark
+
+Load test with 100K requests using 1000 concurrent connections on a 2 cores server.
+
+```
+Statistics        Avg      Stdev        Max
+  Reqs/sec        62.07      40.89     286.34
+  Latency         1.47s   316.27ms      1.88s
+  HTTP codes:
+    1xx - 0, 2xx - 500, 3xx - 0, 4xx - 0, 5xx - 0
+    others - 0
+  Throughput:     3.36MB/s
+
+ TCP Connect.....................: Avg/mean=2.07ms      Median=0.00ms   p(95)=22.00ms
+ Server Processing...............: Avg/mean=1470.30ms   Median=1526.00ms        p(95)=1647.00ms
+ Content Transfer................: Avg/mean=2.42ms      Median=0.00ms   p(95)=10.00ms
+
+Summary:
+ Total Req.......................: 1000
+ Failed Req......................: 0
+ DNS Lookup......................: 6.00ms
+ Req/s...........................: 64.01
+```
 # Project structure
 ```
 |-- public                           // all files here will be  copyied to /dist on production build
