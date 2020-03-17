@@ -61,16 +61,16 @@ if (process.env.NODE_ENV === 'development') {
 - [X] reader page
 - [X] bookshelf page
 
-# API performance benchmark
+# Backend api performance benchmark
 
-Load test with 100K requests using 1000 concurrent connections on a 2 cores server.
+Load test with 100K requests using 1000 concurrent connections on a 2 cores nano server. 60 rqs might be acceatable due to hardware limitation? But I always heard something like CyPython sucks on processing IO-bounded operations. Not sure the following results produced is good or not. I will rewrite api in either Golang or Node in my spare time, might be open sourced later.
 
 ```
 Statistics        Avg      Stdev        Max
   Reqs/sec        62.07      40.89     286.34
   Latency         1.47s   316.27ms      1.88s
   HTTP codes:
-    1xx - 0, 2xx - 500, 3xx - 0, 4xx - 0, 5xx - 0
+    1xx - 0, 2xx - 100000, 3xx - 0, 4xx - 0, 5xx - 0
     others - 0
   Throughput:     3.36MB/s
 
@@ -79,7 +79,7 @@ Statistics        Avg      Stdev        Max
  Content Transfer................: Avg/mean=2.42ms      Median=0.00ms   p(95)=10.00ms
 
 Summary:
- Total Req.......................: 1000
+ Total Req.......................: 100000
  Failed Req......................: 0
  DNS Lookup......................: 6.00ms
  Req/s...........................: 64.01
