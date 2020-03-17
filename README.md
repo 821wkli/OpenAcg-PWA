@@ -160,7 +160,11 @@ go http://localhost:8088
 ## Production build
 ```
 npm run build
-
 ```
 
-If this project is useful, give me a star 😊
+## License
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+
+If this project is useful for learning Vue, give me a star 😊
+
+
