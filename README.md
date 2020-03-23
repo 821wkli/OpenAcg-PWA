@@ -39,11 +39,11 @@ __Noted：This project is only for personal use only, Commerical distribution is
 |                                 ![](http://cdn.openacg.ml/image/chapterContent.png)                      |  ![](http://cdn.openacg.ml/image/chapterContentPanel.png)| ![](http://cdn.openacg.ml/image/darkMode.png)| 
 
 | Switch chapter by panel |  Switch chapter by button    |
-| :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
+| :-----------------------------------------------------: | :----: | 
 |                                 ![](http://cdn.openacg.ml/image/chapterPanelScroll.gif)                      |  ![](http://cdn.openacg.ml/image/switchChapter.gif)| 
 
 | Seach book, recommendation, history |  Search results    |
-| :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
+| :-----------------------------------------------------: | :----: | 
 |                                 ![](http://cdn.openacg.ml/image/search.png)                      |  ![](http://cdn.openacg.ml/image/searchList.png)| 
 
 
