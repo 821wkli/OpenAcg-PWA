@@ -1,18 +1,15 @@
-# Background
+# Background/Motivation
+<p>
+I read light novels and manga always on different mobile apps and websites as for each has its own data source but none of them have all books and manga. The action to switch between mutitple apps got me being anxiety all the time since I need to memorize which books are updated in specific apps. I wonder it's awesome if I can read them on single and clean platform while my eye not being hurted by crazy ads.
+Another reason push me is reader apps I use so far are just wrapping the old-school non-mobile friendly page into a webview. Not truly native.
+</p>
 
-When I read light novels and mangas,
-always read on different mobile apps and websites as for each has its own data source but none of them have all books and manga.
-So it's offten to switch between mutitple apps. I wonder it's greater if I can read them on only one app.
-Another reason motivate me is reader apps on google play I use so far are just wrap the old-school non-mobile friendly page into webview.
-officals.
 ## Why vue?
-
-Nothing special, recently I have begun to learn vue.js, officals contributors
-provide a well-written, easily understandable documentations. I feel confrontable with it. So, I choosed vue.
+<p>
+Nothing special, I have learnt Vue for halft year and use commonly on freelance projects, but normally which are design to be simple architecture, I haven't master skills like vuex state control across multiple and complex pages. A best way to dive into framework's low-level internals is creating something fun right? Also what attracts me to Vue.js is that the offical documentations is very easily understandable and well-structured.
+</p>
 
 >  [Backend api doc see here](https://github.com/821wkli/OpenAcg-PWA/blob/master/api-docs.md)
->
->  [API performance benchmark](#benchmark)
 >
 >  [demo](https://openacg.ml/home) 
 > + If you are testing on PC, open browser in mobile debugging view.
@@ -20,7 +17,37 @@ provide a well-written, easily understandable documentations. I feel confrontabl
 
 
 
-__Noted：This project is only for personal use only, Commerical distribution is not allowed, all data come from third-party websites and apps.__
+__Noted：This project is only for personal use only, Commerical distribution is not allowed, all data come from third-party websites.__
+
+# Screenshots
+
+
+| Skeleton loading |  Home page    | Drop down menu |
+| :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
+|                                 ![](http://cdn.openacg.ml/image/skeleton.gif)                      |  ![](http://cdn.openacg.ml/image/home.jpg)| ![](http://cdn.openacg.ml/image/homeMenu.png) | 
+
+| Pull down refresh |  Pull up load more    | None |
+| :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
+|                                 ![](http://cdn.openacg.ml/image/pullDownRefresh.gif)                      |  ![](http://cdn.openacg.ml/image/pullUpLoadMore.gif)| ![](http://cdn.openacg.ml/image/pullUpLoadMore.gif)| 
+
+| Bookshelf offline reading |  Book detail    | Book volume Panel |
+| :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
+|                                 ![](http://cdn.openacg.ml/image/bookshelf.png)                      |  ![](http://cdn.openacg.ml/image/bookDetail.png)| ![](http://cdn.openacg.ml/image/volumePanel.png)| 
+
+| Chapter reading page |  Setting panel    | Dark mode |
+| :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
+|                                 ![](http://cdn.openacg.ml/image/chapterContent.png)                      |  ![](http://cdn.openacg.ml/image/chapterContentPanel.png)| ![](http://cdn.openacg.ml/image/darkMode.png)| 
+
+| Switch chapter by panel |  Switch chapter by button    |
+| :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
+|                                 ![](http://cdn.openacg.ml/image/chapterPanelScroll.gif)                      |  ![](http://cdn.openacg.ml/image/switchChapter.gif)| 
+
+| Seach book, recommendation, history |  Search results    |
+| :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
+|                                 ![](http://cdn.openacg.ml/image/search.png)                      |  ![](http://cdn.openacg.ml/image/searchList.png)| 
+
+
+
 
 
 
@@ -55,15 +82,20 @@ if (process.env.NODE_ENV === 'development') {
 ```
 
 # Functions to be implemented
-- [X] home page
-- [X] search page 
-- [X] book detail page 
-- [X] reader page
-- [X] bookshelf page
+- [x] home page
+- [x] search page 
+- [x] book detail page 
+- [x] book reader page
+- [x] bookshelf page
+- [ ] ebook conversion page
+- [ ] manga home page
+- [ ] manga reader page
+- [ ] anime home page
+- [ ] anime video page
 
 # Backend api performance benchmark
 
-Load test with 100K requests using 1000 concurrent connections on a 2 cores nano server. 60 rqs might be acceatable due to hardware limitation? But I always heard something like CyPython sucks on processing IO-bounded operations. Not sure the following results produced is good or not. I will rewrite api in either Golang or Node in my spare time, might be open sourced later.
+Load test with 100K requests using 1000 concurrent connections on a 2 cores nano server. 60 rqs might be acceatable due to hardware limitation? But I always heard something like CyPython sucks on processing IO-bounded operations. Not sure the following results produced is good or not. I will rewrite api in either Golang or Node to compare each other in my spare time, will be open sourced later.
 
 ```
 Statistics        Avg      Stdev        Max
@@ -174,7 +206,7 @@ Summary:
 
 
 
-## Development
+# Development
 ```
 
 git clone https://github.com/821wkli/OpenAcg-PWA
@@ -190,7 +222,7 @@ go http://localhost:8088
 
 
 
-## Production build
+# Production build
 ```
 npm run build
 ```
