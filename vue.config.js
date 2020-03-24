@@ -9,7 +9,7 @@ function resolve (dir) {
 const isEnvProduction = process.env.NODE_ENV === 'production'
 process.env.VUE_APP_VERSION = require('./package.json').version
 module.exports = {
-  publicPath: '/demo/',
+  publicPath: '/',
   devServer: {
     port: 8088,
     open: true,
