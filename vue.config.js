@@ -15,7 +15,7 @@ module.exports = {
     open: true,
     proxy: {
       '^/api': {
-        target: 'https://openacg.ml',
+        target: 'https://flask.openacg.tk',
         changeOrigin: true
       }
     }
