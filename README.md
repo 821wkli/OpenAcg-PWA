@@ -11,7 +11,7 @@ Nothing special, I have learnt Vue for halft year and use commonly on freelance 
 
 >  [Backend api doc see here](https://github.com/821wkli/OpenAcg-PWA/blob/master/api-docs.md)
 >
->  [demo](https://openacg.ml/home) 
+>  [demo](https://flask.openacg.tk/home) 
 > + If you are testing on PC, open browser in mobile debugging view.
 > + So far I don't have any plan to support PC, of coz feel free to contribution.
 
@@ -63,7 +63,7 @@ In nginx, the config will look like this.
 ```
  location /api {
  include proxy_params;
- proxy_pass  https://openacg.ml;
+ proxy_pass  https://flask.openacg.tk;
  ## heders ....
                 }
 
