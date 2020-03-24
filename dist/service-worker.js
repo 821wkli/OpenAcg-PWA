@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.ee40e30cf4252b2f461e0e915f6c8af6.js"
+  "/demo/precache-manifest.2426725d25ee27f24fd56e8e6d19ca45.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "cli-openacg"});
+workbox.core.setCacheNameDetails({prefix: "OpenAcg"});
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
