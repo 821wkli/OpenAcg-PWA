@@ -42,9 +42,9 @@ __Noted：This project is only for personal use only, Commerical distribution is
 | :-----------------------------------------------------: | :----: | 
 |                                 ![](http://cdn.openacg.ml/image/chapterPanelScroll.gif)                      |  ![](http://cdn.openacg.ml/image/switchChapter.gif)| 
 
-| Seach book, recommendation, history |  Search results    |
-| :-----------------------------------------------------: | :----: | 
-|                                 ![](http://cdn.openacg.ml/image/search.png)                      |  ![](http://cdn.openacg.ml/image/searchList.png)| 
+| Seach book, recommendation, history |  Search results    | 404 not found
+| :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
+|                                 ![](http://cdn.openacg.ml/image/search.png)                      |  ![](http://cdn.openacg.ml/image/searchList.png)| ![](http://cdn.openacg.ml/image/404.gif)
 
 
 
@@ -87,6 +87,7 @@ if (process.env.NODE_ENV === 'development') {
 - [x] book detail page 
 - [x] book reader page
 - [x] bookshelf page
+- [x] 404 page
 - [ ] ebook conversion page
 - [ ] manga home page
 - [ ] manga reader page
