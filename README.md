@@ -148,16 +148,17 @@ Summary:
 
 
    |-- pages                        // page view
-       |-- Home                     // home page
+        |-- 404                      // 404 page
+            |-- 404.vue
+        |-- Home                     // home page
             |-- Home.vue
-       |-- Book                     // book detail page
+        |-- Book                     // book detail page
 		    |-- Book.vue
         |-- Read
             |-- Read.vue
         |-- Search                  //search page
             |-- Search.vue
-
-       |-- Bookshelf               
+        |-- Bookshelf               
             |-- Bookshelf.vue
 
 
