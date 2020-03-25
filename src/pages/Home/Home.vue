@@ -69,16 +69,16 @@
 </template>
 
 <script>
-import headTop from '../../components/header/headTop'
-import refresh from '../../components/common/refresh'
-import { latestBook, hotBook, searchBook } from '../../apis'
+import headTop from '@/components/header/headTop'
+import refresh from '@/components/common/refresh'
+import { latestBook, hotBook, searchBook } from '@/apis'
 import { mapGetters, mapActions } from 'vuex'
 import BScroll from 'better-scroll'
-import DotLoader from '../../components/loader/dotLoader' // todo
-import ListSkeleton from '../../components/loader/listSkeleton'
-import { isEmpty } from '../../utils/common'
-import SearchBar from '../../components/search/searchBar'
-import { imageBaseUrl } from '../../config/env'
+import DotLoader from '@/components/loader/dotLoader' // todo
+import ListSkeleton from '@/components/loader/listSkeleton'
+import { isEmpty } from '@/utils/common'
+import SearchBar from '@/components/search/searchBar'
+import { imageBaseUrl } from '@/config/env'
 
 export default {
   data () {

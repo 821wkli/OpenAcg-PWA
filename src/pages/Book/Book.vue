@@ -336,7 +336,7 @@ export default {
     },
     total_words: function () {
       if (!this.book.word_count) {
-        return '未知幾多'
+        return this.$lang.bookPage.unknownNumber
       }
       if (this.book.word_count < 10000) {
         return this.book.word_count

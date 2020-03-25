@@ -52,7 +52,7 @@ export default async (type = 'GET', url = '', data = {}, timeout = 10000) => {
       var response = await fetch(url, requestConfig)
       var responseJson = await response.json()
     } catch (error) {
-      throw new NetworkError({ message: response.statusText, statusCode: response.status })
+      throw new NetworkError({ message: response.statusText || 'timeout', statusCode: response.status || 0 })
     }
 
     return responseJson
