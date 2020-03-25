@@ -35,6 +35,11 @@ const routes = [
         path: '/reader/:bookid',
         name: 'reader',
         component: () => import('../pages/Read/Read.vue')
+      },
+      {
+        path: '/404',
+        name: '404',
+        component: () => import('../pages/404/404.vue')
       }
     ]
   }
