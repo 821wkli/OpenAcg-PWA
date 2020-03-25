@@ -194,9 +194,6 @@ export default {
       this.volumePanel.showChapterPanel = !this.volumePanel.showChapterPanel
     },
     getChaptersOfVolume (volume) {
-      // this.volumePanel.currentVolumeChapters = this.volumePanel.chapterList.filter(v => v.id === volume.id)[0]
-      // this.saveCurrentVolumeChapters(this.volumePanel.currentVolumeChapters)
-      // this.volumePanel.showChapterPanel = true
       if (!isEmpty(this.volumePanel.chapterList)) {
         const currentVolumeChapters = this.volumePanel.chapterList.filter(v => v.id === volume.id)[0]
         this.saveCurrentVolumeChapters(currentVolumeChapters)
@@ -207,7 +204,7 @@ export default {
       if (isEmpty(this.book)) {
         let book = await fetchBook(this.bookid)
         if (isEmpty(book.response) || book.response.message) {
-          await this.$router.push('/404')
+          await this.$router.replace('/404')
           return
         }
         book = { ...book.response }
