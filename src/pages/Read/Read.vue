@@ -74,13 +74,13 @@
 <script>
 import { getChapterContent, fetchBook } from '../../apis'
 import { mapGetters, mapActions } from 'vuex'
-import headTop from '../../components/header/headTop'
+import headTop from '@/components/header/headTop'
 import 'vue-range-component/dist/vue-range-slider.css'
 import VueRangeSlider from 'vue-range-component'
 import BScroll from 'better-scroll'
-import jumpLoader from '../../components/loader/jumpLoader'
-import { isEmpty } from '../../utils/common'
-import ChapterListPanel from '../../components/reader/chapterListPanel'
+import jumpLoader from '@/components/loader/jumpLoader'
+import { isEmpty } from '@/utils/common'
+import ChapterListPanel from '@/components/reader/chapterListPanel'
 
 export default {
   name: 'read',

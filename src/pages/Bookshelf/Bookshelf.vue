@@ -6,7 +6,7 @@
              :head-title="$lang.headBar.myBookshelf"
              header-position="fixed"
     ></headTop>
-    <div class="wrapper" ref="wrapper">
+    <div class="wrapper" ref="wrappergit                            ">
       <ul class="history-list-ul">
         <li v-longTap="{time:2000,handler:longTapHandler,disX:20,disY:20}"
             class="history-item" :class="{shaking:isEditingBook}"
@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import longTap from '../../plugins/longTap'
-import headTop from '../../components/header/headTop'
+import longTap from '@/plugins/longTap'
+import headTop from '@/components/header/headTop'
 import { mapActions } from 'vuex'
-import { isEmpty } from '../../utils/common'
-import { fetchUpdatedBookshelf } from '../../apis'
-import { imageBaseUrl } from '../../config/env'
+import { isEmpty } from '@/utils/common'
+import { fetchUpdatedBookshelf } from '@/apis'
+import { imageBaseUrl } from '@/config/env'
 
 export default {
   name: 'bookshelf',

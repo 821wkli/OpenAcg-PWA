@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import SearchBar from '../../components/search/searchBar'
+import SearchBar from '@/components/search/searchBar'
 import { mapGetters, mapActions } from 'vuex'
-import { isEmpty } from '../../utils/common'
+import { isEmpty } from '@/utils/common'
 
 export default {
   name: 'search',
