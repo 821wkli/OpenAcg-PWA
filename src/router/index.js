@@ -40,6 +40,10 @@ const routes = [
         path: '/404',
         name: '404',
         component: () => import('../pages/404/404.vue')
+      },
+      {
+        path: '*',
+        redirect: '/404'
       }
     ]
   }

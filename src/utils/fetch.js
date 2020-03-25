@@ -1,6 +1,14 @@
 import { apiBaseUrl } from '../config/env'
+function NetworkError (msg) {
+  this.name = 'NetworkError'
+  this.message = msg.message
+  const error = new Error(this.message)
+  error.name = this.name
+  this.staack = error.stack
+  this.statusCode = msg.statusCode
+}
 
-export default async (type = 'GET', url = '', data = {}) => {
+export default async (type = 'GET', url = '', data = {}, timeout = 10000) => {
   type = type.toUpperCase()
   url = apiBaseUrl + url
 
@@ -17,6 +25,8 @@ export default async (type = 'GET', url = '', data = {}) => {
   }
 
   if (window.fetch) {
+    const contoller = new AbortController()
+    const signal = contoller.signal
     const requestConfig = {
       credentials: 'include',
       method: type,
@@ -25,7 +35,8 @@ export default async (type = 'GET', url = '', data = {}) => {
         'Content-Type': 'application/json'
       },
       mode: 'cors',
-      cache: 'force-cache'
+      cache: 'force-cache',
+      signal
     }
 
     if (type === 'POST') {
@@ -34,11 +45,14 @@ export default async (type = 'GET', url = '', data = {}) => {
       })
     }
 
+    setTimeout(() => {
+      contoller.abort()
+    }, timeout)
     try {
       var response = await fetch(url, requestConfig)
       var responseJson = await response.json()
     } catch (error) {
-      throw new Error(error)
+      throw new NetworkError({ message: response.statusText, statusCode: response.status })
     }
 
     return responseJson

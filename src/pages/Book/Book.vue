@@ -207,7 +207,7 @@ export default {
       if (isEmpty(this.book)) {
         let book = await fetchBook(this.bookid)
         if (isEmpty(book.response) || book.response.message) {
-          await this.$router.push('/home')
+          await this.$router.push('/404')
           return
         }
         book = { ...book.response }
