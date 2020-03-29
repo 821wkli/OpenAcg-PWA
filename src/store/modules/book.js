@@ -43,7 +43,7 @@ const book = {
       const list = [...state.recentReadingChapterList]
       const pos = list.findIndex(item => item.bookid === obj.bookid)
       if (pos === -1) {
-        list.push(obj)
+        list.unshift(obj)
       } else {
         list[pos] = obj
       }

@@ -6,8 +6,13 @@
              :head-title="$lang.headBar.myBookshelf"
              header-position="fixed"
     ></headTop>
-    <div class="wrapper" ref="wrappergit                            ">
-      <ul class="history-list-ul">
+    <div class="wrapper" ref="wrapper">
+      <header @click="$refs.swiper.next()">
+        <span :class="{active:swiper.index ===0}" >{{$lang.bookshelfPage.collection}}</span>
+        <span :class="{active:swiper.index ===1}" >{{$lang.bookshelfPage.history}}</span>
+      </header>
+      <swiper @onChangeSlide="handleIndexChange" ref="swiper" :options="swiper.options">
+      <ul class="bookshelf-list-ul">
         <li v-longTap="{time:2000,handler:longTapHandler,disX:20,disY:20}"
             class="history-item" :class="{shaking:isEditingBook}"
             @click="goToBookHome(item)"
@@ -25,6 +30,30 @@
   </span>
         </li>
       </ul>
+      <ul class="history-list-ul">
+        <li class="history-list-li" v-for="(item,index) in historyList"
+            :key="index">
+
+            <div class="left">
+              <img :src="item.cover_url" :alt="item.title"/>
+            </div>
+            <div class="right">
+              <div class="book-info">
+
+                  <h6>{{item.title}}</h6>
+                <span>{{item.publisher}}</span>
+                <span>{{item.author}}</span>
+                <span>{{item.last_updated_chapter_name}}</span>
+              </div>
+              <div class="continue"
+                   @click="$router.push({name:'reader',params:{bookid:item.bookid},query:{chapterid:item.chapterid}})">
+                <span>Continue</span>
+              </div>
+            </div>
+
+        </li>
+      </ul>
+      </swiper>
     </div>
   </div>
 </template>
@@ -32,6 +61,7 @@
 <script>
 import longTap from '@/plugins/longTap'
 import headTop from '@/components/header/headTop'
+import swiper from '@/components/common/swiper'
 import { mapActions } from 'vuex'
 import { isEmpty } from '@/utils/common'
 import { fetchUpdatedBookshelf } from '@/apis'
@@ -39,17 +69,30 @@ import { imageBaseUrl } from '@/config/env'
 
 export default {
   name: 'bookshelf',
-  components: { headTop },
+  components: { headTop, swiper },
   directives: { longTap },
   data () {
     return {
       isEditingBook: false,
-      longTapping: false
+      longTapping: false,
+      swiper: {
+        index: 0,
+        options: {
+          autoPlay: false,
+          initialIndex: 0,
+          prevNextButtons: false,
+          pageDots: false,
+          wrapAround: true
+        }
+      }
     }
   },
   computed: {
     bookshelfList: function () {
       return this.$store.getters.bookshelfList || []
+    },
+    historyList: function () {
+      return this.$store.getters.recentReadingChapterList || []
     }
   },
   mounted () {
@@ -68,6 +111,14 @@ export default {
     }
   },
   methods: {
+    /**
+     * callback handle swiper onchange event
+     * @param  index slide index which start with 0
+     */
+    handleIndexChange: function (index) {
+      this.swiper.index = index
+      this.$refs.wrapper.scrollTop = 0
+    },
     initData: async function () {
       if (isEmpty(this.bookshelfList)) {
         await this.loadBookshelfList()
@@ -156,14 +207,32 @@ export default {
       height: 100%;
       position:fixed;
       overflow-y: scroll;
+      header{
+        padding-left: .25rem;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        z-index: 100;
+        span{
+          @include sc(.65rem,#aaa);
+        }
+        span:nth-of-type(1){
+          margin-right: .5rem;
+        }
+        .active{
+          color: #2e7cf1;
+        }
+      }
+      ul{
+        position: absolute;
+        font-size: 0;
+        margin-bottom: 1.8rem;
+        width: 100%;
+      }
     }
 
-    .history-list-ul {
-      position: absolute;
-      font-size: 0;
-      margin-bottom: 1.8rem;
-      width: 100%;
-
+    .bookshelf-list-ul {
       li {
         position: relative;
         width: 32.33%;
@@ -225,6 +294,63 @@ export default {
           padding-bottom: 10px;
         }
 
+      }
+    }
+    .history-list-ul{
+      .history-list-li{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: .68rem;
+        border-bottom: .5px solid rgba(128,128,128,.25);
+        .left{
+          width: 3rem;
+          height: 4rem;
+          img{
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .right{
+          flex: 1;
+          padding: .35rem;
+          padding-top: 0rem;
+          min-width: 0;
+          display: flex;
+          .book-info{
+            flex: 3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            h6{
+              @extend .book-info;
+              font-size: .85rem;
+              margin-bottom: .5rem;
+            }
+            span{
+              @extend .book-info;
+              display: block;
+              color: #999999;
+              font-size: .68rem;
+            }
+
+          }
+          .continue{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 0 .25rem 0 .25rem;
+            span{
+              color: #999999;
+              font-size: .6rem;
+              font-weight: 800;
+              padding: .2rem;
+              border: solid 1px #999999;
+              border-radius: 8px;
+            }
+          }
+
+        }
       }
     }
   }

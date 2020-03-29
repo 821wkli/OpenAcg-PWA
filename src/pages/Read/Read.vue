@@ -81,6 +81,7 @@ import BScroll from 'better-scroll'
 import jumpLoader from '@/components/loader/jumpLoader'
 import { isEmpty } from '@/utils/common'
 import ChapterListPanel from '@/components/reader/chapterListPanel'
+import { imageBaseUrl } from '../../config/env'
 
 export default {
   name: 'read',
@@ -223,6 +224,11 @@ export default {
   beforeDestroy () {
     this.saveRecentReadingChapterList({
       bookid: this.bookid,
+      title: this.book.title,
+      last_updated_chapter_name: this.book.last_updated_chapter_name,
+      cover_url: this.book.cover_url,
+      author: this.book.author,
+      publisher: this.book.publisher,
       chapterid: this.currentChapter.id,
       posY: this.view.currentFingerPosY
     })
@@ -284,6 +290,7 @@ export default {
           this.book = res.response
         }
       }
+      this.book.cover_url = `${imageBaseUrl}/image/` + this.book.cover_url.split('/').pop()
       this.view.slider.value = parseInt(this.setting.fontSize.match(/\d/g).join(''))
       if (isEmpty(this.chapterList)) {
         await this.initChapterList(this.book)

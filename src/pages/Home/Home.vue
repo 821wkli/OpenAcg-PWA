@@ -438,12 +438,14 @@ export default {
 
           p:nth-of-type(3) {
             font-size: .55rem;
-            height: 2.3rem;
             max-height: 2.3rem;
+            display: -webkit-box;
+            -webkit-line-clamp:3;
+            -webkit-box-orient: vertical;
             overflow: hidden;
+            text-overflow: ellipsis;
             margin: .375rem 0;
             color: #969ba3;
-            text-overflow: ellipsis;
 
             .completed {
               color: red;

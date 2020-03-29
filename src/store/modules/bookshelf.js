@@ -32,7 +32,7 @@ const bookshelf = {
       }
       const isDuplicated = books.some(item => item.id === book.id)
       if (!isDuplicated) {
-        books.push(Object.assign({}, book))
+        books.unshift(book)
       }
       commit('SAVE_BOOKSHELF_LIST', books)
     }

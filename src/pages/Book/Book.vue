@@ -58,7 +58,7 @@
                  @click="isShowMore=!isShowMore"
         >
           <section class="book-summary enabled">
-            <div>
+            <div class="content" :class="{showMore:isShowMore}">
               {{book.introduction}}
             </div>
             <span
@@ -253,19 +253,16 @@ export default {
       this.saveBookToBookshelf(this.book)
     },
     onGoback: function () {
-      if (this.from.query && 'chapterid' in this.from.query === false) {
+      if (!isEmpty(this.from.query) && 'chapterid' in this.from.query === false) {
         this.$router.push({ name: 'home', query: this.from.query })
+      } else if (this.from.path.indexOf('bookshelf') !== -1) {
+        this.$router.go(-1)
       } else {
         this.$router.push({ name: 'home' })
       }
     }
   },
   watch: {
-    isShowMore: function (newShowMore) {
-      for (const elem of document.getElementsByClassName('book-main')) {
-        elem.style.height = newShowMore ? 'auto' : '100%'
-      }
-    },
 
     chapterList: function (newChapterList) {
       this.volumePanel.chapterList = newChapterList
@@ -374,7 +371,7 @@ export default {
     }
 
     .book-detail-wrapper {
-      margin-top: -1.95rem;
+      margin-top: -2.3rem;
       background-color: #bebade;
 
       .book-cover-blur {
@@ -481,15 +478,24 @@ export default {
       position: relative;
       padding-left: .4rem;
       padding-right: .4rem;
-      background: #fff;
+      /*background: #fff;*/
       margin-top: .8rem;
-      height: 4.9rem;
+      /*height: 4.9rem;*/
       max-height: none;
       @include sc(.65rem, $defaultColor)
       overflow: hidden;
       text-align: justify;
       box-shadow: 0 1px #f0f1f2, 0 -1px #f0f1f2;
-
+      .content{
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        &.showMore{
+          -webkit-line-clamp: unset;
+        }
+      }
       .book-summary-more {
         position: absolute;
         right: .4rem;
@@ -509,15 +515,16 @@ export default {
 
       }
 
-      .showMore {
-        @include wh(1rem, 1rem);
+      .book-summary-more {
+        &.showMore {
+          @include wh(1rem, 1rem);
 
-        .icon-arrow-r {
-          @include wh(75%, 75%);
-          transform: rotate(270deg);
+          .icon-arrow-r {
+            @include wh(75%, 75%);
+            transform: rotate(270deg);
+          }
         }
       }
-
     }
 
     .showMore {

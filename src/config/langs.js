@@ -29,5 +29,9 @@ export const chinese = {
     darkMode: '夜間模式',
     lastChapterMessage: '這是最後一章',
     firstChapterMessage: '這是第一章'
+  },
+  bookshelfPage: {
+    collection: '個人收藏',
+    history: '閱讀記錄'
   }
 }
