@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <section class="book-main" v-if="!showLoading">
-      <section class="book-main" v-if="!volumePanel.showChapterPanel">
+      <section class="book-main" >
         <head-top :head-title="book.title"
                   :go-back="true"
                   :goback-handler="onGoback.bind(null)"
