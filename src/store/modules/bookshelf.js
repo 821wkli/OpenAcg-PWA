@@ -1,12 +1,16 @@
 import { getStore, isEmpty, setStore } from '../../utils/common'
 const bookshelf = {
   state: {
-    bookshelfList: []
+    bookshelfList: [],
+    checkedAll: false
   },
   mutations: {
     SAVE_BOOKSHELF_LIST: (state, list) => {
       state.bookshelfList = list
       setStore('bookshelf', list)
+    },
+    SAVE_CHECKALL: (state, checked) => {
+      state.checkedAll = checked
     }
   },
   actions: {
@@ -19,6 +23,10 @@ const bookshelf = {
         return item.id !== book.id
       })
       commit('SAVE_BOOKSHELF_LIST', books)
+    },
+    checkAll ({ commit, state }) {
+      const isCheckedAll = !state.checkedAll
+      commit('SAVE_CHECKALL', isCheckedAll)
     },
     updateBookshelf ({ commit, state }, list) {
       commit('SAVE_BOOKSHELF_LIST', list)
@@ -40,6 +48,9 @@ const bookshelf = {
   getters: {
     bookshelfList: (state) => {
       return state.bookshelfList
+    },
+    isCheckedAll: (state) => {
+      return state.checkedAll
     }
   }
 }

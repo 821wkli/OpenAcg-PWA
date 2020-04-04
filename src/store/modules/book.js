@@ -39,6 +39,15 @@ const book = {
     saveBook ({ commit }, book) {
       commit('SAVE_BOOK', book)
     },
+    removeRecentReadingChapterList ({ commit, state }, books) {
+      const temp = books
+      if (Array.isArray(books)) {
+        const diff = [...state.recentReadingChapterList].filter(item => {
+          return !temp.includes(item.bookid)
+        })
+        commit('SAVE_RECENT_READING_CHAPTER_LIST', diff)
+      }
+    },
     saveRecentReadingChapterList ({ commit, state }, obj) {
       const list = [...state.recentReadingChapterList]
       const pos = list.findIndex(item => item.bookid === obj.bookid)

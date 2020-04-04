@@ -19,12 +19,12 @@
             height="100%"
             xmlns="http://www.w3.org/2000/svg"
             version="1.1"
-          >
+          >p
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-delete" />
           </svg>
         </span>
       </header>
-      <swiper @onChangeSlide="handleIndexChange" ref="swiper" :options="swiper.options">
+      <swiper class="swiper" @onChangeSlide="handleIndexChange" ref="swiper" :options="swiper.options">
         <ul class="bookshelf-list-ul">
           <li
             v-longTap="{time:2000,handler:longTapHandler,disX:20,disY:20}"
@@ -50,9 +50,12 @@
           </li>
         </ul>
         <ul class="history-list-ul">
-          <li class="history-list-li" v-for="(item,index) in historyList" :key="index">
-            <div class="selectionPanel">
-              <roundCheckbox :id="item.bookid" :value="item.bookid"></roundCheckbox>
+          <li :class="{editing:isEditingBook}" class="history-list-li" v-for="(item,index) in historyList" :key="index">
+            <div v-show='isEditingBook' class="selectionPanel">
+              <roundCheckbox class='roundCheckbox' :id="item.bookid"
+                             :value="item.bookid"
+                             @onChecked="addBookToDeletedList"
+                             @onUnchecked="removeBookFromDeletedList"/>
             </div>
             <div class="left">
               <img :src="item.cover_url" :alt="item.title" />
@@ -64,7 +67,7 @@
                 <span>{{item.author}}</span>
                 <span>{{item.last_updated_chapter_name}}</span>
               </div>
-              <div
+              <div :class="{editing:isEditingBook}"
                 class="continue"
                 @click="$router.push({name:'reader',params:{bookid:item.bookid},query:{chapterid:item.chapterid}})"
               >
@@ -74,6 +77,30 @@
           </li>
         </ul>
       </swiper>
+      <div class="btn-container" v-show="isEditingBook && swiper.index===1">
+        <open-button
+          @onClick="selectAll"
+          :disabled='false'
+          :plain='false'
+          text="Select all"
+          :mini='false'>
+          <svg slot="icon" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-tick" />
+          </svg>
+
+        </open-button>
+        <open-button
+          @onClick="removeRecentReadingChapterList(booksToBeDeleted)"
+          :disabled='booksToBeDeleted.length<=0'
+          :plain='false'
+          type="warn"
+          text="Delete"
+          :mini='false'>
+          <svg slot='icon' width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <use  xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-delete-white" />
+          </svg>
+        </open-button>
+      </div>
     </div>
   </div>
 </template>
@@ -87,15 +114,17 @@ import { mapActions } from 'vuex'
 import { isEmpty } from '@/utils/common'
 import { fetchUpdatedBookshelf } from '@/apis'
 import { imageBaseUrl } from '@/config/env'
-
+import OpenButton from '../../components/common/openButton'
+// import DeleteButtonGroup from '../../components/bookshelf/deleteButtonGroup'
 export default {
   name: 'bookshelf',
-  components: { headTop, swiper, roundCheckbox },
+  components: { OpenButton, headTop, swiper, roundCheckbox },
   directives: { longTap },
   data () {
     return {
       isEditingBook: false,
       longTapping: false,
+      booksToBeDeleted: [],
       swiper: {
         index: 0,
         options: {
@@ -125,15 +154,33 @@ export default {
     // })
   },
   watch: {
+    historyList: function (newHistoryList, oldHistoryList) {
+      if (newHistoryList.length < oldHistoryList.length) {
+        // out of editing state if the delete operation has been done
+        this.isEditingBook = false
+      }
+    },
     isEditingBook: function (newValue) {
       if (!newValue) {
         this.longTapping = false
       }
+      if (newValue) {
+        this.$refs.swiper.disableDrag()
+      } else {
+        this.$refs.swiper.enableDrag()
+      }
     }
   },
   methods: {
-    sayHello: function () {
-      console.log('hello')
+    selectAll: function () {
+      this.checkAll()
+    },
+    addBookToDeletedList: function (id) {
+      this.booksToBeDeleted.push(id)
+    },
+    removeBookFromDeletedList: function (id) {
+      const pos = this.booksToBeDeleted.indexOf(id)
+      if (pos !== -1) this.booksToBeDeleted.splice(pos, 1)
     },
     /**
      * callback handle swiper onchange event
@@ -185,7 +232,9 @@ export default {
       'updateBookshelf',
       'saveBookToBookshelf',
       'removeBook',
-      'loadBookshelfList'
+      'loadBookshelfList',
+      'removeRecentReadingChapterList',
+      'checkAll'
     ]),
     removeBookFromBookshelf (book) {
       this.removeBook(book)
@@ -270,7 +319,15 @@ export default {
           max-width: 64px;
           max-height: 64px;
         }
+        .delete{
+          path{
+            fill: #ffffff;
+          }
+        }
       }
+    }
+    .swiper{
+      height: 100%;
     }
     ul {
       position: absolute;
@@ -343,6 +400,9 @@ export default {
     }
   }
   .history-list-ul {
+    .editing{
+      transform: translate3d(2rem,0,0);
+    }
     .history-list-li {
       width: 100%;
       display: flex;
@@ -350,7 +410,6 @@ export default {
       margin-bottom: 0.68rem;
       border-bottom: 0.5px solid rgba(128, 128, 128, 0.25);
       transition: transform 0.2s;
-      transform: translate3d(2rem,0,0);
       position: relative;
       .selectionPanel {
         width: 10%;
@@ -409,6 +468,31 @@ export default {
             border: solid 1px #999999;
             border-radius: 8px;
           }
+        }
+      }
+    }
+
+  }
+
+  .btn-container{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    .openBtn{
+      width: 50%;
+      svg{
+        position: absolute;
+        left: 1.5rem;
+        top: 46%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        @media (min-width: 960px){
+          width: 50px;
+          height: 50px;
         }
       }
     }
