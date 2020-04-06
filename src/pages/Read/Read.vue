@@ -230,6 +230,7 @@ export default {
       author: this.book.author,
       publisher: this.book.publisher,
       chapterid: this.currentChapter.id,
+      chapter_name: this.currentChapter.chapter_name,
       posY: this.view.currentFingerPosY
     })
   },
