@@ -42,6 +42,11 @@ const routes = [
         component: () => import('../pages/404/404.vue')
       },
       {
+        path: '/anime',
+        name: 'anime',
+        component: () => import('../pages/Anime/Anime.vue')
+      },
+      {
         path: '*',
         redirect: '/404'
       }

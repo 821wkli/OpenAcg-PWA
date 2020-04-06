@@ -1,10 +1,14 @@
 import fetch from '../utils/fetch'
+import { daily, list } from './tempData'
 
-// const setpromise = data => {
-//   return new Promise((resolve, reject) => {
-//     resolve(data)
-//   })
-// }
+const setpromise = data => {
+  return new Promise((resolve, reject) => {
+    resolve(data)
+  })
+}
+
+export const animeDaily = () => setpromise(daily)
+export const animeList = (offset, limit) => setpromise(list)
 export const fetchBook = (id) => fetch('GET', '/api/v1/novel/getBook', {
   id: id
 })
