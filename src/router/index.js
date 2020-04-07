@@ -49,7 +49,13 @@ const routes = [
         children: [
           {
             path: '/anime/list',
+            name: 'list',
             component: () => import('../pages/Anime/children/List.vue')
+          },
+          {
+            path: '/anime/detail:mid',
+            name: 'detail',
+            component: () => import('../pages/Anime/children/Detail.vue')
           }
         ]
       },

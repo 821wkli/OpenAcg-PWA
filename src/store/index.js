@@ -5,6 +5,7 @@ import book from './modules/book'
 import bookshelf from './modules/bookshelf'
 import search from './modules/search'
 import read from './modules/read'
+import anime from './modules/anime'
 // import { getStore } from '../utils/common'
 Vue.use(Vuex)
 // const defaultSetting = {
@@ -36,6 +37,7 @@ export default new Vuex.Store({
     book,
     bookshelf,
     search,
-    read
+    read,
+    anime
   }
 })

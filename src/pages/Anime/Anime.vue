@@ -1,5 +1,5 @@
 <template>
-  <div class="anime">
+  <div class="anime" ref="anime">
     <div class="header">
       <div class="logo-container">
         <router-link class='logo' to='/anime'></router-link>
@@ -53,7 +53,7 @@ export default {
       background-color: #ffffff;
       z-index: 999;
       display: flex;
-
+      justify-content: space-between;
       .logo-container {
         height: auto;
 
@@ -85,6 +85,7 @@ export default {
         outline: none !important;
         transition: background 0.3s ease-out;
         cursor: text;
+        flex: 1;
         @media (max-width: 1600px) {
           width: calc(100% - 200px);
         }

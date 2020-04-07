@@ -1,5 +1,5 @@
 <template>
-  <div id="list">
+  <div id="list" ref="animeList" >
     <section class="daily-info">
       <ul class="weekdays">
         <li v-for="(day,index) in dailyList" :key="index">
@@ -14,7 +14,7 @@
 
     <section class="anime-table">
       <div class="row header">
-        <div class="post-date"><span class="title">張貼日期</span></div>
+        <div class="post-date"><span class="title">更新日期</span></div>
         <div class="post-type"><span class="title">分類</span></div>
         <div class="post-title"><span class="title">標題</span></div>
         <div class="post-file-size"><span class="title">大小</span></div>
@@ -22,7 +22,8 @@
         <div class="post-download"><span class="title">下載</span></div>
         <div class="post-complete"><span class="title">完成</span></div>
       </div>
-      <div class="row" v-for="(item,index) in animeList" :key="index">
+      <div class="wrapper" @scroll="onscroll($event)">
+      <div class="row" v-for="(item,index) in animeList" :key="index" @click="saveCurrentAnime(item)&& $router.push({name:'detail',params:{mid:item.magnet.split(':').pop()}})">
         <div class="detail post-date"><span class="title">{{item.update_time.split('\t')[0]}}</span></div>
         <div class="detail post-type" :class="getTypeClass(item)"><span class="title">{{item.category}}</span></div>
         <div class="detail post-title">
@@ -39,6 +40,7 @@
         <div class="detail post-download"><span class="title">{{item.download}}</span></div>
         <div class="detail post-complete"><span class="title">{{item.completed}}</span></div>
       </div>
+      </div>
     </section>
   </div>
 </template>
@@ -46,20 +48,54 @@
 <script>
 import { animeDaily, fetchAnimeList } from '../../../apis'
 import { isEmpty } from '../../../utils/common'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'List',
   data () {
     return {
       dailyList: [],
-      animeList: []
+      animeList: [],
+      listHeight: 0
+    }
+  },
+  watch: {
+    animeList: function (newAnimeList, oldAnimeList) {
+      this.$nextTick(() => {
+        if (oldAnimeList.length !== newAnimeList.length) {
+          this.listHeight = this.$refs.animeList.offsetHeight
+        }
+      })
     }
   },
   mounted () {
     this.initData()
+    window.addEventListener('scroll', this.onScroll)
+    // window.onscroll = function (ev) {
+    //   console.log('windows.innerheight' + window.innerHeight)
+    //   console.log('windows.scrollY' + window.scrollY)
+    //   console.log('windows.offsetHeight' + document.body.offsetHeight)
+    //   console.log('total height ' + this.listHeight)
+    //   // if ((window.innerHeight + window.scrollY) >= this.$refs.anime.offsetHeight) {
+    //   //   console.log('bottom')
+    //   // }
+    // }
   },
-
   methods: {
+    onScroll: function () {
+      // const scrollTop = e.target.scrollTop
+      // this.scrollTop = scrollTop
+      // const { scrollHeight, offsetHeight } = e.target
+      // if (scrollTop + offsetHeight >= scrollHeight - 50) {
+      //   console.log('load more dat ahere')
+      // }
+
+      console.log('total height ' + this.listHeight)
+      if ((window.innerHeight + window.scrollY) >= this.listHeight - 50) {
+        console.log('bottom')
+      }
+    },
+    ...mapActions(['saveCurrentAnime']),
     initData: function () {
       animeDaily().then(res => {
         if (!isEmpty(res.response)) {
@@ -106,7 +142,7 @@ export default {
     .daily-info {
       width: 100%;
       height: auto;
-      padding: 10px;
+      padding: 14px;
 
       .weekdays {
         width: 100%;
