@@ -1,18 +1,16 @@
 <template>
-<div class="anime">
-  <div class="header">
-    <div class="logo-container">
-      <router-link class='logo' to='/anime'></router-link>
+  <div class="anime">
+    <div class="header">
+      <div class="logo-container">
+        <router-link class='logo' to='/anime'></router-link>
+      </div>
+      <input type="text" class="search" maxlength="50" v-model="searchText"/>
+      <button class="searchBtn">Search</button>
     </div>
-    <input type="text" class="search" maxlength="50" v-model="searchText"/>
-    <button class="searchBtn">Search</button>
-  </div>
-  <div class="main">
-    <div class="daily-info">
-
+    <div class="main">
+      <router-view></router-view>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -39,12 +37,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .anime{
+  .anime {
     width: 100vw;
     height: auto;
     display: flex;
     justify-content: center;
-    .header{
+
+    .header {
       width: 100%;
       max-width: 1600px;
       position: fixed;
@@ -54,15 +53,18 @@ export default {
       background-color: #ffffff;
       z-index: 999;
       display: flex;
-      .logo-container{
+
+      .logo-container {
         height: auto;
-        .logo{
+
+        .logo {
           display: block;
           width: 160px;
           height: 25px;
-          margin: 13px 0 0 16px;
+          padding: 5px 10px;
         }
-        .logo:after{
+
+        .logo:after {
           content: "OpenAcg";
           position: absolute;
           font-size: 22px;
@@ -73,7 +75,8 @@ export default {
         }
 
       }
-      .search{
+
+      .search {
         font-size: 24px;
         padding: 6px 12px;
         border: none;
@@ -81,11 +84,17 @@ export default {
         background: #f5f5f5;
         outline: none !important;
         transition: background 0.3s ease-out;
+        cursor: text;
         @media (max-width: 1600px) {
           width: calc(100% - 200px);
         }
+
+        &:hover {
+          background-color: darken(#f5f5f5, 5);
+        }
       }
-      .searchBtn{
+
+      .searchBtn {
         font-weight: bold;
         margin: 0 0 0 7px;
         padding: 6px 18px;
@@ -100,16 +109,13 @@ export default {
       }
 
     }
-    .main{
+
+    .main {
       width: 100%;
       max-width: 1600px;
-      .daily-info{
-        width: calc(100% - 2px) !important;
-        margin-bottom: 0;
-        border: 1px solid #ccc;
-        padding: 0;
-        border-radius: 8px;
-      }
+      margin: 51px auto 30px auto;
+      padding: 0;
+      background: #fcfcfc;
     }
   }
 </style>

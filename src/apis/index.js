@@ -8,7 +8,7 @@ const setpromise = data => {
 }
 
 export const animeDaily = () => setpromise(daily)
-export const animeList = (offset, limit) => setpromise(list)
+export const fetchAnimeList = (offset, limit) => setpromise(list)
 export const fetchBook = (id) => fetch('GET', '/api/v1/novel/getBook', {
   id: id
 })

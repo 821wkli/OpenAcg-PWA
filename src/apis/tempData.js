@@ -4,6 +4,7 @@ export const daily = {
   server_time: 1586096752,
   response: [
     {
+      weekday: '週一（月）',
       items: [
         {
           id: 269436,
@@ -242,6 +243,7 @@ export const daily = {
       ]
     },
     {
+      weekday: '週二（火）',
       items: [
         {
           id: 280678,
@@ -335,6 +337,7 @@ export const daily = {
       ]
     },
     {
+      weekday: '週三（水）',
       items: [
         {
           id: 221172,
@@ -559,6 +562,7 @@ export const daily = {
       ]
     },
     {
+      weekday: '週四（木）',
       items: [
         {
           id: 212610,
@@ -875,6 +879,7 @@ export const daily = {
       ]
     },
     {
+      weekday: '週五（金）',
       items: [
         {
           id: 249619,
@@ -1256,6 +1261,7 @@ export const daily = {
       ]
     },
     {
+      weekday: '週六（土）',
       items: [
         {
           id: 899,
@@ -1661,6 +1667,7 @@ export const daily = {
       ]
     },
     {
+      weekday: '週日 （日）',
       items: [
         {
           id: 975,

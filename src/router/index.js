@@ -44,7 +44,14 @@ const routes = [
       {
         path: '/anime',
         name: 'anime',
-        component: () => import('../pages/Anime/Anime.vue')
+        component: () => import('../pages/Anime/Anime.vue'),
+        redirect: '/anime/list',
+        children: [
+          {
+            path: '/anime/list',
+            component: () => import('../pages/Anime/children/List.vue')
+          }
+        ]
       },
       {
         path: '*',
