@@ -69,6 +69,11 @@ export default {
 
       fetchAnimeList(0, 20).then(res => {
         if (!isEmpty(res.response)) {
+          res.response.forEach(elem => {
+            if (/約\d+條評論/.test(elem.title)) {
+              elem.title = elem.title.substring(0, elem.title.indexOf('約'))
+            }
+          })
           this.animeList = res.response
         }
       })
@@ -207,7 +212,7 @@ export default {
           justify-content: flex-start;
           .translator{
             margin-right: 5px;
-            padding: 0px 6px !important;
+            padding: 5px 10px !important;
             border: none !important;
             border-radius: 100px;
             background-color: #f5f5f5;
