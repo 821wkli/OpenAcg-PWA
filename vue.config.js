@@ -15,8 +15,11 @@ module.exports = {
     open: true,
     proxy: {
       '^/api': {
-        target: 'https://flask.openacg.tk',
+        target: 'https://openacg.ml',
         changeOrigin: true
+      },
+      '^/torrent': {
+        target: 'http://localhost:8080'
       }
     }
   },

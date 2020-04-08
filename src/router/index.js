@@ -53,7 +53,7 @@ const routes = [
             component: () => import('../pages/Anime/children/List.vue')
           },
           {
-            path: '/anime/detail:mid',
+            path: '/anime/detail/:mid',
             name: 'detail',
             component: () => import('../pages/Anime/children/Detail.vue')
           }

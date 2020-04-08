@@ -28,13 +28,16 @@
         </div>
 
         <div class="video-info">
+          <div class="video-wrapper">
+          <div class="artplayer-app"></div>
+          </div>
           <header>
             <svg class='icon' width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-folder"/>
             </svg>
           </header>
           <ul class="file-info-wrapper tree-view">
-            <li class="file-item" v-for="(item,index) in torrentInfo.files" :key="index">
+            <li @click='loadVideo(item.index)' class="file-item" v-for="(item,index) in torrentInfo.files" :key="index">
               <span class="icon">
                  <svg  width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
               <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="item.type.includes('video')?'#icon-recorder':'#icon-file'"/>
@@ -42,6 +45,11 @@
               </span>
               <span class="title">{{item.name}}</span>
               <span class="file-size">{{getFileSize(item.size)}}</span>
+              <span class="icon play" v-if="item.type.includes('video')">
+                   <svg  width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"/>
+            </svg>
+              </span>
             </li>
           </ul>
         </div>
@@ -55,13 +63,17 @@
 import { copyTextToClipboard, isEmpty, formatBytes } from '../../../utils/common'
 import { fetchAnimeDetail } from '@/apis'
 import { mapActions } from 'vuex'
+import Artplayer from 'artplayer'
 export default {
   name: 'Detail',
   data () {
     return {
       isActive: false,
       isCopied: false,
-      torrentInfo: {}
+      isLoadedVideo: false,
+      torrentInfo: {},
+      mid: null,
+      videoSource: 'http://localhost:8080/torrent/serve/e156f9c47efaa3ba0aaeaa405c4064417d745384/0'
     }
   },
   methods: {
@@ -69,7 +81,7 @@ export default {
     initData () {
       fetchAnimeDetail(this.mid).then(res => {
         if (!isEmpty(res.response)) {
-          Object.defineProperty(res.response, 'title', Object.getOwnPropertyDescriptor(res.response, 'name'))
+          'title' in res.response === false && Object.defineProperty(res.response, 'title', Object.getOwnPropertyDescriptor(res.response, 'name'))
           delete res.response.name
           this.torrentInfo = res.response
           if (isEmpty(this.currentAnime)) {
@@ -77,6 +89,9 @@ export default {
           }
         }
       })
+    },
+    loadVideo: function (index) {
+      this.videoSource = `/torrent/serve/${this.mid}/${index}`
     },
     getFileSize (size) {
       return formatBytes(size)
@@ -100,17 +115,61 @@ export default {
     }
   },
   created () {
-    this.mid = this.$router.params.mid
+    this.mid = this.$route.params.mid
   },
   mounted () {
     this.initData()
+    const art = new Artplayer({
+      container: '.artplayer-app',
+      url: this.videoSource,
+      volume: 0.5,
+      isLive: false,
+      muted: false,
+      autoplay: true,
+      pip: true,
+      autoSize: true,
+      screenshot: true,
+      setting: true,
+      loop: true,
+      flip: true,
+      playbackRate: true,
+      aspectRatio: true,
+      fullscreen: true,
+      fullscreenWeb: true,
+      subtitleOffset: true,
+      miniProgressBar: true,
+      localVideo: true,
+      localSubtitle: true,
+      networkMonitor: false,
+      mutex: true,
+      light: true,
+      backdrop: true,
+      theme: '#ffad00',
+      lang: navigator.language.toLowerCase(),
+      moreVideoAttr: {
+        crossOrigin: 'anonymous'
+      },
+      controls: [
+        {
+          position: 'right',
+          html: 'Control',
+          click: function () {
+            console.info('You clicked on the custom control')
+          }
+        }
+      ],
+      icons: {
+        loading: '<img src="http://cdn.openacg.ml/image/preloading.gif">',
+        state: '<img src="http://cdn.openacg.ml/image/state.png">'
+      }
+    })
+    console.log(art)
   }
 
 }
 </script>
 
 <style lang="scss" scoped>
-
   @keyframes copyEffect {
     0%{
      transform: scaleX(1);
@@ -167,6 +226,18 @@ export default {
         width: 100%;
         padding: 16px;
         font-size: 16px;
+        position: relative;
+
+      }
+      .video-wrapper{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .artplayer-app{
+        width: 65%;
+        height: 340px;
+        z-index: 999;
       }
         .info-title {
           margin-bottom: 16px !important;
@@ -272,6 +343,9 @@ export default {
       .video-info{
         .tree-view{
           padding-left: 50px;
+          @media (max-width: 960px) {
+            padding-left: 10px;
+          }
         }
         .file-info-wrapper{
           li:not(:first-child){
@@ -279,8 +353,26 @@ export default {
           }
           li{
             display: flex;
+            justify-content: space-between;
+            align-items: center;
             span:not(:first-child){
               margin-left: 6px;
+              margin-top: 3px;
+            }
+            .title{
+              flex: 1;
+              &:hover{
+                cursor: pointer;
+                text-decoration: underline;
+                text-decoration-color: blue;
+              }
+            }
+            .file-size{
+              margin-left: 8px;
+              color: #aaaaaa;
+              @media(max-width: 960px){
+                display: none;
+              }
             }
           }
         }
