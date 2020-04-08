@@ -90,7 +90,8 @@ export default {
       //   console.log('load more dat ahere')
       // }
 
-      console.log('total height ' + this.listHeight)
+      // console.log('total height ' + this.listHeight)
+      console.log(window.scrollY)
       if ((window.innerHeight + window.scrollY) >= this.listHeight - 50) {
         console.log('bottom')
       }

@@ -2348,3 +2348,114 @@ export const list = {
     }
   ]
 }
+
+export const detail = // 20200408152146
+  {
+    status: 200,
+    sucess: 1,
+    server_time: 1586096788,
+    response: {
+      name: '[Lilith-Raws] Jashin-chan Dropkick',
+      infoHash: '2e90d6099ab329d5dc432e47dfba06b246618556',
+      size: 8701122630,
+      peers: 24,
+      files: [
+        {
+          name: '[Lilith-Raws] Jashin-chan Dropkick - 11 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          index: 0,
+          path: '/[Lilith-Raws] Jashin-chan Dropkick - 11 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          size: 979347240,
+          type: 'video/x-matroska',
+          downloaded: 64569344
+        },
+        {
+          name: '[Lilith-Raws] Jashin-chan Dropkick - 02 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          index: 1,
+          path: '/[Lilith-Raws] Jashin-chan Dropkick - 02 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          size: 835321409,
+          type: 'video/x-matroska',
+          downloaded: 0
+        },
+        {
+          name: '[Lilith-Raws] Jashin-chan Dropkick - 03 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          index: 2,
+          path: '/[Lilith-Raws] Jashin-chan Dropkick - 03 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          size: 799464050,
+          type: 'video/x-matroska',
+          downloaded: 0
+        },
+        {
+          name: '[Lilith-Raws] Jashin-chan Dropkick - 04 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          index: 3,
+          path: '/[Lilith-Raws] Jashin-chan Dropkick - 04 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          size: 801912284,
+          type: 'video/x-matroska',
+          downloaded: 0
+        },
+        {
+          name: '[Lilith-Raws] Jashin-chan Dropkick - 05 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          index: 4,
+          path: '/[Lilith-Raws] Jashin-chan Dropkick - 05 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          size: 803403755,
+          type: 'video/x-matroska',
+          downloaded: 0
+        },
+        {
+          name: '[Lilith-Raws] Jashin-chan Dropkick - 06 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          index: 5,
+          path: '/[Lilith-Raws] Jashin-chan Dropkick - 06 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          size: 757188275,
+          type: 'video/x-matroska',
+          downloaded: 0
+        },
+        {
+          name: '[Lilith-Raws] Jashin-chan Dropkick - 07 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          index: 6,
+          path: '/[Lilith-Raws] Jashin-chan Dropkick - 07 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          size: 750807133,
+          type: 'video/x-matroska',
+          downloaded: 0
+        },
+        {
+          name: '[Lilith-Raws] Jashin-chan Dropkick - 08 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          index: 7,
+          path: '/[Lilith-Raws] Jashin-chan Dropkick - 08 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          size: 746928995,
+          type: 'video/x-matroska',
+          downloaded: 0
+        },
+        {
+          name: '[Lilith-Raws] Jashin-chan Dropkick - 09 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          index: 8,
+          path: '/[Lilith-Raws] Jashin-chan Dropkick - 09 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          size: 777669254,
+          type: 'video/x-matroska',
+          downloaded: 0
+        },
+        {
+          name: '[Lilith-Raws] Jashin-chan Dropkick - 10 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          index: 9,
+          path: '/[Lilith-Raws] Jashin-chan Dropkick - 10 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          size: 670633825,
+          type: 'video/x-matroska',
+          downloaded: 0
+        },
+        {
+          name: '[Lilith-Raws] Jashin-chan Dropkick - 01 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          index: 10,
+          path: '/[Lilith-Raws] Jashin-chan Dropkick - 01 [BiliBili][WEB-DL][1080p][AVC AAC][CHT][MKV].mkv',
+          size: 778445705,
+          type: 'video/x-matroska',
+          downloaded: 1146880
+        },
+        {
+          name: 'readme.txt',
+          index: 11,
+          path: '/readme.txt',
+          size: 705,
+          type: 'text/plain',
+          downloaded: 705
+        }
+      ]
+    }
+  }
