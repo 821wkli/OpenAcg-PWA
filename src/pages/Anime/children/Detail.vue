@@ -37,7 +37,7 @@
             <li class="file-item" v-for="(item,index) in torrentInfo.files" :key="index">
               <span class="icon">
                  <svg  width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-recorder"/>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="item.type.includes('video')?'#icon-recorder':'#icon-file'"/>
             </svg>
               </span>
               <span class="title">{{item.name}}</span>
@@ -274,6 +274,9 @@ export default {
           padding-left: 50px;
         }
         .file-info-wrapper{
+          li:not(:first-child){
+            margin-top: 12px;
+          }
           li{
             display: flex;
             span:not(:first-child){
