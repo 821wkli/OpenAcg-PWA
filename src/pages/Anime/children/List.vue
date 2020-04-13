@@ -3,9 +3,9 @@
     <section class="daily-info">
       <ul class="weekdays">
         <li v-for="(day,index) in dailyList" :key="index">
-          <span>{{day.weekday}}</span>
+          <span>{{day.weekday.cn}}</span>
           <div class="right">
-            <div v-for="(item,i) in day.items" :key="i"><span v-if="item.name_cn"
+            <div @click='searchList(item.name_cn)' v-for="(item,i) in day.items" :key="i"><span v-if="item.name_cn"
                                                               class="anime-name">{{item.name_cn}}</span></div>
           </div>
         </li>
@@ -56,7 +56,9 @@ export default {
     return {
       dailyList: [],
       animeList: [],
-      listHeight: 0
+      listHeight: 0,
+      offset: 0,
+      lock: false
     }
   },
   watch: {
@@ -67,6 +69,9 @@ export default {
         }
       })
     }
+  },
+  created () {
+    this.keywords = this.$route.query.keywords
   },
   mounted () {
     this.initData()
@@ -82,6 +87,18 @@ export default {
     // }
   },
   methods: {
+    searchList: function (title) {
+      animeDaily(title).then(res => {
+        if (!isEmpty(res.response)) {
+          res.response.forEach(elem => {
+            if (/約\d+條評論/.test(elem.title)) {
+              elem.title = elem.title.substring(0, elem.title.indexOf('約'))
+            }
+          })
+          this.animeList = res.response
+        }
+      })
+    },
     onScroll: function () {
       // const scrollTop = e.target.scrollTop
       // this.scrollTop = scrollTop
@@ -94,6 +111,19 @@ export default {
       console.log(window.scrollY)
       if ((window.innerHeight + window.scrollY) >= this.listHeight - 50) {
         console.log('bottom')
+        if (this.lock) return
+        fetchAnimeList(this.offset, 20).then(res => {
+          if (!isEmpty(res.response)) {
+            res.response.forEach(elem => {
+              if (/約\d+條評論/.test(elem.title)) {
+                elem.title = elem.title.substring(0, elem.title.indexOf('約'))
+              }
+            })
+            this.animeList = [...this.animeList, ...res.response]
+            this.offset += 20
+            this.lock = false
+          }
+        })
       }
     },
     ...mapActions(['saveCurrentAnime']),
@@ -104,16 +134,19 @@ export default {
         }
       })
 
-      fetchAnimeList(0, 20).then(res => {
-        if (!isEmpty(res.response)) {
-          res.response.forEach(elem => {
-            if (/約\d+條評論/.test(elem.title)) {
-              elem.title = elem.title.substring(0, elem.title.indexOf('約'))
-            }
-          })
-          this.animeList = res.response
-        }
-      })
+      if (isEmpty(this.keywords)) {
+        fetchAnimeList(this.offset, 20).then(res => {
+          if (!isEmpty(res.response)) {
+            res.response.forEach(elem => {
+              if (/約\d+條評論/.test(elem.title)) {
+                elem.title = elem.title.substring(0, elem.title.indexOf('約'))
+              }
+            })
+            this.animeList = res.response
+            this.offset += 20
+          }
+        })
+      }
     },
     getTypeClass: function (entry) {
       let type = ''
@@ -155,7 +188,10 @@ export default {
           font-size: 16px;
           display: flex;
           margin-bottom: 16px;
-
+          span{
+            padding-top: 6px;
+            margin-right: 5px;
+          }
           .right {
             flex: 1;
 
@@ -280,6 +316,31 @@ export default {
 
         .post-complete {
           width: 5%;
+        }
+
+      }
+
+      @media (max-width: 760px) {
+        .row{
+          &.header{
+            display: none;
+          }
+          .post-file-size,.post-seed,.post-download{
+            display: none;
+          }
+          .post-date{
+            max-width: 23%;
+            text-align: center;
+            span{
+              width: 100%;
+              word-wrap: break-word;
+            }
+          }
+          .post-complete{
+            display: flex;
+            align-items: flex-end;
+            margin-right: 10px;
+          }
         }
 
       }

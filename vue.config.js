@@ -15,7 +15,7 @@ module.exports = {
     open: true,
     proxy: {
       '^/api': {
-        target: 'https://openacg.ml',
+        target: 'http://localhost:5000',
         changeOrigin: true
       },
       '^/torrent': {

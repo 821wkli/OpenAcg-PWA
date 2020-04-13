@@ -483,7 +483,7 @@ export default {
       /*height: 4.9rem;*/
       max-height: none;
       @include sc(.65rem, $defaultColor)
-      overflow: hidden;
+      /*overflow: hidden;*/
       text-align: justify;
       box-shadow: 0 1px #f0f1f2, 0 -1px #f0f1f2;
       .content{

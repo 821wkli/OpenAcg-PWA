@@ -8,7 +8,10 @@
       <button class="searchBtn">Search</button>
     </div>
     <div class="main">
-      <router-view></router-view>
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"  />
+      </keep-alive>
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
     </div>
   </div>
 </template>

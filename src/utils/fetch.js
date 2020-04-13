@@ -35,7 +35,7 @@ export default async (type = 'GET', url = '', data = {}, timeout = 10000) => {
         'Content-Type': 'application/json'
       },
       mode: 'cors',
-      cache: 'force-cache',
+      cache: 'default',
       signal
     }
 

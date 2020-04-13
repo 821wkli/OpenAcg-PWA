@@ -28,8 +28,9 @@
         </div>
 
         <div class="video-info">
-          <div class="video-wrapper">
-          <div class="artplayer-app"></div>
+          <div class="video-wrapper" :class="{beforePlay: currentPlayingIndex===-1}">
+          <div class="artplayer-app" ref="artplayer">
+          </div>
           </div>
           <header>
             <svg class='icon' width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -43,7 +44,7 @@
               <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="item.type.includes('video')?'#icon-recorder':'#icon-file'"/>
             </svg>
               </span>
-              <span class="title">{{item.name}}</span>
+              <span class="title" :class="{active: item.index ===currentPlayingIndex}">{{item.name}}</span>
               <span class="file-size">{{getFileSize(item.size)}}</span>
               <span class="icon play" v-if="item.type.includes('video')">
                    <svg  width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -62,6 +63,7 @@
 <script>
 import { copyTextToClipboard, isEmpty, formatBytes } from '../../../utils/common'
 import { fetchAnimeDetail } from '@/apis'
+import { imageBaseUrl } from '../../../config/env'
 import { mapActions } from 'vuex'
 import Artplayer from 'artplayer'
 export default {
@@ -73,25 +75,120 @@ export default {
       isLoadedVideo: false,
       torrentInfo: {},
       mid: null,
-      videoSource: 'http://localhost:8080/torrent/serve/e156f9c47efaa3ba0aaeaa405c4064417d745384/0'
+      videoSource: '',
+      art: null,
+      currentPlayingIndex: -1,
+      isSafari: false
+    }
+  },
+  watch: {
+    videoSource: function (newSource) {
+      if (!isEmpty(newSource)) {
+        this.art === null ? this.createVideo() : this.isSafari ? (this.art.src = newSource) : (this.art.switchUrl(newSource)) && (this.art.play = true)
+      }
     }
   },
   methods: {
     ...mapActions(['saveCurrentAnime']),
+    createVideo: function () {
+      // check if safari
+      this.isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+      if (this.isSafari) {
+        this.art = document.createElement('video')
+        this.art.src = this.videoSource
+        this.art.classList.add('safari-video')
+        this.art.setAttribute('width', '100%')
+        this.art.setAttribute('height', '100%')
+        this.art.setAttribute('controls', 'controls')
+        // add fullscreen support
+        this.art.addEventListener('dblclick', () => {
+          if (this.art.requestFullscreen) {
+            this.art.requestFullscreen()
+          } else if (this.art.mozRequestFullScreen) {
+            this.art.mozRequestFullScreen()
+          } else if (this.art.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            this.art.webkitRequestFullscreen()
+          } else if (this.art.msRequestFullscreen) { /* IE/Edge */
+            this.art.msRequestFullscreen()
+          }
+        })
+        this.$refs.artplayer.appendChild(this.art)
+      } else {
+        this.art = new Artplayer({
+          container: '.artplayer-app',
+          url: this.videoSource,
+          title: this.currentAnime.title || '',
+          poster: `${imageBaseUrl}/image/poster.jpg`,
+          volume: 0.5,
+          isLive: false,
+          muted: false,
+          autoplay: false,
+          pip: true,
+          autoSize: true,
+          screenshot: true,
+          setting: true,
+          loop: true,
+          flip: true,
+          playbackRate: true,
+          aspectRatio: true,
+          fullscreen: true,
+          fullscreenWeb: true,
+          subtitleOffset: true,
+          miniProgressBar: true,
+          localVideo: true,
+          localSubtitle: true,
+          networkMonitor: false,
+          mutex: true,
+          light: true,
+          backdrop: true,
+          theme: '#ffad00',
+          lang: navigator.language.toLowerCase(),
+          moreVideoAttr: {
+            preload: 'auto'
+          },
+          controls: [
+            {
+              position: 'right',
+              html: 'Control',
+              click: function () {
+                console.info('You clicked on the custom control')
+              }
+            }
+          ],
+          icons: {
+            loading: '<img src="http://cdn.openacg.ml/image/preloading.gif">',
+            state: '<img src="http://cdn.openacg.ml/image/state.png">'
+          },
+          layers: [
+            {
+              html: '<span>OpenAcg</span>',
+              style: {
+                position: 'absolute',
+                top: '5px',
+                right: '10px',
+                opacity: '.9',
+                fontWeight: '400'
+              }
+            }
+          ]
+        })
+      }
+    },
     initData () {
       fetchAnimeDetail(this.mid).then(res => {
-        if (!isEmpty(res.response)) {
-          'title' in res.response === false && Object.defineProperty(res.response, 'title', Object.getOwnPropertyDescriptor(res.response, 'name'))
-          delete res.response.name
-          this.torrentInfo = res.response
+        if (!isEmpty(res)) {
+          'title' in res === false && Object.defineProperty(res, 'title', Object.getOwnPropertyDescriptor(res, 'name'))
+          delete res.name
+          this.torrentInfo = res
           if (isEmpty(this.currentAnime)) {
-            this.saveCurrentAnime(res.response)
+            this.saveCurrentAnime(res)
           }
         }
       })
     },
     loadVideo: function (index) {
-      this.videoSource = `/torrent/serve/${this.mid}/${index}`
+      this.videoSource = `http://localhost:8080/torrent/serve/${this.mid}/${index}`
+      this.currentPlayingIndex = index
     },
     getFileSize (size) {
       return formatBytes(size)
@@ -119,51 +216,6 @@ export default {
   },
   mounted () {
     this.initData()
-    const art = new Artplayer({
-      container: '.artplayer-app',
-      url: this.videoSource,
-      volume: 0.5,
-      isLive: false,
-      muted: false,
-      autoplay: true,
-      pip: true,
-      autoSize: true,
-      screenshot: true,
-      setting: true,
-      loop: true,
-      flip: true,
-      playbackRate: true,
-      aspectRatio: true,
-      fullscreen: true,
-      fullscreenWeb: true,
-      subtitleOffset: true,
-      miniProgressBar: true,
-      localVideo: true,
-      localSubtitle: true,
-      networkMonitor: false,
-      mutex: true,
-      light: true,
-      backdrop: true,
-      theme: '#ffad00',
-      lang: navigator.language.toLowerCase(),
-      moreVideoAttr: {
-        crossOrigin: 'anonymous'
-      },
-      controls: [
-        {
-          position: 'right',
-          html: 'Control',
-          click: function () {
-            console.info('You clicked on the custom control')
-          }
-        }
-      ],
-      icons: {
-        loading: '<img src="http://cdn.openacg.ml/image/preloading.gif">',
-        state: '<img src="http://cdn.openacg.ml/image/state.png">'
-      }
-    })
-    console.log(art)
   }
 
 }
@@ -233,11 +285,19 @@ export default {
         width: 100%;
         display: flex;
         justify-content: center;
+        &.beforePlay{
+          position: absolute;
+          left:-100%
+        }
       }
       .artplayer-app{
         width: 65%;
         height: 340px;
         z-index: 999;
+        video.safari-video{
+          width: 100%;
+          height: 100%;
+        }
       }
         .info-title {
           margin-bottom: 16px !important;
@@ -365,6 +425,9 @@ export default {
                 cursor: pointer;
                 text-decoration: underline;
                 text-decoration-color: blue;
+              }
+              &.active{
+                color:blue;
               }
             }
             .file-size{

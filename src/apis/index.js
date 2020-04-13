@@ -1,14 +1,28 @@
 import fetch from '../utils/fetch'
-import { daily, detail, list } from './tempData'
-
-const setpromise = data => {
-  return new Promise((resolve, reject) => {
-    resolve(data)
+// import { daily } from './tempData'
+//
+// const setpromise = data => {
+//   return new Promise((resolve, reject) => {
+//     resolve(data)
+//   })
+// }
+// export const fetchAnimeDetail = (mid) => setpromise(detail)
+export const fetchAnimeDetail = (mid) => fetch('GET', '/torrent/info', {
+  torrentId: mid
+})
+export const animeDaily = (keywords = null) => {
+  if (keywords === null) {
+    return fetch('GET', '/api/v1/anime/calendar')
+  }
+  return fetch('GET', '/api/v1/anime/calendar', {
+    keywords: keywords
   })
 }
-export const fetchAnimeDetail = (mid) => setpromise(detail)
-export const animeDaily = () => setpromise(daily)
-export const fetchAnimeList = (offset, limit) => setpromise(list)
+
+// export const animeDaily = () => setpromise(daily)
+export const fetchAnimeList = (offset, limit) => fetch('GET', '/api/v1/anime/list', {
+  offset, limit
+})
 export const fetchBook = (id) => fetch('GET', '/api/v1/novel/getBook', {
   id: id
 })

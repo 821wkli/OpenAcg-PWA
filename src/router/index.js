@@ -50,6 +50,9 @@ const routes = [
           {
             path: '/anime/list',
             name: 'list',
+            meta: {
+              keepAlive: true
+            },
             component: () => import('../pages/Anime/children/List.vue')
           },
           {
