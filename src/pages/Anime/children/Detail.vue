@@ -37,7 +37,10 @@
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-folder"/>
             </svg>
           </header>
-          <ul class="file-info-wrapper tree-view">
+          <div class ='loading' v-if="showLoading">
+            Loading
+          </div>
+          <ul class="file-info-wrapper tree-view" v-else>
             <li @click='loadVideo(item.index)' class="file-item" v-for="(item,index) in torrentInfo.files" :key="index">
               <span class="icon">
                  <svg  width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -78,7 +81,8 @@ export default {
       videoSource: '',
       art: null,
       currentPlayingIndex: -1,
-      isSafari: false
+      isSafari: false,
+      showLoading: true
     }
   },
   watch: {
@@ -180,14 +184,15 @@ export default {
           'title' in res === false && Object.defineProperty(res, 'title', Object.getOwnPropertyDescriptor(res, 'name'))
           delete res.name
           this.torrentInfo = res
+          this.showLoading = false
           if (isEmpty(this.currentAnime)) {
             this.saveCurrentAnime(res)
           }
         }
-      })
+      }).catch(err => this.$toast.center(err.name + ' ' + err.message) && (this.showLoading = false))
     },
     loadVideo: function (index) {
-      this.videoSource = `http://localhost:8080/torrent/serve/${this.mid}/${index}`
+      this.videoSource = `${this.$hostURL}/torrent/serve/${this.mid}/${index}`
       this.currentPlayingIndex = index
     },
     getFileSize (size) {
@@ -222,6 +227,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+  @-webkit-keyframes ellipsis {
+    from {
+      width: 2px;
+    }
+    to {
+      width: 15px;
+    }
+
+  }
+  @keyframes ellipsis {
+    from {
+      width: 2px;
+    }
+    to {
+      width: 15px;
+    }
+  }
   @keyframes copyEffect {
     0%{
      transform: scaleX(1);
@@ -407,6 +430,24 @@ export default {
             padding-left: 10px;
           }
         }
+        .loading{
+          text-align: center;
+          position: absolute;
+          left: 45%;
+          bottom: -50%;
+          font-size: 18px;
+          color: #aaa;
+          &:after{
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: bottom;
+            animation: ellipsis 2s infinite;
+            -webkit-animation:ellipsis 2s infinite;
+            content: "\2026"; /* ascii code for the ellipsis character */
+
+          }
+        }
+
         .file-info-wrapper{
           li:not(:first-child){
             margin-top: 12px;

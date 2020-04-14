@@ -42,16 +42,22 @@
       </div>
       </div>
     </section>
+
+    <section class="spinner-mask" v-if="!(dailyList.length && animeList.length)">
+      <colorful-spinner></colorful-spinner>
+    </section>
   </div>
 </template>
 
 <script>
-import { animeDaily, fetchAnimeList } from '../../../apis'
-import { isEmpty } from '../../../utils/common'
+import { animeDaily, fetchAnimeList } from '@/apis'
+import { isEmpty } from '@/utils/common'
 import { mapActions } from 'vuex'
+import ColorfulSpinner from '@/components/loader/colorfulSpinner'
 
 export default {
   name: 'List',
+  components: { ColorfulSpinner },
   data () {
     return {
       dailyList: [],
@@ -169,6 +175,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+  .spinner-mask{
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
   #list {
     width: 100%;
     height: 100%;
