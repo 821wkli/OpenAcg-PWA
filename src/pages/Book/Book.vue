@@ -115,7 +115,9 @@
     <section v-else class="loader">
       <jump-loader where="top" class="icon"></jump-loader>
     </section>
-
+    <section class="share-box-mask">
+      <share-box :book="this.book"></share-box>
+    </section>
   </div>
 
 </template>
@@ -129,6 +131,7 @@ import BScroll from 'better-scroll'
 import { isEmpty } from '../../utils/common'
 import jumpLoader from '../../components/loader/jumpLoader'
 import { imageBaseUrl } from '../../config/env'
+import ShareBox from '../../components/book/shareBox'
 
 export default {
   name: 'Book',
@@ -169,7 +172,7 @@ export default {
   beforeDestroy () {
     this.saveBook(null)
   },
-  components: { ChapterList, headTop, jumpLoader },
+  components: { ShareBox, ChapterList, headTop, jumpLoader },
   methods: {
     createScroll: function () {
       this.$nextTick(() => {
@@ -628,6 +631,16 @@ export default {
           }
         }
       }
+    }
+
+    .share-box-mask{
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
   }
