@@ -82,8 +82,9 @@ export default {
       justify-content: space-between;
       .logo-container {
         height: auto;
-
+        cursor: pointer;
         .logo {
+          cursor: inherit;
           display: block;
           width: 160px;
           height: 25px;

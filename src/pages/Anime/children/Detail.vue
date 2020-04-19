@@ -51,8 +51,13 @@
               <span class="file-size">{{getFileSize(item.size)}}</span>
               <span class="icon play" v-if="item.type.includes('video')">
                    <svg  width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
-              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"/>
-            </svg>
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"/>
+                    </svg>
+              </span>
+              <span class="icon download" v-else>
+                   <svg  width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-download"/>
+                    </svg>
               </span>
             </li>
           </ul>
@@ -82,7 +87,8 @@ export default {
       art: null,
       currentPlayingIndex: -1,
       isSafari: false,
-      showLoading: true
+      showLoading: true,
+      system: ''
     }
   },
   watch: {
@@ -192,8 +198,12 @@ export default {
       }).catch(err => this.$toast.center(err.name + ' ' + err.message) && (this.showLoading = false))
     },
     loadVideo: function (index) {
-      this.videoSource = `${this.$hostURL}/torrent/serve/${this.mid}/${index}`
-      this.currentPlayingIndex = index
+      if (!isEmpty(this.torrentInfo[index]) && this.torrentInfo[index].type.includes('video')) {
+        this.videoSource = `${this.$hostURL}/torrent/serve/${this.mid}/${index}`
+        this.currentPlayingIndex = index
+      } else {
+        this.download(`${this.$hostURL}/torrent/serve/${this.mid}/${index}`)
+      }
     },
     getFileSize (size) {
       return formatBytes(size)
@@ -205,6 +215,21 @@ export default {
       } else {
         this.isCopied = false
         this.$toast.center('Failed to copy')
+      }
+    },
+    download (link) {
+      let tempElem
+      if (this.system === 'IOS') {
+        this.$toast.center('Not allow to download on IOS')
+      } else {
+        try {
+          tempElem = document.createElement('iframe')
+          tempElem.src = link
+          tempElem.style.display = 'none'
+          document.body.appendChild(tempElem)
+        } catch (e) {
+          this.$toast.center('Failed to download')
+        }
       }
     }
   },
@@ -218,6 +243,16 @@ export default {
   },
   created () {
     this.mid = this.$route.params.mid
+    const userAgent = navigator.userAgent || navigator.vendor
+    const isAndroid = /android/i.test(userAgent)
+    const isIOS = /iPad|iPhone/.test(userAgent) && !window.MSStream
+    if (isAndroid) {
+      this.system = 'Android'
+    } else if (isIOS) {
+      this.system = 'IOS'
+    } else {
+      this.system = 'PC'
+    }
   },
   mounted () {
     this.initData()
