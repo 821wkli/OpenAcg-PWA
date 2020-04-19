@@ -195,10 +195,10 @@ export default {
             this.saveCurrentAnime(res)
           }
         }
-      }).catch(err => this.$toast.center(err.name + ' ' + err.message) && (this.showLoading = false))
+      }).catch(err => process.env.NODE_ENV === 'development' ? (this.$toast.center(err.name + ' ' + err.message) && (this.showLoading = false)) : this.$toast.center('Network error'))
     },
     loadVideo: function (index) {
-      if (!isEmpty(this.torrentInfo[index]) && this.torrentInfo[index].type.includes('video')) {
+      if (!isEmpty(this.torrentInfo.files[index]) && this.torrentInfo.files[index].type.includes('video')) {
         this.videoSource = `${this.$hostURL}/torrent/serve/${this.mid}/${index}`
         this.currentPlayingIndex = index
       } else {

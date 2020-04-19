@@ -126,7 +126,7 @@ export default {
       if ((window.innerHeight + window.scrollY) >= this.listHeight - 50) {
         console.log('bottom')
         if (this.lock) return
-        fetchAnimeList(this.offset, 20).then(res => {
+        fetchAnimeList(this.offset, 20, this.keywords).then(res => {
           if (!isEmpty(res.response)) {
             res.response.forEach(elem => {
               if (/約\d+條評論/.test(elem.title)) {
