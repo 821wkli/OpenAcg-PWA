@@ -1,55 +1,106 @@
 <template>
-    <div class="share-box">
-      <header>
-        <span class="left">Share book</span>
-        <span class="right icon">
+  <div class="share-box">
+    <header>
+      <span class="left">Share book</span>
+      <span class="right icon" @click.stop="onClose">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"/>
               </svg>
         </span>
-      </header>
-      <section class="content">
-        <div class="content-box"></div>
-        <div class="share-icons">
-          <span class="icon copy">
+    </header>
+    <section class="content">
+      <div class="content-box-wrapper">
+        <textarea ref="contentBox" readonly v-model="shareDescription" class="content-box"></textarea>
+      </div>
+      <div class="share-icons">
+          <span class="icon copy" @click.stop="copy">
              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
                       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-copy"/>
                       </svg>
           </span>
-          <span class="icon telegram">
+        <a class="icon telegram" :href="shareToSocialMedia('telegram')" rel="noopener noreferrer" target="_blank">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
                       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-telegram"/>
                       </svg>
-          </span>
-          <span class="icon twitter">
+          </a>
+        <a class="icon twitter" :href="shareToSocialMedia('twitter')" rel="noopener noreferrer" target="_blank">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
                       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-twitter"/>
                       </svg>
-          </span>
-          <span class="icon whatsapp">
+          </a>
+        <a class="icon facebook" :href="shareToSocialMedia('facebook')" rel="noopener noreferrer" target="_blank">
+             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-facebook"/>
+                      </svg>
+          </a>
+        <a class="icon whatsapp" :href="shareToSocialMedia('whatsapp')" rel="noopener noreferrer" target="_blank">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
                       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-whatsapp"/>
                       </svg>
-          </span>
-          <span class="icon"></span>
-        </div>
-      </section>
-    </div>
+          </a>
+
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
+import { isEmpty } from '../../utils/common'
+
 export default {
   name: 'shareBox',
   props: {
     book: {
       type: Object
     }
+  },
+  computed: {
+    shareDescription: function () {
+      const suffix = `- 分享自 OpenAcg\n${this.$hostURL + this.$route.fullPath}`
+      if (!isEmpty(this.book)) {
+        return `${this.book.title}\n${this.book.author}|${this.book.publisher}\n${this.book.introduction}\n${suffix}`
+      }
+      return 'Loading ...'
+    }
+  },
+
+  methods: {
+    onClose: function () {
+      this.$emit('onClose')
+    },
+    copy: function () {
+      this.$refs.contentBox.focus()
+      this.$refs.contentBox.select()
+      try {
+        document.execCommand('copy')
+        this.$toast.center('copy OK')
+      } catch (err) {
+        this.$toast.center('failed to copy')
+      }
+    },
+    shareToSocialMedia: function (mediaName) {
+      const description = encodeURIComponent(`${this.book.title}\n- 分享自 OpenAcg\n${this.$hostURL + this.$route.fullPath}`)
+      let appLink = ''
+      const telegramPrefix = 'tg://msg_url?text='
+      const whatsappPrefix = 'whatsapp://send?text='
+      const twitterPrefix = 'https://twitter.com/intent/tweet?text='
+      const facebookPrefix = 'href="https://www.facebook.com/sharer/sharer.php?u="'
+      switch (mediaName) {
+        case 'telegram': appLink = telegramPrefix + description; break
+        case 'whatsapp' : appLink = whatsappPrefix + description; break
+        case 'twitter': appLink = twitterPrefix + description; break
+        case 'facebook' : appLink = facebookPrefix + this.$hostURL + this.$route.fullPath; break
+        default:
+          appLink = '#'
+      }
+      return appLink
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .share-box{
+  .share-box {
     box-sizing: border-box;
     position: relative;
     width: 100%;
@@ -57,27 +108,34 @@ export default {
     margin: 0 1rem;
     background: #f6f6f6;
     border-radius: 4px;
-    -webkit-box-shadow: 0 4px 8px rgba(0,0,0,.2);
-    box-shadow: 0 4px 8px rgba(0,0,0,.2);
+    -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, .2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .2);
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-flex-flow: column nowrap;
     -ms-flex-flow: column nowrap;
     flex-flow: column nowrap;
-    header{
+
+    header {
       padding: 0 1rem;
       background-color: #FFFFFF;
       height: 1.8rem;
-      line-height: 1.8rem;
+      max-height: 48px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      .right{
-        &.icon{
+
+      span {
+        font-size: 24px;
+      }
+
+      .right {
+        &.icon {
           width: 32px;
           height: 32px;
-          svg{
+
+          svg {
             width: 100%;
             height: 100%;
           }
@@ -85,41 +143,60 @@ export default {
       }
 
     }
-    .content{
+
+    .content {
       flex-grow: 1;
-      padding: 1rem;
-      .content-box{
-        background: #fff;
+      padding: 23px;
+
+      .content-box-wrapper {
         height: 120px;
         font-size: 18px;
         padding: 8px;
       }
-      .share-icons{
+
+      .content-box {
+        width: 100%;
+        height: 100%;
+        font-size: 16px;
+        padding-left: 4px;
+      }
+
+      .share-icons {
         display: flex;
         margin-top: 12px;
-        .icon{
+
+        .icon {
           display: flex;
           align-items: center;
           justify-content: center;
           width: 48px;
           height: 48px;
-          border-radius: 50%;
+          border-radius: 10px;
           margin-right: 10px;
-          svg{
+
+          svg {
             width: 24px;
             height: 24px;
           }
-          &.copy{
+
+          &.copy {
             background-color: #fff;;
           }
-          &.telegram{
+
+          &.telegram {
             background-color: #1296db;
           }
-          &.twitter{
+
+          &.twitter {
             background-color: #00aceb;
           }
-          &.whatsapp{
+
+          &.whatsapp {
             background-color: #25D366;
+          }
+
+          &.facebook {
+            background-color: #4761a6;
           }
 
         }

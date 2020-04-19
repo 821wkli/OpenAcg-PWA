@@ -4,8 +4,8 @@
       <div class="logo-container">
         <router-link class='logo' to='/anime'></router-link>
       </div>
-      <input type="text" class="search" maxlength="50" v-model="searchText"/>
-      <button class="searchBtn">Search</button>
+      <input type="text" class="search" maxlength="50"  @keyup.enter="onSearch" v-model="searchText"/>
+      <button @click='onSearch' class="searchBtn">Search</button>
     </div>
     <div class="main">
       <keep-alive>
@@ -17,19 +17,42 @@
 </template>
 
 <script>
+import { isEmpty } from '../../utils/common'
+// import { fetchAnimeList } from '../../apis'
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Anime',
   data () {
     return {
-      searchText: ''
+      searchText: '',
+      offset: 0
     }
   },
   methods: {
+    ...mapActions(['saveSearchResults']),
     onCancel: function () {
       this.searchText = ''
     },
     onSearch: function () {
-      console.log('search')
+      if (!isEmpty(this.searchText)) {
+        // fetchAnimeList(this.offset, 20, this.searchText).then(res => {
+        //   if (!isEmpty(res.response)) {
+        //     res.response.forEach(elem => {
+        //       if (/約\d+條評論/.test(elem.title)) {
+        //         elem.title = elem.title.substring(0, elem.title.indexOf('約'))
+        //       }
+        //     })
+        //     this.saveSearchResults(res.response)
+        //     this.offset += 20
+        //   }
+        // })
+        /\burn:btih:([A-F\d]\W{40})\b/i.test(this.searchText) ||
+        /\b([A-F\d]\W{40})\b/i.test(this.searchText)
+
+          ? this.$router.push({ name: 'detail', params: { mid: this.searchText } })
+          : this.$router.replace({ name: 'list', query: { keywords: this.searchText } })
+      }
     },
     onClear: function () {
       this.searchText = ''

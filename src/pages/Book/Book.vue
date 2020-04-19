@@ -7,7 +7,15 @@
                   :goback-handler="onGoback.bind(null)"
                   :show-operator="false"
                   :is-transparent="true"
-        ></head-top>
+
+        >
+          <section slot="share" class="icon share" @click="showShareBox=!showShareBox">
+              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-share"/>
+              </svg>
+
+          </section>
+        </head-top>
         <section class="book-detail-wrapper">
           <img :src="book.cover_url" class="book-cover-blur"
                :alt="book.title" aria-hidden="true">
@@ -115,8 +123,8 @@
     <section v-else class="loader">
       <jump-loader where="top" class="icon"></jump-loader>
     </section>
-    <section class="share-box-mask">
-      <share-box :book="this.book"></share-box>
+    <section @click.stop="showShareBox=false" class="share-box-mask" v-show="showShareBox">
+      <share-box @onClose="showShareBox = false" :book="this.book"></share-box>
     </section>
   </div>
 
@@ -152,6 +160,7 @@ export default {
       bookid: null,
       isShowMore: false,
       order: 1,
+      showShareBox: false,
       bookshelfStatus: {
         isInBookshelf: false,
         message: '加入書櫃'
@@ -357,7 +366,16 @@ export default {
     left: 0;
     right: 0;
     height: 100vh;
-
+    .share{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      @include wh(0.6rem, 0.8rem);
+      right: .4rem;
+      svg{
+        @include wh(100%,100%);
+      }
+    }
     .loader {
       top: 0;
       position: fixed;
@@ -481,7 +499,7 @@ export default {
       position: relative;
       padding-left: .4rem;
       padding-right: .4rem;
-      /*background: #fff;*/
+      background: #fff;
       margin-top: .8rem;
       /*height: 4.9rem;*/
       max-height: none;
@@ -641,6 +659,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
+      background-color: rgba(0,0,0,0.25)
     }
 
   }

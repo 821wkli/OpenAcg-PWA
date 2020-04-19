@@ -42,9 +42,7 @@
       </section>
       <slot name="fake-goback"></slot>
       <slot name="edit"></slot>
-      <slot name="msite-title"></slot>
-      <slot name="changecity"></slot>
-      <slot name="changeLogin"></slot>
+      <slot name="share"></slot>
     </header>
     <section class="guide" v-show="showGuide">
       <transition name="menu-slide">
@@ -169,7 +167,7 @@ export default {
   }
 
   #head_top {
-
+    position: relative;
     z-index: 100;
     left: 0;
     top: 0;

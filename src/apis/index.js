@@ -1,4 +1,5 @@
 import fetch from '../utils/fetch'
+import { isEmpty } from '../utils/common'
 // import { daily } from './tempData'
 //
 // const setpromise = data => {
@@ -20,9 +21,17 @@ export const animeDaily = (keywords = null) => {
 }
 
 // export const animeDaily = () => setpromise(daily)
-export const fetchAnimeList = (offset, limit) => fetch('GET', '/api/v1/anime/list', {
-  offset, limit
-})
+export const fetchAnimeList = (offset, limit, keywords = null) => {
+  if (isEmpty(keywords)) {
+    return fetch('GET', '/api/v1/anime/list', {
+      offset, limit
+    })
+  }
+
+  return fetch('GET', '/api/v1/anime/list', {
+    offset, limit, keywords
+  })
+}
 export const fetchBook = (id) => fetch('GET', '/api/v1/novel/getBook', {
   id: id
 })

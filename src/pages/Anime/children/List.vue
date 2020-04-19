@@ -68,6 +68,14 @@ export default {
     }
   },
   watch: {
+    '$route' (to, from) {
+      if (to.name === from.name && from.keywords !== '') {
+        console.log('route change')
+        this.keywords = this.$route.query.keywords
+        this.offset = 0
+        this.initData()
+      }
+    },
     animeList: function (newAnimeList, oldAnimeList) {
       this.$nextTick(() => {
         if (oldAnimeList.length !== newAnimeList.length) {
@@ -140,19 +148,17 @@ export default {
         }
       })
 
-      if (isEmpty(this.keywords)) {
-        fetchAnimeList(this.offset, 20).then(res => {
-          if (!isEmpty(res.response)) {
-            res.response.forEach(elem => {
-              if (/約\d+條評論/.test(elem.title)) {
-                elem.title = elem.title.substring(0, elem.title.indexOf('約'))
-              }
-            })
-            this.animeList = res.response
-            this.offset += 20
-          }
-        })
-      }
+      fetchAnimeList(this.offset, 20, this.keywords).then(res => {
+        if (!isEmpty(res.response)) {
+          res.response.forEach(elem => {
+            if (/約\d+條評論/.test(elem.title)) {
+              elem.title = elem.title.substring(0, elem.title.indexOf('約'))
+            }
+          })
+          this.animeList = res.response
+          this.offset += 20
+        }
+      })
     },
     getTypeClass: function (entry) {
       let type = ''
