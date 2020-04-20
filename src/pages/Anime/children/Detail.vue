@@ -186,7 +186,7 @@ export default {
           ]
         })
         setTimeout(() => {
-          console.log(this.art.player.loaded)
+          // console.log(this.art.player.loaded)
           if (isNaN(this.art.player.loaded) || this.art.player.loaded <= 0) {
             this.$toast.center('Network error, please refresh again.')
           }

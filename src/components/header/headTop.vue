@@ -50,24 +50,24 @@
           <nav class="content-container">
             <router-link to='/home' class="item">
               <p :class="{active:selectedIndex==0}"
-                 @click="selectedIndex==0"
+                 @click="selectedIndex=0"
               >{{$lang.homePage.novel}}</p>
             </router-link>
-            <router-link class='item' to=""
+            <span class='item' to=""
                          :class="{active:selectedIndex==1}"
-                         @click="selectedIndex==1">
+                         @click="(selectedIndex=1) && ($router.push({name: 'anime'}))">
               <p>{{$lang.homePage.anime}}</p>
-            </router-link>
-            <router-link class='item' to=""
+            </span>
+            <span class='item disabled' to=""
                          :class="{active:selectedIndex==2}"
-                         @click="selectedIndex==2">
+                       >
               <p>{{$lang.homePage.comic}}</p>
-            </router-link>
-            <router-link class='item' to=""
+            </span>
+            <span class='item disabled' to=""
                          :class="{active:selectedIndex==3}"
-                         @click="selectedIndex==3">
+                         >
               <p>{{$lang.homePage.music}}</p>
-            </router-link>
+            </span>
           </nav>
           <div class="content-footer">
             <router-link to="/bookshelf" class="btn-style">
@@ -293,16 +293,20 @@ export default {
           padding: .4rem;
 
           p {
-            color: #aaaaaa;
+            color: $defaultColor;
             line-height: 1.8rem;
             height: 1.8rem;
             text-align: center;
           }
 
+          &.disabled{
+            p{
+              color: #aaaaaa;
+            }
+          }
           .active {
             border-bottom: 5px solid #2e7cf1;;
             border-radius: 2px;
-            color: $defaultColor;
           }
         }
       }

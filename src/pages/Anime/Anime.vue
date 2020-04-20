@@ -134,6 +134,9 @@ export default {
         cursor: pointer;
         background: #38F;
         transition: background 0.3s ease-out;
+        @media(max-width: 760px){
+          display: none;
+        }
       }
 
     }
