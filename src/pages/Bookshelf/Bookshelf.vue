@@ -3,6 +3,7 @@
     <headTop
       show-operator="true"
       go-back="true"
+      theme="light"
       :head-title="$lang.headBar.myBookshelf"
       header-position="fixed"
     ></headTop>

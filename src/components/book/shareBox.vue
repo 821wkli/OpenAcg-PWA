@@ -1,7 +1,7 @@
 <template>
   <div class="share-box">
     <header>
-      <span class="left">Share book</span>
+      <span class="left">分享小說</span>
       <span class="right icon" @click.stop="onClose">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"/>

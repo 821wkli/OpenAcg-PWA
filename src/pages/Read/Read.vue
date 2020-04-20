@@ -157,12 +157,14 @@ export default {
       if (from.query.chapterid && to.query.chapterid) {
         const self = this
         this.cid = to.query.chapterid
+        this.view.showLoading = true
         this.loadChapterContent(this.cid).then(() => {
           const latestRenderedList = Array.from(document.getElementsByClassName('reader-ul')[0].children).pop() || null
           if (self.scroll && latestRenderedList != null) {
             self.scroll.refresh()
             self.scroll.scrollToElement(latestRenderedList, 0, 0, 0)
           }
+          this.view.showLoading = false
         })
       }
     },

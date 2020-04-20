@@ -67,7 +67,7 @@
         >
           <section class="book-summary enabled">
             <div class="content" :class="{showMore:isShowMore}">
-              {{book.introduction}}
+              {{book.introduction.trim()!=='' ? book.introduction: $lang.bookPage.copyRightMessage}}
             </div>
             <span
               :class="{showMore:isShowMore}"
@@ -368,7 +368,7 @@ export default {
     height: 100vh;
     .share{
       position: absolute;
-      top: 50%;
+      top: 43%;
       transform: translateY(-50%);
       @include wh(0.6rem, 0.8rem);
       right: .4rem;
@@ -513,6 +513,7 @@ export default {
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: pre;
         &.showMore{
           -webkit-line-clamp: unset;
         }

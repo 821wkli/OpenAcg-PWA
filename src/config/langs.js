@@ -19,7 +19,8 @@ export const chinese = {
     syncKindle: '',
     totalVolumes: '',
     aescending: '',
-    descending: ''
+    descending: '',
+    copyRightMessage: '因版權問題，OpenAcg不再提供該小說的閱讀！\n\n\n\n\n'
   },
   readPage: {
     lastChapter: '上一章',
