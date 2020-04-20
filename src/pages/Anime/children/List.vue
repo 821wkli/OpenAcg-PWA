@@ -19,10 +19,10 @@
         <div class="post-title"><span class="title">標題</span></div>
         <div class="post-file-size"><span class="title">大小</span></div>
         <div class="post-seed"><span class="title">種子</span></div>
-        <div class="post-download"><span class="title">下載</span></div>
         <div class="post-complete"><span class="title">完成</span></div>
+        <div class="post-download"><span class="title">下載</span></div>
       </div>
-      <div class="wrapper" @scroll="onscroll($event)">
+      <div class="wrapper" >
       <div class="row" v-for="(item,index) in animeList" :key="index" @click="saveCurrentAnime(item)&& $router.push({name:'detail',params:{mid:item.magnet.split(':').pop()}})">
         <div class="detail post-date"><span class="title">{{item.update_time.split('\t')[0]}}</span></div>
         <div class="detail post-type" :class="getTypeClass(item)"><span class="title">{{item.category}}</span></div>
@@ -37,13 +37,13 @@
         </div>
         <div class="detail post-file-size"><span class="title">{{item.file_size}}</span></div>
         <div class="detail post-seed"><span class="title">{{item.seed}}</span></div>
-        <div class="detail post-download"><span class="title">{{item.download}}</span></div>
         <div class="detail post-complete"><span class="title">{{item.completed}}</span></div>
+        <div class="detail post-download"><span class="title">{{item.download}}</span></div>
       </div>
       </div>
     </section>
 
-    <section class="spinner-mask" v-if="!(dailyList.length && animeList.length)">
+    <section class="spinner-mask" v-if="!(dailyList.length && animeList.length)&&showLoading">
       <colorful-spinner></colorful-spinner>
     </section>
   </div>
@@ -64,13 +64,14 @@ export default {
       animeList: [],
       listHeight: 0,
       offset: 0,
+      showLoading: true,
       lock: false
     }
   },
   watch: {
     '$route' (to, from) {
       if (to.name === from.name && from.keywords !== '') {
-        console.log('route change')
+        // console.log('route change')
         this.keywords = this.$route.query.keywords
         this.offset = 0
         this.initData()
@@ -102,6 +103,8 @@ export default {
   },
   methods: {
     searchList: function (title) {
+      this.$router.replace({ name: 'anime', query: { type: 'daily', title } })
+      this.animeList = []
       animeDaily(title).then(res => {
         if (!isEmpty(res.response)) {
           res.response.forEach(elem => {
@@ -110,6 +113,7 @@ export default {
             }
           })
           this.animeList = res.response
+          this.showLoading = false
         }
       })
     },
@@ -122,10 +126,12 @@ export default {
       // }
 
       // console.log('total height ' + this.listHeight)
-      console.log(window.scrollY)
+      // console.log(window.scrollY)
+      if (this.$route.query.type === 'daily') return
       if ((window.innerHeight + window.scrollY) >= this.listHeight - 50) {
-        console.log('bottom')
+        // console.log('bottom')
         if (this.lock) return
+        this.lock = true
         fetchAnimeList(this.offset, 20, this.keywords).then(res => {
           if (!isEmpty(res.response)) {
             res.response.forEach(elem => {
@@ -146,6 +152,9 @@ export default {
         if (!isEmpty(res.response)) {
           this.dailyList = res.response
         }
+      }).catch(err => {
+        this.showLoading = false
+        this.$toast.center(err.message)
       })
 
       fetchAnimeList(this.offset, 20, this.keywords).then(res => {
@@ -158,12 +167,12 @@ export default {
           this.animeList = res.response
           this.offset += 20
         }
-      })
+      }).catch(err => (this.$toast.center(err.message)) && (this.showLoading = false))
     },
     getTypeClass: function (entry) {
       let type = ''
       switch (entry.category) {
-        case '季度全集':type = 'fullEpisode'
+        case '季度全集':type = 'fu  llEpisode'
           break
         case '動畫':type = 'anime'
           break
