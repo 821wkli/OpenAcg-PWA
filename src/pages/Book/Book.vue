@@ -513,7 +513,7 @@ export default {
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: pre;
+        white-space: pre-line;
         &.showMore{
           -webkit-line-clamp: unset;
         }

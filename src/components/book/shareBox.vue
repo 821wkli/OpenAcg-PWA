@@ -79,19 +79,21 @@ export default {
       }
     },
     shareToSocialMedia: function (mediaName) {
-      const description = encodeURIComponent(`${this.book.title}\n- 分享自 OpenAcg\n${this.$hostURL + this.$route.fullPath}`)
       let appLink = ''
-      const telegramPrefix = 'tg://msg_url?text='
-      const whatsappPrefix = 'whatsapp://send?text='
-      const twitterPrefix = 'https://twitter.com/intent/tweet?text='
-      const facebookPrefix = 'href="https://www.facebook.com/sharer/sharer.php?u="'
-      switch (mediaName) {
-        case 'telegram': appLink = telegramPrefix + description; break
-        case 'whatsapp' : appLink = whatsappPrefix + description; break
-        case 'twitter': appLink = twitterPrefix + description; break
-        case 'facebook' : appLink = facebookPrefix + this.$hostURL + this.$route.fullPath; break
-        default:
-          appLink = '#'
+      if (this.book !== null) {
+        const description = encodeURIComponent(`${this.book.title}\n- 分享自 OpenAcg\n${this.$hostURL + this.$route.fullPath}`)
+        const telegramPrefix = 'tg://msg_url?text='
+        const whatsappPrefix = 'whatsapp://send?text='
+        const twitterPrefix = 'https://twitter.com/intent/tweet?text='
+        const facebookPrefix = 'href="https://www.facebook.com/sharer/sharer.php?u="'
+        switch (mediaName) {
+          case 'telegram': appLink = telegramPrefix + description; break
+          case 'whatsapp' : appLink = whatsappPrefix + description; break
+          case 'twitter': appLink = twitterPrefix + description; break
+          case 'facebook' : appLink = facebookPrefix + this.$hostURL + this.$route.fullPath; break
+          default:
+            appLink = '#'
+        }
       }
       return appLink
     }
