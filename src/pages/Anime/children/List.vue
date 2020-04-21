@@ -1,7 +1,7 @@
 <template>
   <div id="list" ref="animeList" >
     <section class="daily-info">
-      <ul class="weekdays">
+      <ul class="weekdays" ref="weekdays">
         <li v-for="(day,index) in dailyList" :key="index">
           <span>{{day.weekday.cn}}</span>
           <div class="right">
@@ -65,12 +65,13 @@ export default {
       listHeight: 0,
       offset: 0,
       showLoading: true,
-      lock: false
+      lock: false,
+      keywords: null
     }
   },
   watch: {
     '$route' (to, from) {
-      if (to.name === from.name && from.keywords !== '') {
+      if (to.name === from.name && isEmpty(this.$route.query.type)) {
         // console.log('route change')
         this.keywords = this.$route.query.keywords
         this.offset = 0
@@ -79,8 +80,9 @@ export default {
     },
     animeList: function (newAnimeList, oldAnimeList) {
       this.$nextTick(() => {
-        if (oldAnimeList.length !== newAnimeList.length) {
-          this.listHeight = this.$refs.animeList.offsetHeight
+        if (oldAnimeList.length !== newAnimeList.length && newAnimeList.length <= 20 && !isEmpty(this.keywords)) {
+          // this.listHeight = this.$refs.animeList.offsetHeight
+          setTimeout(() => window.scrollTo(0, this.$refs.weekdays.clientHeight), 1)
         }
       })
     }
@@ -103,7 +105,7 @@ export default {
   },
   methods: {
     searchList: function (title) {
-      this.$router.replace({ name: 'anime', query: { type: 'daily', title } })
+      this.$router.replace({ name: 'anime', query: { type: 'daily', title } }).catch(() => {})
       this.animeList = []
       animeDaily(title).then(res => {
         if (!isEmpty(res.response)) {
@@ -114,6 +116,7 @@ export default {
           })
           this.animeList = res.response
           this.showLoading = false
+          setTimeout(() => window.scrollTo(0, this.$refs.weekdays.clientHeight), 1)
         }
       })
     },
@@ -148,14 +151,17 @@ export default {
     },
     ...mapActions(['saveCurrentAnime']),
     initData: function () {
-      animeDaily().then(res => {
-        if (!isEmpty(res.response)) {
-          this.dailyList = res.response
-        }
-      }).catch(err => {
-        this.showLoading = false
-        this.$toast.center(err.message)
-      })
+      this.showLoading = true
+      if (isEmpty(this.dailyList)) {
+        animeDaily().then(res => {
+          if (!isEmpty(res.response)) {
+            this.dailyList = res.response
+          }
+        }).catch(err => {
+          this.showLoading = false
+          this.$toast.center(err.message)
+        })
+      }
 
       fetchAnimeList(this.offset, 20, this.keywords).then(res => {
         if (!isEmpty(res.response)) {
@@ -167,18 +173,22 @@ export default {
           this.animeList = res.response
           this.offset += 20
         }
-      }).catch(err => (this.$toast.center(err.message)) && (this.showLoading = false))
+      }).catch(err => (this.$toast.center(err.message ? err.message : 'Unknown error'))).finally(
+        this.showLoading = false
+      )
     },
     getTypeClass: function (entry) {
       let type = ''
       switch (entry.category) {
-        case '季度全集':type = 'fu  llEpisode'
+        case '季度全集':type = 'fullEpisode'
           break
         case '動畫':type = 'anime'
           break
         case '日劇':type = 'tv'
           break
-        case '動漫音樂':type = 'music'
+        case '動漫音樂':
+        case '音樂':
+          type = 'music'
           break
         default:
           type = 'default'
@@ -373,6 +383,11 @@ export default {
             display: flex;
             align-items: flex-end;
             margin-right: 10px;
+          }
+          .post-title{
+            .title{
+              line-height: 24px;
+            }
           }
         }
 
