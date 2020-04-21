@@ -43,7 +43,7 @@
       </div>
     </section>
 
-    <section class="spinner-mask" v-if="!(dailyList.length && animeList.length)&&showLoading">
+    <section class="spinner-mask" v-if="showLoading ||!(dailyList.length && animeList.length)">
       <colorful-spinner></colorful-spinner>
     </section>
   </div>
@@ -106,7 +106,7 @@ export default {
   methods: {
     searchList: function (title) {
       this.$router.replace({ name: 'anime', query: { type: 'daily', title } }).catch(() => {})
-      this.animeList = []
+      this.showLoading = true
       animeDaily(title).then(res => {
         if (!isEmpty(res.response)) {
           res.response.forEach(elem => {
@@ -118,6 +118,9 @@ export default {
           this.showLoading = false
           setTimeout(() => window.scrollTo(0, this.$refs.weekdays.clientHeight), 1)
         }
+      }).catch(err => {
+        this.showLoading = false
+        this.$toast.center(err.message ? err.message : 'Unknown error')
       })
     },
     onScroll: function () {
@@ -146,6 +149,8 @@ export default {
             this.offset += 20
             this.lock = false
           }
+        }).catch(err => {
+          this.$toast.center(err.message ? err.message : 'Unknown error')
         })
       }
     },
@@ -172,10 +177,12 @@ export default {
           })
           this.animeList = res.response
           this.offset += 20
+          this.showLoading = false
         }
-      }).catch(err => (this.$toast.center(err.message ? err.message : 'Unknown error'))).finally(
+      }).catch(err => {
         this.showLoading = false
-      )
+        this.$toast.center(err.message ? err.message : 'Unknown error')
+      })
     },
     getTypeClass: function (entry) {
       let type = ''

@@ -52,8 +52,8 @@ export default async (type = 'GET', url = '', data = {}, timeout = 10000) => {
       var response = await fetch(url, requestConfig)
       var responseJson = await response.json()
     } catch (error) {
-      console.log(response)
-      console.log(error)
+      // console.log(response)
+      // console.log(error)
       if (error.name === 'AbortError') {
         throw new NetworkError({ message: 'timeout', statusCode: 500 })
       }

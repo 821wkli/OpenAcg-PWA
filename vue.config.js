@@ -41,6 +41,14 @@ module.exports = {
     //   }
     //   return args
     // })
+    config.optimization.minimizer('terser').tap((args) => {
+      if (isEnvProduction) {
+        args[0].terserOptions.compress.drop_console = true
+        args[0].terserOptions.compress.drop_debugger = true
+        args[0].terserOptions.extractComments = true
+      }
+      return args
+    })
   },
   configureWebpack: {
     plugins: [

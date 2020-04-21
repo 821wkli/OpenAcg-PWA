@@ -145,7 +145,7 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      window.scroll(0, 1)
+      window.scrollTo(0, 1) // Hiding IOS safari address bar for getting bettter UX
     })
   }
 
