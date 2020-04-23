@@ -46,7 +46,7 @@
 
 <script>
 import { isEmpty } from '../../utils/common'
-
+import { mapGetters } from 'vuex'
 export default {
   name: 'shareBox',
   props: {
@@ -61,7 +61,8 @@ export default {
         return `${this.book.title}\n${this.book.author}|${this.book.publisher}\n${this.book.introduction}\n${suffix}`
       }
       return 'Loading ...'
-    }
+    },
+    ...mapGetters(['system'])
   },
 
   methods: {
@@ -69,10 +70,27 @@ export default {
       this.$emit('onClose')
     },
     copy: function () {
-      this.$refs.contentBox.focus()
-      this.$refs.contentBox.select()
+      const textArea = this.$refs.contentBox
       try {
+        if (this.system === 'IOS') {
+          const oldReadOnly = textArea.readOnly
+          const oldEditable = textArea.contentEditable
+          const range = document.createRange()
+          textArea.readOnly = false
+          textArea.contentEditable = 'true'
+          range.selectNodeContents(textArea)
+          const s = window.getSelection()
+          s.removeAllRanges()
+          s.addRange(range)
+          textArea.setSelectionRange(0, 9999)
+          textArea.contentEditable = oldEditable
+          textArea.readOnly = oldReadOnly
+        } else {
+          textArea.focus()
+          textArea.select()
+        }
         document.execCommand('copy')
+        textArea.blur()
         this.$toast.center('copy OK')
       } catch (err) {
         this.$toast.center('failed to copy')

@@ -137,11 +137,23 @@ import { mapActions } from 'vuex'
 export default {
   name: 'App',
   methods: {
-    ...mapActions(['initReadingHistory', 'initSetting'])
+    ...mapActions(['initReadingHistory', 'initSetting', 'saveSystem'])
   },
   created () {
     this.initReadingHistory()
     this.initSetting()
+    const userAgent = navigator.userAgent || navigator.vendor
+    const isAndroid = /android/i.test(userAgent)
+    const isIOS = /iPad|iPhone/.test(userAgent) && !window.MSStream
+    let system
+    if (isAndroid) {
+      system = 'Android'
+    } else if (isIOS) {
+      system = 'IOS'
+    } else {
+      system = 'PC'
+    }
+    this.saveSystem(system)
   },
   mounted () {
     this.$nextTick(() => {

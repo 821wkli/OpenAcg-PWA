@@ -29,9 +29,21 @@ Vue.use(Vuex)
 //   searchHistoryList: getStore('searchHistory') || []
 // }
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  getters: {},
+  state: {
+    system: ''
+  },
+  mutations: {
+    SAVE_SYSTEM: (state, system) => { state.system = system }
+
+  },
+  getters: {
+    system: state => state.system
+  },
+  actions: {
+    saveSystem ({ commit, state }, system) {
+      commit('SAVE_SYSTEM', system)
+    }
+  },
   modules: {
     home,
     book,

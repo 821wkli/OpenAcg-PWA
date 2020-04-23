@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <section class="book-main" v-if="!showLoading">
-      <section class="book-main" >
+      <section class="book-main">
         <head-top :head-title="book.title"
                   :go-back="true"
                   :goback-handler="onGoback.bind(null)"
@@ -275,7 +275,6 @@ export default {
     }
   },
   watch: {
-
     chapterList: function (newChapterList) {
       this.volumePanel.chapterList = newChapterList
     },
@@ -301,7 +300,7 @@ export default {
     bookshelfList () {
       return this.$store.getters.bookshelfList || []
     },
-    ...mapGetters(['book', 'recentReadingChapterList', 'chapterList']),
+    ...mapGetters(['book', 'recentReadingChapterList', 'chapterList', 'system']),
     // bookshelfStatus: function () {
     //   const isInBookshelf = this.bookshelfList.some(item => item.id === this.bookid)
     //   if (isInBookshelf) {
@@ -563,12 +562,13 @@ export default {
       border-bottom: 2px solid #e0e0e0;
       border-top: 2px solid #e0e0e0;
       align-items: center;
-      overflow: hidden;
+      min-height: 1.8rem;
 
       span {
         @include sc(.65rem, blue)
         line-height: 1.8rem;
         height: 1.8rem;
+        overflow: hidden;
 
       }
 
@@ -617,8 +617,9 @@ export default {
       padding-right: .4rem;
       margin-top: .4rem;
       /*height: 44vh;*/
-      height: 40%;
+      min-height: 40%;
       overflow: hidden;
+      background: #fff;
 
       .book-volume-list-ul {
         background: #fff;

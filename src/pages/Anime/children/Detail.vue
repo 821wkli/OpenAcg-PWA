@@ -73,7 +73,7 @@
 import { copyTextToClipboard, isEmpty, formatBytes } from '../../../utils/common'
 import { fetchAnimeDetail } from '@/apis'
 import { imageBaseUrl } from '../../../config/env'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import Artplayer from 'artplayer'
 
 export default {
@@ -89,8 +89,7 @@ export default {
       art: null,
       currentPlayingIndex: -1,
       isSafari: false,
-      showLoading: true,
-      system: ''
+      showLoading: true
     }
   },
   watch: {
@@ -254,20 +253,11 @@ export default {
     },
     shareURL: function () {
       return `${this.$hostURL}${this.$route.fullPath}`
-    }
+    },
+    ...mapGetters(['system'])
   },
   created () {
     this.mid = this.$route.params.mid
-    const userAgent = navigator.userAgent || navigator.vendor
-    const isAndroid = /android/i.test(userAgent)
-    const isIOS = /iPad|iPhone/.test(userAgent) && !window.MSStream
-    if (isAndroid) {
-      this.system = 'Android'
-    } else if (isIOS) {
-      this.system = 'IOS'
-    } else {
-      this.system = 'PC'
-    }
   },
   mounted () {
     this.initData()
