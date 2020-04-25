@@ -7,7 +7,7 @@
       :head-title="$lang.headBar.myBookshelf"
       header-position="fixed"
     ></headTop>
-    <div class="wrapper" ref="wrapper">
+    <div class="wrapper" ref="wrapper" @scroll="onListScroll">
       <header>
         <span @click="$refs.swiper.next()">
           <span :class="{active:swiper.index ===0}">{{$lang.bookshelfPage.collection}}</span>
@@ -50,7 +50,7 @@
             </span>
           </li>
         </ul>
-        <ul class="history-list-ul">
+        <ul class="history-list-ul" >
           <li :class="{editing:isEditingBook}" class="history-list-li" v-for="(item,index) in historyList" :key="index">
             <div v-show='isEditingBook' class="selectionPanel">
               <roundCheckbox class='roundCheckbox' :id="item.bookid"
@@ -126,6 +126,8 @@ export default {
       isEditingBook: false,
       longTapping: false,
       booksToBeDeleted: [],
+      scrolling: false,
+      scrollingTimeout: null,
       swiper: {
         index: 0,
         options: {
@@ -144,17 +146,16 @@ export default {
     },
     historyList: function () {
       return this.$store.getters.recentReadingChapterList || []
-    }
+    },
+    ...mapGetters(['system'])
   },
   mounted () {
     this.initData()
-    // this.$nextTick(()=>{
-    //   if(!this.scroll{
-    //
-    //   })
-    // })
   },
   watch: {
+    scrolling: function (newScrolling) {
+      newScrolling ? this.$refs.swiper.disableDrag() : this.$refs.swiper.enableDrag()
+    },
     historyList: function (newHistoryList, oldHistoryList) {
       if (newHistoryList.length < oldHistoryList.length) {
         // out of editing state if the delete operation has been done
@@ -173,6 +174,13 @@ export default {
     }
   },
   methods: {
+    onListScroll: function () {
+      this.scrolling = true
+      window.clearTimeout(this.scrollingTimeout)
+      this.scrollingTimeout = setTimeout(() => {
+        this.scrolling = false
+      }, 400)
+    },
     selectAll: function () {
       this.checkAll()
     },
