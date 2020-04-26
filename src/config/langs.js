@@ -33,6 +33,8 @@ export const chinese = {
   },
   bookshelfPage: {
     collection: '個人收藏',
-    history: '閱讀記錄'
+    history: '閱讀記錄',
+    selectAll: '全選',
+    reverseAll: '反選'
   }
 }

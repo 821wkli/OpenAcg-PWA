@@ -43,8 +43,8 @@ export default {
     },
     onSearch: function () {
       if (!isEmpty(this.searchText)) {
-        /\burn:btih:([A-F\d]\W{40})\b/i.test(this.searchText) ||
-        /\b([A-F\d]\W{40})\b/i.test(this.searchText)
+        /\burn:btih:([A-Za-z0-9]{40})\b/i.test(this.searchText) ||
+        /\b([A-Za-z0-9]{40})\b/i.test(this.searchText)
 
           ? this.$router.push({ name: 'detail', params: { mid: this.searchText } })
           : this.$router.replace({ name: 'list', query: { keywords: this.searchText } }).catch(() => {})

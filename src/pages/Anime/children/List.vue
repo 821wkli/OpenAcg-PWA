@@ -115,9 +115,11 @@ export default {
             }
           })
           this.animeList = res.response
-          this.showLoading = false
           setTimeout(() => window.scrollTo(0, this.$refs.weekdays.clientHeight), 1)
+        } else {
+          this.$toast.center('No data avaiable')
         }
+        this.showLoading = false
       }).catch(err => {
         this.showLoading = false
         this.$toast.center(err.message ? err.message : 'Unknown error')
@@ -147,8 +149,10 @@ export default {
             })
             this.animeList = [...this.animeList, ...res.response]
             this.offset += 20
-            this.lock = false
+          } else {
+            this.$toast.center('No more data avaiable')
           }
+          this.lock = false
         }).catch(err => {
           this.$toast.center(err.message ? err.message : 'Unknown error')
         })
@@ -177,8 +181,10 @@ export default {
           })
           this.animeList = res.response
           this.offset += 20
-          this.showLoading = false
+        } else {
+          this.$toaster.center('No more data avaiable')
         }
+        this.showLoading = false
       }).catch(err => {
         this.showLoading = false
         this.$toast.center(err.message ? err.message : 'Unknown error')

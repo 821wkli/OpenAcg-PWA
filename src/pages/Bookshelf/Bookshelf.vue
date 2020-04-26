@@ -83,7 +83,7 @@
           @onClick="selectAll"
           :disabled='false'
           :plain='false'
-          text="Select all"
+          :text="!this.isCheckedAll? $lang.bookshelfPage.selectAll:$lang.bookshelfPage.reverseAll"
           :mini='false'>
           <svg slot="icon" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-tick"/>
@@ -111,7 +111,7 @@ import longTap from '@/plugins/longTap'
 import headTop from '@/components/header/headTop'
 import swiper from '@/components/common/swiper'
 import roundCheckbox from '@/components/common/roundCheckbox'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { isEmpty } from '@/utils/common'
 import { fetchUpdatedBookshelf } from '@/apis'
 import { imageBaseUrl } from '@/config/env'
@@ -147,7 +147,7 @@ export default {
     historyList: function () {
       return this.$store.getters.recentReadingChapterList || []
     },
-    ...mapGetters(['system'])
+    ...mapGetters(['system', 'isCheckedAll'])
   },
   mounted () {
     this.initData()
