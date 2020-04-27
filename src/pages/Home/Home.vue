@@ -218,7 +218,7 @@ export default {
           this.saveHotList(res.response)
         }
       }).catch(err => {
-        this.$toast.center(`${err.statusCode} ${err.message}`)
+        this.$toast.center(`${err.statusCode} ${err.message ? err.message : 'Unknown error'}`)
       })
       let res = null
       // avoid fetching again book list when back from other routes
@@ -236,7 +236,7 @@ export default {
       } catch (err) {
         this.showLoading = false
         this.showDotLoader = false
-        this.$toast.center(`${err.statusCode} ${err.message}`)
+        this.$toast.center(`${err.statusCode} ${err.message ? err.message : 'Unknown error'}`)
         return
       }
 
@@ -265,7 +265,7 @@ export default {
         }
       } catch (err) {
         this.showDotLoader = false
-        this.$toast.center(`${err.statusCode} ${err.message}`)
+        this.$toast.center(`${err.statusCode} ${err.message ? err.message : 'Unknown error'}`)
         return
       }
 

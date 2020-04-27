@@ -11,10 +11,11 @@ Vue.use(Toast, {
   type: 'center',
   duration: 3000,
   wordWrap: true,
-  width: '6rem'
+  width: 'auto'
 })
 Vue.config.productionTip = false
 Vue.prototype.$lang = { ...chinese }
+Vue.prototype.$hostURL = `${window.location.protocol}//${window.location.host}`
 new Vue({
   router,
   store,

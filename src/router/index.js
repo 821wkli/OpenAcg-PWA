@@ -42,6 +42,27 @@ const routes = [
         component: () => import('../pages/404/404.vue')
       },
       {
+        path: '/anime',
+        name: 'anime',
+        component: () => import('../pages/Anime/Anime.vue'),
+        redirect: '/anime/list',
+        children: [
+          {
+            path: '/anime/list',
+            name: 'list',
+            meta: {
+              keepAlive: true
+            },
+            component: () => import('../pages/Anime/children/List.vue')
+          },
+          {
+            path: '/anime/detail/:mid',
+            name: 'detail',
+            component: () => import('../pages/Anime/children/Detail.vue')
+          }
+        ]
+      },
+      {
         path: '*',
         redirect: '/404'
       }
@@ -51,7 +72,11 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  routes
+  routes,
+  // This scroll behaviour force the children's page go back to the top so that it could not be affected by parent's scrolling position
+  scrollBehavior () {
+    document.getElementById('app').scrollIntoView()
+  }
 })
 
 export default router

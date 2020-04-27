@@ -5,6 +5,7 @@ import book from './modules/book'
 import bookshelf from './modules/bookshelf'
 import search from './modules/search'
 import read from './modules/read'
+import anime from './modules/anime'
 // import { getStore } from '../utils/common'
 Vue.use(Vuex)
 // const defaultSetting = {
@@ -28,14 +29,27 @@ Vue.use(Vuex)
 //   searchHistoryList: getStore('searchHistory') || []
 // }
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  getters: {},
+  state: {
+    system: ''
+  },
+  mutations: {
+    SAVE_SYSTEM: (state, system) => { state.system = system }
+
+  },
+  getters: {
+    system: state => state.system
+  },
+  actions: {
+    saveSystem ({ commit, state }, system) {
+      commit('SAVE_SYSTEM', system)
+    }
+  },
   modules: {
     home,
     book,
     bookshelf,
     search,
-    read
+    read,
+    anime
   }
 })

@@ -11,7 +11,7 @@ Nothing special, I have learnt Vue for halft year and use commonly on freelance 
 
 >  [Backend api doc see here](https://github.com/821wkli/OpenAcg-PWA/blob/master/api-docs.md)
 >
->  [demo](https://flask.openacg.tk/home) 
+>  [demo](https://flask.openacg.tk/home)
 > + If you are testing on PC, open browser in mobile debugging view.
 > + So far I don't have any plan to support PC, of coz feel free to contribution.
 
@@ -24,23 +24,23 @@ __Noted：This project is only for personal use only, Commerical distribution is
 
 | Skeleton loading |  Home page    | Drop down menu |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/skeleton.gif)                      |  ![](http://cdn.openacg.ml/image/home.jpg)| ![](http://cdn.openacg.ml/image/homeMenu.png) | 
+|                                 ![](http://cdn.openacg.ml/image/skeleton.gif)                      |  ![](http://cdn.openacg.ml/image/home.jpg)| ![](http://cdn.openacg.ml/image/homeMenu.png) |
 
 | Pull down refresh |  Pull up load more    | None |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/pullDownRefresh.gif)                      |  ![](http://cdn.openacg.ml/image/pullUpLoadMore.gif)| ![](http://cdn.openacg.ml/image/pullUpLoadMore.gif)| 
+|                                 ![](http://cdn.openacg.ml/image/pullDownRefresh.gif)                      |  ![](http://cdn.openacg.ml/image/pullUpLoadMore.gif)| ![](http://cdn.openacg.ml/image/pullUpLoadMore.gif)|
 
 | Bookshelf offline reading |  Book detail    | Book volume Panel |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/bookshelf.png)                      |  ![](http://cdn.openacg.ml/image/bookDetail.png)| ![](http://cdn.openacg.ml/image/volumePanel.png)| 
+|                                 ![](http://cdn.openacg.ml/image/bookshelf.png)                      |  ![](http://cdn.openacg.ml/image/bookDetail.png)| ![](http://cdn.openacg.ml/image/volumePanel.png)|
 
 | Chapter reading page |  Setting panel    | Dark mode |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/chapterContent.png)                      |  ![](http://cdn.openacg.ml/image/chapterContentPanel.png)| ![](http://cdn.openacg.ml/image/darkMode.png)| 
+|                                 ![](http://cdn.openacg.ml/image/chapterContent.png)                      |  ![](http://cdn.openacg.ml/image/chapterContentPanel.png)| ![](http://cdn.openacg.ml/image/darkMode.png)|
 
 | Switch chapter by panel |  Switch chapter by button    |
-| :-----------------------------------------------------: | :----: | 
-|                                 ![](http://cdn.openacg.ml/image/chapterPanelScroll.gif)                      |  ![](http://cdn.openacg.ml/image/switchChapter.gif)| 
+| :-----------------------------------------------------: | :----: |
+|                                 ![](http://cdn.openacg.ml/image/chapterPanelScroll.gif)                      |  ![](http://cdn.openacg.ml/image/switchChapter.gif)|
 
 | Seach book, recommendation, history |  Search results    | 404 not found
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
@@ -83,16 +83,17 @@ if (process.env.NODE_ENV === 'development') {
 
 # Functions to be implemented
 - [x] home page
-- [x] search page 
-- [x] book detail page 
+- [x] search page
+- [x] book detail page
 - [x] book reader page
 - [x] bookshelf page
 - [x] 404 page
 - [ ] ebook conversion page
 - [ ] manga home page
 - [ ] manga reader page
-- [ ] anime home page
-- [ ] anime video page
+- [X] anime home page
+- [X] anime video streaming page
+- [ ] Support responsive desktop reader layout
 
 # Backend api performance benchmark
 
@@ -144,7 +145,7 @@ Summary:
        |-- env.js                   // global env variables base api url, image url
         |-- langs.js                 // chinese hardcoded strings
         |-- rem.js                   // calculate optimal rem based on current dom window size
-    
+
 
 
    |-- pages                        // page view
@@ -158,7 +159,7 @@ Summary:
             |-- Read.vue
         |-- Search                  //search page
             |-- Search.vue
-        |-- Bookshelf               
+        |-- Bookshelf
             |-- Bookshelf.vue
 
 
@@ -168,7 +169,7 @@ Summary:
    |-- router                       // page routes config
         |-- index.js
 
-   
+
 
    |-- store                        // vuex state management
         |-- modules
@@ -178,10 +179,10 @@ Summary:
             |-- read.js
             |-- search.js
 
-        |-- action.js                
+        |-- action.js
         |-- index.js                 // vuex instance creation
-        |-- mutation-types.js        
-        |-- mutations.js            
+        |-- mutation-types.js
+        |-- mutations.js
 
     |-- style
        |-- common.scss              // common css style
@@ -190,18 +191,18 @@ Summary:
         |-- common.js               //common helper functions
         |-- fetch.js                // fetch api wrapper
 
-   
+
 |-- App.vue                      // top-level page component, app entry
 |
-|   |-- main.js                      // application entry point, 
+|   |-- main.js                      // application entry point,
     vue instance creation or external library/components can be registered on here.
 
 |-- vue.config.js                   //vue cli config file
 |-- babel.config.js                 //babel config file
 |-- .eslintrc.js
 |-- .editorconfig
-|-- .browserslistrc                   
-|-- .gitignore                       
+|-- .browserslistrc
+|-- .gitignore
 |-- package.json                     // package.json
 |-- README.md                        // readme
 ```
@@ -229,9 +230,21 @@ go http://localhost:8088
 npm run build
 ```
 
+## Disclamer
++ This app uses the APIS and DATA provided by third-party websites and it not associated with offical publishers.
+
++ <strong>I don't store any stuff in servers, for video streaming OpenAcg offers torrent proxy service to forward bittorrent traffic over QUIC to browsers</strong>
+
++ All trademarks and copyrights belong to their repective owners and are used here under the terms of Fair use and the  Digital Millennium Copyrights Act (DMCA) *
+
+## Rejection
++ The content provided by this application is just used for academic purpose.
++ We don't upload any e-books, novels and videos.
++ This application is just a way to organize browse, view and find light novels and animes provided by third-party data sources.
 ## License
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 
 If this project is useful for learning Vue, give me a star 😊
+
 
 

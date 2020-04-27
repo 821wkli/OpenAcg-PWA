@@ -3,10 +3,11 @@
     <headTop
       show-operator="true"
       go-back="true"
+      theme="light"
       :head-title="$lang.headBar.myBookshelf"
       header-position="fixed"
     ></headTop>
-    <div class="wrapper" ref="wrapper">
+    <div class="wrapper" ref="wrapper" @scroll="onListScroll">
       <header>
         <span @click="$refs.swiper.next()">
           <span :class="{active:swiper.index ===0}">{{$lang.bookshelfPage.collection}}</span>
@@ -49,7 +50,7 @@
             </span>
           </li>
         </ul>
-        <ul class="history-list-ul">
+        <ul class="history-list-ul" >
           <li :class="{editing:isEditingBook}" class="history-list-li" v-for="(item,index) in historyList" :key="index">
             <div v-show='isEditingBook' class="selectionPanel">
               <roundCheckbox class='roundCheckbox' :id="item.bookid"
@@ -82,7 +83,7 @@
           @onClick="selectAll"
           :disabled='false'
           :plain='false'
-          text="Select all"
+          :text="!this.isCheckedAll? $lang.bookshelfPage.selectAll:$lang.bookshelfPage.reverseAll"
           :mini='false'>
           <svg slot="icon" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-tick"/>
@@ -110,7 +111,7 @@ import longTap from '@/plugins/longTap'
 import headTop from '@/components/header/headTop'
 import swiper from '@/components/common/swiper'
 import roundCheckbox from '@/components/common/roundCheckbox'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { isEmpty } from '@/utils/common'
 import { fetchUpdatedBookshelf } from '@/apis'
 import { imageBaseUrl } from '@/config/env'
@@ -125,6 +126,8 @@ export default {
       isEditingBook: false,
       longTapping: false,
       booksToBeDeleted: [],
+      scrolling: false,
+      scrollingTimeout: null,
       swiper: {
         index: 0,
         options: {
@@ -143,17 +146,16 @@ export default {
     },
     historyList: function () {
       return this.$store.getters.recentReadingChapterList || []
-    }
+    },
+    ...mapGetters(['system', 'isCheckedAll'])
   },
   mounted () {
     this.initData()
-    // this.$nextTick(()=>{
-    //   if(!this.scroll{
-    //
-    //   })
-    // })
   },
   watch: {
+    scrolling: function (newScrolling) {
+      newScrolling ? this.$refs.swiper.disableDrag() : this.$refs.swiper.enableDrag()
+    },
     historyList: function (newHistoryList, oldHistoryList) {
       if (newHistoryList.length < oldHistoryList.length) {
         // out of editing state if the delete operation has been done
@@ -172,6 +174,13 @@ export default {
     }
   },
   methods: {
+    onListScroll: function () {
+      this.scrolling = true
+      window.clearTimeout(this.scrollingTimeout)
+      this.scrollingTimeout = setTimeout(() => {
+        this.scrolling = false
+      }, 400)
+    },
     selectAll: function () {
       this.checkAll()
     },
@@ -341,6 +350,7 @@ export default {
         font-size: 0;
         margin-bottom: 1.8rem;
         width: 100%;
+        min-height: 100vh;
       }
     }
 

@@ -35,7 +35,7 @@ export default async (type = 'GET', url = '', data = {}, timeout = 10000) => {
         'Content-Type': 'application/json'
       },
       mode: 'cors',
-      cache: 'force-cache',
+      cache: 'default',
       signal
     }
 
@@ -52,7 +52,12 @@ export default async (type = 'GET', url = '', data = {}, timeout = 10000) => {
       var response = await fetch(url, requestConfig)
       var responseJson = await response.json()
     } catch (error) {
-      throw new NetworkError({ message: response.statusText || 'timeout', statusCode: response.status || 0 })
+      // console.log(response)
+      // console.log(error)
+      if (error.name === 'AbortError') {
+        throw new NetworkError({ message: 'timeout', statusCode: 500 })
+      }
+      throw new NetworkError({ message: response ? response.statusText : 'timeout', statusCode: response.status || 0 })
     }
 
     return responseJson

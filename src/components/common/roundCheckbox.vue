@@ -17,7 +17,7 @@ export default {
       newIsChecked ? this.onChecked(this.value) : this.onUnchecked(this.value)
     },
     isCheckedAll: function (newIsCheckedAll) {
-      newIsCheckedAll && (this.isChecked = true)
+      newIsCheckedAll ? this.isChecked = true : this.isChecked = false
     }
   },
   data () {
