@@ -350,6 +350,7 @@ export default {
         font-size: 0;
         margin-bottom: 1.8rem;
         width: 100%;
+        min-height: 100vh;
       }
     }
 
