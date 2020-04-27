@@ -36,5 +36,17 @@ export const chinese = {
     history: '閱讀記錄',
     selectAll: '全選',
     reverseAll: '反選'
+  },
+  animePage: {
+    search: '搜尋',
+    noMoreData: '無更多數據',
+    networkError: '網絡連線不穩定,請重新刷新頁面',
+    unknownError: '未知錯誤',
+    downloadFailed: '下載失敗',
+    seedDead: 'seed 已死'
+  },
+  common: {
+    copySucess: '拷貝成功',
+    copyFailed: '拷貝失敗'
   }
 }

@@ -19,7 +19,7 @@
                 <ul class="content-ul" :style="{fontSize:setting.fontSize}"
                     :class="{darkTheme:setting.darkTheme}">
                   <li class="content-sentence" v-for="(item,index) in chapter.content" :key="index">{{chapter.chapter_name!=='插圖'?item:''}}
-                    <img :src="item.replace(/http:\/\/pic.wkcdn.com|http:\/\/picture.wenku8.com/g, 'https://openacg.ml')" class="book=images" v-if="chapter.chapter_name === '插圖'">
+                    <img :src="item.replace(/http:\/\/pic.wkcdn.com|http:\/\/picture.wenku8.com|http:\/\/pic.wenku8.com/g, 'https://openacg.ml')" class="book=images" v-if="chapter.chapter_name === '插圖'">
                   </li>
                 </ul>
               </div>

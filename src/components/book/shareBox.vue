@@ -91,9 +91,9 @@ export default {
         }
         document.execCommand('copy')
         textArea.blur()
-        this.$toast.center('copy OK')
+        this.$toast.center(this.$lang.common.copySucess)
       } catch (err) {
-        this.$toast.center('failed to copy')
+        this.$toast.center(this.$lang.common.copyFailed)
       }
     },
     shareToSocialMedia: function (mediaName) {

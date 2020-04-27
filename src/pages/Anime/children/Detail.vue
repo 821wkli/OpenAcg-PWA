@@ -187,9 +187,9 @@ export default {
         setTimeout(() => {
           // console.log(this.art.player.loaded)
           if (isNaN(this.art.player.loaded) || this.art.player.loaded <= 0) {
-            this.$toast.center('Network error, please refresh again.')
+            this.$toast.center(this.$lang.animePage.networkError)
           }
-        }, 15000)
+        }, 20000)
       }
     },
     initData () {
@@ -203,12 +203,12 @@ export default {
             this.saveCurrentAnime(res)
           }
         } else {
-          this.$toast.center('Resource Unavaiable')
+          this.$toast.center(this.$lang.animePage.seedDead)
         }
         this.showLoading = false
       }).catch(err => {
         this.showLoading = false
-        process.env.NODE_ENV === 'development' ? (this.$toast.center(err.name + ' ' + err.message)) : this.$toast.center('Network error')
+        this.$toast.center(err.message ? err.message : this.$lang.animePage.unknownError)
       })
     },
     loadVideo: function (index) {
@@ -225,10 +225,10 @@ export default {
     copy () {
       if (copyTextToClipboard(this.shareURL)) {
         this.isCopied = true
-        this.$toast.center('copied OK')
+        this.$toast.center(this.$lang.common.copySucess)
       } else {
         this.isCopied = false
-        this.$toast.center('Failed to copy')
+        this.$toast.center(this.$lang.common.copyFailed)
       }
     },
     download (link) {
@@ -242,7 +242,7 @@ export default {
           tempElem.style.display = 'none'
           document.body.appendChild(tempElem)
         } catch (e) {
-          this.$toast.center('Failed to download')
+          this.$toast.center(this.$lang.animePage.downloadFailed)
         }
       }
     }
