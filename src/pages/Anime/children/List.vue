@@ -96,7 +96,8 @@ export default {
   },
   computed: {
     today: function () {
-      return new Date().getDay() - 1
+      const day = new Date().getDay()
+      return day === 0 ? 6 : day - 1
     }
   },
   mounted () {
