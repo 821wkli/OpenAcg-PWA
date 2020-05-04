@@ -35,7 +35,9 @@ export const chinese = {
     collection: '個人收藏',
     history: '閱讀記錄',
     selectAll: '全選',
-    reverseAll: '反選'
+    reverseAll: '反選',
+    continueReading: '繼續閱讀',
+    remove: '移除'
   },
   animePage: {
     search: '搜尋',

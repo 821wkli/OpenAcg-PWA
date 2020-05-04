@@ -205,7 +205,6 @@ export default {
         }, 20000)
 
         this.art.on('video:canplay', (event) => {
-          console.log('can play')
           if (this.torrentInfo.title.includes('HEVC')) {
             this.$refs.modal.open()
           }

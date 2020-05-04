@@ -95,7 +95,7 @@
           :disabled='booksToBeDeleted.length<=0'
           :plain='false'
           type="warn"
-          text="Delete"
+          :text="$lang.bookshelfPage.remove"
           :mini='false'>
           <svg slot='icon' width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-delete-white"/>
