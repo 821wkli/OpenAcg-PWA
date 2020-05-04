@@ -43,7 +43,8 @@ export const chinese = {
     networkError: '網絡連線不穩定,請重新刷新頁面',
     unknownError: '未知錯誤',
     downloadFailed: '下載失敗',
-    seedDead: 'seed 已死'
+    seedDead: 'seed 已死',
+    notSupportHEVC: '當前瀏覽器不支援經HEVC壓縮的視頻檔案，播放時，可能只有聲音而沒有畫面，你可以下載本視頻，以支援解析HEVC視頻的播放器，例如VLC player播放本集或者選擇其他非HEVC格式的數據'
   },
   common: {
     copySucess: '拷貝成功',
