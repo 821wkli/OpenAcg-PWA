@@ -11,7 +11,7 @@ Nothing special, I have learnt Vue for halft year and use commonly on freelance 
 
 >  [Backend api doc see here](https://github.com/821wkli/OpenAcg-PWA/blob/master/api-docs.md)
 >
->  [demo](https://flask.openacg.tk/home)
+>  [demo](https://821wkli.github.io/OpenAcg-PWA/#/home)
 > + If you are testing on PC, open browser in mobile debugging view.
 > + So far I don't have any plan to support PC, of coz feel free to contribution.
 
@@ -45,7 +45,7 @@ __Noted：This project is only for personal use only, Commerical distribution is
 
 | Switch chapter by panel |  Switch chapter by button    |
 | :-----------------------------------------------------: | :----: |
-|                                 ![](http://cdn.openacg.ml/image/chapterPanelScroll.gif)                      |  ![](http://cdn.openacg.ml/image/switchChapter.gif)|
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/chapterPanelScroll.gif)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/switchChapter.gif)|
 
 
 
