@@ -31,7 +31,7 @@
             v-longTap="{time:2000,handler:longTapHandler,disX:20,disY:20}"
             class="history-item"
             :class="{shaking:isEditingBook}"
-            @click="goToBookHome(item)"
+            @click="!isEditingBook?goToBookHome(item):null"
             v-for="(item,index) in this.bookshelfList"
             :key="index"
           >
@@ -51,8 +51,8 @@
           </li>
         </ul>
         <ul class="history-list-ul" >
-          <li :class="{editing:isEditingBook}" class="history-list-li" v-for="(item,index) in historyList" :key="index">
-            <div v-show='isEditingBook' class="selectionPanel">
+          <li :class="{editing:isEditingBook && swiper.index===1}" class="history-list-li" v-for="(item,index) in historyList" :key="index">
+            <div v-show='isEditingBook && swiper.index===1' class="selectionPanel">
               <roundCheckbox class='roundCheckbox' :id="item.bookid"
                              :value="item.bookid"
                              @onChecked="addBookToDeletedList"
@@ -68,7 +68,7 @@
                 <span>{{item.author}}</span>
                 <span>{{item.chapter_name}}</span>
               </div>
-              <div :class="{editing:isEditingBook}"
+              <div :class="{editing:isEditingBook && swiper.index===1}"
                    class="continue"
                    @click="$router.push({name:'reader',params:{bookid:item.bookid},query:{chapterid:item.chapterid}})"
               >
@@ -95,7 +95,7 @@
           :disabled='booksToBeDeleted.length<=0'
           :plain='false'
           type="warn"
-          text="Delete"
+          :text="$lang.bookshelfPage.remove"
           :mini='false'>
           <svg slot='icon' width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-delete-white"/>
@@ -281,13 +281,13 @@ export default {
     width: 100vw;
     background: #fff;
     box-sizing: border-box;
-    padding-left: 0.4rem;
     padding-right: 0.4rem;
     padding-top: 1.95rem;
     padding-bottom: 0.4rem;
     overflow-y: scroll;
 
     .wrapper {
+      padding-left: .4rem;
       width: 100%;
       height: 100%;
       position: fixed;

@@ -35,6 +35,21 @@ export const chinese = {
     collection: '個人收藏',
     history: '閱讀記錄',
     selectAll: '全選',
-    reverseAll: '反選'
+    reverseAll: '反選',
+    continueReading: '繼續閱讀',
+    remove: '移除'
+  },
+  animePage: {
+    search: '搜尋',
+    noMoreData: '無更多數據',
+    networkError: '網絡連線不穩定,請重新刷新頁面',
+    unknownError: '未知錯誤',
+    downloadFailed: '下載失敗',
+    seedDead: 'seed 已死',
+    notSupportHEVC: '當前瀏覽器不支援經HEVC壓縮的視頻檔案，播放時，可能只有聲音而沒有畫面，你可以下載本視頻，以支援解析HEVC視頻的播放器，例如VLC player播放本集或者選擇其他非HEVC格式的數據'
+  },
+  common: {
+    copySucess: '拷貝成功',
+    copyFailed: '拷貝失敗'
   }
 }

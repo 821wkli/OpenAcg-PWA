@@ -28,7 +28,6 @@ export default async (type = 'GET', url = '', data = {}, timeout = 10000) => {
     const contoller = new AbortController()
     const signal = contoller.signal
     const requestConfig = {
-      credentials: 'include',
       method: type,
       headers: {
         Accept: 'application/json',

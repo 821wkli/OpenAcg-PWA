@@ -64,7 +64,19 @@
           </ul>
         </div>
       </div>
+    </section>
+    <section class="dialog-wrapper">
+    <open-modal icon="error" title="Opps..." ref="modal">
+      {{$lang.animePage.notSupportHEVC}}
 
+      <div slot="button" class="download-button">
+        <span class="icon" @click="download(`${$hostURL}/torrent/serve/${mid}/${currentPlayingIndex}`)">
+              <svg @click='$refs.modal.close()' width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-download"/>
+              </svg>
+        </span>
+      </div>
+    </open-modal>
     </section>
   </div>
 </template>
@@ -75,9 +87,10 @@ import { fetchAnimeDetail } from '@/apis'
 import { imageBaseUrl } from '../../../config/env'
 import { mapActions, mapGetters } from 'vuex'
 import Artplayer from 'artplayer'
-
+import openModal from '../../../components/common/openModal'
 export default {
   name: 'Detail',
+  components: { openModal },
   data () {
     return {
       isActive: false,
@@ -187,9 +200,15 @@ export default {
         setTimeout(() => {
           // console.log(this.art.player.loaded)
           if (isNaN(this.art.player.loaded) || this.art.player.loaded <= 0) {
-            this.$toast.center('Network error, please refresh again.')
+            this.$toast.center(this.$lang.animePage.networkError)
           }
-        }, 15000)
+        }, 20000)
+
+        this.art.on('video:canplay', (event) => {
+          if (this.torrentInfo.title.includes('HEVC')) {
+            this.$refs.modal.open()
+          }
+        })
       }
     },
     initData () {
@@ -203,14 +222,16 @@ export default {
             this.saveCurrentAnime(res)
           }
         } else {
-          this.$toast.center('Resource Unavaiable')
+          this.$toast.center(this.$lang.animePage.seedDead)
         }
         this.showLoading = false
       }).catch(err => {
         this.showLoading = false
-        process.env.NODE_ENV === 'development' ? (this.$toast.center(err.name + ' ' + err.message)) : this.$toast.center('Network error')
+        this.$toast.center(err.message ? err.message : this.$lang.animePage.unknownError)
       })
     },
+    // Notice that not all files are video inside a torrent, add filtering logic here
+    // if it's a video then load it into player otherwise making download request
     loadVideo: function (index) {
       if (!isEmpty(this.torrentInfo.files[index]) && this.torrentInfo.files[index].type.includes('video')) {
         this.videoSource = `${this.$hostURL}/torrent/serve/${this.mid}/${index}`
@@ -225,10 +246,10 @@ export default {
     copy () {
       if (copyTextToClipboard(this.shareURL)) {
         this.isCopied = true
-        this.$toast.center('copied OK')
+        this.$toast.center(this.$lang.common.copySucess)
       } else {
         this.isCopied = false
-        this.$toast.center('Failed to copy')
+        this.$toast.center(this.$lang.common.copyFailed)
       }
     },
     download (link) {
@@ -242,7 +263,7 @@ export default {
           tempElem.style.display = 'none'
           document.body.appendChild(tempElem)
         } catch (e) {
-          this.$toast.center('Failed to download')
+          this.$toast.center(this.$lang.animePage.downloadFailed)
         }
       }
     }
@@ -522,7 +543,11 @@ export default {
 
             .title {
               flex: 1;
-
+              max-width: 94%;
+              /* white-space: pre-wrap; */
+              word-wrap: break-word;
+              white-space: -moz-pre-wrap;
+              white-space: pre-wrap;
               &:hover {
                 cursor: pointer;
                 text-decoration: underline;
@@ -546,5 +571,26 @@ export default {
       }
 
     }
+    .dialog-wrapper{
+      .download-button{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        @media (max-width: 600px) {
+          justify-content: center;
+        }
+        .icon{
+          width: 64px;
+          height: 64px;
+          cursor: pointer;
+          svg{
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+      }
+    }
+
   }
 </style>

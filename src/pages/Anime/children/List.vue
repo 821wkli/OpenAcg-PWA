@@ -1,12 +1,13 @@
 <template>
-  <div id="list" ref="animeList" >
+  <div id="list" ref="animeList">
     <section class="daily-info">
       <ul class="weekdays" ref="weekdays">
-        <li v-for="(day,index) in dailyList" :key="index">
+        <li v-for="(day,index) in dailyList" :key="index" :class="{today : index === today}">
           <span>{{day.weekday.cn}}</span>
           <div class="right">
             <div @click='searchList(item.name_cn)' v-for="(item,i) in day.items" :key="i"><span v-if="item.name_cn"
-                                                              class="anime-name">{{item.name_cn}}</span></div>
+                                                                                                class="anime-name">{{item.name_cn}}</span>
+            </div>
           </div>
         </li>
       </ul>
@@ -22,25 +23,28 @@
         <div class="post-complete"><span class="title">完成</span></div>
         <div class="post-download"><span class="title">下載</span></div>
       </div>
-      <div class="wrapper" >
-      <div class="row" v-for="(item,index) in animeList" :key="index" @click="saveCurrentAnime(item)&& $router.push({name:'detail',params:{mid:item.magnet.split(':').pop()}})">
-        <div class="detail post-date"><span class="title">{{item.update_time.split('\t')[0]}}</span></div>
-        <div class="detail post-type" :class="getTypeClass(item)"><span class="title">{{item.category}}</span></div>
-        <div class="detail post-title">
-          <span  v-if="item.title.includes('\n\n\t\t\t\t')">
+      <div class="wrapper">
+        <div class="row" v-for="(item,index) in animeList" :key="index"
+             @click="saveCurrentAnime(item)&& $router.push({name:'detail',params:{mid:item.magnet.split(':').pop()}})">
+          <div class="detail post-date"><span class="title">{{item.update_time.split('\t')[0]}}</span></div>
+          <div class="detail post-type" :class="getTypeClass(item)"><span class="title">{{item.category}}</span></div>
+          <div class="detail post-title">
+          <span v-if="item.title.includes('\n\n\t\t\t\t')">
             <span class="translator">{{item.title.split('\n\n\t\t\t\t')[0]}}</span>
             <span class="title">{{item.title.split('\n\n\t\t\t\t')[1]}}</span>
           </span>
-          <span v-else class="title">
+            <span v-else class="title">
             {{item.title}}
           </span>
+          </div>
+          <div class="detail post-file-size"><span class="title">{{item.file_size}}</span></div>
+          <div class="detail post-seed"><span class="title">{{item.seed}}</span></div>
+          <div class="detail post-complete"><span class="title">{{item.completed}}</span></div>
+          <div class="detail post-download"><span class="title">{{item.download}}</span></div>
         </div>
-        <div class="detail post-file-size"><span class="title">{{item.file_size}}</span></div>
-        <div class="detail post-seed"><span class="title">{{item.seed}}</span></div>
-        <div class="detail post-complete"><span class="title">{{item.completed}}</span></div>
-        <div class="detail post-download"><span class="title">{{item.download}}</span></div>
+        <div class="row footer"><span>{{$lang.animePage.noMoreData}}</span></div>
       </div>
-      </div>
+
     </section>
 
     <section class="spinner-mask" v-if="showLoading ||!(dailyList.length && animeList.length)">
@@ -90,6 +94,12 @@ export default {
   created () {
     this.keywords = this.$route.query.keywords
   },
+  computed: {
+    today: function () {
+      const day = new Date().getDay()
+      return day === 0 ? 6 : day - 1
+    }
+  },
   mounted () {
     this.initData()
     window.addEventListener('scroll', this.onScroll)
@@ -105,7 +115,8 @@ export default {
   },
   methods: {
     searchList: function (title) {
-      this.$router.replace({ name: 'anime', query: { type: 'daily', title } }).catch(() => {})
+      this.$router.replace({ name: 'anime', query: { type: 'daily', title } }).catch(() => {
+      })
       this.showLoading = true
       animeDaily(title).then(res => {
         if (!isEmpty(res.response)) {
@@ -117,12 +128,12 @@ export default {
           this.animeList = res.response
           setTimeout(() => window.scrollTo(0, this.$refs.weekdays.clientHeight), 1)
         } else {
-          this.$toast.center('No data avaiable')
+          this.$toast.center(this.$lang.animePage.noMoreData)
         }
         this.showLoading = false
       }).catch(err => {
         this.showLoading = false
-        this.$toast.center(err.message ? err.message : 'Unknown error')
+        this.$toast.center(err.message ? err.message : this.$lang.animePage.unknownError)
       })
     },
     onScroll: function () {
@@ -149,12 +160,10 @@ export default {
             })
             this.animeList = [...this.animeList, ...res.response]
             this.offset += 20
-          } else {
-            this.$toast.center('No more data avaiable')
           }
           this.lock = false
         }).catch(err => {
-          this.$toast.center(err.message ? err.message : 'Unknown error')
+          this.$toast.center(err.message ? err.message : this.$lang.animePage.unknownError)
         })
       }
     },
@@ -181,23 +190,24 @@ export default {
           })
           this.animeList = res.response
           this.offset += 20
-        } else {
-          this.$toaster.center('No more data avaiable')
         }
         this.showLoading = false
       }).catch(err => {
         this.showLoading = false
-        this.$toast.center(err.message ? err.message : 'Unknown error')
+        this.$toast.center(err.message ? err.message : this.$lang.animePage.unknownError)
       })
     },
     getTypeClass: function (entry) {
       let type = ''
       switch (entry.category) {
-        case '季度全集':type = 'fullEpisode'
+        case '季度全集':
+          type = 'fullEpisode'
           break
-        case '動畫':type = 'anime'
+        case '動畫':
+          type = 'anime'
           break
-        case '日劇':type = 'tv'
+        case '日劇':
+          type = 'tv'
           break
         case '動漫音樂':
         case '音樂':
@@ -214,7 +224,7 @@ export default {
 
 <style lang="scss" scoped>
 
-  .spinner-mask{
+  .spinner-mask {
     position: fixed;
     top: 0;
     width: 100vw;
@@ -225,6 +235,7 @@ export default {
     justify-content: center;
 
   }
+
   #list {
     width: 100%;
     height: 100%;
@@ -244,10 +255,17 @@ export default {
           font-size: 16px;
           display: flex;
           margin-bottom: 16px;
-          span{
+          &.today{
+            span{
+              color: #14e414;
+            }
+          }
+
+          span {
             padding-top: 6px;
             margin-right: 5px;
           }
+
           .right {
             flex: 1;
 
@@ -282,6 +300,8 @@ export default {
       margin-bottom: 10px;
       background-color: #FFFFFF;
       border-top: 1px solid #ccc;
+      position: relative;
+
       span {
         font-size: 14px;
         color: #333;
@@ -289,45 +309,64 @@ export default {
 
       .row {
         display: flex;
-       &.header{
-         font-weight: bold;
-         .post-title{
-           justify-content: center;
-         }
-       }
 
-        div{
+        &.header {
+          font-weight: bold;
+
+          .post-title {
+            justify-content: center;
+          }
+        }
+
+        &.footer {
+        justify-content: center;
+          align-items: center;
+          span {
+            margin-right: 4%;
+            color: #6f6262;
+          }
+        }
+
+        div {
           display: flex;
           justify-content: center;
           align-content: center;
           padding: 12px 0;
 
         }
+
         .post-date {
           width: 160px;
 
         }
-        .post-type{
+
+        .post-type {
           width: 5%;
-          &.fullEpisode{
+
+          &.fullEpisode {
             font-weight: bold;
-            span{
+
+            span {
               color: rgb(255, 0, 0);
             }
           }
-          &.anime{
-            span{
-              color: rgb(255,0,0);
+
+          &.anime {
+            span {
+              color: rgb(255, 0, 0);
             }
           }
-          &.tv{
-           span{
-             color: rgb(255,0,0);
-           }
+
+          &.tv {
+            span {
+              color: rgb(255, 0, 0);
+            }
           }
-          &.music{
+
+          &.music {
             font-weight: bold;
-            span{
+
+            span {
               color: rgb(128, 0, 128);;
             }
           }
@@ -339,7 +378,8 @@ export default {
           padding-left: 8px;
           display: flex;
           justify-content: flex-start;
-          .translator{
+
+          .translator {
             margin-right: 5px;
             padding: 5px 10px !important;
             border: none !important;
@@ -347,12 +387,13 @@ export default {
             background-color: #f5f5f5;
             transition: background-color 0.3s ease-out;
           }
-          .translator:hover{
-            background-color: darken(#f5f5f5,15);
+
+          .translator:hover {
+            background-color: darken(#f5f5f5, 15);
             cursor: pointer;
           }
 
-          .title:hover{
+          .title:hover {
             cursor: pointer;
             text-decoration: underline;
           }
@@ -377,28 +418,33 @@ export default {
       }
 
       @media (max-width: 760px) {
-        .row{
-          &.header{
+        .row {
+          &.header {
             display: none;
           }
-          .post-file-size,.post-seed,.post-download{
+
+          .post-file-size, .post-seed, .post-download {
             display: none;
           }
-          .post-date{
+
+          .post-date {
             max-width: 23%;
             text-align: center;
-            span{
+
+            span {
               width: 100%;
               word-wrap: break-word;
             }
           }
-          .post-complete{
+
+          .post-complete {
             display: flex;
             align-items: flex-end;
             margin-right: 10px;
           }
-          .post-title{
-            .title{
+
+          .post-title {
+            .title {
               line-height: 24px;
             }
           }

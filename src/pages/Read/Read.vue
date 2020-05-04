@@ -19,7 +19,7 @@
                 <ul class="content-ul" :style="{fontSize:setting.fontSize}"
                     :class="{darkTheme:setting.darkTheme}">
                   <li class="content-sentence" v-for="(item,index) in chapter.content" :key="index">{{chapter.chapter_name!=='插圖'?item:''}}
-                    <img :src="item.replace(/http:\/\/pic.wkcdn.com|http:\/\/picture.wenku8.com/g, 'https://openacg.ml')" class="book=images" v-if="chapter.chapter_name === '插圖'">
+                    <img :src="item.replace(/http:\/\/pic.wkcdn.com|http:\/\/picture.wenku8.com|http:\/\/pic.wenku8.com/g, 'https://openacg.ml')" class="book=images" v-if="chapter.chapter_name === '插圖'">
                   </li>
                 </ul>
               </div>
@@ -58,8 +58,8 @@
         </div>
       </section>
     </section>
-    <jump-loader where="top"
-                 v-if="view.showLoading"></jump-loader>
+    <poke-ball where="top" class="loader"
+                 v-if="view.showLoading"></poke-ball>
     <transition name="slide-left">
       <chapter-list-panel @onTouchCover="view.isShowChapterListPanel=false"
                           v-if="view.isShowChapterListPanel"
@@ -78,14 +78,15 @@ import headTop from '@/components/header/headTop'
 import 'vue-range-component/dist/vue-range-slider.css'
 import VueRangeSlider from 'vue-range-component'
 import BScroll from 'better-scroll'
-import jumpLoader from '@/components/loader/jumpLoader'
+// import jumpLoader from '@/components/loader/jumpLoader'
 import { isEmpty } from '@/utils/common'
 import ChapterListPanel from '@/components/reader/chapterListPanel'
 import { imageBaseUrl } from '../../config/env'
+import PokeBall from '../../components/loader/pokeBall'
 
 export default {
   name: 'read',
-  components: { ChapterListPanel, headTop, VueRangeSlider, jumpLoader },
+  components: { PokeBall, ChapterListPanel, headTop, VueRangeSlider },
   data () {
     return {
       bookInfo: null,
@@ -191,8 +192,6 @@ export default {
     },
     chapters: function (newChapters) {
       this.currentChapter = newChapters[newChapters.length - 1]
-      // this.RECORD_CURRENT_READING_CHAPTER({bookid: this.bookid, chapterid: this.currentChapter.id, posY: 0});
-      // get next chapter id
 
       if (this.chapterList && this.currentChapter) {
         const chapterids = [].concat.apply([], this.chapterList.map(volume => {
@@ -542,6 +541,13 @@ export default {
     background: url(../../assets/images/skin-default-t.ece62.jpg) no-repeat center top, url(../../assets/images/skin-default-b.79f06.jpg) no-repeat center bottom, url(../../assets/images/skin-default-m.35905.jpg) repeat-y center 119px;
     background-size: 100%;
     color: $defaultColor;
+  }
+
+  .loader{
+    position: fixed;
+    left: 50%;
+    margin-left: -28px;
+    top: 25%;
   }
 
 </style>

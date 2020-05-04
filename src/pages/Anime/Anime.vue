@@ -5,7 +5,7 @@
         <router-link class='logo' to='/anime'></router-link>
       </div>
       <input type="text" class="search" maxlength="50"  @keyup.enter="onSearch" v-model="searchText"/>
-      <button @click='onSearch' class="searchBtn">Search</button>
+      <button @click='onSearch' class="searchBtn">{{$lang.animePage.search}}</button>
     </div>
     <div class="main">
       <keep-alive>
@@ -111,6 +111,9 @@ export default {
         flex: 1;
         @media (max-width: 1600px) {
           width: calc(100% - 200px);
+        }
+        @media(max-width: 760px){
+          text-indent: 10px;
         }
 
         &:hover {
