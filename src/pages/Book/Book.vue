@@ -1,13 +1,21 @@
 <template>
   <div class="container">
     <section class="book-main" v-if="!showLoading">
-      <section class="book-main" v-if="!volumePanel.showChapterPanel">
+      <section class="book-main">
         <head-top :head-title="book.title"
                   :go-back="true"
                   :goback-handler="onGoback.bind(null)"
                   :show-operator="false"
                   :is-transparent="true"
-        ></head-top>
+
+        >
+          <section slot="share" class="icon share" @click="showShareBox=!showShareBox">
+              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-share"/>
+              </svg>
+
+          </section>
+        </head-top>
         <section class="book-detail-wrapper">
           <img :src="book.cover_url" class="book-cover-blur"
                :alt="book.title" aria-hidden="true">
@@ -58,8 +66,8 @@
                  @click="isShowMore=!isShowMore"
         >
           <section class="book-summary enabled">
-            <div>
-              {{book.introduction}}
+            <div class="content" :class="{showMore:isShowMore}">
+              {{book.introduction.trim()!=='' ? book.introduction: $lang.bookPage.copyRightMessage}}
             </div>
             <span
               :class="{showMore:isShowMore}"
@@ -115,7 +123,9 @@
     <section v-else class="loader">
       <jump-loader where="top" class="icon"></jump-loader>
     </section>
-
+    <section @click.stop="showShareBox=false" class="share-box-mask" v-show="showShareBox">
+      <share-box @onClose="showShareBox = false" :book="this.book"></share-box>
+    </section>
   </div>
 
 </template>
@@ -129,6 +139,7 @@ import BScroll from 'better-scroll'
 import { isEmpty } from '../../utils/common'
 import jumpLoader from '../../components/loader/jumpLoader'
 import { imageBaseUrl } from '../../config/env'
+import ShareBox from '../../components/book/shareBox'
 
 export default {
   name: 'Book',
@@ -149,6 +160,7 @@ export default {
       bookid: null,
       isShowMore: false,
       order: 1,
+      showShareBox: false,
       bookshelfStatus: {
         isInBookshelf: false,
         message: '加入書櫃'
@@ -169,7 +181,7 @@ export default {
   beforeDestroy () {
     this.saveBook(null)
   },
-  components: { ChapterList, headTop, jumpLoader },
+  components: { ShareBox, ChapterList, headTop, jumpLoader },
   methods: {
     createScroll: function () {
       this.$nextTick(() => {
@@ -194,9 +206,6 @@ export default {
       this.volumePanel.showChapterPanel = !this.volumePanel.showChapterPanel
     },
     getChaptersOfVolume (volume) {
-      // this.volumePanel.currentVolumeChapters = this.volumePanel.chapterList.filter(v => v.id === volume.id)[0]
-      // this.saveCurrentVolumeChapters(this.volumePanel.currentVolumeChapters)
-      // this.volumePanel.showChapterPanel = true
       if (!isEmpty(this.volumePanel.chapterList)) {
         const currentVolumeChapters = this.volumePanel.chapterList.filter(v => v.id === volume.id)[0]
         this.saveCurrentVolumeChapters(currentVolumeChapters)
@@ -207,7 +216,7 @@ export default {
       if (isEmpty(this.book)) {
         let book = await fetchBook(this.bookid)
         if (isEmpty(book.response) || book.response.message) {
-          await this.$router.push('/home')
+          await this.$router.replace('/404')
           return
         }
         book = { ...book.response }
@@ -256,20 +265,16 @@ export default {
       this.saveBookToBookshelf(this.book)
     },
     onGoback: function () {
-      if (this.from.query && 'chapterid' in this.from.query === false) {
+      if (!isEmpty(this.from.query) && 'chapterid' in this.from.query === false) {
         this.$router.push({ name: 'home', query: this.from.query })
+      } else if (this.from.path.indexOf('bookshelf') !== -1) {
+        this.$router.go(-1)
       } else {
         this.$router.push({ name: 'home' })
       }
     }
   },
   watch: {
-    isShowMore: function (newShowMore) {
-      for (const elem of document.getElementsByClassName('book-main')) {
-        elem.style.height = newShowMore ? 'auto' : '100%'
-      }
-    },
-
     chapterList: function (newChapterList) {
       this.volumePanel.chapterList = newChapterList
     },
@@ -295,7 +300,7 @@ export default {
     bookshelfList () {
       return this.$store.getters.bookshelfList || []
     },
-    ...mapGetters(['book', 'recentReadingChapterList', 'chapterList']),
+    ...mapGetters(['book', 'recentReadingChapterList', 'chapterList', 'system']),
     // bookshelfStatus: function () {
     //   const isInBookshelf = this.bookshelfList.some(item => item.id === this.bookid)
     //   if (isInBookshelf) {
@@ -339,7 +344,7 @@ export default {
     },
     total_words: function () {
       if (!this.book.word_count) {
-        return '未知幾多'
+        return this.$lang.bookPage.unknownNumber
       }
       if (this.book.word_count < 10000) {
         return this.book.word_count
@@ -360,7 +365,16 @@ export default {
     left: 0;
     right: 0;
     height: 100vh;
-
+    .share{
+      position: absolute;
+      top: 43%;
+      transform: translateY(-50%);
+      @include wh(0.6rem, 0.8rem);
+      right: .4rem;
+      svg{
+        @include wh(100%,100%);
+      }
+    }
     .loader {
       top: 0;
       position: fixed;
@@ -377,7 +391,7 @@ export default {
     }
 
     .book-detail-wrapper {
-      margin-top: -1.95rem;
+      margin-top: -2.3rem;
       background-color: #bebade;
 
       .book-cover-blur {
@@ -486,13 +500,23 @@ export default {
       padding-right: .4rem;
       background: #fff;
       margin-top: .8rem;
-      height: 4.9rem;
+      /*height: 4.9rem;*/
       max-height: none;
       @include sc(.65rem, $defaultColor)
-      overflow: hidden;
+      /*overflow: hidden;*/
       text-align: justify;
       box-shadow: 0 1px #f0f1f2, 0 -1px #f0f1f2;
-
+      .content{
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: pre-line;
+        &.showMore{
+          -webkit-line-clamp: unset;
+        }
+      }
       .book-summary-more {
         position: absolute;
         right: .4rem;
@@ -512,15 +536,16 @@ export default {
 
       }
 
-      .showMore {
-        @include wh(1rem, 1rem);
+      .book-summary-more {
+        &.showMore {
+          @include wh(1rem, 1rem);
 
-        .icon-arrow-r {
-          @include wh(75%, 75%);
-          transform: rotate(270deg);
+          .icon-arrow-r {
+            @include wh(75%, 75%);
+            transform: rotate(270deg);
+          }
         }
       }
-
     }
 
     .showMore {
@@ -537,12 +562,13 @@ export default {
       border-bottom: 2px solid #e0e0e0;
       border-top: 2px solid #e0e0e0;
       align-items: center;
-      overflow: hidden;
+      min-height: 1.8rem;
 
       span {
         @include sc(.65rem, blue)
         line-height: 1.8rem;
         height: 1.8rem;
+        overflow: hidden;
 
       }
 
@@ -591,8 +617,9 @@ export default {
       padding-right: .4rem;
       margin-top: .4rem;
       /*height: 44vh;*/
-      height: 40%;
+      min-height: 40%;
       overflow: hidden;
+      background: #fff;
 
       .book-volume-list-ul {
         background: #fff;
@@ -624,6 +651,17 @@ export default {
           }
         }
       }
+    }
+
+    .share-box-mask{
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0,0,0,0.25)
     }
 
   }

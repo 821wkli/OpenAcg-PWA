@@ -69,16 +69,16 @@
 </template>
 
 <script>
-import headTop from '../../components/header/headTop'
-import refresh from '../../components/common/refresh'
-import { latestBook, hotBook, searchBook } from '../../apis'
+import headTop from '@/components/header/headTop'
+import refresh from '@/components/common/refresh'
+import { latestBook, hotBook, searchBook } from '@/apis'
 import { mapGetters, mapActions } from 'vuex'
 import BScroll from 'better-scroll'
-import DotLoader from '../../components/loader/dotLoader' // todo
-import ListSkeleton from '../../components/loader/listSkeleton'
-import { isEmpty } from '../../utils/common'
-import SearchBar from '../../components/search/searchBar'
-import { imageBaseUrl } from '../../config/env'
+import DotLoader from '@/components/loader/dotLoader' // todo
+import ListSkeleton from '@/components/loader/listSkeleton'
+import { isEmpty } from '@/utils/common'
+import SearchBar from '@/components/search/searchBar'
+import { imageBaseUrl } from '@/config/env'
 
 export default {
   data () {
@@ -210,11 +210,6 @@ export default {
         self.isRefreshing = false
         // console.log('refresh done')
       })
-      // setTimeout(() => {
-      //   self.isRefreshing = false;
-      //   self.showLoading = false;
-      //   console.log('refresh done')
-      // }, 3000)
     },
     async initData () {
       this.showLoading = true
@@ -222,19 +217,27 @@ export default {
         if (!isEmpty(res.response)) {
           this.saveHotList(res.response)
         }
+      }).catch(err => {
+        this.$toast.center(`${err.statusCode} ${err.message ? err.message : 'Unknown error'}`)
       })
       let res = null
       // avoid fetching again book list when back from other routes
-
-      if (isEmpty(this.latestBookList) || this.search.showSearchBar) {
-        if (this.search.keyword) {
-          res = await searchBook(0, 20, this.search.keyword)
+      try {
+        if (isEmpty(this.latestBookList) || this.search.showSearchBar) {
+          if (this.search.keyword) {
+            res = await searchBook(0, 20, this.search.keyword)
+          } else {
+            res = await latestBook(0, 20)
+          }
+          res = Object.assign([], res.response)
         } else {
-          res = await latestBook(0, 20)
+          res = [...this.latestBookList] // get books from vuex and concat for later use
         }
-        res = Object.assign([], res.response)
-      } else {
-        res = [...this.latestBookList] // get books from vuex and concat for later use
+      } catch (err) {
+        this.showLoading = false
+        this.showDotLoader = false
+        this.$toast.center(`${err.statusCode} ${err.message ? err.message : 'Unknown error'}`)
+        return
       }
 
       res.forEach(book => {
@@ -254,10 +257,16 @@ export default {
       this.preventDuplicatedRequest = true
       this.offset += 20
       let res = null
-      if (this.search.keyword) {
-        res = await searchBook(this.offset, 20, this.search.keyword)
-      } else {
-        res = await latestBook(this.offset, 20)
+      try {
+        if (this.search.keyword) {
+          res = await searchBook(this.offset, 20, this.search.keyword)
+        } else {
+          res = await latestBook(this.offset, 20)
+        }
+      } catch (err) {
+        this.showDotLoader = false
+        this.$toast.center(`${err.statusCode} ${err.message ? err.message : 'Unknown error'}`)
+        return
       }
 
       if (res.response && res.response.length > 0) {
@@ -268,16 +277,15 @@ export default {
       } else if (res.response.length === 0) {
         // todo
         // render notification box here
-        this.alertMessage = 'No more data '
+        this.$toast.center(this.$lang.homePage.noMoreData)
         // console.log(this.alertMessage)
       } else {
-        this.alertMessage = 'unknown error'
+        this.$toast.center(this.$lang.homePage.unknownError)
       }
       this.showDotLoader = res.response.length >= 20
     },
     gotoBookDetail (book) {
       this.saveBook(book)
-
       this.$router.push('/book/' + book.id)
     },
     onCancel: function () {
@@ -430,12 +438,14 @@ export default {
 
           p:nth-of-type(3) {
             font-size: .55rem;
-            height: 2.3rem;
             max-height: 2.3rem;
+            display: -webkit-box;
+            -webkit-line-clamp:3;
+            -webkit-box-orient: vertical;
             overflow: hidden;
+            text-overflow: ellipsis;
             margin: .375rem 0;
             color: #969ba3;
-            text-overflow: ellipsis;
 
             .completed {
               color: red;
