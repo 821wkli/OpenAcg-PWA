@@ -430,7 +430,7 @@ export default {
           }
 
           .active {
-            color: #b93221;
+            color: #fbc308!important;
           }
         }
 
