@@ -24,28 +24,28 @@ __Noted：This project is only for personal use only, Commerical distribution is
 
 | Skeleton loading |  Home page    | Drop down menu |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/skeleton.gif)                      |  ![](http://cdn.openacg.ml/image/home.jpg)| ![](http://cdn.openacg.ml/image/homeMenu.png) |
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/skeleton.gif)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/home.PNG)| ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/dropDownMenu.PNG) |
 
-| Pull down refresh |  Pull up load more    | None |
+| Pull down refresh |  Pull up load more    | Book detail |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/pullDownRefresh.gif)                      |  ![](http://cdn.openacg.ml/image/pullUpLoadMore.gif)| ![](http://cdn.openacg.ml/image/pullUpLoadMore.gif)|
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/pullDownRefresh.gif)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/pullUpLoadMore.gif)| ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/bookDetail.PNG) |
 
-| Bookshelf offline reading |  Book detail    | Book volume Panel |
+| Favourite books |  Reading History    | Book volume Panel |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/bookshelf.png)                      |  ![](http://cdn.openacg.ml/image/bookDetail.png)| ![](http://cdn.openacg.ml/image/volumePanel.png)|
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/faviourites.gif)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/history.gif)| ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/volumePanel.png)|
+
+
+| Seach book, recommendation, history |  Search results    | 404 not found
+| :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/search.png)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/searchList.png)| ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/404.gif)
 
 | Chapter reading page |  Setting panel    | Dark mode |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/chapterContent.png)                      |  ![](http://cdn.openacg.ml/image/chapterContentPanel.png)| ![](http://cdn.openacg.ml/image/darkMode.png)|
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/chapterContent.png)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/chapterContentPanel.png)| ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/darkMode.png)|
 
 | Switch chapter by panel |  Switch chapter by button    |
 | :-----------------------------------------------------: | :----: |
 |                                 ![](http://cdn.openacg.ml/image/chapterPanelScroll.gif)                      |  ![](http://cdn.openacg.ml/image/switchChapter.gif)|
-
-| Seach book, recommendation, history |  Search results    | 404 not found
-| :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/search.png)                      |  ![](http://cdn.openacg.ml/image/searchList.png)| ![](http://cdn.openacg.ml/image/404.gif)
-
 
 
 
