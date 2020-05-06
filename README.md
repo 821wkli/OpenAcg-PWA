@@ -222,7 +222,7 @@ git clone https://github.com/821wkli/OpenAcg-PWA
 
 cd OpenAcg-PWA
 
-npm install
+npm install -g @vue/cli && npm install
 
 npm run dev
 
