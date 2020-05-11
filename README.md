@@ -24,7 +24,7 @@ __Noted：This project is only for personal use only, Secondary distribution is 
 
 |Add to Home Screen | Skeleton loading |  Home page    |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/AddToHomeScreen.gif)          |                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/skeleton.gif)   |![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/home.PNG)  |
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/addToHomeScreen.gif)          |                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/skeleton.gif)   |![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/home.png)  |
 
 | Drop down menu  | Pull down refresh |  Pull up load more    |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
