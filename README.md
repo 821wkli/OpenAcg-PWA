@@ -28,7 +28,7 @@ __Noted：This project is only for personal use only, Secondary distribution is 
 
 | Drop down menu  | Pull down refresh |  Pull up load more    |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/dropDownMenu.gif)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/pullDownRefresh.gif)| ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/pullUpLoadMore.gif) |
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/dropDownMenu.jpg)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/pullDownRefresh.gif)| ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/pullUpLoadMore.gif) |
 
 | Book detail | Favourite books |  Reading History    |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
