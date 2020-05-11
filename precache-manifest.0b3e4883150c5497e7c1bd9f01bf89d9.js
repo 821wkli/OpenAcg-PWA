@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "669f652ecdc61eeab212",
+    "revision": "560aaeeaa2ec6f56024a",
     "url": "/OpenAcg-PWA/css/app.ed01f254.css"
   },
   {
@@ -120,12 +120,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/OpenAcg-PWA/img/skin-default-t.ece62.ece62008.jpg"
   },
   {
-    "revision": "2f9480cff6a4e979ac438b98810b331e",
+    "revision": "f29290a43db46fd3511074c1bf66a87f",
     "url": "/OpenAcg-PWA/index.html"
   },
   {
-    "revision": "669f652ecdc61eeab212",
-    "url": "/OpenAcg-PWA/js/app.001e8c79.js"
+    "revision": "560aaeeaa2ec6f56024a",
+    "url": "/OpenAcg-PWA/js/app.5dfc364b.js"
   },
   {
     "revision": "92783b8315d5b294062d",
