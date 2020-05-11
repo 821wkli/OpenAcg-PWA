@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "560aaeeaa2ec6f56024a",
+    "revision": "3de31fff98609aaf304e",
     "url": "/OpenAcg-PWA/css/app.ed01f254.css"
   },
   {
-    "revision": "92783b8315d5b294062d",
+    "revision": "94dee274a7aef54ffb1c",
     "url": "/OpenAcg-PWA/css/chunk-0f1f0778.efe20810.css"
   },
   {
@@ -12,19 +12,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/OpenAcg-PWA/css/chunk-2a857974.2fbfd961.css"
   },
   {
-    "revision": "b92f83992eef45785c71",
+    "revision": "756123d7c7438cf04480",
     "url": "/OpenAcg-PWA/css/chunk-2da5ef85.23eb5b43.css"
   },
   {
-    "revision": "fcf5d70f2e39a65b589a",
+    "revision": "c2c83cd313bd9a5fe5bc",
+    "url": "/OpenAcg-PWA/css/chunk-38166822.d2d711eb.css"
+  },
+  {
+    "revision": "865bc0a86717baae3492",
     "url": "/OpenAcg-PWA/css/chunk-3a1b2665.743161a4.css"
   },
   {
-    "revision": "9cd61fea49ed63014309",
-    "url": "/OpenAcg-PWA/css/chunk-63909ae2.cdaba842.css"
-  },
-  {
-    "revision": "40b45d52a64e7d3761d3",
+    "revision": "381be12a3839ba8edad1",
     "url": "/OpenAcg-PWA/css/chunk-65c70ef7.9d1fa976.css"
   },
   {
@@ -120,36 +120,36 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/OpenAcg-PWA/img/skin-default-t.ece62.ece62008.jpg"
   },
   {
-    "revision": "f29290a43db46fd3511074c1bf66a87f",
+    "revision": "213f0f3767d338844478593be7bc93b7",
     "url": "/OpenAcg-PWA/index.html"
   },
   {
-    "revision": "560aaeeaa2ec6f56024a",
-    "url": "/OpenAcg-PWA/js/app.5dfc364b.js"
+    "revision": "3de31fff98609aaf304e",
+    "url": "/OpenAcg-PWA/js/app.2cf5b836.js"
   },
   {
-    "revision": "92783b8315d5b294062d",
-    "url": "/OpenAcg-PWA/js/chunk-0f1f0778.1f5a715d.js"
+    "revision": "94dee274a7aef54ffb1c",
+    "url": "/OpenAcg-PWA/js/chunk-0f1f0778.bfd9daed.js"
   },
   {
     "revision": "e8a6ceb0175fdd1ff2f3",
     "url": "/OpenAcg-PWA/js/chunk-2a857974.e9183f90.js"
   },
   {
-    "revision": "b92f83992eef45785c71",
-    "url": "/OpenAcg-PWA/js/chunk-2da5ef85.882cfbe4.js"
+    "revision": "756123d7c7438cf04480",
+    "url": "/OpenAcg-PWA/js/chunk-2da5ef85.6f655820.js"
   },
   {
-    "revision": "fcf5d70f2e39a65b589a",
-    "url": "/OpenAcg-PWA/js/chunk-3a1b2665.d9f1ef76.js"
+    "revision": "c2c83cd313bd9a5fe5bc",
+    "url": "/OpenAcg-PWA/js/chunk-38166822.f1e89e42.js"
   },
   {
-    "revision": "9cd61fea49ed63014309",
-    "url": "/OpenAcg-PWA/js/chunk-63909ae2.91ea37f9.js"
+    "revision": "865bc0a86717baae3492",
+    "url": "/OpenAcg-PWA/js/chunk-3a1b2665.51eed044.js"
   },
   {
-    "revision": "40b45d52a64e7d3761d3",
-    "url": "/OpenAcg-PWA/js/chunk-65c70ef7.4f94251b.js"
+    "revision": "381be12a3839ba8edad1",
+    "url": "/OpenAcg-PWA/js/chunk-65c70ef7.9230f020.js"
   },
   {
     "revision": "ab6acd3cc254479572b2",
