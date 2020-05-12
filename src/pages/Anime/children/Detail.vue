@@ -78,19 +78,25 @@
       </div>
     </open-modal>
     </section>
+    <section class="refresh">
+      <refresh @refresh='initData'
+               v-show="this.system !=='PC'"
+               :is-refresh="showLoading"></refresh>
+    </section>
   </div>
 </template>
 
 <script>
 import { copyTextToClipboard, isEmpty, formatBytes } from '../../../utils/common'
 import { fetchAnimeDetail } from '@/apis'
-import { imageBaseUrl } from '../../../config/env'
+import { imageBaseUrl } from '@/config/env'
 import { mapActions, mapGetters } from 'vuex'
 import Artplayer from 'artplayer'
-import openModal from '../../../components/common/openModal'
+import openModal from '@/components/common/openModal'
+import refresh from '@/components/common/refresh'
 export default {
   name: 'Detail',
-  components: { openModal },
+  components: { openModal, refresh },
   data () {
     return {
       isActive: false,
@@ -200,7 +206,7 @@ export default {
         setTimeout(() => {
           // console.log(this.art.player.loaded)
           if (isNaN(this.art.player.loaded) || this.art.player.loaded <= 0) {
-            this.$toast.center(this.$lang.animePage.networkError)
+            this.$toast.center(this.$lang.common.networkError)
           }
         }, 20000)
 
@@ -212,6 +218,7 @@ export default {
       }
     },
     initData () {
+      this.showLoading = true
       fetchAnimeDetail(this.mid).then(res => {
         if (!isEmpty(res.files)) {
           'title' in res === false && Object.defineProperty(res, 'title', Object.getOwnPropertyDescriptor(res, 'name'))

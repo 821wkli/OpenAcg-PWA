@@ -54,6 +54,9 @@ export default {
     -webkit-box-shadow: 0 .125rem .8125rem 0 rgba(143, 152, 169, .24);
     box-shadow: 0 .125rem .8125rem 0 rgba(143, 152, 169, .24);
     cursor: pointer;
+    @media(min-width: 760px){
+      display: none;
+    }
 
     .lite-iconf-refresh{
       @extend .refresh-btn;
