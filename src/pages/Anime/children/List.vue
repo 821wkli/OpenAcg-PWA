@@ -51,7 +51,7 @@
       </transition>
     </section>
 
-    <section class="spinner-mask" v-if="showLoading">
+    <section class="spinner-mask" v-if="showLoading&&(dailyList.length===0 | animeList.length ===0)">
       <colorful-spinner></colorful-spinner>
     </section>
   </div>
@@ -95,6 +95,9 @@ export default {
           setTimeout(() => window.scrollTo(0, this.$refs.weekdays.clientHeight), 1)
         }
       })
+    },
+    hasBeenLoadedAll: function (newLoadedAll) {
+      if (newLoadedAll) this.showLoading = false
     }
   },
   created () {
@@ -105,7 +108,10 @@ export default {
       const day = new Date().getDay()
       return day === 0 ? 6 : day - 1
     },
-    ...mapGetters(['system'])
+    ...mapGetters(['system']),
+    hasBeenLoadedAll: function () {
+      return !(isEmpty(this.dailyList) || isEmpty(this.animeList))
+    }
   },
   mounted () {
     this.initData()
@@ -122,6 +128,7 @@ export default {
   },
   methods: {
     onRefresh: function () {
+      this.animeList = []
       this.offset = 0
       this.initData()
     },
@@ -195,7 +202,6 @@ export default {
           this.animeList = res.response
           this.offset += 20
         }
-        this.showLoading = false
       }).catch(err => {
         this.showLoading = false
         this.$toast.center(err.message ? err.message : this.$lang.animePage.unknownError)
