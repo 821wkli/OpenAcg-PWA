@@ -219,7 +219,7 @@ export default {
 
   created () {
     this.bookid = parseInt(this.$route.params.bookid)
-    this.cid = this.$route.query.chapterid
+    this.cid = parseInt(this.$route.query.chapterid)
   },
   mounted () {
     var self = this
