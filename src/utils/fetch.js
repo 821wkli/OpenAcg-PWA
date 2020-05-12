@@ -1,4 +1,7 @@
 import { apiBaseUrl } from '../config/env'
+import { isEmpty } from './common'
+import { chinese } from '../config/langs'
+
 function NetworkError (msg) {
   this.name = 'NetworkError'
   this.message = msg.message
@@ -56,7 +59,12 @@ export default async (type = 'GET', url = '', data = {}, timeout = 10000) => {
       if (error.name === 'AbortError') {
         throw new NetworkError({ message: 'timeout', statusCode: 500 })
       }
-      throw new NetworkError({ message: response ? response.statusText : 'timeout', statusCode: response.status || 0 })
+
+      if (!isEmpty(response)) {
+        throw new NetworkError({ message: response.statusText, statusCode: response.status })
+      }
+      // catch offline exception
+      throw new NetworkError({ message: chinese.common.networkError, statusCode: 400 })
     }
 
     return responseJson

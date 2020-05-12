@@ -236,8 +236,7 @@ export default {
       } catch (err) {
         this.showLoading = false
         this.showDotLoader = false
-        this.$toast.center(`${err.statusCode} ${err.message ? err.message : 'Unknown error'}`)
-        return
+        this.$toast.center(`${err.statusCode} ${err.message ? err.message : this.$lang.homePage.unknownError}`)
       }
 
       res.forEach(book => {
