@@ -91,9 +91,9 @@ export default {
     animeList: function (newAnimeList, oldAnimeList) {
       this.$nextTick(() => {
         if (oldAnimeList.length !== newAnimeList.length && newAnimeList.length <= 20 && !isEmpty(this.keywords)) {
-          // this.listHeight = this.$refs.animeList.offsetHeight
           setTimeout(() => window.scrollTo(0, this.$refs.weekdays.clientHeight), 1)
         }
+        this.listHeight = this.$refs.animeList.offsetHeight
       })
     },
     hasBeenLoadedAll: function (newLoadedAll) {
