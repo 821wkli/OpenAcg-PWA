@@ -41,6 +41,7 @@ export const chinese = {
   },
   animePage: {
     search: '搜尋',
+    loadMore: '加載中...',
     noMoreData: '無更多數據',
     unknownError: '未知錯誤',
     downloadFailed: '下載失敗',

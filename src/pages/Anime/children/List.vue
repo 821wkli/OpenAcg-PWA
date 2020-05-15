@@ -42,7 +42,7 @@
           <div class="detail post-complete"><span class="title">{{item.completed}}</span></div>
           <div class="detail post-download"><span class="title">{{item.download}}</span></div>
         </div>
-        <div class="row footer"><span>{{$lang.animePage.noMoreData}}</span></div>
+        <div class="row footer"><span>{{view.footerText}}</span></div>
       </div>
       <transition name="fade">
         <refresh @refresh='onRefresh'
@@ -76,7 +76,10 @@ export default {
       showLoading: true,
       lock: false,
       keywords: null,
-      isScrolling: false
+      isScrolling: false,
+      view: {
+        footerText: this.$lang.animePage.loadMore
+      }
     }
   },
   watch: {
@@ -171,6 +174,8 @@ export default {
             })
             this.animeList = [...this.animeList, ...res.response]
             this.offset += 20
+          } else {
+            this.view.footerText = this.$lang.animePage.noMoreData
           }
           this.lock = false
         }).catch(err => {
