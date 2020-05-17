@@ -26,6 +26,7 @@
         </span>
       </header>
       <swiper class="swiper" @onChangeSlide="handleIndexChange" ref="swiper" :options="swiper.options">
+        <section class="list-wrapper" ref="bookshelf">
         <ul class="bookshelf-list-ul">
           <li
             v-longTap="{time:2000,handler:longTapHandler,disX:20,disY:20}"
@@ -50,6 +51,8 @@
             </span>
           </li>
         </ul>
+        </section>
+        <section class="list-wrapper" ref="history">
         <ul class="history-list-ul" >
           <li :class="{editing:isEditingBook && swiper.index===1}" class="history-list-li" v-for="(item,index) in historyList" :key="index">
             <div v-show='isEditingBook && swiper.index===1' class="selectionPanel">
@@ -77,6 +80,7 @@
             </div>
           </li>
         </ul>
+        </section>
       </swiper>
       <div class="btn-container" v-show="isEditingBook && swiper.index===1">
         <open-button
@@ -116,6 +120,7 @@ import { isEmpty } from '@/utils/common'
 import { fetchUpdatedBookshelf } from '@/apis'
 import { imageBaseUrl } from '@/config/env'
 import OpenButton from '../../components/common/openButton'
+import BScroll from 'better-scroll'
 // import DeleteButtonGroup from '../../components/bookshelf/deleteButtonGroup'
 export default {
   name: 'bookshelf',
@@ -135,7 +140,8 @@ export default {
           initialIndex: 0,
           prevNextButtons: false,
           pageDots: false,
-          wrapAround: true
+          wrapAround: true,
+          dragThreshold: Math.floor(Math.max(document.documentElement.clientWidth, window.innerWidth || 0) / 6)
         }
       }
     }
@@ -151,6 +157,14 @@ export default {
   },
   mounted () {
     this.initData()
+    const options = {
+      scrollY: true,
+      scrollX: false,
+      click: true,
+      taps: true
+    }
+    this.scroll = new BScroll(this.$refs.bookshelf, options)
+    this.historyScroll = new BScroll(this.$refs.history, options)
   },
   watch: {
     scrolling: function (newScrolling) {
@@ -284,14 +298,12 @@ export default {
     padding-right: 0.4rem;
     padding-top: 1.95rem;
     padding-bottom: 0.4rem;
-    overflow-y: scroll;
 
     .wrapper {
       padding-left: .4rem;
       width: 100%;
       height: 100%;
       position: fixed;
-      overflow-y: scroll;
 
       header {
         padding-left: 0.25rem;
@@ -344,13 +356,24 @@ export default {
       .swiper {
         height: 100%;
       }
-
+      .list-wrapper{
+        min-height: 100vh;
+        width: 100%;
+        overflow: hidden;
+        background-color: #fff;
+      }
       ul {
         position: absolute;
         font-size: 0;
         margin-bottom: 1.8rem;
         width: 100%;
         min-height: 100vh;
+        li{
+          &:last-of-type{
+            margin-bottom: 6rem;
+          }
+
+        }
       }
     }
 
@@ -361,7 +384,6 @@ export default {
         display: inline-block;
         -webkit-user-select: none;
         user-select: none;
-
         .icon {
           width: 0.8rem;
           height: 0.8rem;
