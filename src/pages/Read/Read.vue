@@ -252,19 +252,7 @@ export default {
             this.view.currentFingerPosY = -(lastChapterListHeight - (listHeight - Math.abs(this.view.currentFingerPosY)))
             // console.log(this.view.currentFingerPosY)
           }
-          setTimeout(() => {
-            this.saveRecentReadingChapterList({
-              bookid: this.bookid,
-              title: this.book.title,
-              last_updated_chapter_name: this.book.last_updated_chapter_name,
-              cover_url: this.book.cover_url,
-              author: this.book.author,
-              publisher: this.book.publisher,
-              chapterid: this.currentChapter.id,
-              chapter_name: this.currentChapter.chapter_name,
-              posY: this.view.currentFingerPosY
-            })
-          }, 1000)
+          this.saveHistory()
         }
         )
         // load more data reach bottom
@@ -279,6 +267,9 @@ export default {
         })
       }
     })
+  },
+  beforeDestroy () {
+    this.saveHistory()
   },
   methods: {
     ...mapActions(['saveRecentReadingChapterList', 'saveSetting', 'initChapterList']),
@@ -370,6 +361,21 @@ export default {
     onGoback: function () {
       const bid = this.bookid
       this.$router.push({ name: 'book', params: { bookid: bid } })
+    },
+    saveHistory: function () {
+      setTimeout(() => {
+        this.saveRecentReadingChapterList({
+          bookid: this.bookid,
+          title: this.book.title,
+          last_updated_chapter_name: this.book.last_updated_chapter_name,
+          cover_url: this.book.cover_url,
+          author: this.book.author,
+          publisher: this.book.publisher,
+          chapterid: this.currentChapter.id,
+          chapter_name: this.currentChapter.chapter_name,
+          posY: this.view.currentFingerPosY
+        })
+      }, 1000)
     }
   }
 }

@@ -226,6 +226,8 @@ export default {
         if (isEmpty(this.latestBookList) || this.search.showSearchBar) {
           if (this.search.keyword) {
             res = await searchBook(0, 20, this.search.keyword)
+            // sort book by update date
+            res.response.sort((currentBook, nextBook) => new Date(nextBook.last_updated_date) - new Date(currentBook.last_updated_date))
           } else {
             res = await latestBook(0, 20)
           }
@@ -259,6 +261,7 @@ export default {
       try {
         if (this.search.keyword) {
           res = await searchBook(this.offset, 20, this.search.keyword)
+          res.response.sort((currentBook, nextBook) => new Date(nextBook.last_updated_date) - new Date(currentBook.last_updated_date))
         } else {
           res = await latestBook(this.offset, 20)
         }
