@@ -151,7 +151,11 @@ export default {
       return this.$store.getters.bookshelfList || []
     },
     historyList: function () {
-      return this.$store.getters.recentReadingChapterList || []
+      const history = this.$store.getters.recentReadingChapterList || []
+      if (history.length > 0) {
+        history.sort((currentBook, nextBook) => nextBook.stateUpdateTime - currentBook.stateUpdateTime)
+      }
+      return history
     },
     ...mapGetters(['system', 'isCheckedAll'])
   },

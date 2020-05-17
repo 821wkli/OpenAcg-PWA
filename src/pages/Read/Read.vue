@@ -373,7 +373,8 @@ export default {
           publisher: this.book.publisher,
           chapterid: this.currentChapter.id,
           chapter_name: this.currentChapter.chapter_name,
-          posY: this.view.currentFingerPosY
+          posY: this.view.currentFingerPosY,
+          stateUpdateTime: new Date().getTime()
         })
       }, 1000)
     }
