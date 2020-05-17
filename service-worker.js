@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/OpenAcg-PWA/precache-manifest.aea5aeb321c2c28f81424d0427f1bbda.js"
+  "/OpenAcg-PWA/precache-manifest.4b16489e0d2e97992aa8372accc17a41.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "OpenAcg"});
