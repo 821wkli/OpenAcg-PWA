@@ -78,11 +78,10 @@ import headTop from '@/components/header/headTop'
 import 'vue-range-component/dist/vue-range-slider.css'
 import VueRangeSlider from 'vue-range-component'
 import BScroll from 'better-scroll'
-// import jumpLoader from '@/components/loader/jumpLoader'
 import { isEmpty } from '@/utils/common'
 import ChapterListPanel from '@/components/reader/chapterListPanel'
-import { imageBaseUrl } from '../../config/env'
-import PokeBall from '../../components/loader/pokeBall'
+import { imageBaseUrl } from '@/config/env'
+import PokeBall from '@/components/loader/pokeBall'
 
 export default {
   name: 'read',
@@ -220,22 +219,8 @@ export default {
 
   created () {
     this.bookid = parseInt(this.$route.params.bookid)
-    this.cid = this.$route.query.chapterid
+    this.cid = parseInt(this.$route.query.chapterid)
   },
-  beforeDestroy () {
-    this.saveRecentReadingChapterList({
-      bookid: this.bookid,
-      title: this.book.title,
-      last_updated_chapter_name: this.book.last_updated_chapter_name,
-      cover_url: this.book.cover_url,
-      author: this.book.author,
-      publisher: this.book.publisher,
-      chapterid: this.currentChapter.id,
-      chapter_name: this.currentChapter.chapter_name,
-      posY: this.view.currentFingerPosY
-    })
-  },
-
   mounted () {
     var self = this
     this.initData()
@@ -267,6 +252,19 @@ export default {
             this.view.currentFingerPosY = -(lastChapterListHeight - (listHeight - Math.abs(this.view.currentFingerPosY)))
             // console.log(this.view.currentFingerPosY)
           }
+          setTimeout(() => {
+            this.saveRecentReadingChapterList({
+              bookid: this.bookid,
+              title: this.book.title,
+              last_updated_chapter_name: this.book.last_updated_chapter_name,
+              cover_url: this.book.cover_url,
+              author: this.book.author,
+              publisher: this.book.publisher,
+              chapterid: this.currentChapter.id,
+              chapter_name: this.currentChapter.chapter_name,
+              posY: this.view.currentFingerPosY
+            })
+          }, 1000)
         }
         )
         // load more data reach bottom
@@ -430,7 +428,7 @@ export default {
           }
 
           .active {
-            color: #b93221;
+            color: #fbc308!important;
           }
         }
 

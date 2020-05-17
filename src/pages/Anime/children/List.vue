@@ -42,12 +42,16 @@
           <div class="detail post-complete"><span class="title">{{item.completed}}</span></div>
           <div class="detail post-download"><span class="title">{{item.download}}</span></div>
         </div>
-        <div class="row footer"><span>{{$lang.animePage.noMoreData}}</span></div>
+        <div class="row footer"><span>{{view.footerText}}</span></div>
       </div>
-
+      <transition name="fade">
+        <refresh @refresh='onRefresh'
+                 v-show="!isScrolling && this.system !=='PC'"
+                 :is-refresh="showLoading"></refresh>
+      </transition>
     </section>
 
-    <section class="spinner-mask" v-if="showLoading ||!(dailyList.length && animeList.length)">
+    <section class="spinner-mask" v-if="showLoading&&(dailyList.length===0 | animeList.length ===0)">
       <colorful-spinner></colorful-spinner>
     </section>
   </div>
@@ -56,12 +60,13 @@
 <script>
 import { animeDaily, fetchAnimeList } from '@/apis'
 import { isEmpty } from '@/utils/common'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import ColorfulSpinner from '@/components/loader/colorfulSpinner'
+import refresh from '@/components/common/refresh'
 
 export default {
   name: 'List',
-  components: { ColorfulSpinner },
+  components: { ColorfulSpinner, refresh },
   data () {
     return {
       dailyList: [],
@@ -70,7 +75,11 @@ export default {
       offset: 0,
       showLoading: true,
       lock: false,
-      keywords: null
+      keywords: null,
+      isScrolling: false,
+      view: {
+        footerText: this.$lang.animePage.loadMore
+      }
     }
   },
   watch: {
@@ -85,10 +94,13 @@ export default {
     animeList: function (newAnimeList, oldAnimeList) {
       this.$nextTick(() => {
         if (oldAnimeList.length !== newAnimeList.length && newAnimeList.length <= 20 && !isEmpty(this.keywords)) {
-          // this.listHeight = this.$refs.animeList.offsetHeight
           setTimeout(() => window.scrollTo(0, this.$refs.weekdays.clientHeight), 1)
         }
+        this.listHeight = this.$refs.animeList.offsetHeight
       })
+    },
+    hasBeenLoadedAll: function (newLoadedAll) {
+      if (newLoadedAll) this.showLoading = false
     }
   },
   created () {
@@ -98,6 +110,10 @@ export default {
     today: function () {
       const day = new Date().getDay()
       return day === 0 ? 6 : day - 1
+    },
+    ...mapGetters(['system']),
+    hasBeenLoadedAll: function () {
+      return !(isEmpty(this.dailyList) || isEmpty(this.animeList))
     }
   },
   mounted () {
@@ -114,6 +130,11 @@ export default {
     // }
   },
   methods: {
+    onRefresh: function () {
+      this.animeList = []
+      this.offset = 0
+      this.initData()
+    },
     searchList: function (title) {
       this.$router.replace({ name: 'anime', query: { type: 'daily', title } }).catch(() => {
       })
@@ -137,15 +158,8 @@ export default {
       })
     },
     onScroll: function () {
-      // const scrollTop = e.target.scrollTop
-      // this.scrollTop = scrollTop
-      // const { scrollHeight, offsetHeight } = e.target
-      // if (scrollTop + offsetHeight >= scrollHeight - 50) {
-      //   console.log('load more dat ahere')
-      // }
-
-      // console.log('total height ' + this.listHeight)
-      // console.log(window.scrollY)
+      this.isScrolling = true
+      setTimeout(() => { this.isScrolling = false }, 500)
       if (this.$route.query.type === 'daily') return
       if ((window.innerHeight + window.scrollY) >= this.listHeight - 50) {
         // console.log('bottom')
@@ -160,6 +174,8 @@ export default {
             })
             this.animeList = [...this.animeList, ...res.response]
             this.offset += 20
+          } else {
+            this.view.footerText = this.$lang.animePage.noMoreData
           }
           this.lock = false
         }).catch(err => {
@@ -191,7 +207,6 @@ export default {
           this.animeList = res.response
           this.offset += 20
         }
-        this.showLoading = false
       }).catch(err => {
         this.showLoading = false
         this.$toast.center(err.message ? err.message : this.$lang.animePage.unknownError)
@@ -223,7 +238,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .fade-enter-active, .fade-leave-active {
+    transition: all .2s;
+  }
 
+  .fade-enter, .fade-leave-active {
+    opacity: 0;
+  }
   .spinner-mask {
     position: fixed;
     top: 0;

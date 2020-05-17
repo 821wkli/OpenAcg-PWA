@@ -85,10 +85,8 @@ export default {
           textArea.setSelectionRange(0, 9999)
           textArea.contentEditable = oldEditable
           textArea.readOnly = oldReadOnly
-        } else {
-          textArea.focus()
-          textArea.select()
         }
+        textArea.select()
         document.execCommand('copy')
         textArea.blur()
         this.$toast.center(this.$lang.common.copySucess)
