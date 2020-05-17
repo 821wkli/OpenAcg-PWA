@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "df0806a320a42d574b0d",
+    "revision": "04b3d98390ad1b7baa0f",
     "url": "/OpenAcg-PWA/css/app.ed01f254.css"
   },
   {
@@ -8,12 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/OpenAcg-PWA/css/chunk-03df1cf1.cccc1e3a.css"
   },
   {
-    "revision": "339b573e575bc444e78c",
-    "url": "/OpenAcg-PWA/css/chunk-04b8383c.cbb5d028.css"
-  },
-  {
-    "revision": "e7c1f47f435e7f59f92a",
-    "url": "/OpenAcg-PWA/css/chunk-3c56d012.5433f9ae.css"
+    "revision": "cb5e05f7936408708be0",
+    "url": "/OpenAcg-PWA/css/chunk-26159b3c.66899a49.css"
   },
   {
     "revision": "e64e8cbee6526f0376fd",
@@ -42,6 +38,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "599dfc12e06d66ca5280",
     "url": "/OpenAcg-PWA/css/chunk-ac519d72.9d64a46d.css"
+  },
+  {
+    "revision": "06b032fd5373f9166f8d",
+    "url": "/OpenAcg-PWA/css/chunk-e1e5595c.bd700856.css"
   },
   {
     "revision": "e3db95c901296accccd3",
@@ -120,24 +120,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/OpenAcg-PWA/img/skin-default-t.ece62.ece62008.jpg"
   },
   {
-    "revision": "e4d1a22dc55632a94604343caa7799a0",
+    "revision": "70b7e5690bca55f17be99c7227a6282a",
     "url": "/OpenAcg-PWA/index.html"
   },
   {
-    "revision": "df0806a320a42d574b0d",
-    "url": "/OpenAcg-PWA/js/app.9fc44e77.js"
+    "revision": "04b3d98390ad1b7baa0f",
+    "url": "/OpenAcg-PWA/js/app.ac71a232.js"
   },
   {
     "revision": "65b9f79f885d9009eb9e",
     "url": "/OpenAcg-PWA/js/chunk-03df1cf1.8911892d.js"
   },
   {
-    "revision": "339b573e575bc444e78c",
-    "url": "/OpenAcg-PWA/js/chunk-04b8383c.c5c5f855.js"
-  },
-  {
-    "revision": "e7c1f47f435e7f59f92a",
-    "url": "/OpenAcg-PWA/js/chunk-3c56d012.b34e39bd.js"
+    "revision": "cb5e05f7936408708be0",
+    "url": "/OpenAcg-PWA/js/chunk-26159b3c.68e6ccc0.js"
   },
   {
     "revision": "e64e8cbee6526f0376fd",
@@ -166,6 +162,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "599dfc12e06d66ca5280",
     "url": "/OpenAcg-PWA/js/chunk-ac519d72.24df9595.js"
+  },
+  {
+    "revision": "06b032fd5373f9166f8d",
+    "url": "/OpenAcg-PWA/js/chunk-e1e5595c.618d722b.js"
   },
   {
     "revision": "e3db95c901296accccd3",
