@@ -51,6 +51,7 @@ export const chinese = {
   common: {
     networkError: '網絡連線不穩定,請重新刷新頁面',
     copySucess: '拷貝成功',
-    copyFailed: '拷貝失敗'
+    copyFailed: '拷貝失敗',
+    addToHomeScreen: '加入主畫面'
   }
 }
