@@ -16,7 +16,7 @@
       "purpose": "maskable any"
     }
   ],
-  "start_url": "/OpenAcg-PWA",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#000000"
 }
