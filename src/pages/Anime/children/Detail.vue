@@ -130,6 +130,8 @@ export default {
         this.art.setAttribute('width', '100%')
         this.art.setAttribute('height', '100%')
         this.art.setAttribute('controls', 'controls')
+        this.art.setAttribute('poster', `${imageBaseUrl}/image/poster.jpg`)
+        this.art.style.backgroundColor = 'black'
         // add fullscreen support
         this.art.addEventListener('dblclick', () => {
           if (this.art.requestFullscreen) {
