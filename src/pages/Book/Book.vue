@@ -119,7 +119,7 @@
         </div>
       </section>
       <chapter-list @goback="hidePanel" v-if="volumePanel.showChapterPanel"></chapter-list>
-      <kindle @goback="kindle.showKindle = false" v-if="kindle.showKindle"></kindle>
+      <kindle @onCancel="kindle.showKindle = false" v-if="kindle.showKindle"></kindle>
     </section>
     <section v-else class="loader">
       <jump-loader where="top" class="icon"></jump-loader>

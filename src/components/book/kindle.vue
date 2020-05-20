@@ -1,24 +1,10 @@
 <template>
   <div id="kindle">
-    <!--  <head-top head-title="Kindle sync" class="nav-bar"-->
-    <!--            :is-transparent="false" theme="light">-->
-    <!--    <section class="fake-goback" slot='fake-goback' @click="goback">-->
-    <!--      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">-->
-    <!--        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow"></use>-->
-    <!--      </svg>-->
-    <!--    </section>-->
-    <!--  </head-top>-->
     <section class="panel">
       <header class="item title-bar">
-        <!--      <div class="title left ">Kindle sync</div>-->
-        <!--      <div class="icon right">-->
-        <!--        <svg class="close" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">-->
-        <!--          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use>-->
-        <!--        </svg>-->
-        <!--      </div>-->
-        <div class="cancel description">cancel</div>
+        <div @click="onCancel" class="cancel description">cancel</div>
         <div class="title description">Kindle Sync</div>
-        <div class="confirm description">Send</div>
+        <div @click="onConfirm" class="confirm description">Send</div>
       </header>
 
       <section class="main">
@@ -38,8 +24,8 @@
             </div>
           </div>
           <div class="item">
-            <div class="title left">Send to</div>
-            <div class="title right" style="color: #aaaaaa">Kindle</div>
+            <div class="title left">Send from</div>
+            <div class="title right" style="color: #aaaaaa">openacg@gmx.com</div>
           </div>
 
         </section>
@@ -53,7 +39,7 @@
             <div class="title left">Author</div>
             <div class="title right" style="color: #aaaaaa">{{this.book.author}}</div>
           </div>
-          <div class="item volume">
+          <div class="item volume" @click="showVolumeSelector = true">
             <div class="title left">Volumes</div>
             <div class="title right icon">
               <svg class="arrow" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">-->
@@ -70,10 +56,10 @@
           </header>
         </section>
 
-        <section class="volume-details">
+        <section class="volume-details" v-show="showVolumeSelector">
           <p class="description tips">Select volumes to sync</p>
           <div class="volumes">
-            <div class="volume-name" :class="{active: volumeList.includes(volume)}"
+            <div class="volume-name" :class="{active: volumeListToBeSent.includes(volume)}"
                  v-for="(volume, index) in this.book.volumes"
                  :key="index"
                 @click="addVolume(volume)"
@@ -96,23 +82,30 @@ export default {
   data () {
     return {
       email: null,
-      volumeList: []
+      volumeListToBeSent: [],
+      showVolumeSelector: false
     }
   },
   created () {
-    this.volumeList = [...this.book.volumes]
+    this.volumeListToBeSent = [...this.book.volumes]
   },
   methods: {
     goback () {
       this.$emit('goback')
     },
     addVolume: function (obj) {
-      if (this.volumeList.includes(obj)) {
-        const pos = this.volumeList.indexOf(obj)
-        if (pos !== -1) this.volumeList.splice(pos, 1)
+      if (this.volumeListToBeSent.includes(obj)) {
+        const pos = this.volumeListToBeSent.indexOf(obj)
+        if (pos !== -1) this.volumeListToBeSent.splice(pos, 1)
       } else {
-        this.volumeList.push(obj)
+        this.volumeListToBeSent.push(obj)
       }
+    },
+    onCancel: function () {
+      this.showVolumeSelector ? this.showVolumeSelector = false : this.$emit('onCancel')
+    },
+    onConfirm: function () {
+      this.$emit('onConfirm', this.volumeListToBeSent)
     }
   }
 
