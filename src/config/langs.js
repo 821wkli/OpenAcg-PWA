@@ -21,7 +21,8 @@ export const chinese = {
     aescending: '',
     descending: '',
     copyRightMessage: '因版權問題，OpenAcg不再提供該小說的閱讀！\n\n\n\n\n',
-    sendToKindleDescription: '在Amazon【管理您的內容和設備】頁面上，將openacg@gmx.com的電子郵箱添加至【已批準的個人文檔電子郵件列表】中。'
+    sendToKindleDescription: '在Amazon【管理您的內容和設備】頁面上，將openacg@gmx.com的電子郵箱添加至【已批準的個人文檔電子郵件列表】中。',
+    tips: '使用說明'
   },
   readPage: {
     lastChapter: '上一章',
