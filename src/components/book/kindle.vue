@@ -116,7 +116,7 @@ export default {
     },
     onConfirm: function () {
       // validate email
-
+      this.email = this.email?.toLowerCase()
       const isValidEmail = !isEmpty(this.email?.trim()) && /^[a-z0-9](\.?[a-z0-9]){5,}@kindle\.com$$/.test(this.email)
       if (isValidEmail) {
         this.saveKindleEmailAddress(this.email)
