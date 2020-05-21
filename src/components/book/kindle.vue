@@ -80,6 +80,7 @@
 <script>
 // import headTop from '../header/headTop'
 import { mapGetters, mapActions } from 'vuex'
+import { isEmpty } from '../../utils/common'
 
 export default {
   name: 'kindle',
@@ -114,8 +115,18 @@ export default {
       this.showVolumeSelector ? this.showVolumeSelector = false : this.$emit('onCancel')
     },
     onConfirm: function () {
-      this.saveKindleEmailAddress(this.email)
-      this.$emit('onConfirm', { email: this.email, volumes: this.volumeListToBeSent })
+      // validate email
+
+      const isValidEmail = !isEmpty(this.email?.trim()) && /^[a-z0-9](\.?[a-z0-9]){5,}@kindle\.com$$/.test(this.email)
+      if (isValidEmail) {
+        this.saveKindleEmailAddress(this.email)
+        this.$emit('onConfirm', { email: this.email, volumes: this.volumeListToBeSent })
+      } else {
+        if (this.showVolumeSelector) {
+          this.showVolumeSelector = false
+        }
+        this.$toast.center(this.$lang.bookPage.invalidEmailAddressMsg)
+      }
     }
   }
 

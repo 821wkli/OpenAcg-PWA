@@ -34,7 +34,8 @@ export const chinese = {
     bookAuthor: '作者',
     bookVolume: '書卷',
     volumeSelectionTips: '請選擇要同步的書卷',
-    volumeCounterDesc: '選中卷數: '
+    volumeCounterDesc: '選中卷數: ',
+    invalidEmailAddressMsg: '請輸入有效的Kindle電郵地址'
 
   },
   readPage: {
