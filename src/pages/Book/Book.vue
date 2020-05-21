@@ -136,7 +136,7 @@
 <script>
 import headTop from '../../components/header/headTop'
 import { mapGetters, mapActions } from 'vuex'
-import { fetchBook } from '../../apis'
+import { _sendToKindle, fetchBook } from '../../apis'
 import ChapterList from '../../components/book/chapterList'
 import BScroll from 'better-scroll'
 import { isEmpty } from '../../utils/common'
@@ -176,7 +176,7 @@ export default {
         currentVolumeChapters: {}
       },
       kindle: {
-        showKindle: true
+        showKindle: false
       }
     }
   },
@@ -272,16 +272,30 @@ export default {
       this.saveBookToBookshelf(this.book)
     },
     onGoback: function () {
-      if (!isEmpty(this.from.query) && 'chapterid' in this.from.query === false) {
-        this.$router.push({ name: 'home', query: this.from.query })
-      } else if (this.from.path.indexOf('bookshelf') !== -1) {
-        this.$router.go(-1)
+      if (!isEmpty(this.from)) {
+        if (!('chapterid' in this.from.query)) {
+          this.$router.push({ name: 'home', query: this.from.query })
+        } else if (this.from.path.indexOf('bookshelf') !== -1) {
+          this.$router.go(-1)
+        }
       } else {
         this.$router.push({ name: 'home' })
       }
     },
-    sendToKindle: function (volumes) {
-      console.log(volumes)
+    sendToKindle: function (args) {
+      const data = {
+        email: args.email,
+        title: this.book.title,
+        author: this.book.author,
+        volumes: args.volumes.map((volume) => volume.id)
+      }
+
+      this.kindle.showKindle = false
+      this.$toast.center('Task has been submitted')
+
+      _sendToKindle(data).then(() => {
+        this.$toast.center(`${data.title} OK`)
+      }).catch(e => this.$toast('Send to kindle failed'))
     }
   },
   watch: {

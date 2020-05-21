@@ -59,3 +59,4 @@ export const getChapterContent = (cid) => fetch('GET', '/api/v1/novel/getChapter
 })
 
 export const fetchUpdatedBookshelf = (body) => fetch('POST', '/api/v1/novel/updateBookshelf', body)
+export const _sendToKindle = (jsonBody) => fetch('POST', '/api/v1/novel/sendToKindle', jsonBody)

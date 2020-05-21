@@ -79,12 +79,12 @@
 
 <script>
 // import headTop from '../header/headTop'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'kindle',
   computed: {
-    ...mapGetters(['book'])
+    ...mapGetters(['book', 'kindleEmailAddress'])
   },
   data () {
     return {
@@ -95,8 +95,10 @@ export default {
   },
   created () {
     this.volumeListToBeSent = [...this.book.volumes]
+    this.email = this.kindleEmailAddress
   },
   methods: {
+    ...mapActions(['saveKindleEmailAddress']),
     goback () {
       this.$emit('goback')
     },
@@ -112,7 +114,8 @@ export default {
       this.showVolumeSelector ? this.showVolumeSelector = false : this.$emit('onCancel')
     },
     onConfirm: function () {
-      this.$emit('onConfirm', this.volumeListToBeSent)
+      this.saveKindleEmailAddress(this.email)
+      this.$emit('onConfirm', { email: this.email, volumes: this.volumeListToBeSent })
     }
   }
 
@@ -165,9 +168,6 @@ export default {
         .right {
           justify-content: flex-end;
 
-          &.email {
-            padding-right: 0;
-          }
         }
 
         .left {
@@ -205,6 +205,7 @@ export default {
 
         input {
           font-size: inherit;
+          text-align: right;
         }
 
         .title, .tips {
@@ -296,7 +297,9 @@ export default {
         .tips {
           font-size: .6rem;
         }
-
+        .email{
+          padding-right: .8rem;
+        }
         .icon {
           svg {
             width: .65rem;

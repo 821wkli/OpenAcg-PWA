@@ -8,7 +8,8 @@ const book = {
     book: {},
     chapterList: [], // total chapters of current book
     currentVolumeChapters: null,
-    recentReadingChapterList: []
+    recentReadingChapterList: [],
+    kindleEmailAddress: null
   },
   mutations: {
     SAVE_BOOK: (state, book) => {
@@ -23,6 +24,10 @@ const book = {
     SAVE_RECENT_READING_CHAPTER_LIST: (state, recentList) => {
       state.recentReadingChapterList = recentList
       setStore('recentReadingChapterList', state.recentReadingChapterList)
+    },
+    SAVE_KINDLE_EMAIL_ADDRESS: (state, email) => {
+      state.kindleEmailAddress = email
+      setStore('kindleEmailAddress', state.kindleEmailAddress)
     }
   },
   getters: {
@@ -33,7 +38,8 @@ const book = {
       return ret
     },
     chapterList: state => state.chapterList,
-    currentVolumeChapters: state => state.currentVolumeChapters
+    currentVolumeChapters: state => state.currentVolumeChapters,
+    kindleEmailAddress: state => state.kindleEmailAddress
   },
   actions: {
     saveBook ({ commit }, book) {
@@ -60,6 +66,13 @@ const book = {
     },
     saveCurrentVolumeChapters ({ commit }, chapters) {
       commit('SAVE_CURRENT_VOLUME_CHAPTERS', chapters)
+    },
+    saveKindleEmailAddress ({ commit }, email) {
+      commit('SAVE_KINDLE_EMAIL_ADDRESS', email)
+    },
+    async initKindleEmailAddress ({ commit }) {
+      const email = await getStore('kindleEmailAddress')
+      commit('SAVE_KINDLE_EMAIL_ADDRESS', email)
     },
     async initReadingHistory ({ commit }) {
       const history = await getStore('recentReadingChapterList') || []
