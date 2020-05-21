@@ -2,49 +2,49 @@
   <div id="kindle">
     <section class="panel">
       <header class="item title-bar">
-        <div @click="onCancel" class="cancel description">cancel</div>
+        <div @click="onCancel" class="cancel description">{{this.$lang.bookPage.cancel}}</div>
         <div class="title description">Kindle Sync</div>
-        <div @click="onConfirm" class="confirm description">Send</div>
+        <div @click="onConfirm" class="confirm description">{{this.$lang.bookPage.send}}</div>
       </header>
 
       <section class="main">
         <section>
-          <p class="description tips">Push To Kindle Settings</p>
+          <p class="description tips">{{this.$lang.bookPage.kindleSetting}}</p>
           <div class="item">
-            <div class="title left">Send to</div>
+            <div class="title left">{{this.$lang.bookPage.ebookDevices}}</div>
             <div class="title right" style="color: #aaaaaa">Kindle</div>
           </div>
           <div class="item">
-            <div class="title left" style="color: blue;">Kindle Email Address</div>
+            <div class="title left" style="color: blue;">{{this.$lang.bookPage.receiveEmailAddress}}</div>
             <div class="title right email" style="color: #aaaaaa">
               <input type="email" class="user-email-address"
                      v-model="email"
-                     placeholder="name@example.com"
+                     placeholder="example@kindle.com"
               >
             </div>
           </div>
           <div class="item">
-            <div class="title left">Send from</div>
+            <div class="title left">{{this.$lang.bookPage.senderEmailAddress}}</div>
             <div class="title right" style="color: #aaaaaa">openacg@gmx.com</div>
           </div>
 
         </section>
         <section class="book-info">
-          <p class="description tips">Book info</p>
+          <p class="description tips">{{this.$lang.bookPage.bookInfo}}</p>
           <div class="item">
-            <div class="title left">Book title</div>
-            <div class="title right" style="color: #aaaaaa">{{this.book.title}}</div>
+            <div class="title left">{{this.$lang.bookPage.bookTitile}}</div>
+            <div class="title right" style="color: #aaaaaa;max-width: 75%;">{{this.book.title}}</div>
           </div>
           <div class="item">
-            <div class="title left">Author</div>
+            <div class="title left">{{this.$lang.bookPage.bookAuthor}}</div>
             <div class="title right" style="color: #aaaaaa">{{this.book.author}}</div>
           </div>
           <div class="item volume" @click="showVolumeSelector = true">
-            <div class="title left">Volumes</div>
+            <div class="title left">{{this.$lang.bookPage.bookVolume}}</div>
             <div class="title right icon">
               <svg class="arrow" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">-->
-                          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-r"></use>
-                        </svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-r"></use>
+              </svg>
             </div>
           </div>
         </section>
@@ -55,17 +55,23 @@
             <p>{{this.$lang.bookPage.sendToKindleDescription}}</p>
           </header>
         </section>
+        <transition name="slide" mode="out-in">
+          <section class="volume-details" v-show="showVolumeSelector">
+            <div class="header">
+              <p class="description tips">{{this.$lang.bookPage.volumeSelectionTips}}</p>
+              <p class="volume-counter description tips">{{this.$lang.bookPage.volumeCounterDesc +
+                this.volumeListToBeSent.length}}</p>
+            </div>
 
-        <section class="volume-details" v-show="showVolumeSelector">
-          <p class="description tips">Select volumes to sync</p>
-          <div class="volumes">
-            <div class="volume-name" :class="{active: volumeListToBeSent.includes(volume)}"
-                 v-for="(volume, index) in this.book.volumes"
-                 :key="index"
-                @click="addVolume(volume)"
+            <div class="volumes">
+              <div class="volume-name" :class="{active: volumeListToBeSent.includes(volume)}"
+                   v-for="(volume, index) in this.book.volumes"
+                   :key="index"
+                   @click="addVolume(volume)"
               ><p>{{volume.name}}</p></div>
-          </div>
-        </section>
+            </div>
+          </section>
+        </transition>
       </section>
     </section>
   </div>
@@ -74,6 +80,7 @@
 <script>
 // import headTop from '../header/headTop'
 import { mapGetters } from 'vuex'
+
 export default {
   name: 'kindle',
   computed: {
@@ -113,6 +120,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
   #kindle {
     width: 312px;
     height: 632px;
@@ -131,6 +139,11 @@ export default {
       flex-direction: column;
       width: 100%;
       height: auto;
+
+      .title-bar {
+        position: fixed;
+        z-index: 10;
+      }
 
       .cancel, .confirm {
         color: rgb(0, 122, 255);
@@ -163,8 +176,7 @@ export default {
 
         .icon {
           svg {
-            width: .65rem;
-            height: .65rem;
+            fill: #737070;
           }
         }
 
@@ -194,50 +206,75 @@ export default {
         input {
           font-size: inherit;
         }
-        .book-info{
-          .title{
-            letter-spacing: 1px;
-          }
+
+        .title, .tips {
+          letter-spacing: 1px;
         }
-        .volume-details{
+
+        .volume-details {
           width: 100%;
           height: 100%;
           background-color: #f6f6f6;
           position: absolute;
           top: 0;
-         .volumes{
-           display: flex;
-           flex-wrap: wrap;
-           padding: 0 .85rem 0 .85rem;
-           div{
-             background-color: #FFFFFF;
-             display: inline-flex;
-             justify-content: center;
-             align-items: center;
-             margin: 0 .2rem .2rem 0;
-             flex: 1 0 21%; /* explanation below */
-             p{
-               display: inline-block;
-               font-size: .6rem;
-               padding: .55rem .55rem;
-               white-space: nowrap;
-               color: #aaaaaa;
-             }
-             &.active{
-               background: #f7fb08bf!important;
-               color: #000;
-               z-index: 1;
-             }
-           }
-         }
+
+          .header {
+            display: flex;
+            justify-content: space-between;
+
+            .volume-counter {
+              color: #999999;
+            }
+          }
+
+          .volumes {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 .85rem 0 .85rem;
+
+            div {
+              background-color: #FFFFFF;
+              display: inline-flex;
+              justify-content: center;
+              align-items: center;
+              margin: 0 .2rem .2rem 0;
+              flex: 1 0 21%; /* explanation below */
+              p {
+                display: inline-block;
+                font-size: .6rem;
+                padding: .55rem .55rem;
+                white-space: nowrap;
+                color: #aaaaaa;
+              }
+
+              &.active {
+                background: #f7fb08bf !important;
+                color: #000;
+                z-index: 1;
+              }
+            }
+          }
+
           @media (min-width: 1025px) {
-            .volumes{
+            .volumes {
               padding: 16px 12px;
-              div{
+
+              div {
                 margin: 0 4px 4px 0;
-                p{
+
+                p {
                   font-size: 12px;
                   padding: 12px 12px;
+                }
+              }
+
+              .icon {
+                width: .65rem;
+                height: .65rem;
+
+                svg {
+                  width: 100%;
+                  height: 100%;
                 }
               }
             }
@@ -254,8 +291,17 @@ export default {
         font-size: .6rem;
       }
       .main {
+        margin-top: 1.95rem;
+
         .tips {
           font-size: .6rem;
+        }
+
+        .icon {
+          svg {
+            width: .65rem;
+            height: .65rem;
+          }
         }
       }
     }
@@ -269,9 +315,7 @@ export default {
         max-height: 40px;
         height: 48px;
       }
-      .nav-bar {
-        display: none;
-      }
+
       .description, .left, .right {
         font-size: 12px;
         padding: 16px 12px;
@@ -281,11 +325,12 @@ export default {
       }
 
       .main {
-        margin-top: 4px;
+        margin-top: 36px;
+
         .icon {
           svg {
-            width: 24px;
-            height: 24px;
+            width: 16px;
+            height: 16px;
           }
         }
       }

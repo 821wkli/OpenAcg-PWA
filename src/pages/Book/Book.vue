@@ -119,7 +119,9 @@
         </div>
       </section>
       <chapter-list @goback="hidePanel" v-if="volumePanel.showChapterPanel"></chapter-list>
-      <kindle @onCancel="kindle.showKindle = false" v-if="kindle.showKindle"></kindle>
+      <transition name="slide" mode="out-in">
+      <kindle @onConfirm="sendToKindle" @onCancel="kindle.showKindle = false" v-if="kindle.showKindle"></kindle>
+      </transition>
     </section>
     <section v-else class="loader">
       <jump-loader where="top" class="icon"></jump-loader>
@@ -277,6 +279,9 @@ export default {
       } else {
         this.$router.push({ name: 'home' })
       }
+    },
+    sendToKindle: function (volumes) {
+      console.log(volumes)
     }
   },
   watch: {
@@ -361,6 +366,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
   .container {
     padding-top: 1.95rem;
     position: absolute;
