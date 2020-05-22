@@ -2459,3 +2459,1071 @@ export const detail = // 20200408152146
       ]
     }
   }
+
+export const keywords = {
+  status: 200,
+  sucess: 1,
+  server_time: 1590114781,
+  response: [
+    {
+      title: '\u9b54\u754c\u8f49\u751f',
+      introduction: '\u5bae\u672c\u6b66\u85cf\uff0c\u65e9\u5df2\u6b7b\u53bb\u7684\u528d\u8c6a\u5fa9\u6d3b\u4e86\uff01\u4f46\u4e0d\u662f\u4f5c\u70ba\u81ea\u5df1\uff0c\u800c\u662f\u4f5c\u70ba\u9b54\u4eba\uff01\u4e0d\u518d\u58d3\u6291\u4efb\u4f55\u617e\u671b\u7684\u9b54\u754c\u8f49\u751f\u4eba\uff01\u524d\u671d\u907a\u81e3\u7684\u760b\u72c2\u5fa9\u4ec7\uff0c\u6700\u7d42\u6975\u7684\u5fcd\u8853\uff0c\u5c07\u6b7b\u4e0d\u7791\u76ee\u7684\u528d\u8c6a\u5011\u8b8a\u70ba\u5080\u5121\u3002\u5c07\u8ecd\u75c5\u5371\uff0c\u5927\u7d0d\u8a00\u8209\u85e9\u9020\u53cd\uff0c\u9b54\u754c\u65cf\u4eba\u50be\u5de2\u51fa\u52d5\u3002\u5927\u6230\u4e00\u89f8\u5373\u767c\u3002\u9023\u89aa\u751f\u7236\u89aa\u90fd\u8981\u6bba\u6b7b\u81ea\u5df1\u7684\u67f3\u751f\u5341\u5175\u885b\u537b\u8207\u9b54\u754c\u73a9\u8d77\u4e86\u904a\u6232\u2026\u2026\u8ab0\u5148\u7834\u58de\u904a\u6232\u898f\u5247\u2026\u2026\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: '\u5176\u4ed6\u6587\u5eab',
+      book_status: '\u5df2\u5b8c\u6210',
+      last_updated_chapter_name: '\u201c\u6575\u4eba\u201d\u7684\u7de8\u5236 \u4e03',
+      id: 290,
+      author: '\u5c71\u7530\u98a8\u592a\u90ce',
+      updated_date: null,
+      cover_url: 'http://img.wkcdn.com/image/0/290/290s.jpg',
+      last_updated_date: '2009-03-25',
+      word_count: 72373,
+      volumes: [
+        {
+          id: 2041,
+          name: '\u5730\u7344\u7bc7\u7b2c\u4e00\u6b4c',
+          book_id: 290
+        },
+        {
+          id: 2042,
+          name: '\u5730\u7344\u7bc7\u7b2c\u4e8c\u6b4c',
+          book_id: 290
+        },
+        {
+          id: 2043,
+          name: '\u5730\u7344\u7bc7\u7b2c\u4e09\u6b4c',
+          book_id: 290
+        },
+        {
+          id: 2044,
+          name: '\u5730\u7344\u7bc7\u7b2c\u56db\u6b4c',
+          book_id: 290
+        },
+        {
+          id: 2045,
+          name: '\u5730\u7344\u7bc7\u7b2c\u4e94\u6b4c',
+          book_id: 290
+        },
+        {
+          id: 2046,
+          name: '\u201c\u6575\u4eba\u201d\u7684\u7de8\u5236',
+          book_id: 290
+        }
+      ]
+    },
+    {
+      title: '\u7121\u8077\u8f49\u751f\uff5e\u5230\u4e86\u7570\u4e16\u754c\u5c31\u62ff\u51fa\u771f\u672c\u4e8b\uff5e(\u7121\u8077\u8f49\u751f~\u5728\u7570\u4e16\u754c\u8a8d\u771f\u5730\u6d3b\u4e0b\u53bb~)',
+      introduction: '',
+      created_date: '2019-08-16 07:41:58',
+      publisher: 'MF\u6587\u5eabJ',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: null,
+      id: 1587,
+      author: '\u7406\u4e0d\u76e1\u306a\u5b6b\u306e\u624b',
+      updated_date: '2020-04-18 00:56:49',
+      cover_url: 'http://img.wenku8.com/image/1/1587/1587s.jpg',
+      last_updated_date: '2020-03-15',
+      word_count: null,
+      volumes: [
+        {
+          id: 6837,
+          name: '\u7b2c\u4e00\u5377 \u5e7c\u5e74\u671f',
+          book_id: 1587
+        },
+        {
+          id: 6838,
+          name: '\u7b2c\u4e8c\u5377 \u5c11\u5e74\u671f \u5bb6\u5ead\u6559\u5e2b\u7bc7',
+          book_id: 1587
+        },
+        {
+          id: 6839,
+          name: '\u7b2c\u4e09\u5377 \u5c11\u5e74\u671f \u5192\u96aa\u8005\u5165\u9580\u7bc7',
+          book_id: 1587
+        },
+        {
+          id: 6840,
+          name: '\u7b2c\u56db\u5377 \u5c11\u5e74\u671f\u5192\u96aa\u8005\u5165\u9580\u7bc7',
+          book_id: 1587
+        },
+        {
+          id: 6841,
+          name: '\u7b2c\u4e94\u7ae0 \u5c11\u5e74\u671f \u518d\u6703\u7bc7',
+          book_id: 1587
+        },
+        {
+          id: 6842,
+          name: '\u7b2c\u516d\u5377 \u5c11\u5e74\u671f \u6b78\u9109\u7bc7',
+          book_id: 1587
+        },
+        {
+          id: 6843,
+          name: '\u7b2c\u4e03\u5377 \u9752\u5c11\u5e74\u671f \u4e2d\u5805\u5192\u96aa\u8005\u7bc7',
+          book_id: 1587
+        },
+        {
+          id: 6844,
+          name: '\u7b2c\u516b\u5377 \u9752\u5c11\u5e74\u671f \u5b78\u5712\u7bc7\uff08\u524d\uff09',
+          book_id: 1587
+        },
+        {
+          id: 6845,
+          name: '\u7b2c\u4e5d\u5377 \u9752\u5c11\u5e74\u671f \u5b78\u5712\u7bc7\uff08\u5f8c\uff09',
+          book_id: 1587
+        },
+        {
+          id: 6846,
+          name: '\u7b2c\u5341\u5377 \u9752\u5c11\u5e74\u671f \u65b0\u5a5a\u7bc7',
+          book_id: 1587
+        },
+        {
+          id: 6847,
+          name: '\u7b2c\u5341\u4e00\u7ae0 \u9752\u5c11\u5e74\u671f \u59b9\u59b9\u7bc7',
+          book_id: 1587
+        },
+        {
+          id: 6848,
+          name: '\u7b2c\u5341\u4e8c\u5377 \u9752\u5c11\u5e74\u671f \u8ff7\u5bae\u7bc7',
+          book_id: 1587
+        },
+        {
+          id: 6849,
+          name: '\u7b2c\u5341\u4e09\u5377 \u9752\u5c11\u5e74\u671f \u65e5\u5e38\u7bc7',
+          book_id: 1587
+        },
+        {
+          id: 6850,
+          name: '\u7b2c\u5341\u56db\u5377 \u9752\u5c11\u5e74\u671f \u53ec\u559a\u7bc7',
+          book_id: 1587
+        },
+        {
+          id: 6851,
+          name: '\u7b2c\u5341\u516d\u5377 \u9752\u5e74\u671f \u4eba\u795e\u7bc7web\u7248',
+          book_id: 1587
+        },
+        {
+          id: 6852,
+          name: '\u7b2c\u5341\u4e03\u5377 \u9752\u5e74\u671f \u738b\u570b\u7de8web\u7248',
+          book_id: 1587
+        },
+        {
+          id: 6853,
+          name: '\u7b2c\u5341\u516b\u5377 \u9752\u5e74\u671f \u963f\u65af\u62c9\u738b\u570b\u7de8web\u7248',
+          book_id: 1587
+        },
+        {
+          id: 6854,
+          name: '\u7b2c\u5341\u4e5d\u5377 \u9752\u5e74\u671f \u90e8\u4e0b\u7bc7web\u7248',
+          book_id: 1587
+        },
+        {
+          id: 6855,
+          name: '\u7b2c\u4e8c\u5341\u5377 \u9752\u5e74\u671f \u624e\u8afe\u5df4\u7bc7web\u7248',
+          book_id: 1587
+        },
+        {
+          id: 6856,
+          name: '\u7b2c20.5\u5377 web\u7248',
+          book_id: 1587
+        },
+        {
+          id: 6857,
+          name: '\u7b2c\u4e8c\u5341\u4e00\u5377 \u9752\u5e74\u671f \u514b\u91cc\u592b\u7bc7 web\u7248',
+          book_id: 1587
+        },
+        {
+          id: 6858,
+          name: '\u7b2c\u4e8c\u5341\u4e8c\u5377 \u7d44\u7e54\u7de8 web\u7248',
+          book_id: 1587
+        },
+        {
+          id: 6859,
+          name: '\u7b2c\u4e8c\u5341\u4e09\u5377 \u9752\u5e74\u671f \u6c7a\u6230\u7bc7 web\u7248',
+          book_id: 1587
+        },
+        {
+          id: 6860,
+          name: '\u7b2c\u4e8c\u5341\u56db\u5377 \u5b8c\u7d50\u7de8 web\u7248',
+          book_id: 1587
+        },
+        {
+          id: 10152,
+          name: '\u7b2c\u5341\u4e94\u5377 \u9752\u5c11\u5e74\u671f \u4eba\u795e\u7bc7',
+          book_id: 1587
+        },
+        {
+          id: 10153,
+          name: '\u7b2c\u5341\u516d\u5377 \u9752\u5e74\u671f \u963f\u65af\u62c9\u738b\u570b\u7bc7\uff08\u524d\uff09',
+          book_id: 1587
+        },
+        {
+          id: 10154,
+          name: '\u7b2c\u5341\u4e03\u5377 \u9752\u5e74\u671f \u963f\u65af\u62c9\u738b\u570b\u7bc7\uff08\u5f8c\uff09',
+          book_id: 1587
+        }
+      ]
+    },
+    {
+      title: '\u8f49\u751f!\u767d\u4e4b\u738b\u570b\u7269\u8a9e',
+      introduction: '\u6027\u683c\u6d88\u6975\u3001\u51e1\u4e8b\u5bb9\u6613\u6b7b\u5fc3\u7684\u7537\u4eba\u55aa\u547d\u4e4b\u5f8c\uff0c\u610f\u5916\u5728\u7570\u4e16\u754c\u7684\u96c5\u723e\u591a\u72c4\u65af\u63d0\u5c3c\u4e9e\u738b\u570b\u5fa9\u6d3b\u3002\n\u7121\u8655\u53ef\u53bb\u7684\u4ed6\uff0c\u53d7\u5230\u8cb4\u65cf\u5343\u91d1\u6885\u91cc\u827e\u83c8\u76f8\u52a9\u3002\n\u64da\u5979\u7684\u8aaa\u6cd5\uff0c\u738b\u570b\u57ae\u81fa\u7684\u5371\u6a5f\u8feb\u5728\u7709\u776b\uff0c\u800c\u80fd\u5920\u62ef\u6551\u570b\u5bb6\u7684\uff0c\u53ea\u6709\u5177\u5099\u570b\u738b\u8cc7\u683c\u7684\u4ed6\u2026\u2026\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: '\u5176\u4ed6\u6587\u5eab',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: '\u7b2c\u4e03\u5377 \u63d2\u5716',
+      id: 1595,
+      author: '\u767d\u6fa4\u620c\u4ea5',
+      updated_date: '2020-02-18 09:07:16',
+      cover_url: 'http://img.wenku8.com/image/1/1595/1595s.jpg',
+      last_updated_date: '2020-02-17',
+      word_count: 794387,
+      volumes: [
+        {
+          id: 6884,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 1595
+        },
+        {
+          id: 6885,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 1595
+        },
+        {
+          id: 6886,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 1595
+        },
+        {
+          id: 6887,
+          name: '\u7b2c\u56db\u5377',
+          book_id: 1595
+        },
+        {
+          id: 6888,
+          name: '\u7b2c\u4e94\u5377',
+          book_id: 1595
+        },
+        {
+          id: 9837,
+          name: '\u7b2c\u516d\u5377',
+          book_id: 1595
+        },
+        {
+          id: 9885,
+          name: '\u7b2c\u4e03\u5377',
+          book_id: 1595
+        }
+      ]
+    },
+    {
+      title: '\u8f49\u751f\u5947\u8b5a',
+      introduction: '\u5c71\u7530\u9686\u53f8\u53c3\u52a0\u767b\u5c71\u793e\u7684\u5408\u5bbf\u6642\u5728\u96ea\u5c71\u4e2d\u9047\u96e3\u4e86\uff0c\u7b49\u4ed6\u6e05\u9192\u5f8c\uff0c\u537b\u767c\u73fe\u81ea\u5df1\u8eab\u8655\u5728\u964c\u751f\u7684\u68ee\u6797\u88e1\u3002\u56f0\u60d1\u7684\u4ed6\u70ba\u4e86\u638c\u63e1\u72c0\u6cc1\u74b0\u9867\u56db\u5468\uff0c\u767c\u73fe\u5929\u7a7a\u4e2d\u7adf\u7136\u8207\u7db2\u7d61\u904a\u6232\u300c\u5e7b\u60f3\u5192\u96aaOnline\u300d\u4e00\u6a23\u9ad8\u639b\u8457\u5169\u9846\u592a\u967d\uff0c\u800c\u4e14\u9084\u548c\u904a\u6232\u4e00\u6a23\u80fd\u5920\u65bd\u5c55\u9b54\u6cd5\uff0c\u96e3\u9053\u81ea\u5df1\u4f86\u5230\u4e86\u904a\u6232\u4e16\u754c\uff1f\u5728\u9019\u500b\u4e16\u754c\u7576\u4e2d\uff0c\u9686\u53f8\u9047\u5230\u4e86\u4e00\u4f4d\u8207\u72d7\u982d\u4eba\u548c\u534a\u7378\u4eba\u5171\u540c\u5c45\u4f4f\u5728\u68ee\u6797\u88e1\u7684\u5c11\u5973\uff0c\u56db\u4eba\u4e00\u8d77\u5c55\u958b\u4e86\u751f\u6d3b\uff0c\u76f4\u5230\u6709\u4e00\u5929\u8ffd\u5175\u51fa\u73fe\uff0c\u74e6\u89e3\u4e86\u4ed6\u5011\u5e73\u7a69\u7684\u65e5\u5b50\u3002\u5c11\u5973\u4e00\u884c\u4eba\u7a76\u7adf\u662f\u4f55\u65b9\u795e\u8056\uff1f\u5e73\u51e1\u7684\u9ad8\u4e2d\u751f\u9686\u53f8\uff0c\u5c07\u5728\u7570\u4e16\u754c\u4e2d\u8e0f\u4e0a\u5192\u96aa\u7684\u65c5\u7a0b\u3002\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: '\u5176\u4ed6\u6587\u5eab',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: '\u7b2c\u4e8c\u5377 \u63d2\u5716',
+      id: 1782,
+      author: '\u76f8\u91ce\u4ec1',
+      updated_date: '2020-04-18 00:56:52',
+      cover_url: 'http://img.wenku8.com/image/1/1782/1782s.jpg',
+      last_updated_date: '2020-03-09',
+      word_count: 226242,
+      volumes: [
+        {
+          id: 7498,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 1782
+        },
+        {
+          id: 7499,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 1782
+        }
+      ]
+    },
+    {
+      title: '\u95dc\u65bc\u6211\u8f49\u751f\u8b8a\u6210\u53f2\u840a\u59c6\u9019\u6a94\u4e8b(\u95dc\u65bc\u6211\u8f49\u751f\u6210\u70ba\u53f2\u840a\u59c6\u7684\u90a3\u4ef6\u4e8b)',
+      introduction: '\u4e09\u4e0a\u609f\u904e\u8457\u4e0d\u8d77\u773c\u7684\u4eba\u751f\uff0c\u5728\u96a8\u6a5f\u6bba\u4eba\u9b54\u8086\u8650\u4e0b\u7d50\u675f\u4e86\u4e09\u5341\u4e03\u5e74\u751f\u6daf\u2026\u2026\u770b\u4f3c\u5982\u6b64\u3002\n\u7576\u4ed6\u7526\u9192\u6642\uff0c\u4e0d\u50c5\u773c\u775b\u770b\u4e0d\u898b\uff0c\u5c31\u9023\u8033\u6735\u4e5f\u807d\u4e0d\u5230\u2026\u2026\n\u9762\u5c0d\u4e00\u9023\u4e32\u7a81\u767c\u72c0\u6cc1\uff0c\u4ed6\u610f\u8b58\u5230\u81ea\u5df1\u6295\u80ce\u8f49\u4e16\u6210\u300c\u53f2\u840a\u59c6\u300d\uff01\n\u5118\u7ba1\u8b8a\u6210\u6700\u5f31\u9b54\u7269\u8b93\u4ed6\u9817\u6709\u6028\u8a00\uff0c\u4e09\u4e0a\u609f\u9084\u662f\u6c7a\u5b9a\u8981\u5feb\u6a02\u5730\u904e\u53f2\u840a\u59c6\u751f\u6d3b\uff0c\n\u6c92\u60f3\u5230\u537b\u78b0\u4e0a\u5929\u707d\u7d1a\u9b54\u7269\u300c\u66b4\u98a8\u9f8d\u7dad\u723e\u5fb7\u62c9\u300d\uff0c\u547d\u904b\u5c31\u6b64\u51fa\u73fe\u5de8\u5927\u8f49\u6298\u2500\u2500\n\u7dad\u723e\u5fb7\u62c9\u5c07\u4ed6\u547d\u540d\u70ba\u300c\u5229\u59c6\u8def\u300d\uff0c\u6b63\u8981\u5c55\u958b\u53f2\u840a\u59c6\u5f0f\u7684\u7570\u4e16\u754c\u65b0\u751f\u6d3b\u6642\uff0c\n\u537b\u88ab\u6372\u5165\u54e5\u5e03\u9748\u5c0d\u7259\u72fc\u65cf\u7684\u7d1b\u722d\u4e4b\u4e2d\uff0c\u6700\u5f8c\u9084\u83ab\u540d\u5176\u5999\u7576\u4e0a\u9b54\u7269\u5927\u738b\u2026\u2026\n\u80fd\u596a\u53d6\u5c0d\u624b\u80fd\u529b\u7684\u300c\u6355\u98df\u8005\u300d\u4ee5\u53ca\u7cbe\u901a\u4e16\u754c\u771f\u7406\u7684\u300c\u5927\u8ce2\u8005\u300d\uff0c\n\u6709\u9019\u5169\u9805\u7279\u6b8a\u6280\u80fd\u7576\u6b66\u5668\uff0c\u6700\u5f37\u7684\u53f2\u840a\u59c6\u50b3\u8aaa\u6b63\u5f0f\u5c55\u958b\uff01\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: '\u5176\u4ed6\u6587\u5eab',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: '\u7b2c\u5341\u516d\u5377 \u63d2\u5716',
+      id: 1787,
+      author: '\u4f0f\u7028',
+      updated_date: '2020-05-04 11:58:44',
+      cover_url: 'http://img.wenku8.com/image/1/1787/1787s.jpg',
+      last_updated_date: '2020-05-04',
+      word_count: 3236011,
+      volumes: [
+        {
+          id: 7511,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7512,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7513,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7514,
+          name: '\u7b2c\u56db\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7515,
+          name: '\u7b2c\u4e94\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7516,
+          name: '\u7b2c\u516d\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7517,
+          name: '\u7b2c\u4e03\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7518,
+          name: '\u7b2c\u516b\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7519,
+          name: '\u7b2c8.5\u5377 \u77ed\u7bc7\u96c6',
+          book_id: 1787
+        },
+        {
+          id: 7520,
+          name: '\u7b2c\u4e5d\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7521,
+          name: '\u7b2c\u5341\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7522,
+          name: '\u7b2c\u5341\u4e00\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7523,
+          name: '\u7b2c\u5341\u4e8c\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7524,
+          name: '\u7b2c\u5341\u4e09\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7525,
+          name: '\u7b2c13.5\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7526,
+          name: '\u7dad\u9b6f\u591a\u62c9\u7684\u53f2\u840a\u59c6\u89c0\u5bdf\u65e5\u8a18\uff5e\u9082\u9005\u7bc7\uff5e',
+          book_id: 1787
+        },
+        {
+          id: 7527,
+          name: '\u7dad\u9b6f\u591a\u62c9\u7684\u53f2\u840a\u59c6\u89c0\u5bdf\u65e5\u8a18\uff5e\u9a5a\u6115\u7bc7\uff5e',
+          book_id: 1787
+        },
+        {
+          id: 7528,
+          name: '\u7dad\u9b6f\u591a\u62c9\u7684\u53f2\u840a\u59c6\u89c0\u5bdf\u65e5\u8a18\uff5e\u71b1\u9b25\u7bc7\uff5e',
+          book_id: 1787
+        },
+        {
+          id: 7529,
+          name: '\u7dad\u9b6f\u591a\u62c9\u7684\u53f2\u840a\u59c6\u89c0\u5bdf\u65e5\u8a18\uff5e\u98db\u7fd4\u7bc7\uff5e',
+          book_id: 1787
+        },
+        {
+          id: 7530,
+          name: '\u7dad\u9b6f\u591a\u62c9\u7684\u53f2\u840a\u59c6\u89c0\u5bdf\u65e5\u8a18\uff5e\u98fd\u8179\u7bc7\uff5e',
+          book_id: 1787
+        },
+        {
+          id: 7531,
+          name: '\u7dad\u9b6f\u591a\u62c9\u7684\u53f2\u840a\u59c6\u89c0\u5bdf\u65e5\u8a18\uff5e\u906d\u9047\u7bc7\uff5e',
+          book_id: 1787
+        },
+        {
+          id: 7532,
+          name: '\u7dad\u9b6f\u591a\u62c9\u7684\u53f2\u840a\u59c6\u89c0\u5bdf\u65e5\u8a18\uff5e\u7b56\u8b00\u7bc7\uff5e',
+          book_id: 1787
+        },
+        {
+          id: 7533,
+          name: '\u7dad\u9b6f\u591a\u62c9\u7684\u53f2\u840a\u59c6\u89c0\u5bdf\u65e5\u8a18\uff5e\u5916\u4ea4\u7bc7\uff5e',
+          book_id: 1787
+        },
+        {
+          id: 7534,
+          name: '\u7dad\u9b6f\u591a\u62c9\u7684\u53f2\u840a\u59c6\u89c0\u5bdf\u65e5\u8a18\uff5e\u5192\u96aa\u7bc7\uff5e',
+          book_id: 1787
+        },
+        {
+          id: 7535,
+          name: '\u7dad\u9b6f\u591a\u62c9\u7684\u53f2\u840a\u59c6\u89c0\u5bdf\u65e5\u8a18\uff5e\u7518\u5473\u7bc7\uff5e',
+          book_id: 1787
+        },
+        {
+          id: 7536,
+          name: '\u7b2c\u5341\u56db\u5377',
+          book_id: 1787
+        },
+        {
+          id: 7537,
+          name: '\u77ed\u7bc7',
+          book_id: 1787
+        },
+        {
+          id: 9638,
+          name: '\u7dad\u9b6f\u591a\u62c9\u7684\u53f2\u840a\u59c6\u89c0\u5bdf\u65e5\u8a18\uff5e\u6557\u5317\u7bc7\uff5e',
+          book_id: 1787
+        },
+        {
+          id: 9785,
+          name: '\u7b2c\u5341\u4e94\u5377',
+          book_id: 1787
+        },
+        {
+          id: 10014,
+          name: '\u7dad\u9b6f\u591a\u62c9\u7684\u53f2\u840a\u59c6\u89c0\u5bdf\u65e5\u8a18\uff5e\u5e0c\u671b\u7bc7\uff5e',
+          book_id: 1787
+        },
+        {
+          id: 10015,
+          name: '\u7dad\u9b6f\u591a\u62c9\u7684\u53f2\u840a\u59c6\u89c0\u5bdf\u65e5\u8a18\uff5e\u53cd\u64ca\u7bc7\uff5e',
+          book_id: 1787
+        },
+        {
+          id: 10339,
+          name: '\u7b2c\u5341\u516d\u5377',
+          book_id: 1787
+        }
+      ]
+    },
+    {
+      title: '\u7981\u5fcc\u7684\u8f49\u751f\u8853\u8207\u8a93\u7d04\u7684\u516c\u4e3b',
+      introduction: '\u300c\u627e\u51fa\u80cc\u53db\u8005\u300d\u2014\u2014\u9019\u662f\u4ee3\u66ff\u9003\u5bb6\u7684\u54e5\u54e5\u6210\u70ba\u4e00\u6cd5\u5e2b\u5bb6\u4e4b\u4e3b\u7684\u5143\u6240\u63a5\u4e0b\u7684\u7b2c\u4e00\u9053\u4f7f\u547d\u3002\u5143\u88ab\u544a\u77e5\uff0c\u6709\u4eba\u5fc3\u61f7\u60e1\u610f\uff0c\u5229\u7528\u4ee5\u6b77\u4e4b\u529b\u91cf\u69cb\u7bc9\u7684\u7955\u50b3\u8853\u6cd5\uff0c\u65bd\u4e0b\u300c\u8f49\u751f\u8853\u300d\u4e4b\u8a5b\u5492\u3002\u82e5\u4e0d\u76e1\u5feb\u627e\u51fa\u65bd\u5492\u4e4b\u4eba\u4e26\u89e3\u9664\u8a5b\u5492\uff0c\u6574\u65cf\u7684\u7279\u6b8a\u80fd\u529b\u4fbf\u5c07\u5c31\u6b64\u6d88\u5931\u7121\u8e64\u3002\u723e\u5f8c\uff0c\u5206\u5bb6\u7684\u53e4\u7aaf\u9059\u4f73\u88ab\u51a0\u4e0a\u80cc\u53db\u8005\u7f6a\u540d\u3002\u9019\u540d\u5c11\u5973\u65bc\u5341\u6b72\u6642\u4fbf\u88ab\u6307\u5b9a\u70ba\u4e00\u6cd5\u5e2b\u5bb6\u4e3b\u4e4b\u5a5a\u7d04\u5c0d\u8c61\uff0c\u4e26\u4e14\u591a\u6b21\u5e6b\u52a9\u5143\u812b\u96e2\u56f0\u5883\u3002\u5143\u6df1\u4fe1\u5979\u7121\u8f9c\uff0c\u4f46\u4ed6\u6709\u8fa6\u6cd5\u6210\u529f\u8b49\u660e\u55ce\uff01\uff1f\u548c\u98a8\u5947\u5e7b\u61f8\u7591\u5287\uff0c\u65bc\u6b64\u63ed\u958b\u5e8f\u5e55\uff01\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: 'Fami\u901a\u6587\u5eab',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: '\u7b2c\u4e00\u5377 \u63d2\u5716',
+      id: 1846,
+      author: '\u9ce5\u6751\u5c45\u5b50',
+      updated_date: null,
+      cover_url: 'http://img.wkcdn.com/image/1/1846/1846s.jpg',
+      last_updated_date: '2015-04-08',
+      word_count: 93917,
+      volumes: [
+        {
+          id: 7702,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 1846
+        }
+      ]
+    },
+    {
+      title: '\u5929\u555f\u7684\u7570\u4e16\u754c\u8f49\u751f\u8b5a',
+      introduction: '\u65bc\u4e8b\u6545\u4e2d\u6b7b\u4ea1\u7684\u9ad8\u4e2d\u751f\u92fc\u7684\u9762\u524d\u51fa\u73fe\u7684\uff0c\u662f\u8eab\u70ba\u4e09\u6b72\u5e7c\u7ae5\u7684\u904a\u6232\u73a9\u5bb6\u5973\u795e\u2500\u2500\u5e0c\u6d1b\u55b5\u3002\u5979\u81ea\u7a31\u70ba\u638c\u7ba1\u300c\u8f49\u751f\u300d\u7684\u795e\u660e\u3002 \u88ab\u5e0c\u6d1b\u55b5\u8d95\u9d28\u5b50\u4e0a\u67b6\uff0c\u4f7f\u7528\u5979\u6240\u81ea\u5236\u4e14\u6709\u5982\u96fb\u8996\u904a\u6232\u6a5f\u4e00\u822c\u7684\u3008\u8f49\u751f\u7de8\u8f2f\u6a5f\u3009\u9032\u884c\u4e0b\u4e00\u500b\u4eba\u751f\u7528\u7684\u89d2\u8272\u5275\u5efa\u7684\u92fc\uff0c\u57fa\u65bc\u67d0 \u500b\u5951\u6a5f\uff0c\u6210\u529f\u53d6\u5f97\u4e86\u6bd4\u5e73\u5e38\u8981\u591a\u4e0a20\u842c\u500d\u7684\u8f49\u751f\u9ede\u6578\uff01\u539f\u5148\u671f\u5f85\u9019\u5c07\u6703\u662f\u8f49\u751f\u6210\u4f5c\u5f0a\u89d2\u8272\u7684\u6a5f\u6703\uff0c\u6c92\u60f3\u5230\u53d6\u5f97\u7684\u537b\u662f\u96e3\u4ee5 \u60f3\u50cf\u7684\u5783\u573e\u80fd\u529b!?\u7531\u795e\u6240\u8cdc\u4e88\u7684\u4f5c\u5f0a\uff08\u7121\u7528\uff09\u80fd\u529b\u70b8\u88c2\u958b\u4f86\u7684\u7a00\u4e16\u8f49\u751f\u8b5a\uff0c\u5c31\u6b64\u958b\u5e55\uff01\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: 'Fami\u901a\u6587\u5eab',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: '\u7b2c\u4e8c\u5377 \u63d2\u5716',
+      id: 1857,
+      author: '\u30a6\u30b9\u30d0\u30fc',
+      updated_date: null,
+      cover_url: 'http://img.wkcdn.com/image/1/1857/1857s.jpg',
+      last_updated_date: '2017-05-19',
+      word_count: 330247,
+      volumes: [
+        {
+          id: 7743,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 1857
+        },
+        {
+          id: 7744,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 1857
+        },
+        {
+          id: 7745,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 1857
+        }
+      ]
+    },
+    {
+      title: '\u8ecd\u6b66\u5b85\u8f49\u751f\u9b54\u6cd5\u4e16\u754c\uff0c\u9760\u73fe\u4ee3\u6b66\u5668\u958b\u8ecd\u968a\u5f8c\u5bae!?',
+      introduction: '\u8f49\u751f\u5230\u9b54\u6cd5\u7570\u4e16\u754c\u7684\u5c11\u5e74\u7409\u7279\uff0c\u5c07\u904b\u7528\u73fe\u4ee3\u6b66\u5668\u5275\u9020\u50b3\u8aaa\u2500\u2500\uff01\n\u7409\u7279\u2500\u2500\u4e00\u540d\u88ab\u6372\u5165\u6848\u4ef6\u4e4b\u4e2d\u55aa\u547d\uff0c\u518d\u6b21\u9192\u4f86\u537b\u767c\u89ba\u81ea\u5df1\u8f49\u751f\u5230\u9b54\u6cd5\u4e16\u754c\u7684\u5c11\u5e74\u3002\n\u5728\u9019\u500b\u9b54\u8853\u624d\u80fd\u8db3\u4ee5\u5de6\u53f3\u4eba\u751f\u7684\u4e16\u754c\uff0c\u4ed6\u7684\u9b54\u529b\u91cf\u5c11\u5f97\u53ef\u6190\u3002\n\u65bc\u662f\u4ed6\u904b\u7528\u73fe\u4ee3\u77e5\u8b58\u88fd\u9020\u300c\u69cd\u300d\u2500\u2500\u4ed6\u300c\u751f\u524d\u300d\u662f\u500b\u559c\u6b61\u8ecd\u6b66\u7684\u300c\u8ecd\u6b66\u5b85\u300d\uff01\n\u5fc3\u4e2d\u61f7\u8457\u524d\u4e16\u7121\u6cd5\u5be6\u73fe\uff0c\u60f3\u62ef\u6551\u4ed6\u4eba\u7684\u5ff5\u982d\uff0c\u7409\u7279\u70ba\u4e86\u5f9e\u903c\u8fd1\u7684\u9b54\u7269\u624b\u4e2d\uff0c\u5b88\u8b77\u9752\u6885\u7af9\u99ac\u7684\u72ac\u8033\u5c11\u5973\u767d\u96ea\uff0c\u52aa\u529b\u88fd\u4f5c\u6b66\u5668\uff01\n\u9019\u662f\u4e00\u540d\u5c11\u5e74\u6700\u7d42\u5275\u9020\u51fa\u5c08\u5c6c\u81ea\u5df1\u7684\u8ecd\u968a\uff08\u5f8c\u5bae\uff09\uff0c\u7528\u90a3\u4efd\u529b\u91cf\u62ef\u6551\u4eba\u5011\u2500\u2500\u6216\u8a31\u5373\u5c07\u6210\u70ba\u50b3\u8aaa\u7684\u6545\u4e8b\uff01\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: '\u5bcc\u58eb\u898b\u6587\u5eab',
+      book_status: '\u5df2\u5b8c\u6210',
+      last_updated_chapter_name: '\u7b2c\u5341\u4e8c\u5377 \u63d2\u5716',
+      id: 1988,
+      author: '\u660e\u93e1\u30b7\u30b9\u30a4',
+      updated_date: null,
+      cover_url: 'http://img.wkcdn.com/image/1/1988/1988s.jpg',
+      last_updated_date: '2019-03-17',
+      word_count: 1214498,
+      volumes: [
+        {
+          id: 8105,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 1988
+        },
+        {
+          id: 8106,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 1988
+        },
+        {
+          id: 8107,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 1988
+        },
+        {
+          id: 8108,
+          name: '\u7b2c\u56db\u5377',
+          book_id: 1988
+        },
+        {
+          id: 8109,
+          name: '\u7b2c\u4e94\u5377',
+          book_id: 1988
+        },
+        {
+          id: 8110,
+          name: '\u7b2c\u516d\u5377',
+          book_id: 1988
+        },
+        {
+          id: 8111,
+          name: '\u7b2c\u4e03\u5377',
+          book_id: 1988
+        },
+        {
+          id: 8112,
+          name: '\u7b2c\u516b\u5377',
+          book_id: 1988
+        },
+        {
+          id: 8113,
+          name: '\u7b2c\u4e5d\u5377',
+          book_id: 1988
+        },
+        {
+          id: 8114,
+          name: '\u7b2c\u5341\u5377',
+          book_id: 1988
+        },
+        {
+          id: 8115,
+          name: '\u7b2c\u5341\u4e00\u5377',
+          book_id: 1988
+        },
+        {
+          id: 8116,
+          name: '\u7b2c\u5341\u4e8c\u5377',
+          book_id: 1988
+        }
+      ]
+    },
+    {
+      title: '\u8f49\u751f\u9b3c\u795e\u6d6a\u6f2b\u8b5a',
+      introduction: '\u4e00\u540d\u5927\u5b78\u751f\u518d\u5ea6\u6e05\u9192\u6642\u767c\u73fe\u81ea\u5df1\u5df2\u7d93\u8f49\u751f\u5230RPG\u4e16\u754c\u4e2d\u3002\u5118\u7ba1\u80fd\u4f86\u5230\u81ea\u5df1\u6700\u611b\u7684\u904a\u6232\u4e16\u754c\u4e00\u4e8b\u4ee4\u4ed6\u958b\u5fc3\uff0c\u4f46\u4ed6\u7adf\u7136\u8f49\u751f\u6210\u4e86\u4e0d\u4e0a\u4e0d\u4e0b\u7684\u89d2\u8272\uff0c\u5b88\u8b77\u57ce\u5854\u7684\u4e2d\u9b54\u738b\u2014\u2014\u300c\u5996\u9b3c\u300d\u3002\n\u300c\u9019\u6a23\u4e0b\u53bb\uff0c\u6211\u53ea\u80fd\u7b49\u8457\u88ab\u4e3b\u89d2\u6253\u639b\u800c\u5df2\uff0c\u6211\u624d\u4e0d\u5e79\uff01\u300d\u9019\u9ebc\u60f3\u8457\uff0c\u5996\u9b3c\u2014\u2014\u9152\u541e\u885d\u51fa\u57ce\u5854\uff0c\u6436\u5148\u52c7\u8005\u4e00\u6b65\u6253\u5012\u4e86\u5927\u9b54\u738b\uff0c\u4e00\u6642\u8208\u8d77\u6551\u4e86\u863f\u8389\u5438\u8840\u9b3c\uff0c\u9084\u548c\u906d\u5c01\u5370\u7684\u4e5d\u5c3e\u7f8e\u5973\u8a02\u4e0b\u7737\u5c6c\u5951\u7d04\uff0c\u985b\u8986\u4e86\u4e00\u6bb5\u53c8\u4e00\u6bb5\u7684\u6545\u4e8b\u60c5\u7bc0\u2026\u2026\uff1f\n\u4e0d\u7ba1\u6575\u4eba\u9084\u662f\u5e38\u8b58\u5168\u90fd\u4e00\u5200\u5169\u65b7\u7684\uff0c\u7834\u5929\u8352\u5996\u9b3c\u723d\u5feb\u6d6a\u6f2b\u8b5a\u767b\u5834\uff01\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: '\u89d2\u5ddd\u6587\u5eab',
+      book_status: '\u5df2\u5b8c\u6210',
+      last_updated_chapter_name: '\u7b2c\u56db\u5377 \u63d2\u5716',
+      id: 2169,
+      author: '\u85cd\u85e4\u904a',
+      updated_date: null,
+      cover_url: 'http://img.wkcdn.com/image/2/2169/2169s.jpg',
+      last_updated_date: '2018-08-24',
+      word_count: 408530,
+      volumes: [
+        {
+          id: 8609,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 2169
+        },
+        {
+          id: 8610,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 2169
+        },
+        {
+          id: 8611,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 2169
+        },
+        {
+          id: 8612,
+          name: '\u7b2c\u56db\u5377',
+          book_id: 2169
+        }
+      ]
+    },
+    {
+      title: '\u8f49\u751f\u9b54\u738b\u7684\u7570\u4e16\u754c\u60a0\u9592\u751f\u6d3b',
+      introduction: '\u60f3\u8981\u6551\u52a9\u5373\u5c07\u88ab\u8eca\u5b50\u8f3e\u904e\u7684\u79d1\u6469\u591a\u5de8\u8725\u537b\u56e0\u800c\u6b7b\u53bb\u7684\u5584\u826f\u5c11\u5e74\u6492\u65e6\uff0c\u57fa\u65bc\u5973\u795e\u7684\u4e00\u6642\u8208\u8d77\u8f49\u751f\u5230\u4e86\u7570\u4e16\u754c\u3002\u4f46\u662f\uff0c\u5728\u8f49\u751f\u7684\u9014\u4e2d\u4ed6\u8207\u90a3\u96bb\u8725\u8734\u76f8\u7d50\u5408\uff0c\u88ab\u5973\u795e\u8aa4\u8a8d\u70ba\u662f\u300c\u9b54\u738b\u300d\u800c\u6254\u5230\u4e86\u9b54\u754c\u3002\u4e26\u4e14\u57fa\u65bc\u524d\u4ee3\u9b54\u738b\u56db\u5929\u738b\u7684\u9732\u5361\u4e4b\u4e3b\u89c0\u5224\u65b7\uff0c\u6492\u65e6\u88ab\u63a8\u8209\u6210\u4e86\u771f\u6b63\u7684\u9b54\u738b\uff01\uff1f\u5176\u5be6\u662f\u500b\u5fc3\u5730\u5584\u826f\u5c11\u5e74\u7684\u6492\u65e6\uff0c\u70ba\u4e86\u4ee4\u9b54\u65cf\u8207\u4eba\u985e\u5011\u7d1b\u722d\u7684\u7570\u4e16\u754c\u8fce\u4f86\u548c\u5e73\uff0c\u4e0b\u5b9a\u6c7a\u5fc3\u6253\u9020\u4e00\u500b\u5169\u908a\u7a2e\u65cf\u548c\u7766\u751f\u6d3b\u7684\u9b54\u738b\u6751\u2014\u2014\n\u5916\u8868\u662f\u9b54\u738b\uff01\u5167\u5fc3\u537b\u662f\u5929\u4f7f\uff01\u7531\u76ee\u6a19\u662f\u4e16\u754c\u548c\u5e73\u7684\u9b54\u738b\u8207\u5176\u5925\u4f34\u5011\u5e36\u4f86\u7684\u6eab\u99a8\u6751\u838a\u5fa9\u8208\u559c\u5287\uff01\u5f9e\u8aa4\u6703\u958b\u59cb\u7684\u7570\u4e16\u754c\u60a0\u9592\u6162\u6d3b\u5728\u6b64\u958b\u62d3\uff01\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: 'MF\u6587\u5eabJ',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: '\u7b2c\u4e00\u5377 \u6b61\u8fce\u524d\u4f86\u9b54\u738b\u6751\uff01 \u63d2\u5716',
+      id: 2187,
+      author: '\u306a\u3081\u3053\u5370',
+      updated_date: null,
+      cover_url: 'http://img.wkcdn.com/image/2/2187/2187s.jpg',
+      last_updated_date: '2016-12-22',
+      word_count: 67841,
+      volumes: [
+        {
+          id: 8650,
+          name: '\u7b2c\u4e00\u5377 \u6b61\u8fce\u524d\u4f86\u9b54\u738b\u6751\uff01',
+          book_id: 2187
+        }
+      ]
+    },
+    {
+      title: '\u8f49\u751f\u6210\u8718\u86db\u53c8\u600e\u6a23\uff01',
+      introduction: '',
+      created_date: '2019-08-16 07:41:58',
+      publisher: '\u89d2\u5ddd\u6587\u5eab',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: null,
+      id: 2193,
+      author: '\u99ac\u5834\u7fc1',
+      updated_date: '2020-04-18 00:56:46',
+      cover_url: 'http://img.wenku8.com/image/2/2193/2193s.jpg',
+      last_updated_date: '2020-03-18',
+      word_count: null,
+      volumes: [
+        {
+          id: 8661,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 2193
+        },
+        {
+          id: 8662,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 2193
+        },
+        {
+          id: 8663,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 2193
+        },
+        {
+          id: 8664,
+          name: '\u7b2c\u56db\u5377',
+          book_id: 2193
+        },
+        {
+          id: 8665,
+          name: '\u7b2c\u4e94\u5377',
+          book_id: 2193
+        },
+        {
+          id: 8666,
+          name: '\u7b2c\u516d\u5377',
+          book_id: 2193
+        },
+        {
+          id: 8667,
+          name: '\u7b2c\u4e03\u5377',
+          book_id: 2193
+        },
+        {
+          id: 8668,
+          name: '\u7b2c\u516b\u5377',
+          book_id: 2193
+        },
+        {
+          id: 8669,
+          name: '\u7b2c\u4e5d\u5377',
+          book_id: 2193
+        },
+        {
+          id: 8670,
+          name: '\u7b2c\u5341\u5377',
+          book_id: 2193
+        },
+        {
+          id: 10136,
+          name: '\u7b2c\u5341\u4e00\u5377',
+          book_id: 2193
+        },
+        {
+          id: 10137,
+          name: '\u7b2c\u5341\u4e8c\u5377',
+          book_id: 2193
+        }
+      ]
+    },
+    {
+      title: '\u8f49\u751f\u6210\u81ea\u52d5\u8ca9\u8ce3\u6a5f\u7684\u6211\u4eca\u5929\u4e5f\u5728\u8ff7\u5bae\u5f98\u5f8a',
+      introduction: '\u88ab\u6372\u5165\u4e00\u5834\u8eca\u798d\u610f\u5916\u7684\u6211\uff0c\u9192\u4f86\u4e4b\u5f8c\uff0c\u767c\u73fe\u81ea\u5df1\u4f47\u7acb\u5728\u4e00\u7247\u964c\u751f\u7684\u6e56\u7554\uff0c\n\u4e0d\u4f46\u8eab\u9ad4\u52d5\u4e0d\u4e86\uff0c\u4e5f\u7121\u6cd5\u767c\u51fa\u8072\u97f3\u3002\n\u56e0\u70ba\u9019\u500b\u83ab\u540d\u5176\u5999\u7684\u72c0\u6cc1\u800c\u9677\u5165\u6df7\u4e82\uff0c\n\u65bc\u662f\u653e\u8072\u5927\u558a\u7684\u77ac\u9593\uff0c\u6211\u537b\u807d\u5230\u4e00\u53e5\u51fa\u4e4e\u610f\u6599\u7684\u81fa\u8a5e\u2500\u2500\n\u300c\u5982\u679c\u4e2d\u734e\u5c31\u80fd\u518d\u4f86\u4e00\u74f6\uff01\u300d\n\u770b\u2026\u2026\u770b\u6a23\u5b50\uff0c\u6211\u4f3c\u4e4e\u8b8a\u6210\u4e00\u81fa\u300c\u81ea\u52d5\u8ca9\u8ce3\u6a5f\u300d\u4e86\u2026\u2026\uff01\n\u6211\u80fd\u5920\u9078\u64c7\u7684\u884c\u52d5\uff0c\u300c\u50c5\u9650\u65bc\u300d\u81ea\u52d5\u8ca9\u8ce3\u6a5f\u672c\u8eab\u5177\u5099\u7684\u529f\u80fd\u3002\n\u5728\u7121\u6cd5\u81ea\u529b\u884c\u52d5\u3001\u4e5f\u4e0d\u80fd\u8ddf\u4ed6\u4eba\u5c0d\u8a71\u7684\u72c0\u614b\u4e0b\uff0c\u6211\u80fd\u5728\u7570\u4e16\u754c\u7684\u8ff7\u5bae\u5b58\u6d3b\u4e0b\u53bb\u55ce\uff1f\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: '\u89d2\u5ddd\u6587\u5eab',
+      book_status: '\u5df2\u5b8c\u6210',
+      last_updated_chapter_name: '\u7b2c\u4e09\u5377 \u63d2\u5716',
+      id: 2236,
+      author: '\u665d\u718a',
+      updated_date: null,
+      cover_url: 'http://img.wkcdn.com/image/2/2236/2236s.jpg',
+      last_updated_date: '2019-01-21',
+      word_count: 337388,
+      volumes: [
+        {
+          id: 8775,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 2236
+        },
+        {
+          id: 8776,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 2236
+        },
+        {
+          id: 8777,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 2236
+        }
+      ]
+    },
+    {
+      title: '\u7570\u754c\u8f49\u751f\u5f37\u596a\u6230(\u63a0\u596a\u8005 \u88ab\u63a0\u596a\u8005)',
+      introduction: '\u4f50\u85e4\u512a\u88ab\u7e7c\u7236\u6bba\u6389\u4e86\u2026\u2026\u7406\u61c9\u9019\u6a23\u624d\u5c0d\uff0c\u7136\u800c\u6e05\u9192\u6642\uff0c\u51fa\u73fe\u5728\u773c\u524d\u7684\u537b\u662f\u7570\u4e16\u754c\u3002\u4ed6\u88ab\u8001\u5a46\u5a46\u53f2\u9edb\u62c9\u64bf\u4e86\u56de\u53bb\uff0c\u53d7\u5979\u7684\u6eab\u67d4\u5c0d\u5f85\u6240\u611f\u52d5\uff0c\u4fbf\u4e0b\u5b9a\u6c7a\u5fc3\u8981\u5728\u9019\u500b\u4e16\u754c\u751f\u6d3b\u3002\u7136\u800c\u6751\u4eba\u537b\u56e0\u70ba\u9ed1\u9aee\u9ed1\u773c\u800c\u5c07\u512a\u8996\u70ba\u5fcc\u5b50\u8f15\u8511\u4ed6\uff0c\u751a\u81f3\u9023\u53f2\u9edb\u62c9\u90fd\u88ab\u6751\u88e1\u7684\u5192\u96aa\u8005\u54c8\u51f1\u77a7\u4e0d\u8d77\u3002\u5728\u6012\u706b\u9a45\u4f7f\u4e0b\uff0c\u512a\u5f77\u4f5b\u300c\u8981\u596a\u8d70\u5c0d\u65b9\u7684\u4e00\u5207\u300d\u822c\u77aa\u8996\u54c8\u51f1\uff0c\u9019\u6642\u4ed6\u767c\u73fe\u81ea\u5df1\u7684\u72c0\u614b\u8868\u756b\u9762\u51fa\u73fe\u4e86\u5c0d\u65b9\u7684\u6280\u80fd\u2014\u2014\uff01\u4e0d\u65b7\u906d\u5230\u525d\u596a\u7684\u5c11\u5e74\u4ee5\u300c\u5f37\u596a\u300d\u6280\u80fd\u70ba\u6b66\u5668\u7684\u9006\u8f49\u5192\u96aa\u6545\u4e8b\uff0c\u5728\u6b64\u63ed\u5e55\uff01\n',
+      created_date: '2019-08-16 07:41:57',
+      publisher: 'Fami\u901a\u6587\u5eab',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: '\u7b2c\u4e5d\u5377 \u63d2\u5716',
+      id: 2249,
+      author: 'mino',
+      updated_date: null,
+      cover_url: 'http://img.wkcdn.com/image/2/2249/2249s.jpg',
+      last_updated_date: '2019-08-07',
+      word_count: 851238,
+      volumes: [
+        {
+          id: 8808,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 2249
+        },
+        {
+          id: 8809,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 2249
+        },
+        {
+          id: 8810,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 2249
+        },
+        {
+          id: 8811,
+          name: '\u7b2c\u56db\u5377',
+          book_id: 2249
+        },
+        {
+          id: 8812,
+          name: '\u7b2c\u4e94\u5377',
+          book_id: 2249
+        },
+        {
+          id: 8813,
+          name: '\u7b2c\u516d\u5377',
+          book_id: 2249
+        },
+        {
+          id: 8814,
+          name: '\u7b2c\u4e03\u5377',
+          book_id: 2249
+        },
+        {
+          id: 8815,
+          name: '\u7b2c\u516b\u5377',
+          book_id: 2249
+        },
+        {
+          id: 8816,
+          name: '\u7b2c\u4e5d\u5377',
+          book_id: 2249
+        }
+      ]
+    },
+    {
+      title: '\u6e9d\u901a\u969c\u7919\u7684\u6211\u5c07\u4ea4\u6d89\u6280\u80fd\u9ede\u6eff\u8f49\u751f\u5f8c\u7684\u7d50\u679c',
+      introduction: '\u68ee\u5ca1\u5f18\u4eba\u56e0\u4ea4\u901a\u610f\u5916\u6b7b\u53bb\uff0c\u9192\u4f86\u6642\u4ed6\u773c\u524d\u51fa\u73fe\u4e86\u4e00\u500b\u81ea\u7a31\u5973\u795e\u7684\u7f8e\u5973!!\n\u5973\u795e\u7a81\u7136\u5c0d\u4ed6\u8aaa\u300c\u6211\u9080\u8acb\u4f60\u4f86\u5230\u6211\u7684\u4e16\u754c\u300a\u6c38\u6046\u5e7b\u5883\uff08Eternal Magia\uff09\u300b\u300d\u3002\n\u4e0d\u50c5\u5982\u6b64\uff0c\u5f9e\u5973\u795e\u624b\u4e2d\u6536\u4e0b\u984d\u5916\u6280\u80fd\u9ede\u6578\u7684\u5f18\u4eba\u5c07\u9ede\u6578\u5168\u704c\u9032\u300c\u4ea4\u6d89\u8853\u300d\u6280\u80fd\uff0c\n\u7372\u5f97\u4e86\u9ad8\u7b49\u6280\u80fd\u300c\u9b45\u60d1\u300d\u3002\u5f9e\u6b64\u4e4b\u5f8c\uff0c\u898b\u5230\u4ed6\u7684\u5973\u6027\u5011\u7121\u4e00\u4e0d\u70ba\u4ed6\u50be\u5012\uff0c\n\u4e26\u4e3b\u52d5\u5c0d\u4ed6\u9032\u884c\u300c\u6388\u4e73\u300d\u2500\u2500\uff01\uff01\u7531\u6280\u80fd\u300c\u9b45\u60d1\u300d\u5c55\u958b\u7684\u8d85\u904e\u6fc0\u9b3c\u755c\u7570\u4e16\u754c\u5947\u5e7b\u5192\u96aa\uff0c\u5728\u6b64\u63ed\u958b\u5e8f\u5e55!!\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: 'Fami\u901a\u6587\u5eab',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: '\u7b2c\u56db\u5377 \u63d2\u5716',
+      id: 2262,
+      author: '\u6731\u6708\u5341\u8a71',
+      updated_date: null,
+      cover_url: 'http://img.wkcdn.com/image/2/2262/2262s.jpg',
+      last_updated_date: '2019-03-30',
+      word_count: 405757,
+      volumes: [
+        {
+          id: 8852,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 2262
+        },
+        {
+          id: 8853,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 2262
+        },
+        {
+          id: 8854,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 2262
+        },
+        {
+          id: 8855,
+          name: '\u7b2c\u56db\u5377',
+          book_id: 2262
+        }
+      ]
+    },
+    {
+      title: '\u8f49\u751f\u5c31\u662f\u528d(\u8f49\u751f\u6210\u70ba\u9b54\u528d)',
+      introduction: '\u4e00\u56de\u795e\uff0c\u6211\u767c\u73fe\u81ea\u5df1\u5df2\u7d93\u8f49\u751f\u81f3\u7570\u4e16\u754c\u4e86\u3002\n\u4e0d\u662f\u4f5c\u70ba\u666e\u901a\u4eba\u985e\uff0c\u800c\u662f\u4e00\u628a\u528d\u3002\n\u518d\u5f80\u5468\u570d\u74b0\u9867\uff0c\u539f\u4f86\u9019\u88e1\u662f\u500b\u9b54\u7269\u7316\u7357\uff0c\u96aa\u8c61\u74b0\u751f\u7684\u8349\u539f\u5730\u5e36\u3002\n\u89ba\u5f97\u6027\u547d\u53d7\u5230\u5a01\u8105\u7684\u4e3b\u89d2\uff0c\u904b\u7528\u8b93\u81ea\u5df1\u8eab\u9ad4\u98c4\u6d6e\u7684\u80fd\u529b\uff0c\u9010\u6b65\u7375\u6bba\u9b54\u7269\u3002\n\u5c31\u5728\u9019\u6642\uff0c\u4e3b\u89d2\u70ba\u4e86\u4f11\u606f\u800c\u63d2\u9032\u5730\u9762\u7684\u77ac\u9593\uff0c\u80fd\u529b\u5c45\u7136\u7834\u529f\uff0c\u52d5\u5f48\u4e0d\u5f97\u3002\n\u7136\u800c\u5c31\u7121\u8a08\u53ef\u65bd\u7684\u4e3b\u89d2\u9762\u524d\uff0c\u7a81\u5982\u5176\u4f86\u51fa\u73fe\u4e00\u540d\u5974\u96b8\u6253\u626e\u7684\u8c93\u8033\u5c11\u5973\u2026\u2026\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: '\u5176\u4ed6\u6587\u5eab',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: '\u7b2c\u4e09\u5377 \u63d2\u5716',
+      id: 2309,
+      author: '\u68da\u67b6\u30e6\u30a6',
+      updated_date: '2019-11-26 14:32:06',
+      cover_url: 'http://img.wenku8.com/image/2/2309/2309s.jpg',
+      last_updated_date: '2019-11-16',
+      word_count: 431293,
+      volumes: [
+        {
+          id: 8958,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 2309
+        },
+        {
+          id: 8959,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 2309
+        },
+        {
+          id: 9713,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 2309
+        }
+      ]
+    },
+    {
+      title: '\u8f49\u751f\u6210\u5973\u6027\u5411\u904a\u6232\u53ea\u6709\u6bc0\u6ec5END\u7684\u58de\u4eba\u5927\u5c0f\u59d0(\u8f49\u751f\u60e1\u5f79\u53ea\u597d\u62d4\u9664\u7834\u6ec5\u65d7\u6a19)',
+      introduction: '\u649e\u5230\u982d\u6062\u5fa9\u524d\u4e16\u7684\u8a18\u61b6\u5f8c\uff0c\u6211\u7adf\u7136\u8f49\u4e16\u6210\u70ba\u516c\u7235\u5343\u91d1\u3002\u54a6\uff0c\u7b49\u4e00\u4e0b\uff01\u9019\u6839\u672c\u5c31\u662f\u6211\u524d\u4e16\u73a9\u904e\u7684\u5c11\u5973\u5411\u904a\u6232\u4e16\u754c\u5427\uff1f\u800c\u4e14\u6211\u9084\u8b8a\u6210\u4e86\u8981\u963b\u9952\u5973\u4e3b\u89d2\u7684\u58de\u4eba\u5927\u5c0f\u59d0\u5361\u5854\u8389\u5a1c!?\u7d50\u5c40\u53ea\u6709\u653e\u9010\u570b\u5916\u6216\u6b7b\u4ea1\u4e8c\u9078\u4e00!?\u70ba\u4e86\u907f\u514d\u6bc0\u6ec5\u7d50\u5c40\uff0c\u96d6\u7136\u6c7a\u5b9a\u4ee5\u53d6\u6d88\u8207\u738b\u5b50\u8a02\u4e0b\u7684\u5713\u6eff\u5a5a\u7d04\u70ba\u9996\u8981\u76ee\u6a19\u2026\u58de\u4eba\u5927\u5c0f\u59d0\uff0c\u76f4\u5954\u578b\u7537\u904d\u5730\u7684\u9006\u5f8c\u5bae\u8def\u7dda!?\u63d2\u6eff\u6200\u611b\u65d7\u6a19\uff0c\u907f\u514d\u6bc0\u6ec5\u7684\u6200\u611b\u559c\u5287\u2605\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: '\u5176\u4ed6\u6587\u5eab',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: '\u7b2c\u516b\u5377 \u63d2\u5716',
+      id: 2312,
+      author: '\u5c71\u53e3\u609f',
+      updated_date: '2020-04-29 04:42:01',
+      cover_url: 'http://img.wenku8.com/image/2/2312/2312s.jpg',
+      last_updated_date: '2020-04-28',
+      word_count: 812080,
+      volumes: [
+        {
+          id: 8969,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 2312
+        },
+        {
+          id: 8970,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 2312
+        },
+        {
+          id: 8971,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 2312
+        },
+        {
+          id: 8972,
+          name: '\u7b2c\u56db\u5377',
+          book_id: 2312
+        },
+        {
+          id: 8973,
+          name: '\u7b2c\u4e94\u5377',
+          book_id: 2312
+        },
+        {
+          id: 8974,
+          name: '\u7b2c\u516d\u5377',
+          book_id: 2312
+        },
+        {
+          id: 9970,
+          name: '\u7b2c\u4e03\u5377',
+          book_id: 2312
+        },
+        {
+          id: 10301,
+          name: '\u7b2c\u516b\u5377',
+          book_id: 2312
+        }
+      ]
+    },
+    {
+      title: '\u53ef\u4ee5\u8b80\u6a94\u7684\u65c5\u5e97\uff5e\u807d\u8aaa\u80fd\u529b\u503c\u6eff\u9ede\u7684\u8f49\u751f\u5192\u96aa\u8005\u5728\u65c5\u5e97\u958b\u59cb\u57f9\u80b2\u65b0\u4eba\uff5e',
+      introduction: '\u300c\u7528\u4e0d\u8457\u64d4\u5fc3\uff0c\u5df2\u7d93\u5132\u5b58\u597d\u4e86\u300d\n\u90a3\u662f\u4e00\u9593\u8b20\u50b3\u300e\u5165\u4f4f\u5f8c\u5c31\u518d\u4e5f\u4e0d\u6703\u55aa\u547d\u300f\u7684\u65c5\u793e\uff0c\u4eca\u5929\u4ecd\u6709\u8a31\u591a\u62b1\u8457\u4e00\u7dda\u5e0c\u671b\uff0c\u70ba\u4e86\u9054\u5230\u76ee\u7684\u4e0d\u60dc\u8ced\u4e0a\u6027\u547d\u7684\u4eba\u805a\u96c6\u5230\u9019\u88e1\u4f86\u3002\u5bb6\u65cf\u906d\u5230\u596a\u53d6\u7684\u8cb4\u65cf\u30fb\u863f\u857e\u5854\uff1b\u88ab\u62cb\u68c4\u7684\u9b54\u65cf\u30fb\u83ab\u7433\uff0c\u5979\u5011\u638c\u63e1\u5230\u7684\u300e\u4e0d\u6b7b\u65c5\u793e\u300f\u7955\u5bc6\u7a76\u7adf\u662f\u2014\u2014\n\u300c\u9019\u88e1\u662f\u5132\u5b58\u9ede\u3002\u300d\n\u7d93\u71df\u9019\u9593\u65c5\u793e\u7684\u4eba\u662f\u4e00\u4f4d\u5c01\u9802\u7684\u5192\u96aa\u8005\u4e9e\u96f7\u514b\uff0c\u4ed6\u81ea\u7a31\u662f\u5f9e\u7570\u4e16\u754c\u4f86\u5230\u9019\u88e1\uff0c\u64c1\u6709\u300e\u8a2d\u7f6e\u5132\u5b58\u9ede\u7684\u80fd\u529b\u300f\u3002\n\u9019\u88e1\u4f3c\u4e4e\u662f\u4ee5\u5354\u52a9\u521d\u7d1a\u5192\u96aa\u8005\u70ba\u76ee\u7684\u7d93\u71df\u7684\u65c5\u793e\uff0c\u5979\u5011\u5728\u9019\u500b\u5730\u65b9\u958b\u59cb\u4fee\u884c\uff0c\u4f46\u4fee\u884c\u5167\u5bb9\u537b\u5b8c\u5168\u7121\u6cd5\u9810\u6e2c\u2026\u2026\n\u5c31\u7b97\u6b7b\u4e86\uff0c\u53ea\u8981\u91cd\u65b0\u8b80\u53d6\u5c31\u80fd\u4e00\u53e3\u6c23\u8df3\u5347\u597d\u5e7e\u7d1a\uff01\u9644\u52a0\u50f9\u503c\u662f\u7531\u6700\u5f37\u9000\u4f11\u5192\u96aa\u8005\u9032\u884c\u65b0\u4eba\u57f9\u80b2\uff0c\u95dc\u65bc\u65c5\u793e\u7684\u65e5\u5e38\u751f\u6d3b\u6545\u4e8b\u3002\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: '\u96c6\u82f1\u793e',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: '\u7b2c\u4e00\u5377 \u63d2\u5716',
+      id: 2361,
+      author: '\u7a3b\u8377\u9f8d',
+      updated_date: null,
+      cover_url: 'http://img.wkcdn.com/image/2/2361/2361s.jpg',
+      last_updated_date: '2018-02-08',
+      word_count: 89610,
+      volumes: [
+        {
+          id: 9073,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 2361
+        }
+      ]
+    },
+    {
+      title: '\u70ba\u6240\u6b32\u70ba\u7684\u524d\u52c7\u8005\u518d\u5ea6\u8f49\u751f\uff0c\u958b\u59cb\u5f37\u5927\u800c\u6109\u5feb\u7684\u7b2c\u4e8c\u8f2a\u904a\u6232',
+      introduction: '\u5728\u7b2c\u4e8c\u8f2a\u7684\u904a\u6232\u4eba\u751f\u88e1\uff0c\u8a72\u5e79\u4e9b\u4ec0\u9ebc\u624d\u597d\u5462\uff1f\n\u6211\u518d\u6b21\u8f49\u751f\u5230\u904e\u53bb\u66fe\u4ee5\u300c\u52c7\u8005\u300d\u8eab\u5206\u62ef\u6551\u7684\u7570\u4e16\u754c\u3002\u4e0a\u6b21\u8f49\u751f\u904e\u4f86\u7684\u76ee\u7684\u662f\u300c\u6253\u5012\u9b54\u738b\u300d\uff0c\u53ef\u662f\u9019\u6b21\u537b\u6c92\u6709\u4efb\u4f55\u76ee\u7684\u3002\n\u5118\u7ba1\u6211\u64c1\u6709\u52c7\u8005\u5728\u7b2c\u4e8c\u8f2a\u904a\u6232\u88e1\u5f37\u5f97\u96e2\u8b5c\u7684\u80fd\u529b\uff0c\u4f46\u6211\u6c7a\u5b9a\u96a8\u5fc3\u6240\u6b32\u5730\u6d3b\u4e0b\u53bb\u3002\n\u6211\u7387\u9818\u8457\u4e16\u754c\u6700\u5f37\u7684\u8ce2\u8005\u5973\u50d5\uff0c\u6536\u7559\u5974\u96b8\u5c11\u5973\u4e26\u4ee5\u300c\u52c7\u8005\u5f0f\u5e36\u7df4\u300d\u5c0d\u5979\u5c55\u958b\u935b\u934a\uff0c\u9084\u8b93\u76dc\u8cca\u5c11\u5973\u6539\u904e\u5411\u5584\uff0c\u5c31\u6b64\u589e\u52a0\u4e86\u5925\u4f34\u3002\n\u7121\u8ad6\u662f\u8c6a\u5b85\u5ee3\u5ec8\u9084\u662f\u6700\u5f37\u88dd\u5099\uff0c\u5168\u90fd\u4efb\u6211\u6311\u9078\u3002\u4f46\u6211\u771f\u6b63\u60f3\u8981\u8ffd\u6c42\u7684\u65e2\u975e\u8ca1\u5bcc\uff0c\u4ea6\u975e\u69ae\u8b7d\uff0c\u4e5f\u975e\u7f8e\u5973\u3002\u6211\u53ea\u6c42\u4e00\u4ef6\u4e8b\u60c5\u2500\u2500\u90a3\u5c31\u662f\u6d3b\u5f97\u50cf\u6211\u81ea\u5df1\uff01\u5728\u9019\u6b21\u7684\u4eba\u751f\u88e1\uff0c\u8001\u5b50\u60f3\u5e79\u4ec0\u9ebc\u5c31\u5e79\u4ec0\u9ebc\uff01\u54c7\u54c8\u54c8\u54c8\uff01\uff01\n\u524d\u52c7\u8005\u70ba\u6240\u6b32\u70ba\u3001\u5f37\u5927\u800c\u6109\u5feb\u7684\u7b2c\u4e8c\u8f2a\u904a\u6232\u4eba\u751f\uff01\u5373\u5c07\u706b\u71b1\u958b\u6f14\uff01\n',
+      created_date: '2019-08-16 07:41:57',
+      publisher: '\u96c6\u82f1\u793e',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: '\u7b2c\u4e09\u5377 \u63d2\u5716',
+      id: 2388,
+      author: '\u65b0\u6728\u4f38',
+      updated_date: null,
+      cover_url: 'http://img.wkcdn.com/image/2/2388/2388s.jpg',
+      last_updated_date: '2019-07-02',
+      word_count: 298735,
+      volumes: [
+        {
+          id: 9132,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 2388
+        },
+        {
+          id: 9133,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 2388
+        },
+        {
+          id: 9134,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 2388
+        }
+      ]
+    },
+    {
+      title: '\u5e36\u8457\u5916\u639b\u8f49\u751f\u70ba\u516c\u6703\u6ac3\u6aaf\u5c0f\u59d0',
+      introduction: '\u67d0\u4e00\u5929\uff0c\u8ff7\u7cca\u7684\u795e\u660e\u4e00\u6642\u5931\u8aa4\uff0c\u596a\u8d70\u4e86\u79cb\u91ce\u53cb\u662d\u7684\u751f\u547d\u3002\u70ba\u4e86\u8868\u9054\u6b49\u610f\uff0c\u5728\u53cb\u662d\u8f49\u751f\u6642\uff0c\u795e\u660e\u9001\u7d66\u4ed6\u5404\u5f0f\u5404\u6a23\u7684\u4f5c\u5f0a\u80fd\u529b\uff0c\u4ed6\u4e5f\u958b\u5fc3\u5730\u63a5\u53d7\u4e86\u3002\u6c92\u60f3\u5230\u53cb\u662d\u7adf\u7136\u8f49\u751f\u6210\u4e86\u7cbe\u9748\u65cf\u5973\u5b69\uff01\u6642\u5149\u6d41\u901d\uff0c\u53cb\u662d\u4ee5\u624d\u8272\u517c\u5177\u7684\u6ac3\u6aaf\u5c0f\u59d0\u2027\u4f0a\u8389\u4e9e\u7684\u8eab\u5206\uff0c\u5728\u516c\u6703\u7d44\u7e54\u7409\u8076\u5a01\u9b6f\u5206\u90e8\u5de5\u4f5c\u3002\u5979\u5728\u9019\u500b\u528d\u8207\u9b54\u6cd5\u7684\u4e16\u754c\uff0c\u4eca\u5929\u4e5f\u5fd9\u8457\u516c\u6703\u7684\u5de5\u4f5c\u3002\n\u5728\u300c\u6210\u70ba\u5c0f\u8aaa\u5bb6\u300d\u7db2\u7ad9\u4e0a\u5927\u53d7\u6b61\u8fce\uff0c\u7531\u64c1\u6709\u4f5c\u5f0a\u80fd\u529b\u7684\u6ac3\u6aaf\u5c0f\u59d0\u70ba\u4e3b\u89d2\u7684\u7570\u4e16\u754c\u5947\u5e7b\u6545\u4e8b\uff0c\u7d93\u904e\u6574\u7bc7\u5927\u5e45\u6539\u5beb\u4e4b\u5f8c\u63a8\u51fa\u55ae\u884c\u672c\u3002\u53e6\u5916\u6536\u9304\u52a0\u7b46\u756a\u5916\u7bc7\u300e\u4f0a\u8389\u4e9e\u7684\u4f5c\u5f0a\u670b\u53cb\u5011\u300f\uff0c\u53ef\u85c9\u6b64\u4e00\u7aba\u7db2\u8def\u7248\u6c92\u6709\u63cf\u5beb\u7684\u66b4\u541b\u8718\u86db\u5927\u6230\u7684\u9762\u8c8c\u3002\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: '\u5176\u4ed6\u6587\u5eab',
+      book_status: '\u5df2\u5b8c\u6210',
+      last_updated_chapter_name: '\u7b2c\u56db\u5377 \u63d2\u5716',
+      id: 2471,
+      author: '\u590f\u306b\u30b3\u30bf\u30c4',
+      updated_date: '2020-04-23 02:18:10',
+      cover_url: 'http://img.wenku8.com/image/2/2471/2471s.jpg',
+      last_updated_date: '2020-04-22',
+      word_count: 536957,
+      volumes: [
+        {
+          id: 9299,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 2471
+        },
+        {
+          id: 9300,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 2471
+        },
+        {
+          id: 9710,
+          name: '\u7b2c2.5\u5377',
+          book_id: 2471
+        },
+        {
+          id: 9711,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 2471
+        },
+        {
+          id: 10296,
+          name: '\u7b2c\u56db\u5377',
+          book_id: 2471
+        }
+      ]
+    },
+    {
+      title: '\u8f49\u751f\u9f8d\u86cb~\u76ee\u6a19\u53ea\u6709\u6700\u5f37',
+      introduction: '\u7576\u6211\u775c\u958b\u773c\u5f8c\uff0c\u767c\u73fe\u81ea\u5df1\u8655\u5728\u672a\u66fe\u898b\u904e\u7684\u68ee\u6797\u4e4b\u4e2d\u3002\u800c\u4e14\u9019\u88e1\u4f3c\u4e4e\u662f\u6211\u4e0d\u77e5\u9053\u7684\u5e7b\u60f3\u4e16\u754c\u3002\u74b0\u9867\u5468\u570d\uff0c\u6eff\u662f\u5687\u4eba\u7684\u7570\u5f62\u9b54\u7378\u3002\u89c0\u770b\u81ea\u5df1\u7684\u8eab\u59ff\uff0c\u51fa\u73fe\u5728\u90a3\u88e1\u7684\u662f\u4e00\u500b\u5de8\u5927\u7684\u86cb\u2026\u5582\uff01\u6211\u9019\u662f\u8f49\u751f\u6210\u86cb\u4e86\u554a\uff01\uff1f\u800c\u4e14\uff0c\u60f3\u5f9e\u86cb\u4e2d\u5b75\u5316\uff0c\u597d\u50cf\u9084\u5fc5\u9808\u72e9\u7375\u9b54\u7378\u63d0\u5347\u7b49\u7d1a\u3002\u6230\u9b25\u5565\u7684\u7d55\u5c0d\u505a\u4e0d\u5230\u554a\uff01\u56e0\u70ba\u2026\u2026\u6211\u662f\u86cb\u561b~~~~~~~~~\uff01\uff01\uff01\n',
+      created_date: '2019-08-16 07:41:58',
+      publisher: '\u5176\u4ed6\u6587\u5eab',
+      book_status: '\u9023\u8f09\u4e2d',
+      last_updated_chapter_name: '\u7b2c\u4e94\u5377 \u63d2\u5716',
+      id: 2477,
+      author: '\u8c93\u5b50',
+      updated_date: null,
+      cover_url: 'http://img.wkcdn.com/image/2/2477/2477s.jpg',
+      last_updated_date: '2019-01-06',
+      word_count: 687849,
+      volumes: [
+        {
+          id: 9308,
+          name: '\u7b2c\u4e00\u5377',
+          book_id: 2477
+        },
+        {
+          id: 9309,
+          name: '\u7b2c\u4e8c\u5377',
+          book_id: 2477
+        },
+        {
+          id: 9310,
+          name: '\u7b2c\u4e09\u5377',
+          book_id: 2477
+        },
+        {
+          id: 9311,
+          name: '\u7b2c\u56db\u5377',
+          book_id: 2477
+        },
+        {
+          id: 9312,
+          name: '\u7b2c\u4e94\u5377',
+          book_id: 2477
+        }
+      ]
+    }
+  ]
+}

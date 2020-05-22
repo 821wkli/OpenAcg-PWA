@@ -10,7 +10,7 @@
                 @doBlur='onBlur'
 
     ></search-bar>
-    `
+    <section v-if="!isSearching">`
     <section class="recommendation-container">
       <header>
         <p>大家都在搜</p>
@@ -36,6 +36,14 @@
         </li>
       </ul>
     </section>
+    </section>
+    <section v-else class="search-keywords-container" >
+      <ul class="search-keywords-list">
+        <li :key="index" class="item" v-for="(item,index) in fuzzingKeywords " @click="$router.push({ name: 'home', query: { keyword: item } })">
+          <span class="title">{{item}}</span>
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 
@@ -43,13 +51,15 @@
 import SearchBar from '@/components/search/searchBar'
 import { mapGetters, mapActions } from 'vuex'
 import { isEmpty } from '@/utils/common'
+import { fetchRelatedKeywords } from '../../apis'
 
 export default {
   name: 'search',
   data () {
     return {
       searchText: '',
-      showPlaceHolder: true
+      showPlaceHolder: true,
+      fuzzingKeywords: []
     }
   },
   computed: {
@@ -63,6 +73,9 @@ export default {
     },
     hottestBook: function () {
       return !isEmpty(this.hotList) ? this.hotList[Math.floor(Math.random() * this.hotList.length)].title : ''
+    },
+    isSearching: function () {
+      return this.searchText.trim().length > 0
     }
   },
   created () {
@@ -71,6 +84,11 @@ export default {
     if (isEmpty(this.searchHistory)) {
       this.initSearchHistory()
     }
+    fetchRelatedKeywords(this.searchText).then(res => {
+      if (!isEmpty(res.response)) {
+        this.fuzzingKeywords = res.response.map(book => book.title)
+      }
+    })
   },
   methods: {
     ...mapActions(['initSearchHistory', 'saveHomeScrollingPosY', 'saveSearchHistory', 'cleanSearchHistory', 'saveLatestBookList']),
@@ -157,11 +175,11 @@ export default {
       }
     }
 
-    .search-history-container {
+    .search-history-container,.search-keywords-container {
       margin-left: .53333rem;
       margin-right: .14933rem;
       padding-right: 3.33%;
-
+      background-color: inherit;
       .history-title {
         display: flex;
         justify-content: space-between;
@@ -175,9 +193,11 @@ export default {
 
       }
 
-      .history-list {
+      .history-list,.search-keywords-list {
         margin-top: .5rem;
-
+        &.search-keywords-list{
+          margin-top: 1.8rem;
+        }
         li {
           display: flex;
           justify-content: flex-start;

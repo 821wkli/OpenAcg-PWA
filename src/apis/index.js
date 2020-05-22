@@ -1,13 +1,15 @@
 import fetch from '../utils/fetch'
 import { isEmpty } from '../utils/common'
+import { keywords } from './tempData'
 // import { daily } from './tempData'
 //
-// const setpromise = data => {
-//   return new Promise((resolve, reject) => {
-//     resolve(data)
-//   })
-// }
+const setpromise = data => {
+  return new Promise((resolve, reject) => {
+    resolve(data)
+  })
+}
 // export const fetchAnimeDetail = (mid) => setpromise(detail)
+export const fetchRelatedKeywords = (searchKeywords) => setpromise(keywords)
 export const fetchAnimeDetail = (mid) => fetch('GET', '/torrent/info', {
   torrentId: mid
 })
