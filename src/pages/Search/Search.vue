@@ -180,6 +180,12 @@ export default {
       margin-right: .14933rem;
       padding-right: 3.33%;
       background-color: inherit;
+      &.search-keywords-container{
+        background-color: rgb(244, 244, 244);
+        margin-left: 0;
+        margin-right: 0;
+        padding-left:.53333rem;
+      }
       .history-title {
         display: flex;
         justify-content: space-between;
