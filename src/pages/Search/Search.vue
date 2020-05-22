@@ -180,6 +180,7 @@ export default {
       margin-right: .14933rem;
       padding-right: 3.33%;
       background-color: inherit;
+      height: 100%;
       &.search-keywords-container{
         background-color: rgb(244, 244, 244);
         margin-left: 0;
