@@ -122,6 +122,11 @@ export default {
           pullDownRefresh: {
             threshold: 40,
             stop: 20
+          },
+          mouseWheel: {
+            speed: 20,
+            invert: false,
+            easeTime: 300
           }
         }
         this.scroll = new BScroll(this.$refs.wrapper, options)
