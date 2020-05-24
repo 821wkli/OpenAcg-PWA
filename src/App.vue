@@ -140,11 +140,12 @@ export default {
   name: 'App',
   components: { AddToHomeScreen },
   methods: {
-    ...mapActions(['initReadingHistory', 'initSetting', 'saveSystem'])
+    ...mapActions(['initReadingHistory', 'initSetting', 'saveSystem', 'initKindleEmailAddress'])
   },
   created () {
     this.initReadingHistory()
     this.initSetting()
+    this.initKindleEmailAddress()
     const userAgent = navigator.userAgent || navigator.vendor
     const isAndroid = /android/i.test(userAgent)
     const isIOS = /iPad|iPhone/.test(userAgent) && !window.MSStream

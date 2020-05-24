@@ -56,7 +56,7 @@
                 <div class="btn" :class="{inBookshelfColor:bookshelfStatus.isInBookshelf}" @click="addToBookShelf">
                   {{bookshelfStatus.message}}
                 </div>
-                <div class="btn">同步Kindle</div>
+                <div @click="kindle.showKindle=true" class="btn">同步Kindle</div>
               </div>
             </div>
           </section>
@@ -119,6 +119,9 @@
         </div>
       </section>
       <chapter-list @goback="hidePanel" v-if="volumePanel.showChapterPanel"></chapter-list>
+      <transition name="slide" mode="out-in">
+      <kindle @onConfirm="sendToKindle" @onCancel="kindle.showKindle = false" v-if="kindle.showKindle"></kindle>
+      </transition>
     </section>
     <section v-else class="loader">
       <jump-loader where="top" class="icon"></jump-loader>
@@ -133,13 +136,14 @@
 <script>
 import headTop from '../../components/header/headTop'
 import { mapGetters, mapActions } from 'vuex'
-import { fetchBook } from '../../apis'
+import { _sendToKindle, fetchBook } from '../../apis'
 import ChapterList from '../../components/book/chapterList'
 import BScroll from 'better-scroll'
 import { isEmpty } from '../../utils/common'
 import jumpLoader from '../../components/loader/jumpLoader'
 import { imageBaseUrl } from '../../config/env'
 import ShareBox from '../../components/book/shareBox'
+import Kindle from '../../components/book/kindle'
 
 export default {
   name: 'Book',
@@ -170,6 +174,9 @@ export default {
         showChapterPanel: false,
         chapterList: [],
         currentVolumeChapters: {}
+      },
+      kindle: {
+        showKindle: false
       }
     }
   },
@@ -181,7 +188,7 @@ export default {
   beforeDestroy () {
     this.saveBook(null)
   },
-  components: { ShareBox, ChapterList, headTop, jumpLoader },
+  components: { Kindle, ShareBox, ChapterList, headTop, jumpLoader },
   methods: {
     createScroll: function () {
       this.$nextTick(() => {
@@ -265,13 +272,33 @@ export default {
       this.saveBookToBookshelf(this.book)
     },
     onGoback: function () {
-      if (!isEmpty(this.from.query) && 'chapterid' in this.from.query === false) {
-        this.$router.push({ name: 'home', query: this.from.query })
-      } else if (this.from.path.indexOf('bookshelf') !== -1) {
-        this.$router.go(-1)
+      if (!isEmpty(this.from)) {
+        if (!('chapterid' in this.from.query)) {
+          this.$router.push({ name: 'home', query: this.from.query })
+        } else if (this.from.path.indexOf('bookshelf') !== -1) {
+          this.$router.go(-1)
+        }
       } else {
         this.$router.push({ name: 'home' })
       }
+    },
+    sendToKindle: function (args) {
+      const data = {
+        email: args.email,
+        title: this.book.title,
+        author: this.book.author,
+        volumes: args.volumes.map((volume) => volume.id)
+      }
+      this.kindle.showKindle = false
+      this.$toast.center('Task has been submitted')
+
+      _sendToKindle(data).then((res) => {
+        if (res.response.message === 'success') {
+          this.$toast.center(`${data.title} OK`)
+        } else {
+          this.$toast('Send to kindle failed')
+        }
+      }).catch(e => this.$toast('Send to kindle failed'))
     }
   },
   watch: {
@@ -356,6 +383,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
   .container {
     padding-top: 1.95rem;
     position: absolute;
