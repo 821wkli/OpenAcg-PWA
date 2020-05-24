@@ -78,59 +78,59 @@
 </template>
 
 <script>
-  // import headTop from '../header/headTop'
-  import {mapGetters, mapActions} from 'vuex'
-  import {isEmpty} from '../../utils/common'
+// import headTop from '../header/headTop'
+import { mapGetters, mapActions } from 'vuex'
+import { isEmpty } from '../../utils/common'
 
-  export default {
-    name: 'kindle',
-    computed: {
-      ...mapGetters(['book', 'kindleEmailAddress'])
+export default {
+  name: 'kindle',
+  computed: {
+    ...mapGetters(['book', 'kindleEmailAddress'])
+  },
+  data () {
+    return {
+      email: null,
+      volumeListToBeSent: [],
+      showVolumeSelector: false
+    }
+  },
+  created () {
+    this.volumeListToBeSent = [...this.book.volumes]
+    this.email = this.kindleEmailAddress
+  },
+  methods: {
+    ...mapActions(['saveKindleEmailAddress']),
+    goback () {
+      this.$emit('goback')
     },
-    data() {
-      return {
-        email: null,
-        volumeListToBeSent: [],
-        showVolumeSelector: false
+    addVolume: function (obj) {
+      if (this.volumeListToBeSent.includes(obj)) {
+        const pos = this.volumeListToBeSent.indexOf(obj)
+        if (pos !== -1) this.volumeListToBeSent.splice(pos, 1)
+      } else {
+        this.volumeListToBeSent.push(obj)
       }
     },
-    created() {
-      this.volumeListToBeSent = [...this.book.volumes]
-      this.email = this.kindleEmailAddress
+    onCancel: function () {
+      this.showVolumeSelector ? this.showVolumeSelector = false : this.$emit('onCancel')
     },
-    methods: {
-      ...mapActions(['saveKindleEmailAddress']),
-      goback() {
-        this.$emit('goback')
-      },
-      addVolume: function (obj) {
-        if (this.volumeListToBeSent.includes(obj)) {
-          const pos = this.volumeListToBeSent.indexOf(obj)
-          if (pos !== -1) this.volumeListToBeSent.splice(pos, 1)
-        } else {
-          this.volumeListToBeSent.push(obj)
+    onConfirm: function () {
+      // validate email
+      this.email = this.email?.toLowerCase()
+      const isValidEmail = !isEmpty(this.email?.trim()) && /^[a-z0-9](\.?[a-z0-9]){5,}@kindle\.com$$/.test(this.email)
+      if (isValidEmail) {
+        this.saveKindleEmailAddress(this.email)
+        this.$emit('onConfirm', { email: this.email, volumes: this.volumeListToBeSent })
+      } else {
+        if (this.showVolumeSelector) {
+          this.showVolumeSelector = false
         }
-      },
-      onCancel: function () {
-        this.showVolumeSelector ? this.showVolumeSelector = false : this.$emit('onCancel')
-      },
-      onConfirm: function () {
-        // validate email
-        this.email = this.email?.toLowerCase()
-        const isValidEmail = !isEmpty(this.email?.trim()) && /^[a-z0-9](\.?[a-z0-9]){5,}@kindle\.com$$/.test(this.email)
-        if (isValidEmail) {
-          this.saveKindleEmailAddress(this.email)
-          this.$emit('onConfirm', {email: this.email, volumes: this.volumeListToBeSent})
-        } else {
-          if (this.showVolumeSelector) {
-            this.showVolumeSelector = false
-          }
-          this.$toast.center(this.$lang.bookPage.invalidEmailAddressMsg)
-        }
+        this.$toast.center(this.$lang.bookPage.invalidEmailAddressMsg)
       }
     }
-
   }
+
+}
 </script>
 
 <style scoped lang="scss">
