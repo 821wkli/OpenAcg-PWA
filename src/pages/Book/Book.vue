@@ -294,11 +294,11 @@ export default {
 
       _sendToKindle(data).then((res) => {
         if (res.response.message === 'success') {
-          this.$toast.center(`${data.title} OK`)
+          this.$toast.center(`${data.title} ${this.$lang.bookPage.syncOK}`)
         } else {
-          this.$toast('Send to kindle failed')
+          this.$toast(this.$lang.bookPage.syncFailed)
         }
-      }).catch(e => this.$toast('Send to kindle failed'))
+      }).catch(e => this.$toast(this.$lang.bookPage.syncFailed))
     }
   },
   watch: {
