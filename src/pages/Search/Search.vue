@@ -8,6 +8,7 @@
                 @clear="onClear"
                 @doFocus="onFocus"
                 @doBlur='onBlur'
+                @input="triggerAutoComplete"
 
     ></search-bar>
     <section v-if="!isSearching">`
@@ -59,7 +60,8 @@ export default {
     return {
       searchText: '',
       showPlaceHolder: true,
-      fuzzingKeywords: []
+      fuzzingKeywords: [],
+      offset: 0
     }
   },
   computed: {
@@ -84,11 +86,6 @@ export default {
     if (isEmpty(this.searchHistory)) {
       this.initSearchHistory()
     }
-    fetchRelatedKeywords(this.searchText).then(res => {
-      if (!isEmpty(res.response)) {
-        this.fuzzingKeywords = res.response.map(book => book.title)
-      }
-    })
   },
   methods: {
     ...mapActions(['initSearchHistory', 'saveHomeScrollingPosY', 'saveSearchHistory', 'cleanSearchHistory', 'saveLatestBookList']),
@@ -102,6 +99,17 @@ export default {
         this.saveSearchHistory({ title: this.searchText })
         this.$router.push({ name: 'home', query: { keyword: this.searchText } })
       }
+    },
+    triggerAutoComplete: function () {
+      setTimeout(() => {
+        if (this.searchText.trim().length > 0) {
+          fetchRelatedKeywords(this.searchText).then(res => {
+            if (!isEmpty(res.response)) {
+              this.fuzzingKeywords = res.response
+            }
+          })
+        }
+      }, 500)
     },
     onCancel: function () {
       this.$router.go(-1)
