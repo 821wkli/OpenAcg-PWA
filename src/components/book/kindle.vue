@@ -78,59 +78,59 @@
 </template>
 
 <script>
-// import headTop from '../header/headTop'
-import { mapGetters, mapActions } from 'vuex'
-import { isEmpty } from '../../utils/common'
+  // import headTop from '../header/headTop'
+  import {mapGetters, mapActions} from 'vuex'
+  import {isEmpty} from '../../utils/common'
 
-export default {
-  name: 'kindle',
-  computed: {
-    ...mapGetters(['book', 'kindleEmailAddress'])
-  },
-  data () {
-    return {
-      email: null,
-      volumeListToBeSent: [],
-      showVolumeSelector: false
-    }
-  },
-  created () {
-    this.volumeListToBeSent = [...this.book.volumes]
-    this.email = this.kindleEmailAddress
-  },
-  methods: {
-    ...mapActions(['saveKindleEmailAddress']),
-    goback () {
-      this.$emit('goback')
+  export default {
+    name: 'kindle',
+    computed: {
+      ...mapGetters(['book', 'kindleEmailAddress'])
     },
-    addVolume: function (obj) {
-      if (this.volumeListToBeSent.includes(obj)) {
-        const pos = this.volumeListToBeSent.indexOf(obj)
-        if (pos !== -1) this.volumeListToBeSent.splice(pos, 1)
-      } else {
-        this.volumeListToBeSent.push(obj)
+    data() {
+      return {
+        email: null,
+        volumeListToBeSent: [],
+        showVolumeSelector: false
       }
     },
-    onCancel: function () {
-      this.showVolumeSelector ? this.showVolumeSelector = false : this.$emit('onCancel')
+    created() {
+      this.volumeListToBeSent = [...this.book.volumes]
+      this.email = this.kindleEmailAddress
     },
-    onConfirm: function () {
-      // validate email
-      this.email = this.email?.toLowerCase()
-      const isValidEmail = !isEmpty(this.email?.trim()) && /^[a-z0-9](\.?[a-z0-9]){5,}@kindle\.com$$/.test(this.email)
-      if (isValidEmail) {
-        this.saveKindleEmailAddress(this.email)
-        this.$emit('onConfirm', { email: this.email, volumes: this.volumeListToBeSent })
-      } else {
-        if (this.showVolumeSelector) {
-          this.showVolumeSelector = false
+    methods: {
+      ...mapActions(['saveKindleEmailAddress']),
+      goback() {
+        this.$emit('goback')
+      },
+      addVolume: function (obj) {
+        if (this.volumeListToBeSent.includes(obj)) {
+          const pos = this.volumeListToBeSent.indexOf(obj)
+          if (pos !== -1) this.volumeListToBeSent.splice(pos, 1)
+        } else {
+          this.volumeListToBeSent.push(obj)
         }
-        this.$toast.center(this.$lang.bookPage.invalidEmailAddressMsg)
+      },
+      onCancel: function () {
+        this.showVolumeSelector ? this.showVolumeSelector = false : this.$emit('onCancel')
+      },
+      onConfirm: function () {
+        // validate email
+        this.email = this.email?.toLowerCase()
+        const isValidEmail = !isEmpty(this.email?.trim()) && /^[a-z0-9](\.?[a-z0-9]){5,}@kindle\.com$$/.test(this.email)
+        if (isValidEmail) {
+          this.saveKindleEmailAddress(this.email)
+          this.$emit('onConfirm', {email: this.email, volumes: this.volumeListToBeSent})
+        } else {
+          if (this.showVolumeSelector) {
+            this.showVolumeSelector = false
+          }
+          this.$toast.center(this.$lang.bookPage.invalidEmailAddressMsg)
+        }
       }
     }
-  }
 
-}
+  }
 </script>
 
 <style scoped lang="scss">
@@ -308,9 +308,11 @@ export default {
         .tips {
           font-size: .6rem;
         }
-        .email{
+
+        .email {
           padding-right: .8rem;
         }
+
         .icon {
           svg {
             width: .65rem;

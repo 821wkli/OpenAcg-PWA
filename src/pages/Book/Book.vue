@@ -289,12 +289,15 @@ export default {
         author: this.book.author,
         volumes: args.volumes.map((volume) => volume.id)
       }
-
       this.kindle.showKindle = false
       this.$toast.center('Task has been submitted')
 
-      _sendToKindle(data).then(() => {
-        this.$toast.center(`${data.title} OK`)
+      _sendToKindle(data).then((res) => {
+        if (res.response.message === 'success') {
+          this.$toast.center(`${data.title} OK`)
+        } else {
+          this.$toast('Send to kindle failed')
+        }
       }).catch(e => this.$toast('Send to kindle failed'))
     }
   },
