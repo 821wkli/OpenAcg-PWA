@@ -62,13 +62,22 @@
               <p class="volume-counter description tips">{{this.$lang.bookPage.volumeCounterDesc +
                 this.volumeListToBeSent.length}}</p>
             </div>
-
             <div class="volumes">
               <div class="volume-name" :class="{active: volumeListToBeSent.includes(volume)}"
-                   v-for="(volume, index) in this.book.volumes"
+                   v-for="(volume, index) in this.volumeListToBeSent"
                    :key="index"
                    @click="addVolume(volume)"
               ><p>{{volume.name}}</p></div>
+            </div>
+            <div class="btn-container" >
+              <open-button
+                @onClick="isSelectedAll?volumeListToBeSent =[]:volumeListToBeSent = book.volumes"
+                :disabled='false'
+                :plain='false'
+                :text="!this.isSelectedAll? $lang.common.selectAll:$lang.common.reverseAll"
+                :mini='false' type="primary">
+              </open-button>
+
             </div>
           </section>
         </transition>
@@ -81,11 +90,15 @@
 // import headTop from '../header/headTop'
 import { mapGetters, mapActions } from 'vuex'
 import { isEmpty } from '../../utils/common'
-
+import openButton from '../common/openButton'
 export default {
   name: 'kindle',
+  components: { openButton },
   computed: {
-    ...mapGetters(['book', 'kindleEmailAddress'])
+    ...mapGetters(['book', 'kindleEmailAddress']),
+    isSelectedAll: function () {
+      return this.volumeListToBeSent.length === this.book.volumes.length
+    }
   },
   data () {
     return {
@@ -242,6 +255,7 @@ export default {
           .volumes {
             display: flex;
             flex-wrap: wrap;
+            margin-top: .8rem;
             padding: 0 .85rem 0 .85rem;
 
             div {
@@ -269,7 +283,8 @@ export default {
 
           @media (min-width: 1025px) {
             .volumes {
-              padding: 16px 12px;
+              margin-top: 16px;
+              padding: 0px 12px;
 
               div {
                 margin: 0 4px 4px 0;
@@ -289,6 +304,18 @@ export default {
                   height: 100%;
                 }
               }
+            }
+          }
+
+          .btn-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+
+            .openBtn {
+              width: 100%;
             }
           }
         }

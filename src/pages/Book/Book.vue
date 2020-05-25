@@ -124,7 +124,7 @@
       </transition>
     </section>
     <section v-else class="loader">
-      <jump-loader where="top" class="icon"></jump-loader>
+      <poke-ball where="top" class="ball-loader"></poke-ball>
     </section>
     <section @click.stop="showShareBox=false" class="share-box-mask" v-show="showShareBox">
       <share-box @onClose="showShareBox = false" :book="this.book"></share-box>
@@ -140,7 +140,7 @@ import { _sendToKindle, fetchBook } from '../../apis'
 import ChapterList from '../../components/book/chapterList'
 import BScroll from 'better-scroll'
 import { isEmpty } from '../../utils/common'
-import jumpLoader from '../../components/loader/jumpLoader'
+import pokeBall from '../../components/loader/pokeBall'
 import { imageBaseUrl } from '../../config/env'
 import ShareBox from '../../components/book/shareBox'
 import Kindle from '../../components/book/kindle'
@@ -188,7 +188,7 @@ export default {
   beforeDestroy () {
     this.saveBook(null)
   },
-  components: { Kindle, ShareBox, ChapterList, headTop, jumpLoader },
+  components: { Kindle, ShareBox, ChapterList, headTop, pokeBall },
   methods: {
     createScroll: function () {
       this.$nextTick(() => {
@@ -409,6 +409,13 @@ export default {
       width: 100vw;
       height: 100vh;
       background: #fff;
+      .ball-loader{
+          position: fixed;
+          left: 50%;
+          margin-left: -28px;
+          top: 25%;
+
+      }
     }
 
     .book-main {

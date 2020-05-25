@@ -87,7 +87,7 @@
           @onClick="selectAll"
           :disabled='false'
           :plain='false'
-          :text="!this.isCheckedAll? $lang.bookshelfPage.selectAll:$lang.bookshelfPage.reverseAll"
+          :text="!this.isCheckedAll? $lang.common.selectAll:$lang.common.reverseAll"
           :mini='false'>
           <svg slot="icon" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-tick"/>

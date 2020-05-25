@@ -37,8 +37,7 @@ export const chinese = {
     volumeCounterDesc: '選中卷數: ',
     invalidEmailAddressMsg: '請輸入有效的Kindle電郵地址',
     syncOK: '已同步到Kindle',
-    syncFailed: '同步Kindle失敗',
-
+    syncFailed: '同步Kindle失敗'
 
   },
   readPage: {
@@ -53,8 +52,6 @@ export const chinese = {
   bookshelfPage: {
     collection: '個人收藏',
     history: '閱讀記錄',
-    selectAll: '全選',
-    reverseAll: '反選',
     continueReading: '繼續閱讀',
     remove: '移除'
   },
@@ -68,6 +65,8 @@ export const chinese = {
     notSupportHEVC: '當前瀏覽器不支援經HEVC壓縮的視頻檔案，播放時，可能只有聲音而沒有畫面，你可以下載本視頻，以支援解析HEVC視頻的播放器，例如VLC player播放本集或者選擇其他非HEVC格式的數據'
   },
   common: {
+    selectAll: '全選',
+    reverseAll: '反選',
     networkError: '網絡連線不穩定,請重新刷新頁面',
     copySucess: '拷貝成功',
     copyFailed: '拷貝失敗',
