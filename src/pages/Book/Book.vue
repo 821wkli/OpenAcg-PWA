@@ -273,10 +273,14 @@ export default {
     },
     onGoback: function () {
       if (!isEmpty(this.from)) {
-        if (!('chapterid' in this.from.query)) {
+        // search view <-> book view
+        if (('keyword' in this.from.query)) {
           this.$router.push({ name: 'home', query: this.from.query })
+          // bookshelf view <--> book view
         } else if (this.from.path.indexOf('bookshelf') !== -1) {
           this.$router.go(-1)
+        } else {
+          this.$router.push({ name: 'home' })
         }
       } else {
         this.$router.push({ name: 'home' })
