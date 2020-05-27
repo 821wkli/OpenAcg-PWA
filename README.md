@@ -37,7 +37,7 @@ __Noted：This project is only for personal use only, Secondary distribution is 
 
 | Book volume Panel | Seach book, recommendation, history |  Search results    |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/volumePanel.png)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/search.png)| ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/searchList.png)
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/volumePanel.png)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/search.png)| ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/searchList.gif)
 
 | 404 not found | Chapter reading page |  Setting panel    |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
