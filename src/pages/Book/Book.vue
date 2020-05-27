@@ -296,7 +296,7 @@ export default {
           taskId = res.response.task_id
           this.kindle.isSubmitting = false
           this.kindle.showKindle = false
-          this.$toast.center(this.$lang.taskSubmitOK)
+          this.$toast.center(this.$lang.bookPage.taskSubmitOK)
 
           const timer = setInterval(() => {
             if (counter > MAX_QUERY_TIMES) {
