@@ -67,7 +67,7 @@
         >
           <section class="book-summary enabled">
             <div class="content" :class="{showMore:isShowMore}">
-              {{book.introduction.trim()!=='' ? book.introduction: $lang.bookPage.copyRightMessage}}
+              {{book.introduction!=='' ? book.introduction: $lang.bookPage.copyRightMessage}}
             </div>
             <span
               :class="{showMore:isShowMore}"
@@ -114,7 +114,6 @@
           </span>
               <span>{{volume.name}}</span>
             </li>
-            <li class="book-volume-list-li"></li>
           </ul>
         </div>
       </section>
@@ -134,16 +133,16 @@
 </template>
 
 <script>
-import headTop from '../../components/header/headTop'
+import headTop from '@/components/header/headTop'
 import { mapGetters, mapActions } from 'vuex'
-import { _sendToKindle, fetchBook, queryKindleSync } from '../../apis'
-import ChapterList from '../../components/book/chapterList'
+import { _sendToKindle, fetchBook, queryKindleSync } from '@/apis'
+import ChapterList from '@/components/book/chapterList'
 import BScroll from 'better-scroll'
-import { isEmpty } from '../../utils/common'
-import pokeBall from '../../components/loader/pokeBall'
-import { imageBaseUrl } from '../../config/env'
-import ShareBox from '../../components/book/shareBox'
-import Kindle from '../../components/book/kindle'
+import { isEmpty } from '@/utils/common'
+import pokeBall from '@/components/loader/pokeBall'
+import { imageBaseUrl } from '@/config/env'
+import ShareBox from '@/components/book/shareBox'
+import Kindle from '@/components/book/kindle'
 
 export default {
   name: 'Book',
@@ -167,7 +166,7 @@ export default {
       showShareBox: false,
       bookshelfStatus: {
         isInBookshelf: false,
-        message: '加入書櫃'
+        message: this.$lang.bookPage.addToBookshelf
       },
 
       volumePanel: {
@@ -229,6 +228,7 @@ export default {
         }
         book = { ...book.response }
         book.cover_url = `${imageBaseUrl}/image/` + book.cover_url.split('/').pop()
+        book.introduction = book.introduction.trim()
         this.saveBook(book)
       }
       this.initChapterList(this.book)
@@ -241,12 +241,12 @@ export default {
       if (isInBookshelf) {
         this.bookshelfStatus = {
           isInBookshelf: true,
-          message: '已加入書櫃'
+          message: this.$lang.bookPage.hasBeenAddedToBookshelf
         }
       } else {
         this.bookshelfStatus = {
           isInBookshelf: false,
-          message: '加入書櫃'
+          message: this.$lang.bookPage.addToBookshelf
         }
       }
     },
@@ -284,7 +284,6 @@ export default {
       // on client side, send query request for every 5 secs
       const MAX_QUERY_TIMES = 50
       const counter = 1
-      const sucess = false
       const data = {
         email: args.email,
         title: this.book.title,
@@ -297,30 +296,32 @@ export default {
           taskId = res.response.task_id
           this.kindle.isSubmitting = false
           this.kindle.showKindle = false
-          this.$toast.center('Task has been submitted')
+          this.$toast.center(this.$lang.taskSubmitOK)
 
           const timer = setInterval(() => {
             if (counter > MAX_QUERY_TIMES) {
-              if (!sucess) this.$toast.center(`${data.title}${this.$lang.bookPage.syncFailed}`)
+              this.$toast.center(`${data.title} ${this.$lang.bookPage.syncFailed}`)
               clearInterval(timer)
             }
             queryKindleSync(taskId).then((res) => {
               if (!isEmpty(res.response)) {
                 if ('result' in res.response) {
-                  this.$toast.center(`${data.title}${this.$lang.bookPage.syncOK}`)
+                  this.$toast.center(`${data.title} ${this.$lang.bookPage.syncOK}`)
                   clearInterval(timer)
                 }
+                // if something wrong during sending on server
                 if (res.response.state.toUpperCase() === 'FAILURE') {
-                  if (!sucess) this.$toast.center(`${data.title}${this.$lang.bookPage.syncFailed}`)
+                  this.$toast.center(`${data.title} ${this.$lang.bookPage.syncFailed}`)
+                  this.$toast.center(this.res.response.task_status)
                   clearInterval(timer)
                 }
               }
-            })
+            }).catch(e => this.$toast.center(`${data.title} ${this.$lang.bookPage.syncFailed}`))
           }, 5000)
         } else {
-          this.$toast('Failed to submit task, try again later.')
+          this.$toast(this.$lang.bookPage.taskSubmitFailed)
         }
-      }).catch(e => this.$toast('Failed to submit task, try again later.'))
+      }).catch(e => this.$toast(this.$lang.bookPage.taskSubmitFailed))
     }
   },
   watch: {
@@ -333,9 +334,9 @@ export default {
         const isInBookshelf = newBookshelfList.some(item => item.id === this.bookid)
         this.bookshelfStatus.isInBookshelf = isInBookshelf
         if (isInBookshelf) {
-          this.bookshelfStatus.message = '已加入書櫃'
+          this.bookshelfStatus.message = this.$lang.bookPage.hasBeenAddedToBookshelf
         } else {
-          this.bookshelfStatus.message = '加入書櫃'
+          this.bookshelfStatus.message = this.$lang.bookPage.addToBookshelf
         }
       })
     },
@@ -350,20 +351,6 @@ export default {
       return this.$store.getters.bookshelfList || []
     },
     ...mapGetters(['book', 'recentReadingChapterList', 'chapterList', 'system']),
-    // bookshelfStatus: function () {
-    //   const isInBookshelf = this.bookshelfList.some(item => item.id === this.bookid)
-    //   if (isInBookshelf) {
-    //     return {
-    //       isInBookshelf: true,
-    //       message: '已加入書櫃'
-    //     }
-    //   } else {
-    //     return {
-    //       isInBookshelf: false,
-    //       message: '加入書櫃'
-    //     }
-    //   }
-    // },
     continueChapterId: function () {
       const readerHistory = this.recentReadingChapterList.find(book => book.bookid === this.bookid)
       if (!isEmpty(readerHistory)) {
@@ -683,15 +670,11 @@ export default {
       .book-volume-list-ul {
         background: #fff;
         margin-top: .35rem;
-
+        padding-bottom: 3rem;
         .book-volume-list-li {
           display: flex;
           justify-content: flex-start;
           align-items: center;
-
-          &:last-of-type {
-            height: 1.5rem;
-          }
 
           span {
             @include sc(.6rem, $defaultColor)

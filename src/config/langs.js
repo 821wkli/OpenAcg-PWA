@@ -14,6 +14,7 @@ export const chinese = {
     startReading: '開始閱讀',
     continueReading: '繼續閱讀',
     addToBookshelf: '加入書櫃',
+    hasBeenAddedToBookshelf: '已加入書櫃',
     unknownNumber: '未知幾多',
     addedToBookshelf: '',
     syncKindle: '',
@@ -36,6 +37,8 @@ export const chinese = {
     volumeSelectionTips: '請選擇要同步的書卷',
     volumeCounterDesc: '選中卷數: ',
     invalidEmailAddressMsg: '請輸入有效的Kindle電郵地址',
+    taskSubmitOK: '任務遞交成功',
+    taskSubmitFailed: '任務遞交失敗,稍後再試',
     syncOK: '已同步到Kindle',
     syncFailed: '同步Kindle失敗'
 
