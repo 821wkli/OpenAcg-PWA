@@ -4,48 +4,48 @@ I read light novels and manga always on different mobile apps and websites as fo
 Another reason push me is reader apps I use so far are just wrapping the old-school non-mobile friendly page into a webview. Not truly native.
 </p>
 
-## Why vue?
+## Why Vue?
 <p>
 Nothing special, I have learnt Vue for halft year and use commonly on freelance projects, but normally which are design to be simple architecture, I haven't master skills like vuex state control across multiple and complex pages. A best way to dive into framework's low-level internals is creating something fun right? Also what attracts me to Vue.js is that the offical documentations is very easily understandable and well-structured.
 </p>
 
 >  [Backend api doc see here](https://github.com/821wkli/OpenAcg-PWA/blob/master/api-docs.md)
 >
->  [demo](https://flask.openacg.tk/home)
+>  [demo](https://821wkli.github.io/OpenAcg-PWA/#/home)
 > + If you are testing on PC, open browser in mobile debugging view.
 > + So far I don't have any plan to support PC, of coz feel free to contribution.
 
 
 
-__Noted：This project is only for personal use only, Commerical distribution is not allowed, all data come from third-party websites.__
+__Noted：This project is only for personal use only, Secondary distribution is not allowed, all data come from third-party websites.__
 
 # Screenshots
 
 
-| Skeleton loading |  Home page    | Drop down menu |
+|Add to Home Screen | Skeleton loading |  Home page    |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/skeleton.gif)                      |  ![](http://cdn.openacg.ml/image/home.jpg)| ![](http://cdn.openacg.ml/image/homeMenu.png) |
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/AddToHomeScreen.gif)          |                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/skeleton.gif)   |![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/home.PNG)  |
 
-| Pull down refresh |  Pull up load more    | None |
+| Drop down menu  | Pull down refresh |  Pull up load more    |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/pullDownRefresh.gif)                      |  ![](http://cdn.openacg.ml/image/pullUpLoadMore.gif)| ![](http://cdn.openacg.ml/image/pullUpLoadMore.gif)|
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/dropDownMenu.jpg)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/pullDownRefresh.gif)| ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/pullUpLoadMore.gif) |
 
-| Bookshelf offline reading |  Book detail    | Book volume Panel |
+| Book detail | Favourite books |  Reading History    |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/bookshelf.png)                      |  ![](http://cdn.openacg.ml/image/bookDetail.png)| ![](http://cdn.openacg.ml/image/volumePanel.png)|
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/bookDetail.PNG)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/faviourites.gif)| ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/history.gif)|
 
-| Chapter reading page |  Setting panel    | Dark mode |
+
+| Book volume Panel | Seach book, recommendation, history |  Search results    |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/chapterContent.png)                      |  ![](http://cdn.openacg.ml/image/chapterContentPanel.png)| ![](http://cdn.openacg.ml/image/darkMode.png)|
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/volumePanel.png)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/search.png)| ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/searchList.png)
 
-| Switch chapter by panel |  Switch chapter by button    |
-| :-----------------------------------------------------: | :----: |
-|                                 ![](http://cdn.openacg.ml/image/chapterPanelScroll.gif)                      |  ![](http://cdn.openacg.ml/image/switchChapter.gif)|
-
-| Seach book, recommendation, history |  Search results    | 404 not found
+| 404 not found | Chapter reading page |  Setting panel    |
 | :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
-|                                 ![](http://cdn.openacg.ml/image/search.png)                      |  ![](http://cdn.openacg.ml/image/searchList.png)| ![](http://cdn.openacg.ml/image/404.gif)
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/404.gif)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/chapterContent.png)| ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/chapterContentPanel.png)|
 
+Dark mode | Switch chapter by panel |  Switch chapter by button    |
+| :-----------------------------------------------------: | :----: | ------------------------------------------------------- |
+|                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/darkMode.png)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/chapterPanelScroll.gif)|![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/switchChapter.gif)|
 
 
 
@@ -58,12 +58,12 @@ For development purpose, vue cli comes with built-in proxy server to bypass cors
 
 On production server, make sure the location path /api on web server is proxied to base api url specified in vue.config.js.
 
-In nginx, the config will look like this.
+For exmaple In nginx, the config will look like this.
 
 ```
  location /api {
  include proxy_params;
- proxy_pass  https://flask.openacg.tk;
+ proxy_pass  https://openacg.ml;
  ## heders ....
                 }
 
@@ -82,8 +82,8 @@ if (process.env.NODE_ENV === 'development') {
 ```
 
 # Functions to be implemented
-- [x] home page
-- [x] search page
+- [x] novel home page
+- [x] novel search page
 - [x] book detail page
 - [x] book reader page
 - [x] bookshelf page
@@ -222,7 +222,7 @@ git clone https://github.com/821wkli/OpenAcg-PWA
 
 cd OpenAcg-PWA
 
-npm install
+npm install -g @vue/cli && npm install
 
 npm run dev
 

@@ -81,6 +81,10 @@ export default {
     border-radius: 5px;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     overflow: hidden;
+    @media (min-width: 1025px) {
+      font-size: 16px;
+      line-height: 48px;
+    }
   }
 
   .default {

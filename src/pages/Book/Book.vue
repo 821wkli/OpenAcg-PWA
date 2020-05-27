@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <section class="book-main" v-if="!showLoading">
+    <section class="book-main">
       <section class="book-main">
         <head-top :head-title="book.title"
                   :go-back="true"
@@ -67,7 +67,7 @@
         >
           <section class="book-summary enabled">
             <div class="content" :class="{showMore:isShowMore}">
-              {{book.introduction.trim()!=='' ? book.introduction: $lang.bookPage.copyRightMessage}}
+              {{book.introduction!=='' ? book.introduction: $lang.bookPage.copyRightMessage}}
             </div>
             <span
               :class="{showMore:isShowMore}"
@@ -114,7 +114,6 @@
           </span>
               <span>{{volume.name}}</span>
             </li>
-            <li class="book-volume-list-li"></li>
           </ul>
         </div>
       </section>
@@ -123,8 +122,8 @@
       <kindle @onConfirm="sendToKindle" @onCancel="kindle.showKindle = false" v-if="kindle.showKindle"></kindle>
       </transition>
     </section>
-    <section v-else class="loader">
-      <jump-loader where="top" class="icon"></jump-loader>
+    <section v-if="showLoading|| kindle.isSubmitting" class="loader" :class="{submitting : kindle.isSubmitting}">
+      <poke-ball where="top" class="ball-loader"></poke-ball>
     </section>
     <section @click.stop="showShareBox=false" class="share-box-mask" v-show="showShareBox">
       <share-box @onClose="showShareBox = false" :book="this.book"></share-box>
@@ -134,16 +133,16 @@
 </template>
 
 <script>
-import headTop from '../../components/header/headTop'
+import headTop from '@/components/header/headTop'
 import { mapGetters, mapActions } from 'vuex'
-import { _sendToKindle, fetchBook } from '../../apis'
-import ChapterList from '../../components/book/chapterList'
+import { _sendToKindle, fetchBook, queryKindleSync } from '@/apis'
+import ChapterList from '@/components/book/chapterList'
 import BScroll from 'better-scroll'
-import { isEmpty } from '../../utils/common'
-import jumpLoader from '../../components/loader/jumpLoader'
-import { imageBaseUrl } from '../../config/env'
-import ShareBox from '../../components/book/shareBox'
-import Kindle from '../../components/book/kindle'
+import { isEmpty } from '@/utils/common'
+import pokeBall from '@/components/loader/pokeBall'
+import { imageBaseUrl } from '@/config/env'
+import ShareBox from '@/components/book/shareBox'
+import Kindle from '@/components/book/kindle'
 
 export default {
   name: 'Book',
@@ -167,7 +166,7 @@ export default {
       showShareBox: false,
       bookshelfStatus: {
         isInBookshelf: false,
-        message: '加入書櫃'
+        message: this.$lang.bookPage.addToBookshelf
       },
 
       volumePanel: {
@@ -176,7 +175,8 @@ export default {
         currentVolumeChapters: {}
       },
       kindle: {
-        showKindle: false
+        showKindle: false,
+        isSubmitting: false
       }
     }
   },
@@ -188,7 +188,7 @@ export default {
   beforeDestroy () {
     this.saveBook(null)
   },
-  components: { Kindle, ShareBox, ChapterList, headTop, jumpLoader },
+  components: { Kindle, ShareBox, ChapterList, headTop, pokeBall },
   methods: {
     createScroll: function () {
       this.$nextTick(() => {
@@ -228,6 +228,7 @@ export default {
         }
         book = { ...book.response }
         book.cover_url = `${imageBaseUrl}/image/` + book.cover_url.split('/').pop()
+        book.introduction = book.introduction.trim()
         this.saveBook(book)
       }
       this.initChapterList(this.book)
@@ -240,23 +241,14 @@ export default {
       if (isInBookshelf) {
         this.bookshelfStatus = {
           isInBookshelf: true,
-          message: '已加入書櫃'
+          message: this.$lang.bookPage.hasBeenAddedToBookshelf
         }
       } else {
         this.bookshelfStatus = {
           isInBookshelf: false,
-          message: '加入書櫃'
+          message: this.$lang.bookPage.addToBookshelf
         }
       }
-      // const res = await fetchChapterList(this.book.id)
-      // if (res.response) {
-      //   // console.log(this.volumePanel)
-      //   this.volumePanel.chapterList = [...this.volumePanel.chapterList, ...res.response]
-      //   const chapters = this.volumePanel.chapterList.reduce((preVolume, currentVolume) => {
-      //     return preVolume.concat(currentVolume.chapters)
-      //   }, [])
-      //   this.SAVE_CHAPTER_LIST(chapters)
-      // }
     },
     reorderVolumes (index) {
       if (index !== this.order) {
@@ -273,32 +265,63 @@ export default {
     },
     onGoback: function () {
       if (!isEmpty(this.from)) {
-        if (!('chapterid' in this.from.query)) {
+        // search view <-> book view
+        if (('keyword' in this.from.query)) {
           this.$router.push({ name: 'home', query: this.from.query })
+          // bookshelf view <--> book view
         } else if (this.from.path.indexOf('bookshelf') !== -1) {
           this.$router.go(-1)
+        } else {
+          this.$router.push({ name: 'home' })
         }
       } else {
         this.$router.push({ name: 'home' })
       }
     },
     sendToKindle: function (args) {
+      let taskId = null
+      // the timeout is 300 seconds on server side, if over the request will be dropped
+      // on client side, send query request for every 5 secs
+      const MAX_QUERY_TIMES = 50
+      const counter = 1
       const data = {
         email: args.email,
         title: this.book.title,
         author: this.book.author,
         volumes: args.volumes.map((volume) => volume.id)
       }
-      this.kindle.showKindle = false
-      this.$toast.center('Task has been submitted')
-
+      this.kindle.isSubmitting = true
       _sendToKindle(data).then((res) => {
-        if (res.response.message === 'success') {
-          this.$toast.center(`${data.title} ${this.$lang.bookPage.syncOK}`)
+        if (!isEmpty(res.response)) {
+          taskId = res.response.task_id
+          this.kindle.isSubmitting = false
+          this.kindle.showKindle = false
+          this.$toast.center(this.$lang.taskSubmitOK)
+
+          const timer = setInterval(() => {
+            if (counter > MAX_QUERY_TIMES) {
+              this.$toast.center(`${data.title} ${this.$lang.bookPage.syncFailed}`)
+              clearInterval(timer)
+            }
+            queryKindleSync(taskId).then((res) => {
+              if (!isEmpty(res.response)) {
+                if ('result' in res.response) {
+                  this.$toast.center(`${data.title} ${this.$lang.bookPage.syncOK}`)
+                  clearInterval(timer)
+                }
+                // if something wrong during sending on server
+                if (res.response.state.toUpperCase() === 'FAILURE') {
+                  this.$toast.center(`${data.title} ${this.$lang.bookPage.syncFailed}`)
+                  this.$toast.center(this.res.response.task_status)
+                  clearInterval(timer)
+                }
+              }
+            }).catch(e => this.$toast.center(`${data.title} ${this.$lang.bookPage.syncFailed}`))
+          }, 5000)
         } else {
-          this.$toast(this.$lang.bookPage.syncFailed)
+          this.$toast(this.$lang.bookPage.taskSubmitFailed)
         }
-      }).catch(e => this.$toast(this.$lang.bookPage.syncFailed))
+      }).catch(e => this.$toast(this.$lang.bookPage.taskSubmitFailed))
     }
   },
   watch: {
@@ -311,9 +334,9 @@ export default {
         const isInBookshelf = newBookshelfList.some(item => item.id === this.bookid)
         this.bookshelfStatus.isInBookshelf = isInBookshelf
         if (isInBookshelf) {
-          this.bookshelfStatus.message = '已加入書櫃'
+          this.bookshelfStatus.message = this.$lang.bookPage.hasBeenAddedToBookshelf
         } else {
-          this.bookshelfStatus.message = '加入書櫃'
+          this.bookshelfStatus.message = this.$lang.bookPage.addToBookshelf
         }
       })
     },
@@ -328,29 +351,13 @@ export default {
       return this.$store.getters.bookshelfList || []
     },
     ...mapGetters(['book', 'recentReadingChapterList', 'chapterList', 'system']),
-    // bookshelfStatus: function () {
-    //   const isInBookshelf = this.bookshelfList.some(item => item.id === this.bookid)
-    //   if (isInBookshelf) {
-    //     return {
-    //       isInBookshelf: true,
-    //       message: '已加入書櫃'
-    //     }
-    //   } else {
-    //     return {
-    //       isInBookshelf: false,
-    //       message: '加入書櫃'
-    //     }
-    //   }
-    // },
-    continueChapterId:
-
-        function () {
-          const readerHistory = this.recentReadingChapterList.find(book => book.bookid === this.bookid)
-          if (!isEmpty(readerHistory)) {
-            return readerHistory.chapterid
-          }
-          return null
-        },
+    continueChapterId: function () {
+      const readerHistory = this.recentReadingChapterList.find(book => book.bookid === this.bookid)
+      if (!isEmpty(readerHistory)) {
+        return readerHistory.chapterid
+      }
+      return null
+    },
 
     firstChapter: function () {
       return this.volumePanel.chapterList[0].chapters[0]
@@ -409,6 +416,17 @@ export default {
       width: 100vw;
       height: 100vh;
       background: #fff;
+      z-index: 999;
+      &.submitting{
+        background-color: rgba(255,255,255,0.8);
+      }
+      .ball-loader{
+          position: fixed;
+          left: 50%;
+          margin-left: -28px;
+          top: 25%;
+
+      }
     }
 
     .book-main {
@@ -652,15 +670,11 @@ export default {
       .book-volume-list-ul {
         background: #fff;
         margin-top: .35rem;
-
+        padding-bottom: 3rem;
         .book-volume-list-li {
           display: flex;
           justify-content: flex-start;
           align-items: center;
-
-          &:last-of-type {
-            height: 1.5rem;
-          }
 
           span {
             @include sc(.6rem, $defaultColor)

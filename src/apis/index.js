@@ -61,7 +61,8 @@ export const fetchChapterList = (bookId) => fetch('GET', '/api/v1/novel/chapterL
 // export const getChapterContent = (cid)=>setpromise(chapter.content);
 export const getChapterContent = (cid) => fetch('GET', '/api/v1/novel/getChapter', {
   chapterid: cid
-}
+})
 
 export const fetchUpdatedBookshelf = (body) => fetch('POST', '/api/v1/novel/updateBookshelf', body)
-export const _sendToKindle = (jsonBody) => fetch('POST', '/api/v1/novel/sendToKindle', jsonBody, 60000)
+export const _sendToKindle = (jsonBody) => fetch('POST', '/api/v1/novel/sendToKindle', jsonBody, 300000)
+export const queryKindleSync = (taskId) => fetch('GET', `/api/v1/novel/kindleSyncStatus/${taskId}`)
