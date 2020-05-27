@@ -321,7 +321,10 @@ export default {
         } else {
           this.$toast(this.$lang.bookPage.taskSubmitFailed)
         }
-      }).catch(e => this.$toast(this.$lang.bookPage.taskSubmitFailed))
+      }).catch(e => {
+        this.kindle.isSubmitting = false
+        this.$toast(this.$lang.bookPage.taskSubmitFailed)
+      })
     }
   },
   watch: {
