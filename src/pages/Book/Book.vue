@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <section class="book-main" v-if="!showLoading">
+    <section class="book-main">
       <section class="book-main">
         <head-top :head-title="book.title"
                   :go-back="true"
@@ -123,7 +123,7 @@
       <kindle @onConfirm="sendToKindle" @onCancel="kindle.showKindle = false" v-if="kindle.showKindle"></kindle>
       </transition>
     </section>
-    <section v-else class="loader">
+    <section v-if="showLoading|| kindle.isSubmitting" class="loader" :class="{submitting : kindle.isSubmitting}">
       <poke-ball where="top" class="ball-loader"></poke-ball>
     </section>
     <section @click.stop="showShareBox=false" class="share-box-mask" v-show="showShareBox">
@@ -136,7 +136,7 @@
 <script>
 import headTop from '../../components/header/headTop'
 import { mapGetters, mapActions } from 'vuex'
-import { _sendToKindle, fetchBook } from '../../apis'
+import { _sendToKindle, fetchBook, queryKindleSync } from '../../apis'
 import ChapterList from '../../components/book/chapterList'
 import BScroll from 'better-scroll'
 import { isEmpty } from '../../utils/common'
@@ -176,7 +176,8 @@ export default {
         currentVolumeChapters: {}
       },
       kindle: {
-        showKindle: false
+        showKindle: false,
+        isSubmitting: false
       }
     }
   },
@@ -248,15 +249,6 @@ export default {
           message: '加入書櫃'
         }
       }
-      // const res = await fetchChapterList(this.book.id)
-      // if (res.response) {
-      //   // console.log(this.volumePanel)
-      //   this.volumePanel.chapterList = [...this.volumePanel.chapterList, ...res.response]
-      //   const chapters = this.volumePanel.chapterList.reduce((preVolume, currentVolume) => {
-      //     return preVolume.concat(currentVolume.chapters)
-      //   }, [])
-      //   this.SAVE_CHAPTER_LIST(chapters)
-      // }
     },
     reorderVolumes (index) {
       if (index !== this.order) {
@@ -287,22 +279,48 @@ export default {
       }
     },
     sendToKindle: function (args) {
+      let taskId = null
+      // the timeout is 300 seconds on server side, if over the request will be dropped
+      // on client side, send query request for every 5 secs
+      const MAX_QUERY_TIMES = 50
+      const counter = 1
+      const sucess = false
       const data = {
         email: args.email,
         title: this.book.title,
         author: this.book.author,
         volumes: args.volumes.map((volume) => volume.id)
       }
-      this.kindle.showKindle = false
-      this.$toast.center('Task has been submitted')
-
+      this.kindle.isSubmitting = true
       _sendToKindle(data).then((res) => {
-        if (res.response.message === 'success') {
-          this.$toast.center(`${data.title} ${this.$lang.bookPage.syncOK}`)
+        if (!isEmpty(res.response)) {
+          taskId = res.response.task_id
+          this.kindle.isSubmitting = false
+          this.kindle.showKindle = false
+          this.$toast.center('Task has been submitted')
+
+          const timer = setInterval(() => {
+            if (counter > MAX_QUERY_TIMES) {
+              if (!sucess) this.$toast.center(`${data.title}${this.$lang.bookPage.syncFailed}`)
+              clearInterval(timer)
+            }
+            queryKindleSync(taskId).then((res) => {
+              if (!isEmpty(res.response)) {
+                if ('result' in res.response) {
+                  this.$toast.center(`${data.title}${this.$lang.bookPage.syncOK}`)
+                  clearInterval(timer)
+                }
+                if (res.response.state.toUpperCase() === 'FAILURE') {
+                  if (!sucess) this.$toast.center(`${data.title}${this.$lang.bookPage.syncFailed}`)
+                  clearInterval(timer)
+                }
+              }
+            })
+          }, 5000)
         } else {
-          this.$toast(this.$lang.bookPage.syncFailed)
+          this.$toast('Failed to submit task, try again later.')
         }
-      }).catch(e => this.$toast(this.$lang.bookPage.syncFailed))
+      }).catch(e => this.$toast('Failed to submit task, try again later.'))
     }
   },
   watch: {
@@ -346,15 +364,13 @@ export default {
     //     }
     //   }
     // },
-    continueChapterId:
-
-        function () {
-          const readerHistory = this.recentReadingChapterList.find(book => book.bookid === this.bookid)
-          if (!isEmpty(readerHistory)) {
-            return readerHistory.chapterid
-          }
-          return null
-        },
+    continueChapterId: function () {
+      const readerHistory = this.recentReadingChapterList.find(book => book.bookid === this.bookid)
+      if (!isEmpty(readerHistory)) {
+        return readerHistory.chapterid
+      }
+      return null
+    },
 
     firstChapter: function () {
       return this.volumePanel.chapterList[0].chapters[0]
@@ -413,6 +429,10 @@ export default {
       width: 100vw;
       height: 100vh;
       background: #fff;
+      z-index: 999;
+      &.submitting{
+        background-color: rgba(255,255,255,0.8);
+      }
       .ball-loader{
           position: fixed;
           left: 50%;
