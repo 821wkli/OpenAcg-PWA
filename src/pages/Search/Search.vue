@@ -24,9 +24,9 @@
     <div class="line" style="background: #f4f4f4;height: .5rem"></div>
     <section class="search-history-container">
       <header class="history-title">
-        <p>History</p>
+        <p>{{$lang.common.searchHistory}}</p>
         <p @click="this.cleanSearchHistory"
-           style="color: blue">Clear</p>
+           style="color: blue">{{$lang.common.clearHistory}}</p>
       </header>
       <ul class="history-list">
         <li :key="index" class="item" v-for="(item,index) in reversedSearchHistoryList " @click="$router.push({ name: 'home', query: { keyword: item.title } })">
@@ -40,7 +40,7 @@
     </section>
     <section v-else class="search-keywords-container" >
       <ul class="search-keywords-list">
-        <li :key="index" class="item" v-for="(item,index) in fuzzingKeywords " @click="$router.push({ name: 'home', query: { keyword: item } })">
+        <li :key="index" class="item" v-for="(item,index) in fuzzingKeywords " @click="saveSearchHistory({ title: item }) && $router.push({ name: 'home', query: { keyword: item } })">
           <span class="title">{{item}}</span>
         </li>
       </ul>
