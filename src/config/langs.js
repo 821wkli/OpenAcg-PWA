@@ -40,7 +40,8 @@ export const chinese = {
     taskSubmitOK: '任務遞交成功',
     taskSubmitFailed: '任務遞交失敗,稍後再試',
     syncOK: '已同步到Kindle',
-    syncFailed: '同步Kindle失敗'
+    syncFailed: '同步Kindle失敗',
+    saveEmail: '儲存'
 
   },
   readPage: {
