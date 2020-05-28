@@ -14,6 +14,9 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
     outline: none;
   }
 }
+body{
+  top: 0;
+}
 ul{
   cursor: pointer;
 }
@@ -124,3 +127,4 @@ textarea {
   transform: translate3d(2rem, 0, 0);
   opacity: 0;
 }
+
