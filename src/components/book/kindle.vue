@@ -14,22 +14,34 @@
             <div class="title left">{{this.$lang.bookPage.ebookDevices}}</div>
             <div class="title right" style="color: #aaaaaa">Kindle</div>
           </div>
-          <div class="item">
+          <div class="item" @click.stop="showEmailBox=true">
             <div class="title left" style="color: blue;">{{this.$lang.bookPage.receiveEmailAddress}}</div>
-            <div class="title right email" style="color: #aaaaaa">
-              <input type="email" class="user-email-address"
-                     v-model="email"
-                     placeholder="example@kindle.com"
-              >
-            </div>
+            <div class="title right" style="color: #aaaaaa">{{this.email!==null?this.email:'example@kindle.com'}}</div>
           </div>
           <div class="item">
             <div class="title left">{{this.$lang.bookPage.senderEmailAddress}}</div>
             <div class="title right" style="color: #aaaaaa">openacg@gmx.com</div>
           </div>
 
+            <section class="email-box" v-show="showEmailBox">
+              <header class="item">
+                <div @click="showEmailBox=false" class="cancel description">{{this.$lang.bookPage.cancel}}</div>
+                <div class="title description">Kindle Sync</div>
+                <div @click="showEmailBox=false " class="confirm description">{{this.$lang.bookPage.saveEmail}}</div>
+              </header>
+              <p class="description tips">{{$lang.bookPage.receiveEmailAddress}}</p>
+              <div class="item">
+                <div class="title right email" style="color: #aaaaaa">
+                  <input type="email" class="user-email-address"
+                         v-model="email"
+                         placeholder="example@kindle.com"
+                         @keyup.enter="showEmailBox=false"
+                  >
+                </div>
+              </div>
+            </section>
         </section>
-        <section class="book-info">
+        <section class="book-info" >
           <p class="description tips">{{this.$lang.bookPage.bookInfo}}</p>
           <div class="item">
             <div class="title left">{{this.$lang.bookPage.bookTitile}}</div>
@@ -69,7 +81,7 @@
                    @click="addVolume(volume)"
               ><p>{{volume.name}}</p></div>
             </div>
-            <div class="btn-container" >
+            <div class="btn-container">
               <open-button
                 @onClick="isSelectedAll?volumeListToBeSent =[]:volumeListToBeSent = [...book.volumes]"
                 :disabled='false'
@@ -83,6 +95,7 @@
         </transition>
       </section>
     </section>
+    <section class="black-mask" @click='showEmailBox=false' v-show="showEmailBox"></section>
   </div>
 </template>
 
@@ -91,6 +104,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import { isEmpty } from '../../utils/common'
 import openButton from '../common/openButton'
+
 export default {
   name: 'kindle',
   components: { openButton },
@@ -104,7 +118,19 @@ export default {
     return {
       email: null,
       volumeListToBeSent: [],
-      showVolumeSelector: false
+      showVolumeSelector: false,
+      showEmailBox: false
+    }
+  },
+  watch: {
+    showEmailBox: function (newShowEmailBox) {
+      if (newShowEmailBox) {
+        const offset = document.body.scrollTop
+        document.body.style.top = (offset * -1) + 'px'
+      } else {
+        const offset = parseInt(document.body.style.top, 10)
+        document.body.scrollTop = (offset * -1)
+      }
     }
   },
   created () {
@@ -219,6 +245,42 @@ export default {
           max-height: 100%;
         }
 
+        .email-box {
+          position: absolute;
+          background-color: #f6f6f6;
+          /*margin-top: .85rem;*/
+          min-width: 80%;
+          max-height: 60%;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 999;
+          display: flex;
+          flex-direction: column;
+          padding-bottom: 24px;
+
+          .title {
+            color: #0c0c0c;
+          }
+
+          .cancel, .confirm {
+            color: rgb(0, 122, 255);
+            font-weight: 400;
+          }
+
+          .email {
+            justify-content: flex-start;
+
+            input {
+              font-size: 1rem;
+              text-align: left;
+              @media (min-width: 1025px) {
+                font-size: inherit;
+              }
+            }
+          }
+        }
+
         .description {
           color: #aaaaaa;
         }
@@ -229,6 +291,9 @@ export default {
 
         input {
           font-size: inherit;
+          @media (max-width: 414px) {
+            font-size: 16px;
+          }
           text-align: right;
         }
 
@@ -263,6 +328,7 @@ export default {
             padding: 0 .85rem 0 .85rem;
             max-height: 100%;
             overflow-y: scroll;
+
             div {
               background-color: #FFFFFF;
               display: inline-flex;
@@ -392,6 +458,15 @@ export default {
       line-height: 2.2rem;
       margin-left: .4rem;
       fill: #33373d;;
+    }
+
+    .black-mask {
+      position: fixed;
+      top: 0;
+      min-width: 100%;
+      min-height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 11;
     }
   }
 </style>
