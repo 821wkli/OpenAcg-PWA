@@ -7,12 +7,12 @@ baseUrl: https://openacg.ml
 
 ## Table of content：
 
-[1. latest updated book list](#1fetch-latest-updated-book-list)<br/>
-[2. book detail](#2fetch-book-detail)<br/>
-[3. search book](#3search-book)<br/>
-[4. search book keywords](#4search-book-keywords)<br/>
-[5. chapter list](#5fetch-chapter-list)<br/>
-[6. chapter content](#6fetch-chapter-content)<br/>
+[* latest updated book list](#fetch-latest-updated-book-list)<br/>
+[* book detail](#fetch-book-detail)<br/>
+[* search book](#search-book)<br/>
+[* search book keywords](#search-book-keywords)<br/>
+[* chapter list](#fetch-chapter-list)<br/>
+[* chapter content](#fetch-chapter-content)<br/>
 
 
 
@@ -20,7 +20,7 @@ baseUrl: https://openacg.ml
 
 ## api list：
 
-### 1. fetch latest updated book list
+### fetch latest updated book list
 
 #### request URL:
 ```
@@ -284,7 +284,7 @@ GET
     ,
 ```
 
-### 2. fetch book detail
+### fetch book detail
 
 #### request URL：
 ```
@@ -426,7 +426,7 @@ GET
 
 ```
 
-### 3. search book
+### search book
 
 #### request URL：
 ```
@@ -669,7 +669,7 @@ GET
 
 ```
 
-### 4. search book keywords
+### search book keywords
 
 #### request URL：
 ```
@@ -725,7 +725,7 @@ GET
 
 ```
 
-### 5. fetch chapter list
+### fetch chapter list
 
 #### request URL：
 ```
@@ -2182,7 +2182,7 @@ GET
 
 ```
 
-### 6. fetch chapter content
+### fetch chapter content
 
 #### request URL：
 ```
