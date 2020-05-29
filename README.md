@@ -129,13 +129,24 @@ Summary:
    |-- components                   // component
         |-- book
             |-- chapterList.vue
+            |-- kindle.vue
+            |-- shareBox.vue
        |-- common                   // shared global elements
 			|-- refresh.vue           // refresh button
-       |-- header                 	 // header component
+            |-- addToHomeScreen.vue           // IOS add to home screen message tips
+            |-- openButton.vue           // button
+            |-- openModal.vue           // popup modal
+            |-- openModalTab.vue           // modal tab
+            |-- roundCheckbox.vue           // checkbox
+            |-- swiper.vue           // native-like swiper
+
+|-- header                 	 // header component
             |-- headTop.vue           // top bar
         |-- loader
             |-- dotLoader.vue
             |-- jumpLoader.vue
+            |-- colorfulSpinner.vue
+            |-- pokeBall.vue
             |-- listSkeleton.vue
         |-- reader
             |-- chapterListPanel.vue
