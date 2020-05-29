@@ -13,7 +13,7 @@ Nothing special, I have learnt Vue for halft year and use commonly on freelance 
 >
 >  [demo](https://821wkli.github.io/OpenAcg-PWA/#/home)
 > + If you are testing on PC, open browser in mobile debugging view.
-> + So far I don't have any plan to support PC, of coz feel free to contribution.
+> + So far I don't have any plan to support the part of novel being responsive on PC. However,the anime streaming page is fully responsive on multiplatform, of coz feel free to contribution.
 
 
 
