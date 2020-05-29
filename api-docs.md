@@ -7,12 +7,12 @@ baseUrl: https://openacg.ml
 
 ## Table of content：
 
-[1. latest updated book list](#fetch-latest-updated-book-list)<br/>
-[2. book detail](#fetch-book-detail)<br/>
-[3. search book](#search-book)<br/>
-[4. search book keywords](#search-book-keywords)<br/>
-[5. chapter list](#fetch-chapter-list)<br/>
-[6. chapter content](#fetch-chapter-content)<br/>
+[1. latest updated book list](#1fetch-latest-updated-book-list)<br/>
+[2. book detail](#2fetch-book-detail)<br/>
+[3. search book](#3search-book)<br/>
+[4. search book keywords](#4search-book-keywords)<br/>
+[5. chapter list](#5fetch-chapter-list)<br/>
+[6. chapter content](#6fetch-chapter-content)<br/>
 
 
 
