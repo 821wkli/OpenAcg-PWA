@@ -48,6 +48,10 @@ Dark mode | Switch chapter by panel |  Switch chapter by button    |
 |                                 ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/darkMode.png)                      |  ![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/chapterPanelScroll.gif)|![](https://github.com/821wkli/OpenAcg-PWA/raw/master/screenshots/switchChapter.gif)|
 
 
+# Kindle Sync demo video
+
+[![Watch the video](https://img.youtube.com/vi/rO1dU5Po6jQ/maxresdefault.jpg)](https://youtu.be/rO1dU5Po6jQ)
+
 
 
 
@@ -89,7 +93,7 @@ if (process.env.NODE_ENV === 'development') {
 - [x] bookshelf page
 - [x] 404 page
 - [ ] Support responsive desktop reader layout
-- [ ] Send to Kindle
+- [x] Send to Kindle
 - [ ] ebook conversion page
 - [ ] manga home page
 - [ ] manga reader page
