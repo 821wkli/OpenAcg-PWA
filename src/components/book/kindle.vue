@@ -80,6 +80,7 @@
                    :key="index"
                    @click="addVolume(volume)"
               ><p>{{volume.name}}</p></div>
+              <div class="volume-name last"></div>
             </div>
             <div class="btn-container">
               <open-button
@@ -130,6 +131,7 @@ export default {
       } else {
         const offset = parseInt(document.body.style.top, 10)
         document.body.scrollTop = (offset * -1)
+        window.scrollTo(0, 0)
       }
     }
   },
@@ -350,6 +352,11 @@ export default {
                 z-index: 1;
               }
             }
+            .last{
+              background-color: inherit;
+              height: 128px;
+              flex-basis: 100%;
+            }
           }
 
           @media (min-width: 1025px) {
@@ -380,7 +387,7 @@ export default {
           }
 
           .btn-container {
-            position: absolute;
+            position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
