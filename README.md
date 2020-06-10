@@ -94,6 +94,7 @@ if (process.env.NODE_ENV === 'development') {
 - [x] 404 page
 - [ ] Support responsive desktop reader layout
 - [x] Send to Kindle
+- [ ] Syosetu translation & ebook generation
 - [ ] ebook conversion page
 - [ ] manga home page
 - [ ] manga reader page
@@ -254,9 +255,10 @@ npm run build
 ## Disclamer
 + This app uses the APIS and DATA provided by third-party websites and it not associated with offical publishers.
 
-+ <strong>I don't store any stuff in servers, for video streaming OpenAcg offers torrent proxy service to forward bittorrent traffic over QUIC to browsers</strong>
++ <strong>I don't store any stuff in servers, for video streaming OpenAcg offers torrent proxy service to translation UDP traffic support by Bittorrent server over HTTP to browsers</strong>
 
-+ All trademarks and copyrights belong to their repective owners and are used here under the terms of Fair use and the  Digital Millennium Copyrights Act (DMCA) *
++ All trademarks and copyrights belong to their respective owners and are used here under the terms of Fair use and the  Digital Millennium Copyrights Act (DMCA) *. Leave out comment on issue board if
+any violation of copy right policy, will be removed from web app as soon as possible.
 
 ## Rejection
 + The content provided by this application is just used for academic purpose.
