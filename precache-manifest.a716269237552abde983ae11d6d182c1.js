@@ -1,50 +1,50 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9f3f0b9577b3fb773b38",
+    "revision": "90da818e365a3fdc44c7",
     "url": "/OpenAcg-PWA/css/app.ae2e65db.css"
   },
   {
-    "revision": "ae8129af14fec663a231",
-    "url": "/OpenAcg-PWA/css/chunk-2041dbb1.728d12ee.css"
+    "revision": "0fe0f5d512f021ef5de4",
+    "url": "/OpenAcg-PWA/css/chunk-07ce0967.749e153b.css"
   },
   {
-    "revision": "c30651eb958aba782536",
+    "revision": "5921fc47c25446993384",
     "url": "/OpenAcg-PWA/css/chunk-3b8152cc.171ab3bf.css"
   },
   {
-    "revision": "9de6b78753d7278ee1d4",
+    "revision": "670a6d2b20499ab23b03",
     "url": "/OpenAcg-PWA/css/chunk-3c302d1c.0f25ebab.css"
   },
   {
-    "revision": "e8da265f6f7e4b70e350",
+    "revision": "472009e2c44f12ba2e04",
     "url": "/OpenAcg-PWA/css/chunk-3e5a6e65.8dee0559.css"
   },
   {
-    "revision": "11c455560be544d10570",
+    "revision": "cbf4ec31eedcb7c99679",
     "url": "/OpenAcg-PWA/css/chunk-6888c3db.585aca0d.css"
   },
   {
-    "revision": "17f98215e43332bd6628",
+    "revision": "e2697f02ccddcf3f56b4",
     "url": "/OpenAcg-PWA/css/chunk-73566d46.be874911.css"
   },
   {
-    "revision": "68f693935ef6d63ada53",
+    "revision": "7b64aadb9b296c5247d9",
     "url": "/OpenAcg-PWA/css/chunk-78e6d69d.cf204e1b.css"
   },
   {
-    "revision": "d3748b6a94349b3ec7c6",
-    "url": "/OpenAcg-PWA/css/chunk-83ae1038.2b6fa49c.css"
-  },
-  {
-    "revision": "c87ea2ad1c6abbc99d91",
+    "revision": "54662847ebd758e2774d",
     "url": "/OpenAcg-PWA/css/chunk-9a4fa7e2.655e982d.css"
   },
   {
-    "revision": "599dfc12e06d66ca5280",
+    "revision": "4deb9470d15a3a92c95d",
     "url": "/OpenAcg-PWA/css/chunk-ac519d72.9d64a46d.css"
   },
   {
-    "revision": "e3db95c901296accccd3",
+    "revision": "741518b57a8190185f69",
+    "url": "/OpenAcg-PWA/css/chunk-fdf3c1bc.6a6073e4.css"
+  },
+  {
+    "revision": "939ed91c2dba23775942",
     "url": "/OpenAcg-PWA/css/chunk-vendors.f190deb1.css"
   },
   {
@@ -116,56 +116,56 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/OpenAcg-PWA/img/skin-default-t.ece62.ece62008.jpg"
   },
   {
-    "revision": "28033c1240d6c68739d0d4fe8aecb3d0",
+    "revision": "cb4120e5e364440f1de11b34397dd367",
     "url": "/OpenAcg-PWA/index.html"
   },
   {
-    "revision": "9f3f0b9577b3fb773b38",
-    "url": "/OpenAcg-PWA/js/app.732ad027.js"
+    "revision": "90da818e365a3fdc44c7",
+    "url": "/OpenAcg-PWA/js/app.af8097be.js"
   },
   {
-    "revision": "ae8129af14fec663a231",
-    "url": "/OpenAcg-PWA/js/chunk-2041dbb1.633caee2.js"
+    "revision": "0fe0f5d512f021ef5de4",
+    "url": "/OpenAcg-PWA/js/chunk-07ce0967.b4256cdf.js"
   },
   {
-    "revision": "c30651eb958aba782536",
-    "url": "/OpenAcg-PWA/js/chunk-3b8152cc.fd6210de.js"
+    "revision": "5921fc47c25446993384",
+    "url": "/OpenAcg-PWA/js/chunk-3b8152cc.71e0e5bb.js"
   },
   {
-    "revision": "9de6b78753d7278ee1d4",
-    "url": "/OpenAcg-PWA/js/chunk-3c302d1c.e2f3c92d.js"
+    "revision": "670a6d2b20499ab23b03",
+    "url": "/OpenAcg-PWA/js/chunk-3c302d1c.8b8c5833.js"
   },
   {
-    "revision": "e8da265f6f7e4b70e350",
-    "url": "/OpenAcg-PWA/js/chunk-3e5a6e65.5ef4a6f1.js"
+    "revision": "472009e2c44f12ba2e04",
+    "url": "/OpenAcg-PWA/js/chunk-3e5a6e65.79bdd7a6.js"
   },
   {
-    "revision": "11c455560be544d10570",
-    "url": "/OpenAcg-PWA/js/chunk-6888c3db.25ee53a3.js"
+    "revision": "cbf4ec31eedcb7c99679",
+    "url": "/OpenAcg-PWA/js/chunk-6888c3db.81216b2a.js"
   },
   {
-    "revision": "17f98215e43332bd6628",
-    "url": "/OpenAcg-PWA/js/chunk-73566d46.9b97aab6.js"
+    "revision": "e2697f02ccddcf3f56b4",
+    "url": "/OpenAcg-PWA/js/chunk-73566d46.825386c5.js"
   },
   {
-    "revision": "68f693935ef6d63ada53",
-    "url": "/OpenAcg-PWA/js/chunk-78e6d69d.dcf3aef6.js"
+    "revision": "7b64aadb9b296c5247d9",
+    "url": "/OpenAcg-PWA/js/chunk-78e6d69d.70b904ae.js"
   },
   {
-    "revision": "d3748b6a94349b3ec7c6",
-    "url": "/OpenAcg-PWA/js/chunk-83ae1038.891a90d7.js"
+    "revision": "54662847ebd758e2774d",
+    "url": "/OpenAcg-PWA/js/chunk-9a4fa7e2.e65412a9.js"
   },
   {
-    "revision": "c87ea2ad1c6abbc99d91",
-    "url": "/OpenAcg-PWA/js/chunk-9a4fa7e2.e2070849.js"
+    "revision": "4deb9470d15a3a92c95d",
+    "url": "/OpenAcg-PWA/js/chunk-ac519d72.73ee48d9.js"
   },
   {
-    "revision": "599dfc12e06d66ca5280",
-    "url": "/OpenAcg-PWA/js/chunk-ac519d72.24df9595.js"
+    "revision": "741518b57a8190185f69",
+    "url": "/OpenAcg-PWA/js/chunk-fdf3c1bc.18677b14.js"
   },
   {
-    "revision": "e3db95c901296accccd3",
-    "url": "/OpenAcg-PWA/js/chunk-vendors.6054490c.js"
+    "revision": "939ed91c2dba23775942",
+    "url": "/OpenAcg-PWA/js/chunk-vendors.0f186d6d.js"
   },
   {
     "revision": "b6b01fdca2a0b0f4f7db2d178e5b2617",
