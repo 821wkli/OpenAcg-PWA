@@ -7,6 +7,9 @@ import { chinese } from './config/langs'
 import './config/rem'
 import 'vue2-toast/lib/toast.css'
 import Toast from 'vue2-toast'
+import FastClick from 'fastclick'
+FastClick.attach(document.body)
+FastClick.prototype.focus = (ele) => { 'use strict'; ele.focus() }
 Vue.use(Toast, {
   type: 'center',
   duration: 3000,

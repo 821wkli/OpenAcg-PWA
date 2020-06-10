@@ -114,6 +114,7 @@
           </span>
               <span>{{volume.name}}</span>
             </li>
+            <li class="book-volume-list-li last"></li>
           </ul>
         </div>
       </section>
@@ -692,6 +693,12 @@ export default {
               @include wh(100%, 100%);
               fill: #2e7cf1;
             }
+
+          }
+          &.last{
+
+              background-color: inherit;
+              height: 128px;
 
           }
         }
