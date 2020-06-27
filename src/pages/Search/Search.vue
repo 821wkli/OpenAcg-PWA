@@ -41,7 +41,9 @@
     <section v-else class="search-keywords-container" >
       <ul class="search-keywords-list">
         <li :key="index" class="item" v-for="(item,index) in fuzzingKeywords " @click="saveSearchHistory({ title: item }) && $router.push({ name: 'home', query: { keyword: item } })">
-          <span class="title">{{item}}</span>
+          <p class="title">
+            <span :key="subIndex" :class='{highlight: partialText === searchText}' v-for="(partialText,subIndex) in cutTitle(item)">{{partialText}}</span>
+          </p>
         </li>
       </ul>
     </section>
@@ -110,6 +112,15 @@ export default {
           })
         }
       }, 500)
+    },
+    cutTitle: function (title) {
+      const startPos = title.indexOf(this.searchText)
+      const endPos = startPos + this.searchText.length
+      const begin = title.substring(0, startPos)
+      const middle = this.searchText
+      const end = title.substring(endPos)
+      const ret = [begin, middle, end]
+      return ret
     },
     onCancel: function () {
       this.$router.go(-1)
@@ -240,6 +251,9 @@ export default {
             line-height: 1.87733rem;
             color: #505050;
             text-align: left;
+            .highlight{
+              color: #fbc308
+            }
           }
         }
       }

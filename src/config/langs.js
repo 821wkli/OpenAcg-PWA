@@ -21,7 +21,7 @@ export const chinese = {
     totalVolumes: '',
     aescending: '',
     descending: '',
-    copyRightMessage: '因版權問題，OpenAcg不再提供該小說的閱讀！\n\n\n\n\n',
+    copyRightMessage: '因版權問題，OpenAcg不再為該小說提供閱讀！\n你可以同步至Kindle離線閱讀。\n\n\n\n\n',
     sendToKindleDescription: '在Amazon【管理您的內容和設備】頁面上，將openacg@gmx.com的電子郵箱添加至【已批準的個人文檔電子郵件列表】中。',
     tips: '使用說明',
     cancel: '取消',
@@ -66,6 +66,7 @@ export const chinese = {
     unknownError: '未知錯誤',
     downloadFailed: '下載失敗',
     seedDead: 'seed 已死',
+    download: '下載',
     notSupportHEVC: '當前瀏覽器不支援經HEVC壓縮的視頻檔案，播放時，可能只有聲音而沒有畫面，你可以下載本視頻，以支援解析HEVC視頻的播放器，例如VLC player播放本集或者選擇其他非HEVC格式的數據'
   },
   common: {

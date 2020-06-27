@@ -175,14 +175,14 @@ export default {
           light: true,
           backdrop: true,
           theme: '#ffad00',
-          lang: navigator.language.toLowerCase(),
+          lang: 'zh-tw',
           moreVideoAttr: {
             preload: 'auto'
           },
           controls: [
             {
               position: 'right',
-              html: 'Download',
+              html: this.$lang.animePage.download,
               click: function () {
                 that.download(that.videoSource)
               }
@@ -288,6 +288,7 @@ export default {
   },
   created () {
     this.mid = this.$route.params.mid
+    this.$hostURL = 'https://openacg.ml'
   },
   mounted () {
     this.initData()
