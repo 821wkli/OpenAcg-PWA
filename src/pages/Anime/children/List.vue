@@ -414,9 +414,12 @@ export default {
             cursor: pointer;
           }
 
-          .title:hover {
-            cursor: pointer;
-            text-decoration: underline;
+          .title {
+            word-break: break-all;
+            &:hover {
+              cursor: pointer;
+              text-decoration: underline;
+            }
           }
         }
 
@@ -466,6 +469,7 @@ export default {
 
           .post-title {
             .title {
+              word-break: break-all;
               line-height: 24px;
             }
           }
