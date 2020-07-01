@@ -286,6 +286,7 @@ export default {
       const MAX_QUERY_TIMES = 50
       const counter = 1
       const data = {
+        bid: this.bookid,
         email: args.email,
         title: this.book.title,
         author: this.book.author,
